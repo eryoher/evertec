@@ -58,7 +58,7 @@ class InvolvementTable extends Component {
         const rows = config.campos.map((field) => {
             return {
                 dataField: field.idcampo,
-                text: (field.label) ? field.label : '',
+                text: (field.label) ? ((field.idcampo === 'fec_emis' || field.idcampo === 'comprob_nro' || field.idcampo === 'cod_prod') ? '' : field.label) : '',
                 align: 'center',
                 headerAlign: 'center',
                 headerStyle: this.getStyleColumn(field),
@@ -67,6 +67,7 @@ class InvolvementTable extends Component {
                     options: this.getFilterOptions(field.idcampo),
                     className: `${theme.inputFilter} mt-2`,
                     onFilter: filterVal => this.setState({ filterVal }),
+                    placeholder: field.label,
                 }) : null,
                 formatter: (field.editable || field.idcampo === 'avisos' || field.idcampo === 'ind_stock') ? ((cell, row, rowIndex) => {
                     return this.renderFormat(field, cell, row)
@@ -327,8 +328,8 @@ class InvolvementTable extends Component {
             onSelect: (row, isSelect, rowIndex, e) => {
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
-                if (isSelect) { //Se adiciona                    
-                    rows.push({ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: row.cant_afec });
+                if (isSelect) { //Se adiciona                                        
+                    rows.push({ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: row.cant_pend });
                     selected.push(row.nimovcli)
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
@@ -378,7 +379,7 @@ class InvolvementTable extends Component {
                 }
 
                 this.setState({ rowSelected: selected });
-                this.props.salesAffectedValidate({ idOperacion: 12345, item: selected }); //Falta adicionar idOperacion
+                this.props.salesAffectedValidate({ idOperacion: 123456789, /*item: selected*/ }); //Falta adicionar idOperacion
 
             }
         };

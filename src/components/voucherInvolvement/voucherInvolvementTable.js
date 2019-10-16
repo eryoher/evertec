@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import InputDropdown from 'components/form/inputDropdown';
 import { salesAffectedCant } from '../../actions/';
-import ProductsTotalResume from 'components/loadItems/productsTotalResume';
 import InvolvementTable from './involvementTable';
 import InvolvementTotalResume from './involvementTotalResume';
 
@@ -15,8 +14,11 @@ class VoucherInvolvementTable extends Component {
         this.state = {
             total_item: 0,
             total_cant: 0,
-            total_importe: 0
+            total_importe: 0,
+            ComprobAvencer: 0,
+            OpcionMuestra: "0"
         }
+
         this.optionsInput = [
             {
                 id: 0,
@@ -34,7 +36,21 @@ class VoucherInvolvementTable extends Component {
     }
 
     componentDidMount = () => {
-        this.props.salesAffectedCant();
+        const { ComprobAvencer, OpcionMuestra } = this.state;
+        this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra });
+    }
+
+    handleGetCant = (e) => {
+        const comprobante = (e.target.checked) ? 1 : 0;
+        const { OpcionMuestra } = this.state;
+        this.setState({ ComprobAvencer: comprobante });
+        this.props.salesAffectedCant({ ComprobAvencer: comprobante, OpcionMuestra });
+    }
+
+    handleChangeSelect = (value) => {
+        const { ComprobAvencer } = this.state;
+        this.setState({ OpcionMuestra: value });
+        this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra: value });
     }
 
     componentDidUpdate = (prevProps) => {
@@ -60,7 +76,8 @@ class VoucherInvolvementTable extends Component {
         return (
             <Row style={{ marginLeft: '0px' }}>
                 <Col className={"pl-4"} sm={3}>
-                    <input type="checkbox" className={"form-check-input"} value="1" />
+                    <input type="checkbox" className={"form-check-input"} onChange={this.handleGetCant} value="1" />
+
                     <label className={"form-check-label pt-1"}>
                         {t('voucherInvolvement.form.checkbox')}
                     </label>
@@ -77,13 +94,13 @@ class VoucherInvolvementTable extends Component {
                         colLabel={"col-sm-4"}
                         colInput={"col-sm-8"}
                         options={this.optionsInput}
-                        onChange={(value) => {
-                            console.log('value')
+                        onChange={(data) => {
+                            this.handleChangeSelect(data.target.value);
                         }}
                     />
                 </Col>
                 <Col sm={3}>
-                    {productsInvol && <InvolvementTotalResume classDiv={'pl-5'} formatCol={{ span: 9, offset: 3 }} data={this.state} />}
+                    {productsInvol && <InvolvementTotalResume classDiv={'pl-4'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
                 </Col>
                 <Col sm={12} className={"pb-2"}>
                     {productsInvol &&
@@ -91,7 +108,7 @@ class VoucherInvolvementTable extends Component {
                             products={productsInvol.Items}
                         />
                     }
-                    {productsInvol && <InvolvementTotalResume classDiv={'pl-3'} formatCol={{ span: 4, offset: 7 }} data={this.state} />}
+                    {productsInvol && <InvolvementTotalResume classDiv={'pl-4'} formatCol={{ span: 4, offset: 7 }} data={this.state} />}
                 </Col>
             </Row>
         )
