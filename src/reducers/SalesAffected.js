@@ -15,7 +15,7 @@ const initialState = {
     productsInvol: null,
     subCalculations: null,
     productsUpdate: null,
-
+    salesconfirm: null
 }
 
 function rootReducer(state = initialState, action) {

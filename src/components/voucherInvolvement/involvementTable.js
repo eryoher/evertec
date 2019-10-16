@@ -45,6 +45,13 @@ class InvolvementTable extends Component {
         }
     }
 
+    componentWillUnmount = () => {
+        const items = this.getSelectedCheck();
+        if (items.length) {
+            this.props.salesAffectedConfirm({ idOperacion: '123456', items })  // FALTA ID OPERACION
+        }
+    }
+
     getColumns = () => {
         const { config, theme } = this.props;
 
@@ -281,12 +288,33 @@ class InvolvementTable extends Component {
         }
 
         return result;
+    }
 
+    getSelectedCheck = () => {
+        const { selectedCheck } = this.state;
+        const { products } = this.props;
+
+        const items = [];
+        products.forEach(row => {
+            selectedCheck.forEach(check => {
+                if (row.nimovcli === check) {
+                    items.push({
+                        nimovcli: row.nimovcli,
+                        nitem: row.nitem,
+                        cant_afec: row.cant_afec,
+                        precio_unit: row.precio_unit,
+                        neto: row.neto
+                    })
+                }
+            });
+        });
+
+        return items;
     }
 
 
     render() {
-        const { products, theme, config, productsUpdate, cantValidate } = this.props;
+        const { products, theme, config, productsUpdate } = this.props;
         const tableColumns = (config && products) ? this.getColumns() : [];
         const selectRow = {
             mode: 'checkbox',
@@ -387,21 +415,7 @@ class InvolvementTable extends Component {
             pageStartIndex: 1,
             sizePerPage: 10,
             onPageChange: (page, sizePerPage) => {
-                const { selectedCheck } = this.state;
-                const items = [];
-                rowData.forEach(row => {
-                    selectedCheck.forEach(check => {
-                        if (row.nimovcli === check) {
-                            items.push({
-                                nimovcli: row.nimovcli,
-                                nitem: row.nitem,
-                                cant_afec: row.cant_afec,
-                                precio_unit: row.precio_unit,
-                                neto: row.neto
-                            })
-                        }
-                    });
-                });
+                const items = this.getSelectedCheck();
                 if (items.length) {
                     this.props.salesAffectedConfirm({ idOperacion: '123456', items })
                 }
