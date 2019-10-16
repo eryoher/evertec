@@ -432,7 +432,7 @@ export default (mockAdapter) => {
                     "cant_afec": 350,
                     "prod_pcio_vta": '45.52',
                     "neto": '46545.25',
-                    "ind_stock": 0
+                    "ind_stock": 1
                 },
                 {
                     "nimovcli": 45339,
@@ -448,7 +448,7 @@ export default (mockAdapter) => {
                     "cant_afec": 625,
                     "prod_pcio_vta": '45.52',
                     "neto": '46545.25',
-                    "ind_stock": 0
+                    "ind_stock": 1
                 },
                 {
                     "nimovcli": 45341,
@@ -464,7 +464,7 @@ export default (mockAdapter) => {
                     "cant_afec": 200,
                     "prod_pcio_vta": '45.52',
                     "neto": '46545.25',
-                    "ind_stock": 0
+                    "ind_stock": 2
                 },
                 {
                     "nimovcli": 45343,
