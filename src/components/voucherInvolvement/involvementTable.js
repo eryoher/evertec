@@ -359,7 +359,7 @@ class InvolvementTable extends Component {
                     });
 
                     selected = rows.map(fila => {
-                        return ({ Nimovcli: fila.nimovcli, Nitem: fila.nitem, Cant_afec: fila.cant_afec });
+                        return ({ Nimovcli: fila.nimovcli, Nitem: fila.nitem, Cant_afec: fila.cant_pend });
                     });
 
                     this.setState({ selectedCheck: checks })

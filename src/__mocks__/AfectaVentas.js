@@ -406,8 +406,72 @@ export default (mockAdapter) => {
                     "nimovcli": 45334,
                     "nitem": 1,
                     "cant_afec": 100,
-                    "prod_pcio_vta": '36.54',
+                    "prod_pcio_vta": '38.04',
                     "neto": '36545.25',
+                    "ind_stock": 0
+                },
+                {
+                    "nimovcli": 45336,
+                    "nitem": 1,
+                    "cant_afec": 500,
+                    "prod_pcio_vta": '45.52',
+                    "neto": '46545.25',
+                    "ind_stock": 0
+                },
+                {
+                    "nimovcli": 45337,
+                    "nitem": 1,
+                    "cant_afec": 378,
+                    "prod_pcio_vta": '45.52',
+                    "neto": '46545.25',
+                    "ind_stock": 0
+                },
+                {
+                    "nimovcli": 45338,
+                    "nitem": 1,
+                    "cant_afec": 350,
+                    "prod_pcio_vta": '45.52',
+                    "neto": '46545.25',
+                    "ind_stock": 0
+                },
+                {
+                    "nimovcli": 45339,
+                    "nitem": 1,
+                    "cant_afec": 225,
+                    "prod_pcio_vta": '45.52',
+                    "neto": '46545.25',
+                    "ind_stock": 0
+                },
+                {
+                    "nimovcli": 45340,
+                    "nitem": 1,
+                    "cant_afec": 625,
+                    "prod_pcio_vta": '45.52',
+                    "neto": '46545.25',
+                    "ind_stock": 0
+                },
+                {
+                    "nimovcli": 45341,
+                    "nitem": 1,
+                    "cant_afec": 925,
+                    "prod_pcio_vta": '45.52',
+                    "neto": '46545.25',
+                    "ind_stock": 0
+                },
+                {
+                    "nimovcli": 45342,
+                    "nitem": 1,
+                    "cant_afec": 200,
+                    "prod_pcio_vta": '45.52',
+                    "neto": '46545.25',
+                    "ind_stock": 0
+                },
+                {
+                    "nimovcli": 45343,
+                    "nitem": 1,
+                    "cant_afec": 150,
+                    "prod_pcio_vta": '45.52',
+                    "neto": '46545.25',
                     "ind_stock": 0
                 }
 
