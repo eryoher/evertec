@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import NotificationMessage from 'components/common/notificationMessage';
 import { selectFilter } from 'react-bootstrap-table2-filter';
+import { validateField } from 'lib/FieldValidations';
 
 class InvolvementTable extends Component {
 
@@ -171,6 +172,59 @@ class InvolvementTable extends Component {
         }
     }
 
+    validateFieldQuantity = (row, field, value) => {
+        const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: value }];
+        const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
+        if (field.valid) {
+            let message = '';
+            if (!validateField(value, field.valid)) {
+                message = `El campo ${field.label} es requerido.`;
+                this.setState({ showError: true, errorMessage: message });
+            } else {
+                selected.push(row.nimovcli);
+                this.setState({ selectedCheck: selected });
+                this.props.salesAffectedValidate({ idOperacion: row.nimovcli /*items*/ }); //Falta adicionar idOperacion
+            }
+        }
+
+    }
+
+    validateFieldNeto = (row, field, value) => {
+        const params = {
+            "IdOperacion": 12345,
+            "nimovcli": row.nimovcli,
+            "nitem": row.nitem,
+            "niprod": row.niprod,
+            "cod_unid": row.cod_unid,
+            "cant_afec": row.cant_afec,
+            "precio_unit": row.precio_unit,
+            "neto": value
+        }
+
+        if (field.valid) {
+            let message = '';
+            if (!validateField(value, field.valid)) {
+                message = `El campo ${field.label} es requerido.`;
+                this.setState({ showError: true, errorMessage: message });
+            } else {
+                this.props.salesAffectedSubCalculation(params)
+            }
+        }
+    }
+
+    handleSubCalculation = (params, field) => {
+        if (field.valid) {
+            let message = '';
+            if (!validateField(params.precio_unit, field.valid)) {
+                message = `El campo ${field.label} es requerido.`;
+                this.setState({ showError: true, errorMessage: message });
+            } else {
+                this.props.salesAffectedSubCalculation(params);
+            }
+        }
+
+    }
+
     renderFormat = (field, value, row) => {
 
         let result = null;
@@ -214,7 +268,9 @@ class InvolvementTable extends Component {
                     optionsInput={optionsInput}
                     fieldCant={'cant_afec'}
                     setData={this.props.setTableDataInvolvement}
-                    calSubTotal={this.props.salesAffectedSubCalculation}
+                    calSubTotal={(params) =>
+                        this.handleSubCalculation(params, field)
+                    }
                     handleFocus={(rowId) => {
                         // Focus next input                           
                         if (row.niprod === rowId) {
@@ -234,49 +290,19 @@ class InvolvementTable extends Component {
                     //autoFocus={(focusInput && focusInput.input === 'neto' && focusInput.rowId === row.niprod) ? true : false}
                     handleEnterKey={(e, value) => {
                         if (field.idcampo === 'cant_afec') {
-                            const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: row.cant_afec }];
-                            const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
-                            selected.push(row.nimovcli);
-                            this.setState({ selectedCheck: selected });
-                            this.props.salesAffectedValidate({ idOperacion: row.nimovcli /*items*/ }); //Falta adicionar idOperacion   
+                            this.validateFieldQuantity(row, field, value);
                             this.handleSetFocus('precio_unit', row.niprod);
-                        } else if (field.idcampo === 'neto') {
-                            const params = {
-                                "IdOperacion": 12345,
-                                "nimovcli": row.nimovcli,
-                                "nitem": row.nitem,
-                                "niprod": row.niprod,
-                                "cod_unid": row.cod_unid,
-                                "cant_afec": row.cant_afec,
-                                "precio_unit": row.precio_unit,
-                                "neto": value
-                            }
 
-                            this.props.salesAffectedSubCalculation(params)
+                        } else if (field.idcampo === 'neto') {
+                            this.validateFieldNeto(row, field, value);
                         }
                         return true;
                     }}
                     onBlur={(value) => {
                         if (field.idcampo === 'cant_afec') { //pendiente logica.
-                            const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: row.cant_afec }];
-                            const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
-                            selected.push(row.nimovcli);
-                            this.setState({ selectedCheck: selected });
-                            this.props.salesAffectedValidate({ idOperacion: row.nimovcli /*items*/ }); //Falta adicionar idOperacion   
-
+                            this.validateFieldQuantity(row, field, value);
                         } else if (field.idcampo === 'neto') {
-                            const params = {
-                                "IdOperacion": 12345,
-                                "nimovcli": row.nimovcli,
-                                "nitem": row.nitem,
-                                "niprod": row.niprod,
-                                "cod_unid": row.cod_unid,
-                                "cant_afec": row.cant_afec,
-                                "precio_unit": row.precio_unit,
-                                "neto": value
-                            }
-
-                            this.props.salesAffectedSubCalculation(params)
+                            this.validateFieldNeto(row, field, value);
 
                         } else {
                             const params = { niprod: row.niprod, idcampo: field.idcampo, value };
