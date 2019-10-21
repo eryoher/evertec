@@ -83,7 +83,7 @@ class InvolvementTable extends Component {
                 text: '',
                 align: 'center',
                 headerAlign: 'center',
-                headerStyle: { width: '3%' },
+                headerStyle: { width: '3%', 'textAlign': 'center' },
                 formatter: ((cell, row, rowIndex) => {
                     if (row.error) {
                         if (row.type_error === 2) {
@@ -125,12 +125,20 @@ class InvolvementTable extends Component {
 
     getStyleColumn = (field) => {
         const idField = field.idcampo;
-
         let style = {};
 
         switch (idField) {
-            case 'desc_prod':
+            case 'fec_emis':
                 style = { width: '15%' }
+                break;
+            case 'comprob_nro':
+                style = { width: '20%' }
+                break;
+            case 'cod_prod':
+                style = { width: '15%' }
+                break;
+            case 'desc_prod':
+                style = { width: '20%' }
                 break;
             case 'fec_entrega':
                 style = { width: '13%' }
@@ -142,14 +150,18 @@ class InvolvementTable extends Component {
                 style = { width: '3%' }
                 break;
             case 'precio_unit':
-                style = { width: '13%' }
+                style = { width: '18%' }
                 break;
             case 'neto':
-                style = { width: '13%' }
+                style = { width: '18%' }
                 break;
             case 'unid_v':
+                style = { width: '5%' }
+                break;
+            case 'cant_afec':
                 style = { width: '15%' }
                 break;
+
             default:
                 style = { width: '10%' }
                 break;
@@ -457,7 +469,7 @@ class InvolvementTable extends Component {
                         type={'danger'}
                     />
                 </Col>
-                <Col className={`col-12`}>
+                <Col className={`col-12 pl-0 pr-0`}>
                     {config && <CommonTable
                         columns={tableColumns}
                         keyField={'nimovcli'}

@@ -102,7 +102,7 @@ class VoucherInvolvementTable extends Component {
                 <Col sm={3}>
                     {productsInvol && <InvolvementTotalResume classDiv={'pl-4'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
                 </Col>
-                <Col sm={12} className={"pb-2"}>
+                <Col sm={12} className={"pb-2 pl-0 pr-0"}>
                     {productsInvol &&
                         <InvolvementTable
                             products={productsInvol.Items}

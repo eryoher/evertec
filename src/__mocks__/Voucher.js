@@ -320,7 +320,7 @@ export default (mockAdapter) => {
                 { "idcampo": "cant_pend", "descripcion": "cantidad", "label": "Cant. Pend.", "editable": 0, "visible": 1, "mascara": "", "requerido": "0", "valid": "VAL>0" },
                 { "idcampo": "cod_unid", "descripcion": "Presentación", "label": "Unidad", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
                 { "idcampo": "cant_afec", "descripcion": "Cantidad Afectada", "label": "Cant. Afectada", "editable": 1, "visible": 1, "mascara": "", "requerido": "1", "valid": "VAL>0" },
-                { "idcampo": "ind_stock", "descripcion": "Indic.Stock", "label": "", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                { "idcampo": "ind_stock", "descripcion": "Indic.Stock", "label": "", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
                 { "idcampo": "precio_unit", "descripcion": "Precio unit.", "label": "Precio Unitario", "editable": 1, "visible": 1, "requerido": "1", "valid": "VAL>0", "mascara": "precioUnitario" },
                 { "idcampo": "modif_pcio", "descripcion": "Clave para modificar precio", "label": "", "editable": 1, "visible": 0, "requerido": "0", "mascara": "" },
                 { "idcampo": "neto", "descripcion": "Importe neto", "label": "Importe Neto", "editable": 1, "visible": 1, "mascara": "precioUnitario", "requerido": "1", "valid": "VAL>0" },
