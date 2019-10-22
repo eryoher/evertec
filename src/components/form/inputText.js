@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { IMaskInput } from 'react-imask';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { validateField } from 'lib/FieldValidations';
 
 
 class InputText extends Component {
@@ -75,8 +76,15 @@ class InputText extends Component {
 
     handleOnblur = () => {
         const { onBlur } = this.props;
-        const { configInput } = this.state;
-        if (onBlur) {
+        const { configInput, inputValue } = this.state;
+        let ban = true
+
+        if (configInput.valid && !validateField(inputValue, configInput.valid)) {
+            ban = false
+            console.log('no paso')
+        }
+
+        if (onBlur && ban) {
             onBlur(this.state.inputValue);
         }
 
