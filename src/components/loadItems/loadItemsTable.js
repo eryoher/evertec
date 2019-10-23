@@ -39,13 +39,6 @@ class LoadItemsTable extends Component {
         this.props.getConfigVoucher({ cod_proceso: 'P_CargaItemenVentas', idOperacion: 1 });
     }
 
-    componentWillReceiveProps = (nextProps) => {
-        //console.log(nextProps.updateCant, 'comparar', this.props.updateCant)
-        if (nextProps.updateCant !== this.props.updateCant && nextProps.updateCant) {
-            //this.handleSetFocus('precio_unit', '36575');
-        }
-    }
-
     handleCloseError = () => {
         this.setState({ showError: false })
     }

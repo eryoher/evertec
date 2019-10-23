@@ -30,7 +30,7 @@ export default (mockAdapter) => {
                 },
                 {
                     "cod_proceso": "p_fincomprob",
-                    "desc_proceso": "Final Comprobante",
+                    "desc_proceso": "Generar",
                     "orden": 9
                 },
             ]

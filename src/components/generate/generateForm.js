@@ -14,6 +14,7 @@ import { themr } from 'react-css-themr';
 import styles from './generateForm.module.css';
 import InputButton from 'components/form/inputButton';
 import { LOADITEMS } from '../../utils/RoutePath';
+import LoadItemsTable from 'components/loadItems/loadItemsTable';
 
 class GenerateForm extends Component {
 
@@ -30,6 +31,105 @@ class GenerateForm extends Component {
 
     render() {
         const { t, theme } = this.props;
+        const fields = [
+            {
+                idcampo: 'rsocial',
+                visible: true
+            },
+            {
+                idcampo: 'tipo_resp',
+                visible: true
+            },
+            {
+                idcampo: 'cuit',
+                visible: true
+            },
+            {
+                idcampo: 'contacto',
+                visible: true
+            },
+            {
+                idcampo: 'obs_cc',
+                visible: true
+            },
+            {
+                idcampo: 'obs_ventas',
+                visible: true
+            },
+            {
+                idcampo: 'credito',
+                visible: true
+            },
+            {
+                idcampo: 'saldo_pend',
+                visible: true
+            },
+            {
+                idcampo: 'credito_saldo',
+                visible: true
+            },
+            {
+                idcampo: 'suc_email',
+                visible: true
+            },
+            {
+                idcampo: 'suc_tel',
+                visible: true
+            },
+            {
+                idcampo: 'suc_address',
+                visible: true
+            },
+            {
+                idcampo: 'suc_local',
+                visible: true
+            },
+            {
+                idcampo: 'suc_nom_prov',
+                visible: true
+            },
+            {
+                idcampo: 'suc_cpos',
+                visible: true
+            },
+            {
+                idcampo: 'suc_empresa',
+                visible: true
+            },
+            {
+                idcampo: 'transp_comp_vta',
+                visible: true
+            },
+            {
+                idcampo: 'suc_empresa_venta',
+                visible: true
+            },
+            {
+                idcampo: 'Titulo_comp_vta',
+                visible: true
+            },
+            {
+                idcampo: 'fecha',
+                visible: true
+            },
+            {
+                idcampo: 'mon_comp_vta',
+                visible: true
+            },
+            {
+                idcampo: 'cotiz',
+                visible: true
+            },
+            {
+                idcampo: 'vend_comp_vta',
+                visible: true
+            },
+            {
+                idcampo: 'cond_comp_vta',
+                visible: true
+            },
+
+        ]
 
         const defaultInitial = {
             rsocial: '',
@@ -65,6 +165,7 @@ class GenerateForm extends Component {
                         handleLoading={false}
                         values={defaultInitial}
                         readOnly
+                        fields={fields}
 
                     />
                     <div className="dropdown-divider col-11 p-1" />
@@ -72,6 +173,7 @@ class GenerateForm extends Component {
                         auoptions={[]}
                         values={defaultInitial}
                         readOnly
+                        fields={fields}
                     />
                     <Row>
                         <Col sm={1}>
@@ -88,12 +190,15 @@ class GenerateForm extends Component {
                         <LocationFormInput
                             values={defaultInitial}
                             readOnly
+                            fields={fields}
 
                         />
                         <div className="dropdown-divider col-11 p-1" />
                         <AccountFormInput
                             readOnly
                             values={defaultInitial}
+                            fields={fields}
+
                         />
                     </Collapse>
                 </Card>
@@ -110,14 +215,23 @@ class GenerateForm extends Component {
                         readOnly
                         collapse
                         values={defaultInitial}
+                        fields={fields}
+
                     />
+                </Card>
+                <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
+                    <Col sm={12}>
+                        <LoadItemsTable
+                            divClass={"mt-1"}
+                            searchBox
+                        />
+                    </Col>
                 </Card>
                 <Col style={{ textAlign: 'left' }} className={"mt-2 col-1 "} >
                     <InputButton
                         backButton
                         urlForm={LOADITEMS}
                     />
-
                 </Col>
             </Col>
         )
