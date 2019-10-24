@@ -10,7 +10,7 @@ import filterFactory from 'react-bootstrap-table2-filter';
 export default class CommonTable extends Component {
 
     handleOnSelect = (row, isSelect) => {
-        console.log(row, isSelect);
+        //console.log(row, isSelect);
     }
 
     render() {

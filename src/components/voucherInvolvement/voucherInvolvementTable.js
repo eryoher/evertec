@@ -70,45 +70,54 @@ class VoucherInvolvementTable extends Component {
     }
 
     render() {
-        const { t, productsInvol } = this.props;
+        const { t, productsInvol, readOnly } = this.props;
         const inputConfig = [{ idcampo: 'checkComprobAvencer', label: t('voucherInvolvement.form.sample'), visible: 1, requerido: 0, editable: 1 }]
-
+        const customCol = (readOnly) ? 4 : { span: 5, offset: 7 };
         return (
             <Row style={{ marginLeft: '0px' }}>
-                <Col className={"pl-4"} sm={3}>
-                    <input type="checkbox" className={"form-check-input"} onChange={this.handleGetCant} value="1" />
+                {!readOnly && <>
+                    <Col className={"pl-4"} sm={3}>
+                        <input type="checkbox" className={"form-check-input"} onChange={this.handleGetCant} value="1" />
 
-                    <label className={"form-check-label pt-1"}>
-                        {t('voucherInvolvement.form.checkbox')}
-                    </label>
-                </Col>
-                <Col sm={3} style={{ textAlign: 'center' }} >
-                    <InputDropdown
-                        inputFormCol={{ sm: 12 }}
-                        fields={inputConfig}
-                        label={t('voucherInvolvement.form.sample')}
-                        inputId={'checkComprobAvencer'}
-                        name={'checkComprobAvencer'}
-                        placeholder={t('client.form.select_sample')}
-                        styles={{ width: '100%' }}
-                        colLabel={"col-sm-4"}
-                        colInput={"col-sm-8"}
-                        options={this.optionsInput}
-                        onChange={(data) => {
-                            this.handleChangeSelect(data.target.value);
-                        }}
-                    />
-                </Col>
-                <Col sm={3}>
-                    {productsInvol && <InvolvementTotalResume classDiv={'pl-4'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
-                </Col>
+                        <label className={"form-check-label pt-1"}>
+                            {t('voucherInvolvement.form.checkbox')}
+                        </label>
+                    </Col>
+                    <Col sm={3} style={{ textAlign: 'center' }} >
+                        <InputDropdown
+                            inputFormCol={{ sm: 12 }}
+                            fields={inputConfig}
+                            label={t('voucherInvolvement.form.sample')}
+                            inputId={'checkComprobAvencer'}
+                            name={'checkComprobAvencer'}
+                            placeholder={t('client.form.select_sample')}
+                            styles={{ width: '100%' }}
+                            colLabel={"col-sm-4"}
+                            colInput={"col-sm-8"}
+                            options={this.optionsInput}
+                            onChange={(data) => {
+                                this.handleChangeSelect(data.target.value);
+                            }}
+                        />
+                    </Col>
+                    <Col sm={3}>
+                        {productsInvol && <InvolvementTotalResume classDiv={'pl-5'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
+                    </Col>
+                </>}
+                {
+                    readOnly &&
+                    <Col sm={12} >
+                        <InvolvementTotalResume formatCol={4} data={this.state} />
+                    </Col>
+                }
                 <Col sm={12} className={"pb-2 pl-0 pr-0"}>
                     {productsInvol &&
                         <InvolvementTable
                             products={productsInvol.Items}
+                            readOnly={readOnly}
                         />
                     }
-                    {productsInvol && <InvolvementTotalResume classDiv={'pl-4'} formatCol={{ span: 4, offset: 7 }} data={this.state} />}
+                    {productsInvol && <InvolvementTotalResume classDiv={'pl-0'} formatCol={customCol} data={this.state} />}
                 </Col>
             </Row>
         )

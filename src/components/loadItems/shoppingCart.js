@@ -47,12 +47,11 @@ class ShoppingCart extends Component {
                             <span style={{ fontSize: '9pt', color: 'grey' }}>CCFCIAFC01101-ASOCIACION MUTUAL DE LA POLICIA DE FSA </span><br />
                             <span style={{ fontSize: '9pt', color: 'grey' }}>0006-18/04/2019-Boris Nicolas Lucasvez</span>
                         </Col>
-                        {productsCart && <ProductsTotalResume formatCol={{ span: 4, offset: 2 }} data={productsCart} />}
+                        {productsCart && <ProductsTotalResume formatCol={{ span: 7, offset: 5 }} data={productsCart} />}
                     </Row>
                     {productsCart && config && <ShoppingCartTable config={config} cartProducts={productsCart} />}
-                    <Row>
-                        {productsCart && <ProductsTotalResume formatCol={{ span: 4, offset: 8 }} data={productsCart} />}
-                    </Row>
+                    {productsCart && <ProductsTotalResume formatCol={{ span: 4, offset: 8 }} data={productsCart} />}
+
                 </Modal.Body>
 
 

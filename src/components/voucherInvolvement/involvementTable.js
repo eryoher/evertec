@@ -54,7 +54,7 @@ class InvolvementTable extends Component {
     }
 
     getColumns = () => {
-        const { config, theme } = this.props;
+        const { config, theme, readOnly } = this.props;
 
         const rows = config.campos.map((field) => {
             return {
@@ -70,7 +70,7 @@ class InvolvementTable extends Component {
                     onFilter: filterVal => this.setState({ filterVal }),
                     placeholder: field.label,
                 }) : null,
-                formatter: (field.editable || field.idcampo === 'avisos' || field.idcampo === 'ind_stock') ? ((cell, row, rowIndex) => {
+                formatter: ((field.editable || field.idcampo === 'avisos' || field.idcampo === 'ind_stock') && (!readOnly)) ? ((cell, row, rowIndex) => {
                     return this.renderFormat(field, cell, row)
                 }) : null
             }
@@ -353,12 +353,13 @@ class InvolvementTable extends Component {
 
 
     render() {
-        const { products, theme, config, productsUpdate } = this.props;
+        const { products, theme, config, productsUpdate, readOnly } = this.props;
         const tableColumns = (config && products) ? this.getColumns() : [];
         const selectRow = {
             mode: 'checkbox',
             selectColumnPosition: 'right',
             selected: this.state.selectedCheck,
+            hideSelectColumn: (readOnly) ? true : false,
             style: (row) => {
                 const backgroundColor = row.error ? '#f8d7da' : '#FFF';
                 return { backgroundColor };

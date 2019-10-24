@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { Card, Collapse } from 'reactstrap'
 import HeadboardFormInput from '../headboard/headboardFormInput'
@@ -14,19 +14,26 @@ import { themr } from 'react-css-themr';
 import styles from './generateForm.module.css';
 import InputButton from 'components/form/inputButton';
 import { LOADITEMS } from '../../utils/RoutePath';
-import LoadItemsTable from 'components/loadItems/loadItemsTable';
+import LoadItemsTableReadOnly from 'components/loadItems/loadItemsTableReadOnly';
+import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
+import NotificationMessage from 'components/common/notificationMessage';
 
 class GenerateForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            collapse: false
+            collapse: false,
+            generated: false
         }
     }
 
     toggle() {
         this.setState(state => ({ collapse: !state.collapse }));
+    }
+
+    handleCloseNotification = () => {
+        this.setState({ generated: false })
     }
 
     render() {
@@ -151,6 +158,47 @@ class GenerateForm extends Component {
         }
         return (
             <Col sm={12}>
+                {!this.state.generated && <Row>
+
+                    <Col sm={{ span: 2, offset: 8 }} style={{ textAlign: 'right' }} className={"mt-3 mb-3"} >
+                        <InputButton
+                            valueButton={t('global.cancelar')}
+                        />
+                    </Col>
+                    <Col sm={2} style={{ textAlign: 'left' }} className={"mt-3 mb-3"} >
+                        <InputButton
+                            onClick={() => this.setState({ generated: true })}
+                            valueButton={t('voucher.step.generate')}
+                        />
+                    </Col>
+                </Row>}
+                {
+                    this.state.generated &&
+                    <Row>
+                        <Col sm={6} >
+                            <NotificationMessage
+                                showError={this.state.generated}
+                                handleCloseError={this.handleCloseNotification}
+                                errorMessage={'Se genero el comprobante 002569865'}
+                            />
+                        </Col>
+                        <Col sm={{ span: 2 }} style={{ textAlign: 'right' }} className={"mt-3 mb-3"} >
+                            <InputButton
+                                valueButton={t('global.print')}
+                            />
+                        </Col>
+                        <Col sm={2} style={{ textAlign: 'center' }} className={"mt-3 mb-3"} >
+                            <InputButton
+                                valueButton={t('global.new')}
+                            />
+                        </Col>
+                        <Col sm={2} style={{ textAlign: 'left' }} className={"mt-3 mb-3"} >
+                            <InputButton
+                                valueButton={t('global.exit')}
+                            />
+                        </Col>
+                    </Row>
+                }
                 <Card className={`pb-3 pt-3 ${theme.containerCard}`}  >
                     <Row className={"mb-3"}>
                         <Col sm={6} className={theme.title} >
@@ -220,19 +268,76 @@ class GenerateForm extends Component {
                     />
                 </Card>
                 <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
-                    <Col sm={12}>
-                        <LoadItemsTable
-                            divClass={"mt-1"}
-                            searchBox
+                    <Row className={"mb-3"}>
+                        <Col sm={6} className={theme.title} >
+                            {t('shoppingCart.title')}
+                        </Col>
+                        <Col sm={3} className={theme.title} >
+
+                        </Col>
+                        <Col sm={2} className={"text-right"} >
+                            <FontAwesomeIcon icon={faPencilAlt} />
+                        </Col>
+                    </Row>
+                    <LoadItemsTableReadOnly
+                        divClass={"mt-1"}
+                        searchBox
+                    />
+                </Card>
+
+                <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
+                    <Row className={"mb-3"}>
+                        <Col sm={6} className={theme.title} >
+                            {t('voucherInvolvement.table.title')}
+                        </Col>
+                        <Col sm={3} className={theme.title} >
+
+                        </Col>
+                        <Col sm={2} className={"text-right"} >
+                            <FontAwesomeIcon icon={faPencilAlt} />
+                        </Col>
+                    </Row>
+                    <Container style={{ maxWidth: '95%' }}>
+                        <Row>
+                            <VoucherInvolvementTable
+                                readOnly
+                            />
+                        </Row>
+                    </Container>
+                </Card>
+                {!this.state.generated && <Row>
+                    <Col sm={{ span: 2, offset: 8 }} style={{ textAlign: 'right' }} className={"mt-2"} >
+                        <InputButton
+                            valueButton={t('global.cancelar')}
                         />
                     </Col>
-                </Card>
-                <Col style={{ textAlign: 'left' }} className={"mt-2 col-1 "} >
-                    <InputButton
-                        backButton
-                        urlForm={LOADITEMS}
-                    />
-                </Col>
+                    <Col sm={2} style={{ textAlign: 'left' }} className={"mt-2"} >
+                        <InputButton
+                            valueButton={t('voucher.step.generate')}
+                            onClick={() => this.setState({ generated: true })}
+                        />
+                    </Col>
+                </Row>}
+                {
+                    this.state.generated &&
+                    <Row>
+                        <Col sm={{ span: 2, offset: 6 }} style={{ textAlign: 'right' }} className={"mt-3 mb-3"} >
+                            <InputButton
+                                valueButton={t('global.print')}
+                            />
+                        </Col>
+                        <Col sm={2} style={{ textAlign: 'center' }} className={"mt-3 mb-3"} >
+                            <InputButton
+                                valueButton={t('global.new')}
+                            />
+                        </Col>
+                        <Col sm={2} style={{ textAlign: 'left' }} className={"mt-3 mb-3"} >
+                            <InputButton
+                                valueButton={t('global.exit')}
+                            />
+                        </Col>
+                    </Row>
+                }
             </Col>
         )
     }

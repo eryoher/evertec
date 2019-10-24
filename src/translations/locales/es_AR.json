@@ -45,7 +45,8 @@
             "select_sample": "Seleccione una muestra"
         },
         "table": {
-            "total_item_quantity": "Total Cantidad Ítems"
+            "total_item_quantity": "Total Cantidad Ítems",
+            "title": "Comprobantes Afectados"
         }
 
     },
@@ -121,7 +122,11 @@
         "unit": "Unidad",
         "quantity": "Cantidad",
         "deal": "Oferta",
-        "input_require": "Campo requerido"
+        "input_require": "Campo requerido",
+        "cancelar": "Cancelar",
+        "print": "Imprimir",
+        "new": "Nuevo",
+        "exit": "Salir"
 
     },
     "login": {

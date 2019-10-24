@@ -7,8 +7,15 @@ import { themr } from "react-css-themr";
 
 class InputButton extends Component {
 
+  handleOnclick = () => {
+    const { onClick } = this.props
+    if (onClick) {
+      onClick()
+    }
+  }
+
   render() {
-    const { theme, backButton, nextButton, valueButton, urlForm, search } = this.props;
+    const { theme, backButton, nextButton, valueButton, urlForm } = this.props;
 
     let labelButton =
       nextButton || backButton ? (
@@ -24,7 +31,7 @@ class InputButton extends Component {
         );
 
     return (
-      <Link className={theme.linkClass} to={
+      <Link onClick={this.handleOnclick} className={theme.linkClass} to={
         {
           pathname: urlForm,
         }

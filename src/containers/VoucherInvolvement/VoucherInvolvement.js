@@ -41,9 +41,8 @@ class VoucherInvolvement extends Component {
                         urlParameter={this.state.type}
                     />
                 </Col>
-                <Col sm={12}>
-                    <VoucherInvolvementTable />
-                </Col>
+                <VoucherInvolvementTable />
+
             </Row>
         )
     }
