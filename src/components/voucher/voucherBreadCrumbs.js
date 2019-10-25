@@ -59,8 +59,7 @@ export default class VoucherBreadCrumbs extends Component {
 
 
     render() {
-
-        const { crumbs, current } = this.props;
+        const { crumbs, current, completed } = this.props;
         let ban = true;
         const steps = crumbs.map((crumb, index) => {
             const tmpmain = (current === crumb.cod_proceso) ? true : false;
@@ -76,6 +75,7 @@ export default class VoucherBreadCrumbs extends Component {
                     steps={steps}
                     nextButton={next}
                     backButton={back}
+                    completed={completed}
                 />
             )
         } else {

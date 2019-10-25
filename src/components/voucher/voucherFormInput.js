@@ -31,22 +31,23 @@ class VoucherFormInput extends Component {
 
         return (
             <Row>
-                <InputAutocomplete
-                    inputFormCol={{ sm: 11 }}
-                    label={false}
-                    inputId={'clienteId'}
-                    name={'clienteId'}
-                    placeholder={t('voucher.form.insert_customer_criterion')}
-                    styles={{ width: '100%' }}
-                    colLabel={"col-sm-2"}
-                    colInput={"col-sm-10"}
-                    handleSearch={handleSearch}
-                    auoptions={auoptions}
-                    handleLoading={handleLoading}
-                    handleSelect={handleSelect}
-                    labelKey={"label"}
-                    disable={readOnly}
-                />
+                {!readOnly &&
+                    <InputAutocomplete
+                        inputFormCol={{ sm: 11 }}
+                        label={false}
+                        inputId={'clienteId'}
+                        name={'clienteId'}
+                        placeholder={t('voucher.form.insert_customer_criterion')}
+                        styles={{ width: '100%' }}
+                        colLabel={"col-sm-2"}
+                        colInput={"col-sm-10"}
+                        handleSearch={handleSearch}
+                        auoptions={auoptions}
+                        handleLoading={handleLoading}
+                        handleSelect={handleSelect}
+                        labelKey={"label"}
+                        disable={readOnly}
+                    />}
 
                 {!readOnly &&
                     <Col sm={1}>

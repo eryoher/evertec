@@ -12,7 +12,8 @@ class Generate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idComprobante: null
+            idComprobante: null,
+            completed: false
         }
     }
 
@@ -23,6 +24,10 @@ class Generate extends Component {
             this.setState({ idComprobante: type });
             this.props.getVoucherType({ idComprobante: type });
         }
+    }
+
+    successStep = () => {
+        this.setState({ completed: true })
     }
 
     render() {
@@ -36,9 +41,12 @@ class Generate extends Component {
                 <VoucherBreadCrumbs
                     crumbs={(voucherType) ? voucherType.procesos : []}
                     current={'p_fincomprob'}
+                    completed={this.state.completed}
                     urlParameter={this.state.idComprobante}
                 />
-                <GenerateForm />
+                <GenerateForm
+                    handleChangeSuccess={this.successStep}
+                />
             </Row>
         )
     }

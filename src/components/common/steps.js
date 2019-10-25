@@ -10,7 +10,7 @@ import InputButton from 'components/form/inputButton';
 class Steps extends Component {
 
     renderSteps = () => {
-        const { steps, theme, nextButton, backButton } = this.props;
+        const { steps, theme, nextButton, backButton, completed } = this.props;
         let rows = [];
 
         if (backButton) {
@@ -26,7 +26,7 @@ class Steps extends Component {
 
         const tmps = steps.map((step, index) => {
             const clasBadge = (step.main || step.before) ? 'badge-primary' : 'badge-secondary';
-            const badgeNumber = (step.before) ? <FontAwesomeIcon icon={faCheck} /> : index + 1;
+            const badgeNumber = (step.before || completed) ? <FontAwesomeIcon icon={faCheck} /> : index + 1;
             const divider = (
                 index + 1 === steps.length) ? null : (<span style={{ borderColor: '#2F80ED', marginTop: '18px' }} className={"dropdown-divider col"} />)
 

@@ -36,6 +36,11 @@ class GenerateForm extends Component {
         this.setState({ generated: false })
     }
 
+    handleGeneratebtn = () => {
+        this.props.handleChangeSuccess()
+        this.setState({ generated: true });
+    }
+
     render() {
         const { t, theme } = this.props;
         const fields = [
@@ -167,7 +172,7 @@ class GenerateForm extends Component {
                     </Col>
                     <Col sm={2} style={{ textAlign: 'left' }} className={"mt-3 mb-3"} >
                         <InputButton
-                            onClick={() => this.setState({ generated: true })}
+                            onClick={this.handleGeneratebtn}
                             valueButton={t('voucher.step.generate')}
                         />
                     </Col>
@@ -314,7 +319,7 @@ class GenerateForm extends Component {
                     <Col sm={2} style={{ textAlign: 'left' }} className={"mt-2"} >
                         <InputButton
                             valueButton={t('voucher.step.generate')}
-                            onClick={() => this.setState({ generated: true })}
+                            onClick={this.handleGeneratebtn}
                         />
                     </Col>
                 </Row>}

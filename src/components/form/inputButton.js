@@ -16,6 +16,7 @@ class InputButton extends Component {
 
   render() {
     const { theme, backButton, nextButton, valueButton, urlForm } = this.props;
+    const withStyle = (nextButton || backButton) ? null : { minWidth: '100px' };
 
     let labelButton =
       nextButton || backButton ? (
@@ -36,7 +37,7 @@ class InputButton extends Component {
           pathname: urlForm,
         }
       }>
-        <div className={`btn btn-primary ${theme.formButton}`}>
+        <div className={`btn btn-primary ${theme.formButton}`} style={withStyle}>
           {labelButton}
         </div>
       </Link>
