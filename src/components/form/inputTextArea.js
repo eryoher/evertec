@@ -23,6 +23,7 @@ class InputTextArea extends Component {
         const { label, placeholder, name, styles, inputId, colInput, colLabel, styleLabel, divStyle, cols, rows, disable, theme, onChange, value, inputFormCol } = this.props;
         const classInput = (label) ? colInput : "col-sm-12";
         const classLabel = (label) ? colLabel : "";
+        const classText = (disable) ? theme.inputDisabled : '';
 
         const config = this.getconfigField(inputId);
 
@@ -42,7 +43,7 @@ class InputTextArea extends Component {
                                 rows={rows}
                                 cols={cols}
                                 disabled={!config.editable}
-                                className={theme.inputTextArea}
+                                className={`${theme.inputTextArea} ${classText}`}
                                 onChange={(v) => onChange(v)}
                                 value={value}
                             />

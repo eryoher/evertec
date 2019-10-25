@@ -11,7 +11,8 @@
 }
 
 .inputDisabled {
-    background-color: #e9ecef;
+    background-color: #fff;
+    border: 0px;
 }
 
 .lock {

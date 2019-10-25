@@ -63,6 +63,8 @@ class InputDropdown extends Component {
         const classLabel = (label) ? colLabel : "";
         const config = this.getconfigField(inputId);
         const customStyleLabel = (config.requerido) ? { ...styleLabel, paddingTop: '4px', color: 'red' } : { ...styleLabel, paddingTop: '4px' };
+        const classText = (disable) ? theme.inputDisabled : '';
+
         if (config.visible) {
             return (
                 <Col {...inputFormCol} >
@@ -70,20 +72,27 @@ class InputDropdown extends Component {
                         <label className={`${classLabel} ${theme.inputLabel}`} style={customStyleLabel} >
                             {(config.label) ? config.label : label}
                         </label>
-                        <Col className={classInput} style={{ ...divStyle }}>
+                        {!disable && <Col className={classInput} style={{ ...divStyle }}>
                             <select
                                 id={inputId}
                                 name={name}
                                 style={{ styles }}
                                 placeholder={placeholder}
                                 disabled={!config.editable}
-                                className={`${theme.inputDropdown} custom-select`}
+                                className={`${theme.inputDropdown} ${classText} custom-select`}
                                 onChange={(value) => this.props.onChange(value)}
                                 value={value}
                             >
                                 {options && this.renderOptions()}
                             </select>
-                        </Col>
+                        </Col>}
+
+                        {
+                            disable &&
+                            <Col>
+                                {value}
+                            </Col>
+                        }
 
                     </Row>
                 </Col>

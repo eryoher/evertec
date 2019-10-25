@@ -29,9 +29,13 @@ class LoadItemsTableReadOnly extends Component {
         const { productsCart, config } = this.props;
         return (
             <>
-                {productsCart && <ProductsTotalResume formatCol={3} data={productsCart} />}
+                <div className={"mb-2"}>
+                    {productsCart && <ProductsTotalResume formatCol={{ span: 2, offset: 8 }} data={productsCart} />}
+                </div>
                 {productsCart && config && <ShoppingCartTable config={config} cartProducts={productsCart} />}
-                {productsCart && <ProductsTotalResume formatCol={3} data={productsCart} />}
+                <div className={"mt-2"} >
+                    {productsCart && <ProductsTotalResume formatCol={{ span: 2, offset: 8 }} data={productsCart} />}
+                </div>
             </>
 
         )

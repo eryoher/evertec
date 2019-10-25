@@ -1,9 +1,14 @@
-.inputDropdown{
-    width:100% !important; 
-    height:32px !important;
-    font-size: 10pt !important;    
+.inputDropdown {
+    width: 100% !important;
+    height: 32px !important;
+    font-size: 10pt !important;
 }
 
-.inputLabel{
-    font-size: 10pt;    
+.inputLabel {
+    font-size: 10pt;
+}
+
+.inputDisabled {
+    background-color: #fff;
+    border: 0px;
 }

@@ -23,14 +23,25 @@ class GenerateForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            collapseItemTable: false,
             collapse: false,
-            generated: false
+            generated: false,
+            collapseVoucherTable: false
         }
     }
 
     toggle() {
         this.setState(state => ({ collapse: !state.collapse }));
     }
+
+    toggleTableItem() {
+        this.setState(state => ({ collapseItemTable: !state.collapseItemTable }));
+    }
+
+    toggleTableVoucher = () => {
+        this.setState(state => ({ collapseVoucherTable: !state.collapseVoucherTable }));
+    }
+
 
     handleCloseNotification = () => {
         this.setState({ generated: false })
@@ -280,14 +291,29 @@ class GenerateForm extends Component {
                         <Col sm={3} className={theme.title} >
 
                         </Col>
-                        <Col sm={2} className={"text-right"} >
+                        <Col sm={{ span: 2 }} className={"text-right"} >
                             <FontAwesomeIcon icon={faPencilAlt} />
                         </Col>
                     </Row>
-                    <LoadItemsTableReadOnly
-                        divClass={"mt-1"}
-                        searchBox
-                    />
+                    <Row className={'mt-2'}>
+                        <Col sm={1}>
+                            <CollapseBotton
+                                onPress={() => this.toggleTableItem()}
+                                status={this.state.collapseItemTable}
+                            />
+                        </Col>
+                        <Col sm={11}>
+                            <div className="dropdown-divider col-11 p-1" />
+                        </Col>
+                    </Row>
+
+                    <Collapse isOpen={this.state.collapseItemTable}>
+                        <LoadItemsTableReadOnly
+                            divClass={"mt-1"}
+                            searchBox
+                        />
+                    </Collapse>
+
                 </Card>
 
                 <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
@@ -302,11 +328,24 @@ class GenerateForm extends Component {
                             <FontAwesomeIcon icon={faPencilAlt} />
                         </Col>
                     </Row>
+                    <Row className={'mt-2'}>
+                        <Col sm={1}>
+                            <CollapseBotton
+                                onPress={() => this.toggleTableVoucher()}
+                                status={this.state.collapseVoucherTable}
+                            />
+                        </Col>
+                        <Col sm={11}>
+                            <div className="dropdown-divider col-11 p-1" />
+                        </Col>
+                    </Row>
                     <Container style={{ maxWidth: '95%' }}>
                         <Row>
-                            <VoucherInvolvementTable
-                                readOnly
-                            />
+                            <Collapse isOpen={this.state.collapseVoucherTable}>
+                                <VoucherInvolvementTable
+                                    readOnly
+                                />
+                            </Collapse>
                         </Row>
                     </Container>
                 </Card>
