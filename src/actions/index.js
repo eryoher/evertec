@@ -6,3 +6,4 @@ export * from './Voucher';
 export * from './Product';
 export * from './LoadItems';
 export * from './SalesAffected';
+export * from './Generate'
