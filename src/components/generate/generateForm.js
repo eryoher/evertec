@@ -18,7 +18,7 @@ import LoadItemsTableReadOnly from 'components/loadItems/loadItemsTableReadOnly'
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
 import NotificationMessage from 'components/common/notificationMessage';
 import { connect } from 'react-redux';
-import { getClientHeadboard } from '../../actions';
+import { getClientHeadboard, finishGenerate } from '../../actions';
 
 const FIELDS = [
     {
@@ -136,6 +136,12 @@ class GenerateForm extends Component {
         this.props.getClientHeadboard()
     }
 
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.generateVoucher !== this.props.generateVoucher && this.props.generateVoucher) {
+            this.setState({ generated: true })
+        }
+    }
+
     toggle() {
         this.setState(state => ({ collapse: !state.collapse }));
     }
@@ -148,14 +154,13 @@ class GenerateForm extends Component {
         this.setState(state => ({ collapseVoucherTable: !state.collapseVoucherTable }));
     }
 
-
     handleCloseNotification = () => {
         this.setState({ generated: false })
     }
 
     handleGeneratebtn = () => {
-        this.props.handleChangeSuccess()
-        this.setState({ generated: true });
+        this.props.handleChangeSuccess(); //To fisinish the steps
+        this.props.finishGenerate({ idOperacion: '123123312' });
     }
 
     render() {
@@ -398,10 +403,10 @@ class GenerateForm extends Component {
 }
 
 const mapStateToProps = ({ generateForm }) => {
-    const { clientHeadboard } = generateForm;
-    return { clientHeadboard };
+    const { clientHeadboard, generateVoucher } = generateForm;
+    return { clientHeadboard, generateVoucher };
 };
 
-const connectForm = connect(mapStateToProps, { getClientHeadboard })(GenerateForm);
+const connectForm = connect(mapStateToProps, { getClientHeadboard, finishGenerate })(GenerateForm);
 
 export default themr('GenerateFormStyle', styles)(withTranslation()(connectForm));

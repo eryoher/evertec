@@ -117,7 +117,7 @@ class VoucherInvolvementTable extends Component {
                             readOnly={readOnly}
                         />
                     }
-                    {productsInvol && <InvolvementTotalResume classDiv={'pl-0'} formatCol={{ span: 4, offset: 8 }} data={this.state} />}
+                    {productsInvol && <InvolvementTotalResume classDiv={'pl-0'} formatCol={{ span: 5, offset: 7 }} data={this.state} />}
                 </Col>
             </Row>
         )

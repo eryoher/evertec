@@ -32,7 +32,7 @@ class LoadItemsTableReadOnly extends Component {
                 <div className={"mb-2"}>
                     {generateItems && <ProductsTotalResume formatCol={{ span: 2, offset: 8 }} data={generateItems} />}
                 </div>
-                {generateItems && config && <ShoppingCartTable config={config} cartProducts={generateItems} />}
+                {generateItems.Productos && config && <ShoppingCartTable config={config} cartProducts={generateItems} />}
                 <div className={"mt-2"} >
                     {generateItems && <ProductsTotalResume formatCol={{ span: 2, offset: 8 }} data={generateItems} />}
                 </div>
@@ -45,8 +45,8 @@ class LoadItemsTableReadOnly extends Component {
 
 const mapStateToProps = ({ generateForm, voucher }) => {
     const { config } = voucher;
-
     const { generateItems } = generateForm;
+
     return { generateItems, config };
 };
 

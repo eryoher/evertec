@@ -151,26 +151,26 @@ export default (mockAdapter) => {
                     "neto": 32560,
                     "fec_entrega": "19/10/2019",
                     "id_imagen": 77656,
-                    "presentacion":
-                    {
-                        "cod_pres": "CJ",
-                        "desc_pres": "Cajax10UN",
-                        "cant": 10,
-                        "codbarra": "07977688566503",
-                    },
-                    "Bonificaciones":
-                    {
-                        "tipo_bonif": "P",
-                        "cod_bonif": "PL02",
-                        "desc_bonif": "Lapices Faber",
-                    },
-                    "Atributos":
-                    {
-                        "catributo": "Marca",
-                        "desc_atributo": "Marca",
-                        "cod_dato": "34",
-                        "desc_dato": "Faber"
-                    }
+                    "presentacion": [
+                        {
+                            "cod_pres": "CJ",
+                            "desc_pres": "Cajax10UN",
+                            "cant": 10,
+                            "codbarra": "07977688566503",
+                        }],
+                    "Bonificaciones": [
+                        {
+                            "tipo_bonif": "P",
+                            "cod_bonif": "PL02",
+                            "desc_bonif": "Lapices Faber",
+                        }],
+                    "Atributos": [
+                        {
+                            "catributo": "Marca",
+                            "desc_atributo": "Marca",
+                            "cod_dato": "34",
+                            "desc_dato": "Faber"
+                        }]
 
                 }
 
