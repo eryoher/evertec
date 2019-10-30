@@ -4,7 +4,11 @@ import {
     GET_GENERATE_ITEMS,
     GET_GENERATE_ITEMS_SUCCESS,
     GET_GENERATE_SALES_AFFECTED,
-    GET_GENERATE_SALES_AFFECTED_SUCCESS
+    GET_GENERATE_SALES_AFFECTED_SUCCESS,
+    FINISH_GENERATE,
+    FINISH_GENERATE_SUCCESS,
+    PRINT_GENERATE,
+    PRINT_GENERATE_SUCCESS
 } from '../constants/ActionsTypes';
 
 
@@ -46,6 +50,34 @@ export const getGeneratesalesAffected = (params) => {
 export const getGeneratesalesAffectedSuccess = (response) => {
     return {
         type: GET_GENERATE_SALES_AFFECTED_SUCCESS,
+        payload: response
+    }
+};
+
+export const finishGenerate = (params) => {
+    return {
+        type: FINISH_GENERATE,
+        payload: params
+    }
+};
+
+export const finishGenerateSuccess = (response) => {
+    return {
+        type: FINISH_GENERATE_SUCCESS,
+        payload: response
+    }
+};
+
+export const printGenerate = (params) => {
+    return {
+        type: PRINT_GENERATE,
+        payload: params
+    }
+};
+
+export const printGenerateSuccess = (response) => {
+    return {
+        type: PRINT_GENERATE_SUCCESS,
         payload: response
     }
 };

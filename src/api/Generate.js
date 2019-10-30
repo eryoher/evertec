@@ -10,6 +10,17 @@ export const getGenerateItems = async (params) => {
     return response.data;
 }
 
+export const finishGenerate = async (params) => {
+    const response = await Axios.post('/vta_generar_compr/generar', params);
+    return response.data;
+}
+
+export const printGenerate = async (params) => {
+    const response = await Axios.post('/vta_generar_compr/imprimir', params);
+    return response.data;
+}
+
+
 export const getGeneratesalesAffected = async (params) => {
     const response = await Axios.get('/vta_generar_compr/comprob_afectados');
     return response.data;

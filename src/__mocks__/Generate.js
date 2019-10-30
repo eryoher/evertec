@@ -83,45 +83,45 @@ export default (mockAdapter) => {
             },
             Cabecera: {
                 "moneda":
-                {
-                    "cod_moneda": "$",
-                    "desc_moneda": "Pesos Arg.",
-                    "cotiz": 1,
-                },
+                    [{
+                        "cod_moneda": "$",
+                        "desc_moneda": "Pesos Arg.",
+                        "cotiz": 1,
+                    }],
                 "vendedor":
-                {
-                    "cod_vendedor": 45,
-                    "nom_vendedor": "Pedro Martinez",
-                },
+                    [{
+                        "cod_vendedor": 45,
+                        "nom_vendedor": "Pedro Martinez",
+                    }],
                 "cond_comp_vta":
-                {
-                    "cod_cond_vta": "CO",
-                    "desc_cond_vta": "Contado",
-                },
+                    [{
+                        "cod_cond_vta": "CO",
+                        "desc_cond_vta": "Contado",
+                    }],
                 "transporte":
-                {
-                    "cod_transp": "TR56",
-                    "nom_transp": "Trasporte Gutierrez",
-                },
+                    [{
+                        "cod_transp": "TR56",
+                        "nom_transp": "Trasporte Gutierrez",
+                    }],
 
-                "suc_empresa":
-                {
-                    "cod_suc": "03",
-                    "nom_suc": "Suc. San Isidro",
-                },
+                "suc_empresa": [
+                    {
+                        "cod_suc": "03",
+                        "nom_suc": "Suc. San Isidro",
+                    }],
                 "atrib_comp_vta":
-                {
-                    "cod_atrib": "TIPOENV",
-                    "descripcion": "Tipo de Envio",
-                    "tipo": "char",
-                    "largo": 30,
-                    "formato": "",
-                    "orden": 1,
-                    "valor": {
-                        "cod_valor": "01",
-                        "desc_valor": "Normal",
-                    }
-                }
+                    [{
+                        "cod_atrib": "TIPOENV",
+                        "descripcion": "Tipo de Envio",
+                        "tipo": "char",
+                        "largo": 30,
+                        "formato": "",
+                        "orden": 1,
+                        "valores": [{
+                            "cod_valor": "01",
+                            "desc_valor": "Normal",
+                        }]
+                    }]
 
             }
         }
@@ -492,4 +492,25 @@ export default (mockAdapter) => {
             ]
         }
     });
+
+    mockAdapter.onPost('/vta_generar_compr/generar').reply(200, {
+        data: {
+            "Resultado": [
+                {
+                    "resultado": '.T.'
+                }],
+            "Comprobante_nro": "123987654"
+        }
+    });
+
+    mockAdapter.onPost('/vta_generar_compr/imprimir').reply(200, {
+        data: {
+            "Resultado": [
+                {
+                    "resultado": '.T.'
+                }],
+            "comprobante_pdf": "aqui pdf"
+        }
+    });
+
 }

@@ -17,6 +17,108 @@ import { LOADITEMS } from '../../utils/RoutePath';
 import LoadItemsTableReadOnly from 'components/loadItems/loadItemsTableReadOnly';
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
 import NotificationMessage from 'components/common/notificationMessage';
+import { connect } from 'react-redux';
+import { getClientHeadboard } from '../../actions';
+
+const FIELDS = [
+    {
+        idcampo: 'rsocial',
+        visible: true
+    },
+    {
+        idcampo: 'tipo_resp',
+        visible: true
+    },
+    {
+        idcampo: 'cuit',
+        visible: true
+    },
+    {
+        idcampo: 'contacto',
+        visible: true
+    },
+    {
+        idcampo: 'obs_cc',
+        visible: true
+    },
+    {
+        idcampo: 'obs_ventas',
+        visible: true
+    },
+    {
+        idcampo: 'credito',
+        visible: true
+    },
+    {
+        idcampo: 'saldo_pend',
+        visible: true
+    },
+    {
+        idcampo: 'credito_saldo',
+        visible: true
+    },
+    {
+        idcampo: 'suc_email',
+        visible: true
+    },
+    {
+        idcampo: 'suc_tel',
+        visible: true
+    },
+    {
+        idcampo: 'suc_address',
+        visible: true
+    },
+    {
+        idcampo: 'suc_local',
+        visible: true
+    },
+    {
+        idcampo: 'suc_nom_prov',
+        visible: true
+    },
+    {
+        idcampo: 'suc_cpos',
+        visible: true
+    },
+    {
+        idcampo: 'suc_empresa',
+        visible: true
+    },
+    {
+        idcampo: 'transp_comp_vta',
+        visible: true
+    },
+    {
+        idcampo: 'suc_empresa_venta',
+        visible: true
+    },
+    {
+        idcampo: 'Titulo_comp_vta',
+        visible: true
+    },
+    {
+        idcampo: 'fecha',
+        visible: true
+    },
+    {
+        idcampo: 'mon_comp_vta',
+        visible: true
+    },
+    {
+        idcampo: 'cotiz',
+        visible: true
+    },
+    {
+        idcampo: 'vend_comp_vta',
+        visible: true
+    },
+    {
+        idcampo: 'cond_comp_vta',
+        visible: true
+    },
+
+]
 
 class GenerateForm extends Component {
 
@@ -28,6 +130,10 @@ class GenerateForm extends Component {
             generated: false,
             collapseVoucherTable: false
         }
+    }
+
+    componentDidMount = () => {
+        this.props.getClientHeadboard()
     }
 
     toggle() {
@@ -53,108 +159,9 @@ class GenerateForm extends Component {
     }
 
     render() {
-        const { t, theme } = this.props;
-        const fields = [
-            {
-                idcampo: 'rsocial',
-                visible: true
-            },
-            {
-                idcampo: 'tipo_resp',
-                visible: true
-            },
-            {
-                idcampo: 'cuit',
-                visible: true
-            },
-            {
-                idcampo: 'contacto',
-                visible: true
-            },
-            {
-                idcampo: 'obs_cc',
-                visible: true
-            },
-            {
-                idcampo: 'obs_ventas',
-                visible: true
-            },
-            {
-                idcampo: 'credito',
-                visible: true
-            },
-            {
-                idcampo: 'saldo_pend',
-                visible: true
-            },
-            {
-                idcampo: 'credito_saldo',
-                visible: true
-            },
-            {
-                idcampo: 'suc_email',
-                visible: true
-            },
-            {
-                idcampo: 'suc_tel',
-                visible: true
-            },
-            {
-                idcampo: 'suc_address',
-                visible: true
-            },
-            {
-                idcampo: 'suc_local',
-                visible: true
-            },
-            {
-                idcampo: 'suc_nom_prov',
-                visible: true
-            },
-            {
-                idcampo: 'suc_cpos',
-                visible: true
-            },
-            {
-                idcampo: 'suc_empresa',
-                visible: true
-            },
-            {
-                idcampo: 'transp_comp_vta',
-                visible: true
-            },
-            {
-                idcampo: 'suc_empresa_venta',
-                visible: true
-            },
-            {
-                idcampo: 'Titulo_comp_vta',
-                visible: true
-            },
-            {
-                idcampo: 'fecha',
-                visible: true
-            },
-            {
-                idcampo: 'mon_comp_vta',
-                visible: true
-            },
-            {
-                idcampo: 'cotiz',
-                visible: true
-            },
-            {
-                idcampo: 'vend_comp_vta',
-                visible: true
-            },
-            {
-                idcampo: 'cond_comp_vta',
-                visible: true
-            },
+        const { t, theme, clientHeadboard } = this.props;
 
-        ]
-
-        const defaultInitial = {
+        const defaultInitial = (clientHeadboard) ? clientHeadboard.Cliente : {
             rsocial: '',
             tipo_resp: '',
             cuit: '',
@@ -170,8 +177,11 @@ class GenerateForm extends Component {
             suc_local: '',
             suc_nom_prov: '',
             suc_cpos: '',
-            suc_empresa: null
+            suc_empresa: null,
+            Sucursal: {},
+            Cabecera: {}
         }
+
         return (
             <Col sm={12}>
                 {!this.state.generated && <Row>
@@ -229,15 +239,15 @@ class GenerateForm extends Component {
                         handleLoading={false}
                         values={defaultInitial}
                         readOnly
-                        fields={fields}
+                        fields={FIELDS}
 
                     />
                     <div className="dropdown-divider col-11 p-1" />
                     <ClientFormInput
                         auoptions={[]}
-                        values={defaultInitial}
+                        values={defaultInitial.Sucursal}
                         readOnly
-                        fields={fields}
+                        fields={FIELDS}
                     />
                     <Row>
                         <Col sm={1}>
@@ -254,14 +264,14 @@ class GenerateForm extends Component {
                         <LocationFormInput
                             values={defaultInitial}
                             readOnly
-                            fields={fields}
+                            fields={FIELDS}
 
                         />
                         <div className="dropdown-divider col-11 p-1" />
                         <AccountFormInput
                             readOnly
                             values={defaultInitial}
-                            fields={fields}
+                            fields={FIELDS}
 
                         />
                     </Collapse>
@@ -278,8 +288,8 @@ class GenerateForm extends Component {
                     <HeadboardFormInput
                         readOnly
                         collapse
-                        values={defaultInitial}
-                        fields={fields}
+                        values={(clientHeadboard) ? clientHeadboard.Cabecera : null}
+                        fields={FIELDS}
 
                     />
                 </Card>
@@ -387,5 +397,11 @@ class GenerateForm extends Component {
     }
 }
 
+const mapStateToProps = ({ generateForm }) => {
+    const { clientHeadboard } = generateForm;
+    return { clientHeadboard };
+};
 
-export default themr('GenerateFormStyle', styles)(withTranslation()(GenerateForm));
+const connectForm = connect(mapStateToProps, { getClientHeadboard })(GenerateForm);
+
+export default themr('GenerateFormStyle', styles)(withTranslation()(connectForm));

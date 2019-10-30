@@ -5,7 +5,7 @@ import { themr } from 'react-css-themr';
 import styles from './shoppingCart.module.css';
 import DisplayAmount from 'components/common/displayAmount';
 import { connect } from 'react-redux';
-import { getProductsCart, getConfigVoucher } from '../../actions/';
+import { getGenerateItems, getConfigVoucher } from '../../actions/';
 import ShoppingCartTable from './shoppingCartTable';
 import ProductsTotalResume from './productsTotalResume';
 
@@ -22,19 +22,19 @@ class LoadItemsTableReadOnly extends Component {
 
     componentDidMount = () => {
         this.props.getConfigVoucher({ cod_proceso: 'P_CargaItemenVentas', idOperacion: 1 });
-        this.props.getProductsCart({ "idoperacion": 1 })
+        this.props.getGenerateItems({ "idoperacion": 1 })
     }
 
     render() {
-        const { productsCart, config } = this.props;
+        const { generateItems, config } = this.props;
         return (
             <>
                 <div className={"mb-2"}>
-                    {productsCart && <ProductsTotalResume formatCol={{ span: 2, offset: 8 }} data={productsCart} />}
+                    {generateItems && <ProductsTotalResume formatCol={{ span: 2, offset: 8 }} data={generateItems} />}
                 </div>
-                {productsCart && config && <ShoppingCartTable config={config} cartProducts={productsCart} />}
+                {generateItems && config && <ShoppingCartTable config={config} cartProducts={generateItems} />}
                 <div className={"mt-2"} >
-                    {productsCart && <ProductsTotalResume formatCol={{ span: 2, offset: 8 }} data={productsCart} />}
+                    {generateItems && <ProductsTotalResume formatCol={{ span: 2, offset: 8 }} data={generateItems} />}
                 </div>
             </>
 
@@ -43,12 +43,12 @@ class LoadItemsTableReadOnly extends Component {
 }
 
 
-const mapStateToProps = ({ product, voucher }) => {
+const mapStateToProps = ({ generateForm, voucher }) => {
     const { config } = voucher;
 
-    const { productsCart } = product;
-    return { productsCart, config };
+    const { generateItems } = generateForm;
+    return { generateItems, config };
 };
 
-const connectForm = connect(mapStateToProps, { getProductsCart, getConfigVoucher })(LoadItemsTableReadOnly);
+const connectForm = connect(mapStateToProps, { getGenerateItems, getConfigVoucher })(LoadItemsTableReadOnly);
 export default themr('LoadItemsTableStyles', styles)(withTranslation()(connectForm));

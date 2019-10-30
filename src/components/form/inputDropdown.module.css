@@ -12,3 +12,8 @@
     background-color: #fff;
     border: 0px;
 }
+
+.valueReadOnly {
+    font-size: 10pt !important;
+    padding-top: 5px;
+}

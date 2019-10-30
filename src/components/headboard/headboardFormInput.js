@@ -129,8 +129,8 @@ class HeadBoardFormInput extends Component {
     }
 
     render() {
-        const { t, errors, touched, values, handleChange, handleBlur, setFieldValue, setFieldTouched, readOnly, collapse, fields } = this.props;
-
+        const { t, errors, touched, values, handleChange, handleBlur, setFieldValue, setFieldTouched, collapse, fields } = this.props;
+        const readOnly = true
 
         if (!values) {
             return null;

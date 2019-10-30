@@ -42,6 +42,14 @@ class InputDropdown extends Component {
         return result;
     }
 
+    getCustomValue = (options) => {
+        let result = ''
+        options.forEach(opt => {
+            result = opt.label;
+        });
+        return result;
+    }
+
     renderField = () => {
         const { label,
             placeholder,
@@ -64,6 +72,7 @@ class InputDropdown extends Component {
         const config = this.getconfigField(inputId);
         const customStyleLabel = (config.requerido) ? { ...styleLabel, paddingTop: '4px', color: 'red' } : { ...styleLabel, paddingTop: '4px' };
         const classText = (disable) ? theme.inputDisabled : '';
+        let customValue = this.getCustomValue(options)
 
         if (config.visible) {
             return (
@@ -89,8 +98,8 @@ class InputDropdown extends Component {
 
                         {
                             disable &&
-                            <Col>
-                                {value}
+                            <Col className={theme.valueReadOnly}>
+                                {customValue}
                             </Col>
                         }
 
