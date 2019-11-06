@@ -6,7 +6,8 @@ import { showLoader, hideLoader, userSignOut, showMessage } from "actions";
 export default function configureAxios(store) {
   // const config = getAppConfiguration();//TODO jfarina grab from store
   const config = {
-    apiURL: 'http://localhost:1337/190.210.181.180:2082'
+    _apiURL: 'http://localhost:1337/190.210.181.180:2082',
+    apiURL: 'https://ceogestiondev.agminen.com/api'
   };
 
   Axios.defaults.baseURL = config.apiURL;
