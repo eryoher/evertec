@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
+    "start:localhost": "env-cmd -f .env.localhost react-scripts start",
+    "start:devServer": "env-cmd -f .env.devServer react-scripts start",
     "start:alpha": "env-cmd -f .env.alpha react-scripts start",
     "start:mock": "cross-env REACT_APP_MOCK_ENABLED=true react-scripts start",
     "build": "react-scripts build",

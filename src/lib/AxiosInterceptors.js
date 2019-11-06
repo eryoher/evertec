@@ -5,9 +5,9 @@ import { showLoader, hideLoader, userSignOut, showMessage } from "actions";
 
 export default function configureAxios(store) {
   // const config = getAppConfiguration();//TODO jfarina grab from store
+
   const config = {
-    _apiURL: 'http://localhost:1337/190.210.181.180:2082',
-    apiURL: 'https://ceogestiondev.agminen.com/api'
+    apiURL: process.env.REACT_APP_API_URL,
   };
 
   Axios.defaults.baseURL = config.apiURL;
