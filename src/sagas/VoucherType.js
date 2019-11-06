@@ -43,6 +43,5 @@ export default function* rootSaga() {
   yield all([
     fork(getVoucherTypeSaga),
     fork(getVoucherTypeByUserSaga)
-
   ]);
 }

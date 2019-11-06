@@ -10,11 +10,11 @@ function rootReducer(state = initialState, action) {
     case GET_VOUCHER_TYPE:
       return { ...state, voucherType: null }
     case GET_VOUCHER_TYPE_SUCCESS:
-      return { ...state, voucherType: action.payload.data }
+      return { ...state, voucherType: action.payload }
     case GET_VOUCHER_TYPE_BY_USER:
       return { ...state, userVoucherType: [] }
     case GET_VOUCHER_TYPE_BY_USER_SUCCESS:
-      return { ...state, userVoucherType: action.payload.data }
+      return { ...state, userVoucherType: action.payload }
     default:
       return state
   }

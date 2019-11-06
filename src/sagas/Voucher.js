@@ -9,11 +9,22 @@ import {
 } from '../api/Voucher'
 
 import {
-    GET_CONFIG_VOUCHER, GET_VOUCHER_HEAD, VOUCHER_HEAD_AUTO, VOUCHER_HEAD_VALIDATE_KEY, VOUCHER_HEAD_CHECK_DATE, GET_VOUCHER_BY_USER
+    GET_CONFIG_VOUCHER,
+    GET_VOUCHER_HEAD,
+    VOUCHER_HEAD_AUTO,
+    VOUCHER_HEAD_VALIDATE_KEY,
+    VOUCHER_HEAD_CHECK_DATE,
+
 } from '../constants/ActionsTypes';
 
 
-import { getConfigVoucherSuccess, getVoucherHeadSuccess, voucherHeadAutoSuccess, voucherHeadValidatekeySuccess, voucherHeadCheckDateSuccess, getVoucherByUserSuccess } from '../actions/Voucher';
+import {
+    getConfigVoucherSuccess,
+    getVoucherHeadSuccess,
+    voucherHeadAutoSuccess,
+    voucherHeadValidatekeySuccess,
+    voucherHeadCheckDateSuccess,
+} from '../actions/Voucher';
 
 
 function* getConfigVoucherRequest({ payload }) {

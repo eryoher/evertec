@@ -12,16 +12,16 @@ class Headboard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            idComprobante: null
+            idOperacion: null
         }
     }
 
     componentDidMount() {
         const { match } = this.props;
         if (match.params.idComprobante) {
-            const idComprobante = match.params.idComprobante;
-            this.setState({ idComprobante });
-            this.props.getVoucherType({ idComprobante });
+            const idOperacion = match.params.idComprobante;
+            this.setState({ idOperacion });
+            this.props.getVoucherType({ idOperacion }); //
         }
     }
 
@@ -37,9 +37,11 @@ class Headboard extends Component {
                 <VoucherBreadCrumbs
                     crumbs={(voucherType) ? voucherType.procesos : []}
                     current={'p_vtacab'}
-                    urlParameter={this.state.idComprobante}
+                    urlParameter={this.state.idOperacion}
                 />
-                <HeadboardForm />
+                {this.state.idOperacion && <HeadboardForm
+                    idOperacion={this.state.idOperacion}
+                />}
             </Row>
         )
     }

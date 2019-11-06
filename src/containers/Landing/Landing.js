@@ -9,6 +9,8 @@ import { selectFilter } from 'react-bootstrap-table2-filter';
 import InputButton from 'components/form/inputButton';
 import DisplayAmount from 'components/common/displayAmount';
 import { LANDING, VOUCHER } from '../../utils/RoutePath';
+import { connect } from 'react-redux';
+import { getVoucherTypeByUser } from '../../actions';
 
 
 const voucher = [
@@ -57,6 +59,10 @@ const optionsVoucher = {
 
 class Landing extends Component {
 
+    componentDidMount = () => {
+        this.props.getVoucherTypeByUser()
+    }
+
     handleOnSelect = (row, isSelect) => {
         //console.log(row, isSelect);
     }
@@ -65,8 +71,30 @@ class Landing extends Component {
         //console.log(rows, isSelect, 'todos');
     }
 
+    renderVoucher = () => {
+        const { userVoucherType } = this.props
+        const result = [];
+
+        userVoucherType.forEach(voucher => {
+            result.push(
+                <Col sm={1} key={voucher.nioperacion} className={"m-2"}>
+                    <InputButton
+                        valueButton={<FontAwesomeIcon icon={faPlus} />}
+                        urlForm={`${VOUCHER}/${voucher.nioperacion}`}
+                    />
+                </Col>
+            )
+        });
+
+        return (
+            <Row>
+                {result}
+            </Row>
+        )
+    }
+
     render() {
-        const { theme, t } = this.props
+        const { theme, t, userVoucherType } = this.props
 
         const columns = [
             {
@@ -186,20 +214,7 @@ class Landing extends Component {
                     <div className={theme.Title}>
                         Comprobantes
                     </div>
-                    <Row>
-                        <Col sm={1} className={"m-2"}>
-                            <InputButton
-                                valueButton={<FontAwesomeIcon icon={faPlus} />}
-                                urlForm={`${VOUCHER}/C.NVCR`}
-                            />
-                        </Col>
-                        <Col sm={1} className={"m-2"}>
-                            <InputButton
-                                valueButton={<FontAwesomeIcon icon={faPlus} />}
-                                urlForm={`${VOUCHER}/C.NVAP`}
-                            />
-                        </Col>
-                    </Row>
+                    {userVoucherType && this.renderVoucher()}
                 </Col>
                 <Col sm={12}>
                     <div className="dropdown-divider col-12 p-2" />
@@ -218,4 +233,12 @@ class Landing extends Component {
         )
     }
 }
-export default (withTranslation()(withMenu(Landing)));
+
+
+const mapStateToProps = ({ vouchertype }) => {
+    const { userVoucherType } = vouchertype;
+
+    return { userVoucherType };
+};
+
+export default connect(mapStateToProps, { getVoucherTypeByUser })(withTranslation()(withMenu(Landing)));

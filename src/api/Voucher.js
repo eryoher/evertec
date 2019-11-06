@@ -1,8 +1,7 @@
 import Axios from 'axios';
 
 export const getConfigVoucher = async (params) => {
-    //Carga la metada del formulario de voucher    
-    const response = await Axios.get('/Comprobantes/config', { params: params });
+    const response = await Axios.get('/ProcesoDeComprobante', { params });
     return response.data;
 }
 

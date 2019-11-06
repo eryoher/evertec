@@ -32,9 +32,8 @@ class InputDropdown extends Component {
     getconfigField = (id) => {
         const { fields } = this.props;
         let result = {};
-
         fields.forEach(field => {
-            if (field.idcampo == id) {
+            if (field.idCampo.trim() === id) {
                 result = field;
             }
         });

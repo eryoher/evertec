@@ -57,8 +57,8 @@ class ClientFormInput extends Component {
                     inputFormCol={{ sm: 11 }}
                     fields={fields}
                     label={t('client.form.client_branch')}
-                    inputId={'sucursales'}
-                    name={'sucursales'}
+                    inputId={'cliente_Sucursales'}
+                    name={'cliente_Sucursales'}
                     placeholder={t('client.form.insert_client_branch')}
                     styles={{ width: '100%' }}
                     colLabel={"col-sm-2"}
@@ -72,16 +72,16 @@ class ClientFormInput extends Component {
                     inputFormCol={{ sm: 11 }}
                     fields={fields}
                     label={t('client.form.contact')}
-                    inputId={'contacto'}
-                    name={'contacto'}
+                    inputId={'cliente_Contacto'}
+                    name={'cliente_Contacto'}
                     placeholder={t('client.form.insert_contact')}
                     styles={{ width: '100%' }}
                     colLabel={"col-sm-2"}
                     colInput={"col-sm-10"}
                     disable={readOnly}
-                    value={values.contacto}
+                    value={values.cliente_Contacto}
                     onChange={(data) => {
-                        setFieldValue('contacto', data.target.value);
+                        setFieldValue('cliente_Contacto', data.target.value);
                     }}
                 />
                 <Row className={'col-11'} style={{ paddingRight: '0px' }} >
@@ -89,16 +89,16 @@ class ClientFormInput extends Component {
                         inputFormCol={{ sm: 6 }}
                         fields={fields}
                         label={t('client.form.phone')}
-                        inputId={'suc_tel'}
-                        name={'suc_tel'}
+                        inputId={'cliente_Telefono'}
+                        name={'cliente_Telefono'}
                         placeholder={t('client.form.insert_phone')}
                         colLabel={"col-sm-4"}
                         colInput={"col-sm-8"}
                         disable={readOnly}
                         divStyle={{ paddingLeft: '17px' }}
-                        value={values.suc_tel}
+                        value={values.cliente_Telefono}
                         onChange={(data) => {
-                            setFieldValue('suc_tel', data.target.value);
+                            setFieldValue('cliente_Telefono', data.target.value);
                         }}
                     />
 
@@ -106,16 +106,16 @@ class ClientFormInput extends Component {
                         inputFormCol={{ sm: 6, style: { paddingRight: '0px' } }}
                         fields={fields}
                         label={t('client.form.email')}
-                        inputId={'suc_email'}
-                        name={'suc_email'}
+                        inputId={'cliente_email'}
+                        name={'cliente_email'}
                         placeholder={t('client.form.insert_email')}
                         colLabel={"col-sm-4"}
                         colInput={"col-sm-8"}
                         styleLabel={{ textAlign: 'right' }}
                         disable={readOnly}
-                        value={values.suc_email}
+                        value={values.cliente_email}
                         onChange={(data) => {
-                            setFieldValue('suc_email', data.target.value);
+                            setFieldValue('cliente_email', data.target.value);
                         }}
                     />
                 </Row>
@@ -123,16 +123,16 @@ class ClientFormInput extends Component {
                     inputFormCol={{ sm: 11 }}
                     fields={fields}
                     label={t('client.form.address')}
-                    inputId={'suc_address'}
-                    name={'suc_address'}
+                    inputId={'cliente_domicilio'}
+                    name={'cliente_domicilio'}
                     placeholder={t('client.form.insert_address')}
                     styles={{ width: '100%' }}
                     colLabel={"col-sm-2"}
                     colInput={"col-sm-10"}
                     disable={readOnly}
-                    value={values.suc_address}
+                    value={values.cliente_domicilio}
                     onChange={(data) => {
-                        setFieldValue('suc_address', data.target.value);
+                        setFieldValue('cliente_domicilio', data.target.value);
                     }}
                 />
 

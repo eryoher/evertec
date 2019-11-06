@@ -17,8 +17,9 @@ class HeadboardForm extends Component {
     }
 
     componentDidMount = () => {
-        this.props.getConfigVoucher({ cod_proceso: 'p_vtacab', idOperacion: 1 });
-        this.props.getVoucherHead({ idOperacion: 1 });
+        const { idOperacion } = this.props;
+        this.props.getConfigVoucher({ cod_proceso: 'p_vtacab', idOperacion });
+        this.props.getVoucherHead({ idOperacion });
     }
 
     render() {
@@ -43,7 +44,6 @@ class HeadboardForm extends Component {
                             <Col>
                                 <HeadboardFormInput
                                     fields={(config) ? config.campos : null}
-                                    collapse
                                     {...{
                                         values,
                                         handleBlur,

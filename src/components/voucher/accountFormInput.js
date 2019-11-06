@@ -15,8 +15,8 @@ class AccountFormInput extends Component {
                     inputFormCol={{ sm: 11 }}
                     fields={fields}
                     label={t('client.form.obs_current_account')}
-                    inputId={'obs_cc'}
-                    name={'obs_cc'}
+                    inputId={'cliente_Obs_cc'}
+                    name={'cliente_Obs_cc'}
                     placeholder={t('client.form.insert_obs_current_account')}
                     styles={{ width: '100%' }}
                     colLabel={"col-sm-2"}
@@ -24,9 +24,9 @@ class AccountFormInput extends Component {
                     cols={3}
                     rows={3}
                     disable={readOnly}
-                    value={values.obs_cc}
+                    value={values.cliente_Obs_cc}
                     onChange={(data) => {
-                        setFieldValue('obs_cc', data.target.value);
+                        setFieldValue('cliente_Obs_cc', data.target.value);
                     }}
                 />
 
@@ -34,8 +34,8 @@ class AccountFormInput extends Component {
                     inputFormCol={{ sm: 11 }}
                     fields={fields}
                     label={t('client.form.obs_sales')}
-                    inputId={'obs_ventas'}
-                    name={'obs_ventas'}
+                    inputId={'cliente_Obs_vta'}
+                    name={'cliente_Obs_vta'}
                     placeholder={t('client.form.insert_obs_sales')}
                     styles={{ width: '100%' }}
                     colLabel={"col-sm-2"}
@@ -43,9 +43,9 @@ class AccountFormInput extends Component {
                     cols={3}
                     rows={3}
                     disable={readOnly}
-                    value={values.obs_ventas}
+                    value={values.cliente_Obs_vta}
                     onChange={(data) => {
-                        setFieldValue('obs_ventas', data.target.value);
+                        setFieldValue('cliente_Obs_vta', data.target.value);
                     }}
                 />
 
@@ -56,16 +56,16 @@ class AccountFormInput extends Component {
                         fields={fields}
                         label={t('client.form.limit_credit')}
                         type={'number'}
-                        inputId={'credito'}
-                        name={'credito'}
+                        inputId={'cliente_Limcred'}
+                        name={'cliente_Limcred'}
                         placeholder={t('client.form.insert_limit_credit')}
                         colLabel={"col-sm-4"}
                         colInput={"col-sm-8"}
                         divStyle={{ paddingLeft: '17px' }}
                         disable={readOnly}
-                        value={values.credito}
+                        value={values.cliente_Limcred}
                         onChange={(data) => {
-                            setFieldValue('credito', data.target.value);
+                            setFieldValue('cliente_Limcred', data.target.value);
                         }}
                     />
 
@@ -73,16 +73,16 @@ class AccountFormInput extends Component {
                         inputFormCol={{ sm: 6, style: { paddingRight: '0px' } }}
                         fields={fields}
                         label={t('client.form.pendingCredit')}
-                        inputId={'saldo_pend'}
-                        name={'saldo_pend'}
+                        inputId={'cliente_Pendcred'}
+                        name={'cliente_Pendcred'}
                         placeholder={t('client.form.insert_pending_credit')}
                         colLabel={"col-sm-4"}
                         colInput={"col-sm-8"}
                         styleLabel={{ textAlign: 'right', paddingRight: '0px' }}
                         disable={readOnly}
-                        value={values.saldo_pend}
+                        value={values.cliente_Pendcred}
                         onChange={(data) => {
-                            setFieldValue('saldo_pend', data.target.value);
+                            setFieldValue('cliente_Pendcred', data.target.value);
                         }}
                     />
 
@@ -92,16 +92,16 @@ class AccountFormInput extends Component {
                         inputFormCol={{ sm: 6 }}
                         fields={fields}
                         label={t('client.form.balance')}
-                        inputId={'credito_saldo'}
-                        name={'credito_saldo'}
+                        inputId={'cliente_Saldo'}
+                        name={'cliente_Saldo'}
                         placeholder={t('client.form.insert_client_balance')}
                         colLabel={"col-sm-4"}
                         colInput={"col-sm-8"}
                         disable={readOnly}
                         divStyle={{ paddingLeft: '17px' }}
-                        value={values.credito_saldo}
+                        value={values.cliente_Saldo}
                         onChange={(data) => {
-                            setFieldValue('credito_saldo', data.target.value);
+                            setFieldValue('cliente_Saldo', data.target.value);
                         }}
                     />
 

@@ -17,7 +17,7 @@ function rootReducer(state = initialState, action) {
         case GET_CONFIG_VOUCHER:
             return { ...state, config: null }
         case GET_CONFIG_VOUCHER_SUCCESS:
-            return { ...state, config: action.payload.data }
+            return { ...state, config: action.payload }
         case VOUCHER_HEAD_AUTO:
             return { ...state, autodata: [] }
         case VOUCHER_HEAD_AUTO_SUCCESS:

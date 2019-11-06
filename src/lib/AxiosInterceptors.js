@@ -5,7 +5,9 @@ import { showLoader, hideLoader, userSignOut, showMessage } from "actions";
 
 export default function configureAxios(store) {
   // const config = getAppConfiguration();//TODO jfarina grab from store
-  const config = {};
+  const config = {
+    apiURL: 'http://localhost:1337/190.210.181.180:2082'
+  };
 
   Axios.defaults.baseURL = config.apiURL;
   Axios.defaults.timeout = 30000;
@@ -20,7 +22,7 @@ export default function configureAxios(store) {
 
       return config;
     },
-    function(error) {
+    function (error) {
       //Request error
 
       return Promise.reject(error);
@@ -40,7 +42,7 @@ export default function configureAxios(store) {
 
       return response;
     },
-    function(error) {
+    function (error) {
       //Response error
 
       store.dispatch(hideLoader());
@@ -128,7 +130,7 @@ export default function configureAxios(store) {
   if (typeof window !== "undefined") {
     const token = window.localStorage.getItem("token");
     if (token) {
-      Axios.defaults.headers.common["Authorization"] = `${token}`;
+      Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
   }
 }

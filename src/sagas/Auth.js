@@ -36,14 +36,17 @@ function* signInUserRequest({ payload }) {
 
   try {
     const user = yield call(signInUser, payload);
-    localStorage.setItem('user', JSON.stringify(user.data));
-    const voucherType = yield call(getVoucherTypeByUser, user.data);
-    localStorage.setItem('userVoucherType', JSON.stringify(voucherType.data));
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', user.token);
+    Axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+    const voucherType = yield call(getVoucherTypeByUser);
+    localStorage.setItem('userVoucherType', JSON.stringify(voucherType));
 
     yield put(userSignInSuccess(user));
     yield put(getVoucherTypeByUserSuccess(voucherType));
 
   } catch (error) {
+    console.log(error, error)
     if (error.response && error.response.status === 401) {
       yield put(showError('Invalid username or password'));
     } else if (!error.response && error.request && error.request.status === 0) {

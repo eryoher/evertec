@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-export const signInUser = async (user, pass) => {
+export const signInUser = async ({ user, pass }) => {
   const response = await Axios.post('/login', {
     user,
     pass

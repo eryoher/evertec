@@ -12,7 +12,7 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case SIGNIN_USER_SUCCESS:
-      return { ...state, authUser: action.payload.data }
+      return { ...state, authUser: action.payload }
     case SIGNOUT_USER_SUCCESS:
       return { state: undefined }
     case GET_USER_SUCCESS:

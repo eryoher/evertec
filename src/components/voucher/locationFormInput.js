@@ -16,16 +16,16 @@ class LocationFormInput extends Component {
                         inputFormCol={{ sm: 6 }}
                         fields={fields}
                         label={t('client.form.location')}
-                        inputId={'suc_local'}
-                        name={'suc_local'}
+                        inputId={'cliente_Localidad'}
+                        name={'cliente_Localidad'}
                         placeholder={t('client.form.insert_location')}
                         colLabel={"col-sm-4"}
                         colInput={"col-sm-8"}
                         divStyle={{ paddingLeft: '17px' }}
                         disable={readOnly}
-                        value={values.suc_local}
+                        value={values.cliente_Localidad}
                         onChange={(data) => {
-                            setFieldValue('suc_local', data.target.value);
+                            setFieldValue('cliente_Localidad', data.target.value);
                         }}
                     />
 
@@ -33,17 +33,17 @@ class LocationFormInput extends Component {
                         inputFormCol={{ sm: 6, style: { paddingRight: '0px' } }}
                         fields={fields}
                         label={t('client.form.province')}
-                        inputId={'suc_nom_prov'}
-                        name={'suc_nom_prov'}
+                        inputId={'cliente_Provincia'}
+                        name={'cliente_Provincia'}
                         placeholder={t('client.form.insert_province')}
                         colLabel={"col-sm-4"}
                         colInput={"col-sm-8"}
                         divStyle={{ paddingLeft: '23px' }}
                         styleLabel={{ textAlign: 'right' }}
                         disable={readOnly}
-                        value={values.suc_nom_prov}
+                        value={values.cliente_Provincia}
                         onChange={(data) => {
-                            setFieldValue('suc_nom_prov', data.target.value);
+                            setFieldValue('cliente_Provincia', data.target.value);
                         }}
                     />
                 </Row>
@@ -52,16 +52,16 @@ class LocationFormInput extends Component {
                         inputFormCol={{ sm: 6 }}
                         fields={fields}
                         label={t('client.form.postalCode')}
-                        inputId={'suc_cpos'}
-                        name={'suc_cpos'}
+                        inputId={'cliente_Cpos'}
+                        name={'cliente_Cpos'}
                         placeholder={t('client.form.insert_postal_code')}
                         colLabel={"col-sm-4"}
                         colInput={"col-sm-8"}
                         divStyle={{ paddingLeft: '17px' }}
                         disable={readOnly}
-                        value={values.suc_cpos}
+                        value={values.cliente_Cpos}
                         onChange={(data) => {
-                            setFieldValue('suc_cpos', data.target.value);
+                            setFieldValue('cliente_Cpos', data.target.value);
                         }}
                     />
                 </Row>

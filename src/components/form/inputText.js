@@ -113,7 +113,7 @@ class InputText extends Component {
         let result = {};
         if (fields) {
             fields.forEach(field => {
-                if (field.idcampo === id) {
+                if (field.idCampo.trim() === id) {
                     result = field;
                 }
             });

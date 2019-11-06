@@ -129,8 +129,7 @@ class HeadBoardFormInput extends Component {
     }
 
     render() {
-        const { t, errors, touched, values, handleChange, handleBlur, setFieldValue, setFieldTouched, collapse, fields } = this.props;
-        const readOnly = true
+        const { t, errors, touched, values, handleChange, handleBlur, setFieldValue, setFieldTouched, readOnly, collapse, fields } = this.props;
 
         if (!values) {
             return null;
@@ -152,6 +151,8 @@ class HeadBoardFormInput extends Component {
             return ({ id: opt.cod_cond_vta, label: opt.desc_cond_vta })
         }) : []
 
+        console.log(fields);
+
         if (fields) {
             return (
                 <Row>
@@ -165,8 +166,8 @@ class HeadBoardFormInput extends Component {
                         inputFormCol={{ sm: 11 }}
                         fields={fields}
                         label={t('headboard.form.company_branch')}
-                        inputId={'suc_empresa_venta'}
-                        name={'suc_empresa_venta'}
+                        inputId={'Suc_empresa_vta'}
+                        name={'Suc_empresa_vta'}
                         placeholder={t('voucher.headboard.form.insert_company_branch')}
                         styles={{ width: '100%' }}
                         colLabel={"col-sm-2"}
@@ -196,14 +197,14 @@ class HeadBoardFormInput extends Component {
                             inputFormCol={{ sm: 6, style: { paddingRight: '0px' } }}
                             fields={fields}
                             label={t('headboard.form.date')}
-                            inputId={'fecha'}
-                            name={'fecha'}
+                            inputId={'fecha_comp_vta'}
+                            name={'fecha_comp_vta'}
                             placeholder={t('headboard.form.insert_date')}
                             colLabel={"col-sm-4"}
                             colInput={"col-sm-8"}
                             styleLabel={{ textAlign: 'right' }}
                             disable={readOnly}
-                            value={values.fecha}
+                            value={values.fecha_comp_vta}
                             onChange={this.handleChangeDate}
                         />
 
@@ -229,16 +230,16 @@ class HeadBoardFormInput extends Component {
                             lock
                             handleSubmit={this.handleValidateInput}
                             label={t('headboard.form.quotation')}
-                            inputId={'cotiz'}
-                            name={'cotiz'}
+                            inputId={'cotiz_comp_vta'}
+                            name={'cotiz_comp_vta'}
                             placeholder={t('headboard.form.insert_quotation')}
                             colLabel={"col-sm-5"}
                             colInput={"col-sm-7"}
                             styleLabel={{ textAlign: 'right' }}
                             disable={readOnly}
-                            value={values.cotiz}
+                            value={values.cotiz_comp_vta}
                             onChange={(data) => {
-                                setFieldValue('cotiz', data.target.value);
+                                setFieldValue('cotiz_comp_vta', data.target.value);
                             }}
 
                         />

@@ -9,7 +9,7 @@ import AccountFormInput from './accountFormInput'
 import LocationFormInput from './locationFormInput';
 import InputButton from 'components/form/inputButton';
 import { connect } from 'react-redux';
-import { searchClients, getVoucherType, getClient, getConfigVoucher } from '../../actions';
+import { searchClients, getClient, getConfigVoucher, confirmationClient } from '../../actions';
 import { HEADERBOARD } from '../../utils/RoutePath';
 
 
@@ -23,51 +23,62 @@ class VoucherClientForm extends Component {
     }
 
     componentDidMount = () => {
-        this.props.getConfigVoucher({ cod_proceso: 1, idOperacion: 1 })
+        const { idOperacion } = this.props
+        this.props.getConfigVoucher({ cod_proceso: 'p_selcli', idOperacion })
 
     }
 
     componentDidUpdate = (prevProps) => {
-        if (this.props.search !== prevProps.search && this.props.search.length) {
+        if (this.props.search !== prevProps.search && this.props.search && this.props.search.clientes.length) {
             this.setState({ loading: false });
         }
     }
 
+    componentWillUnmount = () => {
+        const { client, idOperacion } = this.props;
+        if (client) {
+            this.props.confirmationClient({ idOperacion, idCliente: client.idCliente })
+        }
+    }
+
     handleSearch = (value) => {
-        this.props.searchClients({ criterio_cliente: value, idOperacion: 1 });
+        const { idOperacion } = this.props
+        this.props.searchClients({ criterio_cliente: value, idOperacion });
         this.setState({ loading: true });
     }
 
     handleSelect = (client) => {
+        const { idOperacion } = this.props;
         const selected = client[0];
-        this.props.getClient({ cod_cliente: selected.Cod_cliente });
+        this.props.getClient({ idCliente: selected.id, idOperacion });
     }
 
     render() {
         const { search, client, config } = this.props;
 
         const defaultInitial = {
-            rsocial: '',
+            cliente_razon_social: '',
             cliente_codigo: '',
-            tipo_resp: '',
-            cuit: '',
-            contacto: '',
-            obs_cc: '',
-            obs_ventas: '',
-            credito: '',
-            saldo_pend: '',
-            credito_saldo: '',
-            suc_email: '',
-            suc_tel: '',
-            suc_address: '',
-            suc_local: '',
-            suc_nom_prov: '',
-            suc_cpos: '',
+            cliente_Tipo_resp: '',
+            cliente_identificador: '',
+            cliente_Contacto: '',
+            cliente_Obs_cc: '',
+            cliente_Obs_vta: '',
+            cliente_Limcred: '',
+            cliente_Pendcred: '',
+            cliente_Saldo: '',
+            cliente_email: '',
+            cliente_Telefono: '',
+            cliente_domicilio: '',
+            cliente_Localidad: '',
+            cliente_Provincia: '',
+            cliente_Cpos: '',
+            cliente_criterio: ''
         }
 
         const initial = (client) ? client : defaultInitial;
-        const optionsSync = (search) ? search.map((opt) => {
-            return ({ id: opt.Cod_cliente, label: opt.Rsocial });
+        const optionsSync = (search) ? search.clientes.map((opt) => {
+            return ({ id: opt.idCliente, label: opt.Rsocial });
         }) : [];
 
         if (config) {
@@ -176,4 +187,4 @@ const mapStateToProps = ({ clients, voucher }) => {
     return { search, client, config };
 };
 
-export default connect(mapStateToProps, { searchClients, getVoucherType, getClient, getConfigVoucher })(withTranslation()(VoucherClientForm));
+export default connect(mapStateToProps, { searchClients, getClient, getConfigVoucher, confirmationClient })(withTranslation()(VoucherClientForm));

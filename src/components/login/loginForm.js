@@ -23,7 +23,8 @@ class LoginForm extends Component {
     }
 
     componentDidMount = () => {
-        const { auth } = this.props
+        const { auth } = this.props;
+        console.log(auth, 'auth')
         if (isLoggedIn(auth)) {
             this.props.history.push(LANDING) //Accion para cuando se carga el form y se encuentra logeado
         }
@@ -33,8 +34,8 @@ class LoginForm extends Component {
         const { t } = this.props;
 
         const initial = {
-            username: '',
-            password: ''
+            user: '',
+            pass: ''
         }
         return (
             <Col sm={12} className={"mb-1"} style={{ margin: '0px auto' }} >
@@ -45,33 +46,33 @@ class LoginForm extends Component {
                         actions.setSubmitting(false);
                     }}
                     validationSchema={Yup.object().shape({
-                        //username: Yup.number().required(t('validation-required', { field: t('Sequence') })).min(0, t('sequence-error-min')),
-                        //password: Yup.string().required(t('validation-required', { field: t('Description') })),                                
+                        //user: Yup.number().required(t('validation-required', { field: t('Sequence') })).min(0, t('sequence-error-min')),
+                        //pass: Yup.string().required(t('validation-required', { field: t('Description') })),
                     })}
                     render={({ values, handleBlur, handleChange, errors, touched, isSubmitting, handleSubmit, setFieldValue, setFieldTouched }) => (
                         <Form onSubmit={handleSubmit} className="voucher-info-form">
                             <Col sm={12}>
                                 <InputGroupText
                                     label={t('login.form.username')}
-                                    inputId={'username'}
-                                    name={'username'}
+                                    inputId={'user'}
+                                    name={'user'}
                                     placeholder={t('login.form.insert_username')}
                                     colLabel={"col-3 offset-3"}
                                     colInput={"col-6"}
                                     beforeInput={<FontAwesomeIcon icon={faUser} />}
                                     styles={{ width: '60%', backgroundColor: '#E8F0FD', border: '#E8F0FD', color: '#000' }}
                                     stylesGroup={{ backgroundColor: '#E8F0FD', border: '#E8F0FD' }}
-                                    value={values.username}
+                                    value={values.user}
                                     onChange={(data) => {
-                                        setFieldValue('username', data.target.value);
+                                        setFieldValue('user', data.target.value);
                                     }}
                                 />
                             </Col>
                             <Col sm={12}>
                                 <InputGroupText
                                     label={t('login.form.password')}
-                                    inputId={'password'}
-                                    name={'password'}
+                                    inputId={'pass'}
+                                    name={'pass'}
                                     type={'password'}
                                     placeholder={t('login.form.insert_password')}
                                     colLabel={"col-3 offset-3"}
@@ -79,9 +80,9 @@ class LoginForm extends Component {
                                     beforeInput={<FontAwesomeIcon icon={faLock} />}
                                     styles={{ width: '60%', backgroundColor: '#E8F0FD', border: '#E8F0FD' }}
                                     stylesGroup={{ backgroundColor: '#E8F0FD', border: '#E8F0FD' }}
-                                    value={values.password}
+                                    value={values.pass}
                                     onChange={(data) => {
-                                        setFieldValue('password', data.target.value);
+                                        setFieldValue('pass', data.target.value);
                                     }}
                                 />
                             </Col>

@@ -19,7 +19,7 @@ class SelectForm extends Component {
     render() {
         const { t, optionsSelect } = this.props
         const initial = {}
-        const inputConfig = [{ idcampo: 'voucherType', label: 'Tipo de comprobante', visible: 1, requerido: 0, editable: 1 }]
+        const inputConfig = [{ idCampo: 'voucherType', label: 'Tipo de comprobante', visible: 1, requerido: 0, editable: 1 }]
 
         return (
             <Col sm={12} className={"mb-1 pt-3"} >

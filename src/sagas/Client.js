@@ -2,27 +2,27 @@ import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 
 
 import {
-    getClient, searchClients, confirmationClient
+  getClient, searchClients, confirmationClient
 } from '../api/Client'
 
-import { 
-    GET_CLIENT, SEARCH_CLIENTS, CONFIRMATION_CLIENT 
+import {
+  GET_CLIENT, SEARCH_CLIENTS, CONFIRMATION_CLIENT
 } from '../constants/ActionsTypes';
 
-import { 
-    getClientSuccess, searchClientsSuccess, confirmationClientSuccess 
+import {
+  getClientSuccess, searchClientsSuccess, confirmationClientSuccess
 } from '../actions/Client';
 
 
-function* getClientRequest() {
+function* getClientRequest({ payload }) {
   try {
-    const client = yield call(getClient);
+    const client = yield call(getClient, payload);
     yield put(getClientSuccess(client));
   } catch (error) {
   }
 }
 
-function* searchClientsRequest({payload}) {
+function* searchClientsRequest({ payload }) {
   try {
     const clients = yield call(searchClients, payload);
     yield put(searchClientsSuccess(clients));
@@ -30,7 +30,7 @@ function* searchClientsRequest({payload}) {
   }
 }
 
-function* confirmationClientRequest({payload}) {
+function* confirmationClientRequest({ payload }) {
   try {
     const confirmation = yield call(confirmationClient, payload);
     yield put(confirmationClientSuccess(confirmation));
