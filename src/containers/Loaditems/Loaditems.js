@@ -15,16 +15,16 @@ class Loaditems extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idComprobante: null
+            idOperacion: null
         }
     }
 
     componentDidMount() {
         const { match } = this.props;
         if (match.params.idComprobante) {
-            const idComprobante = match.params.idComprobante;
-            this.setState({ idComprobante });
-            this.props.getVoucherType({ idComprobante });
+            const idOperacion = match.params.idComprobante;
+            this.setState({ idOperacion });
+            this.props.getVoucherType({ idOperacion });
         }
     }
 
@@ -39,7 +39,7 @@ class Loaditems extends Component {
                     <VoucherBreadCrumbs
                         crumbs={(voucherType) ? voucherType.procesos : []}
                         current={'p_cargaitemvta'}
-                        urlParameter={this.state.idComprobante}
+                        urlParameter={this.state.idOperacion}
                     />
                 </Col>
                 <Col sm={12}>

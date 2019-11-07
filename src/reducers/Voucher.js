@@ -1,4 +1,15 @@
-import { GET_CONFIG_VOUCHER, GET_CONFIG_VOUCHER_SUCCESS, GET_VOUCHER_HEAD, GET_VOUCHER_HEAD_SUCCESS, VOUCHER_HEAD_AUTO, VOUCHER_HEAD_AUTO_SUCCESS, VOUCHER_HEAD_VALIDATE_KEY, VOUCHER_HEAD_VALIDATE_KEY_SUCCESS, VOUCHER_HEAD_CHECK_DATE, VOUCHER_HEAD_CHECK_DATE_SUCCESS } from '../constants/ActionsTypes'
+import {
+    GET_CONFIG_VOUCHER,
+    GET_CONFIG_VOUCHER_SUCCESS,
+    GET_VOUCHER_HEAD,
+    GET_VOUCHER_HEAD_SUCCESS,
+    VOUCHER_HEAD_AUTO,
+    VOUCHER_HEAD_AUTO_SUCCESS,
+    VOUCHER_HEAD_VALIDATE_KEY,
+    VOUCHER_HEAD_VALIDATE_KEY_SUCCESS,
+    VOUCHER_HEAD_CHECK_DATE,
+    VOUCHER_HEAD_CHECK_DATE_SUCCESS
+} from '../constants/ActionsTypes'
 
 const initialState = {
     config: null,
@@ -9,6 +20,7 @@ const initialState = {
 }
 
 function rootReducer(state = initialState, action) {
+
     switch (action.type) {
         case GET_VOUCHER_HEAD:
             return { ...state, headSale: null }

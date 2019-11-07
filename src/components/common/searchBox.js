@@ -34,8 +34,8 @@ class SearchBox extends Component {
         const auoptions = [];
 
         const inputConfig = [
-            { idcampo: 'desc_prod', label: false, visible: 1, requerido: 0, editable: 1 },
-            { idcampo: 'cod_prod', label: false, visible: 1, requerido: 0, editable: 1 },
+            { idCampo: 'desc_prod', label: false, visible: 1, requerido: 0, editable: 1 },
+            { idCampo: 'cod_prod', label: false, visible: 1, requerido: 0, editable: 1 },
         ]
         return (
             <Formik
