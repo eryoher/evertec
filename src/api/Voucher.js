@@ -6,7 +6,7 @@ export const getConfigVoucher = async (params) => {
 }
 
 export const getVoucherHead = async (params) => {
-    const response = await Axios.get('/Comprobantes/ventaCabecera', { params: params });
+    const response = await Axios.get('/vta_cab_compr', { params });
     return response.data;
 }
 
@@ -21,6 +21,6 @@ export const voucherHeadValidatekey = async (params) => {
 }
 
 export const voucherHeadCheckDate = async (params) => {
-    const response = await Axios.get('/vta_cab_compr/fecha_valid', { params: params });
+    const response = await Axios.get('/vta_cab_compr/fecha_valid', { params });
     return response.data;
 }

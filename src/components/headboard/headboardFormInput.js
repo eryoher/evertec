@@ -73,18 +73,18 @@ class HeadBoardFormInput extends Component {
     }
 
     handleValidateInput = (data) => {
-        //Se debe adicionar el idproceso
-        this.props.voucherHeadValidatekey({ idproceso: '123456', clave: data })
+        const { idOperacion } = this.props;
+        this.props.voucherHeadValidatekey({ idOperacion, clave: data })
     }
 
     handleChangeDate = (date) => {
-        //console.log(date, 'esta es la fecha')
+        const { idOperacion } = this.props;
         const { setFieldValue } = this.props;
         setFieldValue('fecha', date);
         const dateFormated = moment(date).format("MM/DD/YYYY");
+        console.log(dateFormated, 'esta es la fecha')
 
-        //Se debe adicionar el idproceso
-        this.props.voucherHeadCheckDate({ idproceso: '123456', fecha: dateFormated });
+        this.props.voucherHeadCheckDate({ idOperacion, fecha: dateFormated });
     }
 
     handleCloseError = () => {
@@ -136,7 +136,7 @@ class HeadBoardFormInput extends Component {
         }
 
         const optionsCompany = (values.suc_empresa) ? values.suc_empresa.map((opt) => {
-            return ({ id: opt.cod_suc, label: opt.nom_suc });
+            return ({ id: opt.Cod_Suc, label: opt.Nom_suc });
         }) : []
 
         const optionsCurrency = (values.moneda) ? values.moneda.map((opt) => {
@@ -144,14 +144,13 @@ class HeadBoardFormInput extends Component {
         }) : []
 
         const optionsSaler = (values.vendedor) ? values.vendedor.map((opt) => {
-            return ({ id: opt.cod_vendedor, label: opt.nom_vendedor })
+            return ({ id: opt.cod_vend, label: opt.nom_vend })
         }) : []
 
         const optionsConditions = (values.cond_comp_vta) ? values.cond_comp_vta.map((opt) => {
             return ({ id: opt.cod_cond_vta, label: opt.desc_cond_vta })
         }) : []
 
-        console.log(fields);
 
         if (fields) {
             return (
@@ -205,7 +204,7 @@ class HeadBoardFormInput extends Component {
                             styleLabel={{ textAlign: 'right' }}
                             disable={readOnly}
                             value={values.fecha_comp_vta}
-                            onChange={this.handleChangeDate}
+                            onBlur={this.handleChangeDate}
                         />
 
                     </Row>

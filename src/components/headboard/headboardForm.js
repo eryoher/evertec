@@ -44,6 +44,7 @@ class HeadboardForm extends Component {
                             <Col>
                                 <HeadboardFormInput
                                     fields={(config) ? config.campos : null}
+                                    idOperacion={this.props.idOperacion}
                                     {...{
                                         values,
                                         handleBlur,

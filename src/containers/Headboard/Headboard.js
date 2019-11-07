@@ -39,9 +39,11 @@ class Headboard extends Component {
                     current={'p_vtacab'}
                     urlParameter={this.state.idOperacion}
                 />
-                {this.state.idOperacion && <HeadboardForm
-                    idOperacion={this.state.idOperacion}
-                />}
+                {this.state.idOperacion &&
+                    <HeadboardForm
+                        idOperacion={this.state.idOperacion}
+                    />
+                }
             </Row>
         )
     }
