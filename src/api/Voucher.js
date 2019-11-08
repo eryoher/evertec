@@ -11,7 +11,8 @@ export const getVoucherHead = async (params) => {
 }
 
 export const voucherHeadAuto = async (params) => {
-    const response = await Axios.get('/vta_cab_compr/atrib_autocompl', params);
+    console.log(params)
+    const response = await Axios.get('/vta_cab_compr/atrib_autocompl', { params });
     return response.data;
 }
 

@@ -23,17 +23,22 @@ class GenericInputForm extends Component {
     }
 
     handleSearch = (value) => {
-        this.props.voucherHeadAuto({ criterio_cliente: value, idOperacion: 1 });
+        const { idOperacion, config } = this.props
+        this.props.voucherHeadAuto({ dato: value, idOperacion, cod_atributo: config.cod_atrib });
         this.setState({ loadingSearch: true });
     }
 
     handleSelect = (selected) => { }
 
+    handleChangeValue = () => {
+
+    }
+
     render() {
         const { config, autodata } = this.props;
 
         const optionsSync = (autodata) ? autodata.map((opt) => {
-            return ({ id: opt.cod_dato, label: opt.desc_dato });
+            return ({ id: opt.cod_dato, label: opt.desc_dato.trim() });
         }) : [];
 
         const inputConfig = [{ idCampo: config.cod_atrib.trim(), label: config.descripcion, visible: 1, requerido: 0, editable: 1 }]
@@ -63,7 +68,7 @@ class GenericInputForm extends Component {
                 />
             )
 
-        } else if (config.valores.length) {
+        } else if (config.valores && config.valores.length) {
 
             const optionsConditions = config.valores.map((opt) => {
                 return ({ id: opt.cod_valor, label: opt.desc_valor })
@@ -72,7 +77,21 @@ class GenericInputForm extends Component {
             return (
                 <InputDropdown
                     options={optionsConditions}
-                    onChange={() => { }}
+                    onChange={(data) => {
+                        let text = ''
+
+                        optionsConditions.forEach(field => {
+                            if (field.id === data.target.value) {
+                                text = field.label;
+                            }
+                        });
+
+                        this.props.handleChange({
+                            cod_atributo: config.cod_atrib,
+                            cod_dato: data.target.value,
+                            desc_dato: text
+                        })
+                    }}
                     {...properties}
                 />
             )
@@ -88,9 +107,10 @@ class GenericInputForm extends Component {
 }
 
 
-const mapStateToProps = ({ voucher }) => {
+const mapStateToProps = ({ voucher, vouchertype }) => {
     const { autodata } = voucher;
-    return { autodata };
+    const { idOperacion } = vouchertype.voucherType;
+    return { autodata, idOperacion };
 
 };
 
