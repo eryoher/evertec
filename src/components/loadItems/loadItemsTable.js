@@ -79,7 +79,7 @@ class LoadItemsTable extends Component {
             }
         });
 
-        if (flag) {
+        if (!flag) {
             this.props.confirmLoadItems(params);
             this.setState({ showError: false });
 
@@ -93,7 +93,8 @@ class LoadItemsTable extends Component {
         let result = {};
         if (search.bonificaciones) {
             search.bonificaciones.forEach(bonif => {
-                result[bonif.cod_bonif] = bonif.desc_bon
+                //console.log(tipo_bonif, 'tipo_bonif')
+                result[bonif.tipo_bonif] = bonif.desc_bon
             });
         }
         return result;
@@ -154,7 +155,7 @@ class LoadItemsTable extends Component {
                 title: (campoId === 'avisos') ? (cell, row, ) => {
                     let title = '';
                     row.Bonificaciones.forEach(bonif => {
-                        title = `${title} ${bonif.desc_bonif}`
+                        title = `${title} ${bonif.desc_bon}`
                     });
 
                     return title;
@@ -170,8 +171,9 @@ class LoadItemsTable extends Component {
                 filterValue: (cell, row) => {
                     const filter = []
                     row.Bonificaciones.forEach(bonif => {
-                        if (bonif.cod_bonif === this.state.filterVal) {
-                            filter.push(bonif.cod_bonif)
+                        if (bonif.tipo_bon === this.state.filterVal) {
+                            //console.log(bonif, '<<>>', this.state.filterVal)
+                            filter.push(bonif.tipo_bon)
                         }
                     });
 
