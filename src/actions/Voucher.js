@@ -9,6 +9,8 @@ import {
     VOUCHER_HEAD_VALIDATE_KEY_SUCCESS,
     VOUCHER_HEAD_CHECK_DATE,
     VOUCHER_HEAD_CHECK_DATE_SUCCESS,
+    VOUCHER_HEAD_CONFIRM,
+    VOUCHER_HEAD_CONFIRM_SUCCESS
 
 } from '../constants/ActionsTypes';
 
@@ -82,6 +84,21 @@ export const voucherHeadCheckDate = (params) => {
 export const voucherHeadCheckDateSuccess = (response) => {
     return {
         type: VOUCHER_HEAD_CHECK_DATE_SUCCESS,
+        payload: response
+    }
+};
+
+
+export const voucherHeadConfirm = (params) => {
+    return {
+        type: VOUCHER_HEAD_CONFIRM,
+        payload: params
+    }
+};
+
+export const voucherHeadConfirmSuccess = (response) => {
+    return {
+        type: VOUCHER_HEAD_CONFIRM_SUCCESS,
         payload: response
     }
 };

@@ -15,6 +15,7 @@ export default class CommonTable extends Component {
 
     render() {
         const { columns, wrapperClasses, bordered, rowStyle, rowClasses, headerClasses, data, selectRow, expandRow, defaultSorted, keyField, paginationOptions } = this.props;
+
         const border = (bordered) ? bordered : false;
         const customkeyField = (keyField) ? keyField : 'id';
         const customPagination = (paginationOptions) ? paginationOptions : {};

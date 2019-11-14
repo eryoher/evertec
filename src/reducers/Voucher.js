@@ -8,7 +8,9 @@ import {
     VOUCHER_HEAD_VALIDATE_KEY,
     VOUCHER_HEAD_VALIDATE_KEY_SUCCESS,
     VOUCHER_HEAD_CHECK_DATE,
-    VOUCHER_HEAD_CHECK_DATE_SUCCESS
+    VOUCHER_HEAD_CHECK_DATE_SUCCESS,
+    VOUCHER_HEAD_CONFIRM,
+    VOUCHER_HEAD_CONFIRM_SUCCESS
 } from '../constants/ActionsTypes'
 
 const initialState = {
@@ -16,7 +18,8 @@ const initialState = {
     headSale: null,
     autodata: [],
     checkKey: null,
-    checkDate: null
+    checkDate: null,
+    voucherHeadConfirm: null
 }
 
 function rootReducer(state = initialState, action) {
@@ -42,6 +45,10 @@ function rootReducer(state = initialState, action) {
             return { ...state, checkDate: null }
         case VOUCHER_HEAD_CHECK_DATE_SUCCESS:
             return { ...state, checkDate: action.payload }
+        case VOUCHER_HEAD_CONFIRM:
+            return { ...state, voucherHeadConfirm: null }
+        case VOUCHER_HEAD_CONFIRM_SUCCESS:
+            return { ...state, voucherHeadConfirm: action.payload }
 
         default:
             return state

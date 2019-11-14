@@ -7,7 +7,7 @@ import { Collapse } from 'reactstrap'
 import CollapseBotton from 'components/common/collapseBoton';
 import GenericInputForm from 'components/form/genericInputForm';
 import InputDate from 'components/form/inputDate';
-import { voucherHeadValidatekey, voucherHeadCheckDate } from '../../actions';
+import { voucherHeadValidatekey, voucherHeadCheckDate, voucherHeadConfirm } from '../../actions';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import NotificationMessage from 'components/common/notificationMessage';
@@ -51,8 +51,9 @@ class HeadBoardFormInput extends Component {
     }
 
     componentWillUnmount = () => {
-        const { formData } = this.props.values;
-        console.log(formData, 'los valores')
+        const { idOperacion, values } = this.props;
+        const { formData } = values;
+        this.props.voucherHeadConfirm({ ...formData, idOperacion })
     }
 
     setError = (error) => {
@@ -74,7 +75,6 @@ class HeadBoardFormInput extends Component {
             if (currency.cod_moneda === code) {
                 setFieldValue('formData.cotiz_comp_vta', currency.cotiz)
                 setFieldValue('formData.mon_comp_vta', code)
-
             }
         });
     }
@@ -94,7 +94,24 @@ class HeadBoardFormInput extends Component {
     }
 
     handleChangeGeneric = (data) => {
-        console.log('generic', data) /// aca voy
+        const { values, setFieldValue } = this.props;
+        const { formData } = values;
+
+        let generic = (formData.atrib_comp_vta) ? formData.atrib_comp_vta : [];
+        let ban = true;
+
+        generic.forEach((field, index) => {
+            if (field.cod_atributo === data.cod_atributo) {
+                generic[index] = data; //Editando
+                ban = false;
+            }
+        })
+
+        if (ban) {
+            generic.push(data) //La primera vez
+        }
+
+        setFieldValue('formData.atrib_comp_vta', generic);
     }
 
     handleCloseError = () => {
@@ -249,7 +266,7 @@ class HeadBoardFormInput extends Component {
                             colInput={"col-sm-7"}
                             styleLabel={{ textAlign: 'right' }}
                             disable={readOnly}
-                            value={values.cotiz_comp_vta}
+                            value={(values.formData) ? values.formData.cotiz_comp_vta : ''}
                             onChange={(data) => {
                                 setFieldValue('formData.cotiz_comp_vta', data.target.value);
                             }}
@@ -331,4 +348,4 @@ const mapStateToProps = ({ voucher }) => {
 };
 
 
-export default connect(mapStateToProps, { voucherHeadValidatekey, voucherHeadCheckDate })(withTranslation()(HeadBoardFormInput));
+export default connect(mapStateToProps, { voucherHeadValidatekey, voucherHeadCheckDate, voucherHeadConfirm })(withTranslation()(HeadBoardFormInput));

@@ -43,10 +43,11 @@ class Loaditems extends Component {
                     />
                 </Col>
                 <Col sm={12}>
-                    <LoadItemsTable
+                    {this.state.idOperacion && <LoadItemsTable
                         searchBox
                         divClass={"mt-1"}
-                    />
+                        idOperacion={this.state.idOperacion}
+                    />}
                 </Col>
                 <Col sm={1} style={{ textAlign: 'left', paddingLeft: '2rem' }} className={"mt-2"} >
                     <InputButton

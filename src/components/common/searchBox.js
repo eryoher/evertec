@@ -16,17 +16,22 @@ class SearchBox extends Component {
         super(props);
         this.state = {
             descProd: '',
-            codProd: ''
+            codProd: '',
+            stock: false
         }
     }
 
     handleSearch = () => {
-        const { descProd, codProd } = this.state;
-        this.props.searchProducts({ desc_prod: descProd, cod_prod: codProd });
+        const { descProd, codProd, stock } = this.state;
+        this.props.searchProducts({ desc_prod: descProd, cod_prod: codProd, page_number: 1, page_size: 10, con_stock: stock });
+    }
+
+    handleOnChangeCheckbox = (event) => {
+        this.setState({ stock: event.target.checked })
     }
 
     handleSelect = (selected) => {
-        console.log(selected, 'cuando seleccion')
+        // console.log(selected, 'cuando seleccion')
     }
 
     render() {
@@ -43,6 +48,8 @@ class SearchBox extends Component {
                     this.handleSearch();
 
                 }}
+                initialValues={{ ...this.state }}
+
                 enableReinitialize={true}
                 render={({ values, handleBlur, handleChange, errors, touched, isSubmitting, handleSubmit, setFieldValue, setFieldTouched }) => (
                     <Form onSubmit={handleSubmit} className="voucher-info-form col-12">
@@ -82,7 +89,10 @@ class SearchBox extends Component {
                                 }}
                             />
                             <Col sm={1} className={"pt-1"}>
-                                <input type="checkbox" className={"form-check-input"} value="1" /> <label className={"form-check-label pt-1"}>Con Stock</label>
+                                <input type="checkbox" onChange={this.handleOnChangeCheckbox} className={"form-check-input"} value="1" />
+                                <label className={"form-check-label pt-1"}>
+                                    Con Stock
+                                </label>
                             </Col>
                             <Col sm={1} className={"text-left"}>
                                 <Button style={{ color: '#000', backgroundColor: '#fff', borderColor: '#fff' }} type={"submit"} > <FontAwesomeIcon icon={faSearch} /></Button>

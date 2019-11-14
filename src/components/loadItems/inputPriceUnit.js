@@ -32,15 +32,16 @@ class InputPriceUnit extends Component {
 
     handleSubmit = (selectPrice) => {
         const { row } = this.props;
-        const params = { niprod: row.niprod, idcampo: 'precio_unit', value: selectPrice };
+        const params = { niprod: row.niprod, idCampo: 'pcio_unit', value: selectPrice };
         const newPrice = (parseFloat(row.cantidad) * parseFloat(selectPrice)) / parseFloat(row.base_v);
-        const paramsNeto = { niprod: row.niprod, idcampo: 'neto', value: newPrice.toString() }
-        this.props.setData([params]);
-        this.props.setData([paramsNeto]);
+        const paramsNeto = { niprod: row.niprod, idCampo: 'neto', value: newPrice.toString() }
+        this.props.setData([params, paramsNeto]);
+        console.log(params)
+        this.handleCancelModal();
     }
 
     render() {
-        const { optionsInput, row, fieldCant, calSubTotal } = this.props;
+        const { optionsInput, row, fieldCant, calSubTotal, idOperacion } = this.props;
         const cantField = (fieldCant) ? fieldCant : 'cantidad';
         return (
             <Row>
@@ -52,20 +53,20 @@ class InputPriceUnit extends Component {
                         const customValue = (value) ? parseFloat(value.split(',').join('.')) : 0;
                         const customCantidad = (row[cantField]) ? parseFloat(row[cantField]) : 0;
                         const newPrice = (customCantidad * customValue) / parseFloat(row.base_v);
-                        const params = { niprod: row.niprod, idcampo: 'neto', value: newPrice.toString() };
+                        const params = { niprod: row.niprod, idCampo: 'neto', value: newPrice.toString() };
                         if (calSubTotal) {
                             calSubTotal({
-                                "IdOperacion": 12345,
+                                "idOperacion": idOperacion,
                                 "nimovcli": row.nimovcli,
                                 "nitem": row.nitem,
                                 "niprod": row.niprod,
                                 "cod_unid": row.cod_unid,
                                 "cant_afec": row[cantField],
-                                "precio_unit": value,
+                                "pcio_unit": value,
                                 "neto": newPrice
                             })
                         }
-                        this.props.setData([params, { niprod: row.niprod, idcampo: 'precio_unit', value: value }]);
+                        this.props.setData([params, { niprod: row.niprod, idCampo: 'pcio_unit', value: value }]);
                         this.props.setInputFocus({ input: 'neto', rowId: row.niprod })
                     }}
                     handleEnterKey={() => this.props.handleFocus(row.niprod)}

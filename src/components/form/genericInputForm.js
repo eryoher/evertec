@@ -28,11 +28,17 @@ class GenericInputForm extends Component {
         this.setState({ loadingSearch: true });
     }
 
-    handleSelect = (selected) => { }
+    handleSelect = (selected) => {
+        const { config } = this.props;
+        const value = selected[0];
 
-    handleChangeValue = () => {
-
+        this.props.handleChange({
+            cod_atributo: config.cod_atrib,
+            desc_dato: value.id.trim(),
+            //desc_dato: value.label
+        })
     }
+
 
     render() {
         const { config, autodata } = this.props;
@@ -64,7 +70,6 @@ class GenericInputForm extends Component {
                     handleLoading={this.state.loadingSearch}
                     handleSelect={this.handleSelect}
                     labelKey={"label"}
-
                 />
             )
 
@@ -99,6 +104,12 @@ class GenericInputForm extends Component {
             return (
                 <InputText
                     {...properties}
+                    onChange={data => {
+                        this.props.handleChange({
+                            cod_atributo: config.cod_atrib,
+                            desc_dato: data,
+                        })
+                    }}
                 />
             )
         }

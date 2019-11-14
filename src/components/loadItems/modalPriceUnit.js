@@ -7,7 +7,7 @@ export default class ModalPriceUnit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputValue: this.props.row.precio_unit
+            inputValue: this.props.row.pcio_unit
         }
     }
 

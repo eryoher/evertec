@@ -22,24 +22,26 @@ const initialState = {
     productsCart: null,
     focusInput: null,
     updateCant: false,
-    productsInvol: null
+    productsInvol: null,
+    searchParameters: null
 }
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case SEARCH_PRODUCTS:
-            return { ...state, search: [], productsUpdate: null }
+            return { ...state, searchParameters: action.payload, search: [], productsUpdate: null }
         case SEARCH_PRODUCTS_SUCCESS:
-            return { ...state, search: action.payload.data }
+            return { ...state, search: action.payload }
         case GET_PRICE_BY_PRODUCT:
             return { ...state, price: null, paramsPrice: action.payload, updateCant: false }
         case GET_PRICE_BY_PRODUCT_SUCCESS:
-            const price = action.payload.data;
+            const price = action.payload;
             const { paramsPrice } = state;
+
             let updateState = {
                 ...state,
                 productsUpdate: [
-                    ...state.search.Productos,
+                    ...state.search.productos,
                 ],
                 price,
                 updateCant: true
@@ -48,7 +50,7 @@ function rootReducer(state = initialState, action) {
             if (updateState.productsUpdate) {
                 updateState.productsUpdate.forEach(prd => {
                     if (prd.niprod === paramsPrice.Idproducto) {
-                        prd.precio_unit = price.prod_pcio_vta
+                        prd.pcio_unit = price.prod_pcio_vta
                         if (paramsPrice.cantidad && parseInt(paramsPrice.cantidad) > 0) {
                             prd.neto = (parseFloat(price.prod_pcio_vta) * parseInt(paramsPrice.cantidad)).toString();
                             prd.cantidad = parseInt(paramsPrice.cantidad);
@@ -71,14 +73,15 @@ function rootReducer(state = initialState, action) {
             let createState = {
                 ...state,
                 productsUpdate: [
-                    ...state.search.Productos,
+                    ...state.search.productos,
                 ]
             }
+
             if (createState.productsUpdate) {
                 createState.productsUpdate.forEach(prd => {
                     paramsArray.forEach(params => {
                         if (prd.niprod === params.niprod) {
-                            prd[params.idcampo] = params.value
+                            prd[params.idCampo] = params.value
                         }
                     });
                 });

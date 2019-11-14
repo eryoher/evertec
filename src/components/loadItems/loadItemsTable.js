@@ -13,7 +13,7 @@ import SearchBox from 'components/common/searchBox';
 import { selectFilter, Comparator } from 'react-bootstrap-table2-filter';
 import PopupImage from 'components/common/popupImage';
 import { connect } from 'react-redux';
-import { getConfigVoucher, setTableDataProducts, getPriceByProduct, getLoadItems } from '../../actions';
+import { getConfigVoucher, setTableDataProducts, getPriceByProduct, confirmLoadItems, searchProducts } from '../../actions';
 import InputDropdown from 'components/form/inputDropdown';
 import InputPriceUnit from './inputPriceUnit';
 import { validateField } from 'lib/FieldValidations';
@@ -36,7 +36,8 @@ class LoadItemsTable extends Component {
     }
 
     componentDidMount = () => {
-        this.props.getConfigVoucher({ cod_proceso: 'P_CargaItemenVentas', idOperacion: 1 });
+        const { idOperacion } = this.props;
+        this.props.getConfigVoucher({ cod_proceso: 'p_cargaitemvta', idOperacion });
     }
 
     handleCloseError = () => {
@@ -53,24 +54,25 @@ class LoadItemsTable extends Component {
     }
 
     handleAddToCart = (row) => {
-        const { config, t } = this.props;
+        const { config, t, idOperacion } = this.props;
         const message = [];
         const params = {
-            idOperacion: 221223, //Falta idoperacion
-            niprod: row.niprod,
-            /*cod_unid: row.unid_v,
+            idOperacion,
+            Niprod: row.niprod,
+            cod_unid: row.cod_unid,
             cantidad: row.cantidad,
-            precio_unit: row.precio_unit,
+            pcio_unit: row.pcio_unit,
             neto: row.neto,
-            fecha_entrega: row.fec_entrega*/ //Se comenta temporal hasta usar servicios reales.
+            fecha_entrega: row.fec_entrega
         }
 
         let flag = true;
 
         config.campos.forEach(field => {
             if (parseInt(field.requerido)) {
-                if (!validateField(row[field.idcampo], field.valid)) {
-                    this.props.setTableDataProducts([{ niprod: row.niprod, idcampo: field.idcampo, value: 'error_input' }]);
+                const campoId = field.idCampo.trim();
+                if (!validateField(row[campoId], field.valid)) {
+                    this.props.setTableDataProducts([{ niprod: row.niprod, idCampo: campoId, value: 'error_input' }]);
                     message.push(`El campo ${field.label} es requerido.`);
                     flag = false;
                 }
@@ -78,7 +80,7 @@ class LoadItemsTable extends Component {
         });
 
         if (flag) {
-            this.props.getLoadItems(params);
+            this.props.confirmLoadItems(params);
             this.setState({ showError: false });
 
         } else {
@@ -91,14 +93,14 @@ class LoadItemsTable extends Component {
         let result = {};
         if (search.bonificaciones) {
             search.bonificaciones.forEach(bonif => {
-                result[bonif.cod_bonif] = bonif.desc_bonif
+                result[bonif.cod_bonif] = bonif.desc_bon
             });
         }
         return result;
     }
 
     getStyleColumn = (field) => {
-        const idField = field.idcampo;
+        const idField = field.idCampo.trim();
 
         let style = {};
 
@@ -115,13 +117,13 @@ class LoadItemsTable extends Component {
             case 'ind_stock':
                 style = { width: '3%' }
                 break;
-            case 'precio_unit':
+            case 'pcio_unit':
                 style = { width: '13%' }
                 break;
             case 'neto':
                 style = { width: '13%' }
                 break;
-            case 'unid_v':
+            case 'cod_unid':
                 style = { width: '15%' }
                 break;
             default:
@@ -130,7 +132,7 @@ class LoadItemsTable extends Component {
 
         }
 
-        if (field.requerido === '1') {
+        if (field.requerido) {
             style.color = 'red';
         }
 
@@ -140,14 +142,16 @@ class LoadItemsTable extends Component {
     getColumns = () => {
         const { config, theme } = this.props;
         const rows = config.campos.map((field) => {
+            const campoId = field.idCampo.trim();
+
             return {
-                dataField: field.idcampo,
+                dataField: campoId,
                 text: (field.label) ? field.label : '',
                 align: 'center',
                 headerAlign: 'center',
                 headerStyle: this.getStyleColumn(field),
                 hidden: !field.visible,
-                title: (field.idcampo === 'avisos') ? (cell, row, ) => {
+                title: (campoId === 'avisos') ? (cell, row, ) => {
                     let title = '';
                     row.Bonificaciones.forEach(bonif => {
                         title = `${title} ${bonif.desc_bonif}`
@@ -156,7 +160,7 @@ class LoadItemsTable extends Component {
                     return title;
                 } : null,
 
-                filter: (field.idcampo === 'avisos') ? selectFilter({
+                filter: (campoId === 'avisos') ? selectFilter({
                     options: this.getOptionsDeal(),
                     className: `${theme.inputFilter} mt-2`,
                     placeholder: 'Oferta',
@@ -173,7 +177,7 @@ class LoadItemsTable extends Component {
 
                     return filter;
                 },
-                formatter: (field.editable || field.idcampo === 'avisos' || field.idcampo === 'ind_stock') ? ((cell, row, rowIndex) => {
+                formatter: (field.editable || campoId === 'avisos' || campoId === 'ind_stock') ? ((cell, row, rowIndex) => {
                     return this.renderFormat(field, cell, row)
                 }) : null
             }
@@ -212,30 +216,30 @@ class LoadItemsTable extends Component {
     }
 
     renderFormat = (field, value, row) => {
-
+        const campoId = field.idCampo.trim();
         let result = null;
         const inputError = (value === 'error_input') ? true : false;
         const customValue = (value === 'error_input') ? '' : value;
-        const inputStyle = (field.idcampo === 'cantidad' || field.idcampo === 'precio_unit' || field.idcampo === 'neto') ? { textAlign: 'right' } : {}
+        const inputStyle = (campoId === 'cantidad' || campoId === 'pcio_unit' || campoId === 'neto') ? { textAlign: 'right' } : {}
         const { focusInput } = this.props;
 
-        if (field.editable && !this.inputRefs[field.idcampo]) {
-            this.inputRefs[field.idcampo] = {}
+        if (field.editable && !this.inputRefs[campoId]) {
+            this.inputRefs[campoId] = {}
         }
 
-        if (field.editable && !this.inputRefs[field.idcampo][row.niprod]) {
+        if (field.editable && !this.inputRefs[campoId][row.niprod]) {
             const customRef = React.createRef();
-            this.inputRefs[field.idcampo][row.niprod] = customRef
+            this.inputRefs[campoId][row.niprod] = customRef
         }
 
         const optionsInput = {
-            fwRef: (field.editable) ? this.inputRefs[field.idcampo][row.id] : null,
+            fwRef: (field.editable) ? this.inputRefs[campoId][row.id] : null,
             inputFormCol: { sm: 12 },
             fields: [{ ...field, label: false }],
             label: false,
-            inputId: `${field.idcampo}`,
-            id: `${field.idcampo}_${row.niprod}`,
-            name: `${field.idcampo}_${row.niprod}`,
+            inputId: `${campoId}`,
+            id: `${campoId}_${row.niprod}`,
+            name: `${campoId}_${row.niprod}`,
             colLabel: "col-sm-4",
             colInput: "col-sm-8",
             divStyle: { paddingLeft: '17px' },
@@ -247,9 +251,9 @@ class LoadItemsTable extends Component {
             onChange: () => { }
         }
 
-        if (field.idcampo === 'avisos') {
+        if (campoId === 'avisos') {
             result = (row.Bonificaciones.length) ? <FontAwesomeIcon icon={faPercent} /> : null
-        } else if (field.idcampo === 'unid_v') {
+        } else if (campoId === 'cod_unid') {
             const selectOptions = (row.presentaciones) ? row.presentaciones.map(pre => {
                 return { id: pre.cod_pres, label: pre.desc_pres }
             }) : []
@@ -259,15 +263,16 @@ class LoadItemsTable extends Component {
                     options={selectOptions}
                     onChange={(data) => {
                         const value = data.target.value;
-                        this.props.setTableDataProducts([{ niprod: row.niprod, idcampo: field.idcampo, value }]);
+                        this.props.setTableDataProducts([{ niprod: row.niprod, idCampo: campoId, value }]);
                     }}
                 />
             )
-        } else if (field.idcampo === 'ind_stock') {
+        } else if (campoId === 'ind_stock') {
             result = (<DisplayLight semaforo={value} />)
-        } else if (field.idcampo === 'precio_unit') {
+        } else if (campoId === 'pcio_unit') {
             result = (
                 <InputPriceUnit
+                    idOperacion={this.props.idOperacion}
                     optionsInput={optionsInput}
                     setData={this.props.setTableDataProducts}
                     handleFocus={(rowId) => {
@@ -282,45 +287,44 @@ class LoadItemsTable extends Component {
                 />
             )
         } else {
-
             result = (
                 <InputText
                     {...optionsInput}
                     autoFocus={(focusInput && focusInput.input === 'neto' && focusInput.rowId === row.niprod) ? true : false}
                     handleEnterKey={(e, value) => {
-                        if (field.idcampo === 'cantidad') {
+                        if (campoId === 'cantidad') {
                             // Focus next input            
                             this.props.getPriceByProduct({
-                                "IdOperacion": 123456, //Falta adicionar id Operacion.
+                                "idOperacion": this.props.idOperacion,
                                 "Idproducto": row.niprod,
                                 "cantidad": value,
-                                "unid_vta": row.unid_v
+                                //"unid_vta": row.cod_unid
                             });
-                            this.handleSetFocus('precio_unit', row.niprod);
-                        } else if (field.idcampo === 'neto') {
+                            this.handleSetFocus('pcio_unit', row.niprod);
+                        } else if (campoId === 'neto') {
                             this.handleSetFocus('fec_entrega', row.niprod);
                         }
                         return true;
                     }}
                     onBlur={(value) => {
-                        if (field.idcampo === 'cantidad') {
+                        if (campoId === 'cantidad') {
                             this.props.getPriceByProduct({
-                                "IdOperacion": 123456, //Falta adicionar id Operacion.
+                                "idOperacion": this.props.idOperacion,
                                 "Idproducto": row.niprod,
                                 "cantidad": value,
-                                "unid_vta": row.unid_v
+                                //"unid_vta": row.cod_unid
                             });
 
-                        } else if (field.idcampo === 'neto') {
+                        } else if (campoId === 'neto') {
                             const newValue = (value) ? parseFloat(value.split(',').join('.')) : 0;
                             const cantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
 
                             const newPrice = (parseFloat(row.base_v) * newValue) / cantidad;
-                            const params = { niprod: row.niprod, idcampo: 'precio_unit', value: newPrice.toString() }
-                            const paramsNeto = { niprod: row.niprod, idcampo: 'neto', value: newValue.toString() }
+                            const params = { niprod: row.niprod, idCampo: 'pcio_unit', value: newPrice.toString() }
+                            const paramsNeto = { niprod: row.niprod, idCampo: 'neto', value: newValue.toString() }
                             this.props.setTableDataProducts([params, paramsNeto]);
                         } else {
-                            const params = { niprod: row.niprod, idcampo: field.idcampo, value };
+                            const params = { niprod: row.niprod, idCampo: campoId, value };
                             this.props.setTableDataProducts([params]);
                         }
                     }}
@@ -335,12 +339,13 @@ class LoadItemsTable extends Component {
 
     renderExpandRow = (row) => {
         const cols = [];
+
         let result;
-        if (row.Atributos && row.Atributos.length) {
-            row.Atributos.forEach((atrb, index) => {
+        if (row && row.atributos && row.atributos.length) {
+            row.atributos.forEach((atrb, index) => {
                 cols.push(
                     <Col key={index} className={"col-6 p-2"}>
-                        <b>{`${atrb.desc_atributo}:`}</b> {atrb.desc_dato}
+                        <b>{`${atrb.desc_atrib}:`}</b> {atrb.desc_dato}
                     </Col>
                 )
             });
@@ -358,9 +363,9 @@ class LoadItemsTable extends Component {
     getNoexpandRows = () => {
         const { search } = this.props;
         const result = []
-        if (search && search.Productos) {
-            search.Productos.forEach(prd => {
-                if (!prd.Atributos || prd.Atributos.length === 0) {
+        if (search && search.productos) {
+            search.productos.forEach(prd => {
+                if (!prd.atributos || prd.atributos.length === 0) {
                     result.push(parseInt(prd.niprod));
                 }
             });
@@ -380,34 +385,38 @@ class LoadItemsTable extends Component {
 
     }
 
-    render() {
-        const { theme, t, searchBox, divClass, config, search, productsUpdate } = this.props;
-        const tableColumns = (config && search) ? this.getColumns() : [];
+    getExpandRow = (row) => {
         const noExpand = this.getNoexpandRows();
+        return (
+            {
+                renderer: row => this.renderExpandRow(row),
+                showExpandColumn: true,
+                nonExpandable: noExpand,
+                expandByColumnOnly: true,
+                expandHeaderColumnRenderer: ({ isAnyExpands }) => {
+                    return <CollapseBotton status={isAnyExpands} />
+                },
+                expandColumnRenderer: ({ expanded, rowKey }) => {
+                    if (!this.validateKey(rowKey, noExpand)) {
+                        return <CollapseBotton status={expanded} />
+                    }
+                },
+            }
+        )
+    }
 
-        const expandRow = {
-            renderer: row => this.renderExpandRow(row),
-            showExpandColumn: true,
-            nonExpandable: noExpand,
-            expandByColumnOnly: true,
-            expandHeaderColumnRenderer: ({ isAnyExpands }) => {
-                return <CollapseBotton status={isAnyExpands} />
-            },
-            expandColumnRenderer: ({ expanded, rowKey }) => {
-                if (!this.validateKey(rowKey, noExpand)) {
-                    return <CollapseBotton status={expanded} />
-                }
-            },
-        };
+    render() {
+        const { theme, searchBox, divClass, config, search, productsUpdate, searchParameters } = this.props;
+        const tableColumns = (config && search) ? this.getColumns() : [];
 
-        const rowData = (search.Productos) ? search.Productos.map((prod) => {
+        const rowData = (search.productos) ? search.productos.map((prod) => {
             let result = {};
             if (productsUpdate) {
                 productsUpdate.forEach(update => {
                     if (update.niprod === prod.niprod) {
                         result = {
                             ...update,
-                            id: prod.niprod
+                            //       id: prod.niprod
                         }
                     }
                 });
@@ -415,13 +424,29 @@ class LoadItemsTable extends Component {
             } else {
                 result = {
                     ...prod,
-                    id: prod.niprod
+                    // id: prod.niprod
                 }
             }
 
             return result;
 
         }) : null;
+
+
+
+        const options = (search.productos) ? {
+            pageStartIndex: 1,
+            page: search.page_number,
+            sizePerPage: search.page_size,
+            totalSize: search.total_count,
+            onPageChange: (page, sizePerPage) => {
+                this.props.searchProducts({ ...searchParameters, page_number: page, page_size: sizePerPage })
+            },
+            onSizePerPageChange: (sizePerPage, page) => {
+                console.log(page)
+                this.props.searchProducts({ ...searchParameters, page_number: page, page_size: sizePerPage })
+            }
+        } : {}
 
         return (
             <Row className={divClass}>
@@ -433,14 +458,16 @@ class LoadItemsTable extends Component {
                     />
                 </Col>
                 {searchBox && <SearchBox />}
-                {config && rowData &&
+                {rowData &&
                     <Col className={`${divClass} col-12`}>
                         <CommonTable
                             columns={tableColumns}
                             data={rowData}
+                            keyField={'niprod'}
                             rowClasses={theme.tableRow}
                             headerClasses={theme.tableHeader}
-                            expandRow={expandRow}
+                            expandRow={this.getExpandRow()}
+                            paginationOptions={options}
                         />
                     </Col>}
             </Row>
@@ -450,10 +477,10 @@ class LoadItemsTable extends Component {
 
 const mapStateToProps = ({ voucher, product }) => {
     const { config } = voucher;
-    const { search, productsUpdate, focusInput, updateCant } = product
-    return { config, search, productsUpdate, focusInput, updateCant };
+    const { search, searchParameters, productsUpdate, focusInput, updateCant } = product
+    return { config, search, searchParameters, productsUpdate, focusInput, updateCant };
 };
 
-const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataProducts, getPriceByProduct, getLoadItems })(LoadItemsTable);
+const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataProducts, getPriceByProduct, confirmLoadItems, searchProducts })(LoadItemsTable);
 
 export default themr('LoadItemsTableStyles', styles)(withTranslation()(connectForm));
