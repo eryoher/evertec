@@ -79,7 +79,7 @@ class LoadItemsTable extends Component {
             }
         });
 
-        if (!flag) {
+        if (flag) {
             this.props.confirmLoadItems(params);
             this.setState({ showError: false });
 

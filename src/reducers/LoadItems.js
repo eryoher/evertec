@@ -19,7 +19,12 @@ function rootReducer(state = initialState, action) {
         case CONFIRM_LOAD_ITEMS:
             return { ...state, confirmItem: null }
         case CONFIRM_LOAD_ITEMS_SUCCESS:
-            return { ...state, confirmItem: action.payload }
+            const itemsCart = {
+                total_importe: action.payload.total_importe,
+                total_item: action.payload.total_item,
+                total_cant: action.payload.total_cant
+            }
+            return { ...state, confirmItem: action.payload, itemsCart }
         default:
             return state
     }
