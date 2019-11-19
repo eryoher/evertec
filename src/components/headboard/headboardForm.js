@@ -24,9 +24,9 @@ class HeadboardForm extends Component {
 
     render() {
         const { config, headSale } = this.props;
-        const defaultInitial = { Titulo_comp_vta: '', fecha: '', formData: { cotiz_comp_vta: '' } };
+        const defaultInitial = { Titulo_comp_vta: '', fecha: '', formData: { cotiz_comp_vta: '', fecha_comp_vta: '' } };
         const initial = (headSale) ? headSale : defaultInitial;
-
+        console.log(initial)
         return (
             <Col sm={12}>
                 <Formik

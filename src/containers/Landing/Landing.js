@@ -77,11 +77,14 @@ class Landing extends Component {
 
         userVoucherType.forEach(voucher => {
             result.push(
-                <Col sm={1} key={voucher.nioperacion} className={"m-2"}>
+                <Col sm={2} key={voucher.nioperacion} className={"m-2 text-center"}>
                     <InputButton
                         valueButton={<FontAwesomeIcon icon={faPlus} />}
                         urlForm={`${VOUCHER}/${voucher.nioperacion}`}
                     />
+                    <div className={'text-center pt-1'}>
+                        <b>{voucher.descrip_comprob}</b>
+                    </div>
                 </Col>
             )
         });

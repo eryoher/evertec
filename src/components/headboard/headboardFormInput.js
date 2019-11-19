@@ -43,7 +43,7 @@ class HeadBoardFormInput extends Component {
         }
 
         if (!prevProps.checkDate && checkDate) {
-            if (checkDate.codigo !== 200) {
+            if (checkDate.codigo && checkDate.codigo !== 200) {
                 setFieldValue('date', new Date());
                 this.setError(checkDate);
             }
@@ -87,7 +87,8 @@ class HeadBoardFormInput extends Component {
     handleChangeDate = (date) => {
         const { idOperacion } = this.props;
         const { setFieldValue } = this.props;
-        const dateFormated = moment(date).format("MM/DD/YYYY");
+        const dateFormated = moment(date).format("DD/MM/YYYY");
+
         this.props.voucherHeadCheckDate({ idOperacion, fecha: dateFormated });
         setFieldValue('formData.fecha_comp_vta', date);
 
@@ -233,8 +234,8 @@ class HeadBoardFormInput extends Component {
                             colInput={"col-sm-8"}
                             styleLabel={{ textAlign: 'right' }}
                             disable={readOnly}
-                            value={values.fecha_comp_vta}
-                            onBlur={this.handleChangeDate}
+                            value={(values.formData) ? values.formData.fecha_comp_vta : ''}
+                            onChange={this.handleChangeDate}
                         />
 
                     </Row>

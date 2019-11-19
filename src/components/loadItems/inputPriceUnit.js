@@ -45,7 +45,7 @@ class InputPriceUnit extends Component {
         const cantField = (fieldCant) ? fieldCant : 'cantidad';
         return (
             <Row>
-                <InputText
+                {false && <InputText
                     {...optionsInput}
                     inputFormCol={{ sm: 10 }}
                     divStyle={{ paddingRight: '5px', paddingLeft: "17px" }}
@@ -70,7 +70,7 @@ class InputPriceUnit extends Component {
                         this.props.setInputFocus({ input: 'neto', rowId: row.niprod })
                     }}
                     handleEnterKey={() => this.props.handleFocus(row.niprod)}
-                />
+                />}
                 <Col sm={1} style={{ paddingLeft: '0px', paddingTop: '8%' }} >
                     <span style={{ cursor: 'pointer' }} onClick={this.openModal} > ...</span>
                 </Col>

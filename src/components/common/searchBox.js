@@ -23,7 +23,8 @@ class SearchBox extends Component {
 
     handleSearch = () => {
         const { descProd, codProd, stock } = this.state;
-        this.props.searchProducts({ desc_prod: descProd, cod_prod: codProd, page_number: 1, page_size: 10, con_stock: stock });
+        const { idOperacion } = this.props
+        this.props.searchProducts({ idOperacion, desc_prod: descProd, cod_prod: codProd, page_number: 1, page_size: 10, con_stock: stock });
     }
 
     handleOnChangeCheckbox = (event) => {
