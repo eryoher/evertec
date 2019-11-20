@@ -425,6 +425,10 @@ class LoadItemsTable extends Component {
         )
     }
 
+    handleOnTableChange = (type, pagination) => {
+        console.log(type, pagination)
+    }
+
     render() {
         const { theme, searchBox, divClass, config, search, productsUpdate, searchParameters } = this.props;
         const tableColumns = (config && search) ? this.getColumns() : [];
@@ -454,7 +458,6 @@ class LoadItemsTable extends Component {
 
 
         const options = (search.productos) ? {
-            pageStartIndex: 1,
             page: search.page_number,
             sizePerPage: search.page_size,
             totalSize: search.total_count,
@@ -484,6 +487,7 @@ class LoadItemsTable extends Component {
                 {rowData &&
                     <Col className={`${divClass} col-12`}>
                         <CommonTable
+                            remote
                             columns={tableColumns}
                             data={rowData}
                             keyField={'niprod'}
@@ -491,6 +495,7 @@ class LoadItemsTable extends Component {
                             headerClasses={theme.tableHeader}
                             expandRow={this.getExpandRow()}
                             paginationOptions={options}
+                            onTableChange={this.handleOnTableChange}
                         />
                     </Col>}
             </Row>

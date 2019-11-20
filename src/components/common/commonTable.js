@@ -14,7 +14,7 @@ export default class CommonTable extends Component {
     }
 
     render() {
-        const { columns, wrapperClasses, bordered, rowStyle, rowClasses, headerClasses, data, selectRow, expandRow, defaultSorted, keyField, paginationOptions } = this.props;
+        const { columns, wrapperClasses, bordered, rowStyle, rowClasses, headerClasses, data, selectRow, expandRow, defaultSorted, keyField, paginationOptions, remote, onTableChange } = this.props;
 
         const border = (bordered) ? bordered : false;
         const customkeyField = (keyField) ? keyField : 'id';
@@ -22,6 +22,7 @@ export default class CommonTable extends Component {
 
         return (
             <BootstrapTable
+                remote
                 keyField={customkeyField}
                 data={data}
                 columns={columns}
@@ -35,6 +36,7 @@ export default class CommonTable extends Component {
                 expandRow={expandRow}
                 defaultSorted={defaultSorted}
                 pagination={paginationFactory(customPagination)}
+                onTableChange={onTableChange}
             />
 
         )
