@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Steps from 'components/common/steps';
-import { HEADERBOARD, GENERATE, LOADITEMS, VOUCHER, VOUCHERINVOLVEMENT } from '../../utils/RoutePath';
+import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 
 export default class VoucherBreadCrumbs extends Component {
 
@@ -8,7 +8,7 @@ export default class VoucherBreadCrumbs extends Component {
         const { crumbs, current } = this.props;
         let result = {}
         crumbs.forEach(crumb => {
-            if (crumb.cod_proceso == current) {
+            if (crumb.cod_proceso === current) {
                 result = crumb;
             }
         });
@@ -16,50 +16,9 @@ export default class VoucherBreadCrumbs extends Component {
         return result;
     }
 
-    getButtons = (crumbs) => {
-        let next, back, nextButton, backButton = false;
-        let mainIndex = null;
-
-        crumbs.forEach((crumb, index) => {
-            if (crumb.main) {
-                mainIndex = index
-            }
-        });
-
-        next = (crumbs[mainIndex + 1]) ? crumbs[mainIndex + 1] : false;
-        back = (crumbs[mainIndex - 1]) ? crumbs[mainIndex - 1] : false;
-
-        if (next) {
-            nextButton = {
-                url: this.getUrl(next.cod_proceso)
-            }
-        }
-
-        if (back) {
-            backButton = {
-                url: this.getUrl(back.cod_proceso)
-            }
-        }
-
-        return [backButton, nextButton];
-    }
-
-    getUrl = (proccess) => {
-        const { urlParameter } = this.props;
-        const urls = {
-            p_vtacab: HEADERBOARD,
-            p_selcli: VOUCHER,
-            p_cargaitemvta: LOADITEMS,
-            p_afectcomprob: VOUCHERINVOLVEMENT,
-            p_fincomprob: GENERATE
-        }
-
-        return (urlParameter) ? `${urls[proccess]}/${urlParameter}` : urls[proccess];
-    }
-
 
     render() {
-        const { crumbs, current, completed } = this.props;
+        const { crumbs, current, completed, urlParameter } = this.props;
         let ban = true;
         const steps = crumbs.map((crumb, index) => {
             const tmpmain = (current === crumb.cod_proceso) ? true : false;
@@ -67,7 +26,7 @@ export default class VoucherBreadCrumbs extends Component {
             return ({ ...crumb, before: ban, position: index, label: crumb.desc_proceso, main: tmpmain });
         })
 
-        const [back, next] = this.getButtons(steps);
+        const [back, next] = getBackNextButtons(crumbs, current, urlParameter);
 
         if (steps.length) {
             return (

@@ -1,5 +1,5 @@
-import VoucherInvolvement from './VoucherInvolvement';
 import { themr } from 'react-css-themr';
 import styles from './VoucherInvolvement.module.css';
+import voucherInvolvement from './VoucherInvolvement';
 
-export default themr('VoucherInvolvement', styles)(VoucherInvolvement);
+export default themr('VoucherInvolvementStyles', styles)(voucherInvolvement);

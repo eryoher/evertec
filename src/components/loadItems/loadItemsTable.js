@@ -230,7 +230,7 @@ class LoadItemsTable extends Component {
                 "idOperacion": this.props.idOperacion,
                 "Idproducto": row.niprod,
                 "cantidad": value,
-                //"unid_vta": row.cod_unid
+                "unid_vta": row.cod_unid
             });
 
         } else if (campoId === 'pcio_unit') {
@@ -302,7 +302,10 @@ class LoadItemsTable extends Component {
                     options={selectOptions}
                     onChange={(data) => {
                         const value = data.target.value;
-                        this.props.setTableDataProducts([{ niprod: row.niprod, idCampo: campoId, value }]);
+                        this.props.setTableDataProducts([
+                            { niprod: row.niprod, idCampo: campoId, value },
+                            { niprod: row.niprod, idCampo: 'cantidad', value: 0 }]
+                        );
                     }}
                 />
             )
@@ -337,7 +340,7 @@ class LoadItemsTable extends Component {
                                 "idOperacion": this.props.idOperacion,
                                 "Idproducto": row.niprod,
                                 "cantidad": value,
-                                //"unid_vta": row.cod_unid
+                                "unid_vta": row.cod_unid
                             });
                             this.handleSetFocus('pcio_unit', row.niprod);
                         } else if (campoId === 'neto') {
@@ -426,7 +429,7 @@ class LoadItemsTable extends Component {
     }
 
     handleOnTableChange = (type, pagination) => {
-        console.log(type, pagination)
+        //console.log(type, pagination)
     }
 
     render() {
@@ -440,7 +443,7 @@ class LoadItemsTable extends Component {
                     if (update.niprod === prod.niprod) {
                         result = {
                             ...update,
-                            //       id: prod.niprod
+                            //id: prod.niprod
                         }
                     }
                 });

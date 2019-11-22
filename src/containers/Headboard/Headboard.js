@@ -42,6 +42,9 @@ class Headboard extends Component {
                 {this.state.idOperacion &&
                     <HeadboardForm
                         idOperacion={this.state.idOperacion}
+                        crumbs={(voucherType) ? voucherType.procesos : []}
+                        current={'p_vtacab'}
+                        urlParameter={this.state.idOperacion}
                     />
                 }
             </Row>

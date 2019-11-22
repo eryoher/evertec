@@ -120,7 +120,7 @@ class GenericInputForm extends Component {
 
 const mapStateToProps = ({ voucher, vouchertype }) => {
     const { autodata } = voucher;
-    const { idOperacion } = vouchertype.voucherType;
+    const { idOperacion } = (vouchertype.voucherType) ? vouchertype.voucherType : { idOperacion: null };
     return { autodata, idOperacion };
 
 };

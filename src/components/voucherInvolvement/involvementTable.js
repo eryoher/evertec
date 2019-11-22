@@ -49,7 +49,7 @@ class InvolvementTable extends Component {
     componentWillUnmount = () => {
         const items = this.getSelectedCheck();
         if (items.length) {
-            this.props.salesAffectedConfirm({ idOperacion: '123456', items })  // FALTA ID OPERACION
+            this.props.salesAffectedConfirm({ idOperacion: this.props.idOperacion, items })  // FALTA ID OPERACION
         }
     }
 

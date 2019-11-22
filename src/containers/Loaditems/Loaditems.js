@@ -8,6 +8,7 @@ import { getVoucherType } from '../../actions';
 import { connect } from 'react-redux';
 import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
+import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 
 
 class Loaditems extends Component {
@@ -31,6 +32,8 @@ class Loaditems extends Component {
 
     render() {
         const { voucherType } = this.props;
+        const [backButton, nextButton] = (voucherType) ? getBackNextButtons((voucherType) ? voucherType.procesos : [], 'p_cargaitemvta', this.state.idOperacion) : [];
+
 
         return (
             <Row>
@@ -50,16 +53,21 @@ class Loaditems extends Component {
                     />}
                 </Col>
                 <Col sm={1} style={{ textAlign: 'left', paddingLeft: '2rem' }} className={"mt-2"} >
-                    <InputButton
-                        backButton
-                        urlForm={HEADERBOARD}
-                    />
+                    {
+                        backButton &&
+                        <InputButton
+                            backButton
+                            urlForm={backButton.url}
+                        />
+                    }
                 </Col>
-                <Col style={{ textAlign: 'center' }} className={"mt-2 col-2 offset-9"} >
-                    <InputButton
-                        nextButton
-                        urlForm={GENERATE}
-                    />
+                <Col style={{ textAlign: 'rigth' }} className={"mt-2 col-1 offset-10"} >
+                    {
+                        nextButton &&
+                        <InputButton
+                            nextButton
+                            urlForm={nextButton.url}
+                        />}
                 </Col>
             </Row>
 

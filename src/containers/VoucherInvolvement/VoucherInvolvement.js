@@ -30,9 +30,9 @@ class VoucherInvolvement extends Component {
 
     render() {
         const { t, theme, voucherType } = this.props
-
         return (
             <Row>
+                hola
                 <HeadCartResume />
                 <Col sm={12}>
                     <VoucherBreadCrumbs

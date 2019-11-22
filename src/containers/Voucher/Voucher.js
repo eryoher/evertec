@@ -29,7 +29,7 @@ class Voucher extends Component {
 
 
     render() {
-        const { t, theme, voucherType } = this.props
+        const { t, theme, voucherType } = this.props;
 
         return (
             <Row>
@@ -41,9 +41,14 @@ class Voucher extends Component {
                     current={'p_selcli'}
                     urlParameter={this.state.type}
                 />
-                {voucherType && <VoucherClientForm
-                    idOperacion={voucherType.idOperacion}
-                />}
+                {voucherType &&
+                    <VoucherClientForm
+                        idOperacion={voucherType.idOperacion}
+                        crumbs={(voucherType) ? voucherType.procesos : []}
+                        current={'p_selcli'}
+                        urlParameter={this.state.type}
+                    />
+                }
             </Row>
         )
     }

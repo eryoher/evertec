@@ -7,7 +7,7 @@ import HeadboardFormInput from './headboardFormInput';
 import { connect } from 'react-redux';
 import { getConfigVoucher, getVoucherHead, voucherHeadCheckDate } from '../../actions';
 import InputButton from 'components/form/inputButton';
-import { VOUCHER, LOADITEMS } from '../../utils/RoutePath';
+import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 
 class HeadboardForm extends Component {
 
@@ -23,10 +23,11 @@ class HeadboardForm extends Component {
     }
 
     render() {
-        const { config, headSale } = this.props;
+        const { config, headSale, crumbs, current, urlParameter } = this.props;
         const defaultInitial = { Titulo_comp_vta: '', fecha: '', formData: { cotiz_comp_vta: '', fecha_comp_vta: '' } };
         const initial = (headSale) ? headSale : defaultInitial;
-        console.log(initial)
+        const [backButton, nextButton] = (crumbs) ? getBackNextButtons(crumbs, current, urlParameter) : [];
+
         return (
             <Col sm={12}>
                 <Formik
@@ -62,16 +63,20 @@ class HeadboardForm extends Component {
                             <div className="dropdown-divider col-11 p-1" />
                             <Row>
                                 <Col style={{ textAlign: 'left' }} className={"mt-2 col-1 "} >
-                                    <InputButton
-                                        backButton
-                                        urlForm={VOUCHER}
-                                    />
+                                    {
+                                        backButton &&
+                                        <InputButton
+                                            backButton
+                                            urlForm={backButton.url}
+                                        />}
                                 </Col>
                                 <Col style={{ textAlign: 'left', paddingLeft: '0px' }} className={"mt-2 col-1 offset-10"} >
-                                    <InputButton
-                                        nextButton
-                                        urlForm={LOADITEMS}
-                                    />
+                                    {
+                                        nextButton &&
+                                        <InputButton
+                                            nextButton
+                                            urlForm={nextButton.url}
+                                        />}
                                 </Col>
                             </Row>
                         </Form>

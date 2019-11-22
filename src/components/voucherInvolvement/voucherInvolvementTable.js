@@ -71,7 +71,7 @@ class VoucherInvolvementTable extends Component {
 
     render() {
         const { t, productsInvol, readOnly } = this.props;
-        const inputConfig = [{ idcampo: 'checkComprobAvencer', label: t('voucherInvolvement.form.sample'), visible: 1, requerido: 0, editable: 1 }]
+        const inputConfig = [{ idCampo: 'checkComprobAvencer', label: t('voucherInvolvement.form.sample'), visible: 1, requerido: 0, editable: 1 }]
         const customCol = (readOnly) ? 4 : { span: 5, offset: 7 };
         return (
             <Row style={{ marginLeft: '0px' }}>

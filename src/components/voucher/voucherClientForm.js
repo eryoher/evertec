@@ -10,7 +10,7 @@ import LocationFormInput from './locationFormInput';
 import InputButton from 'components/form/inputButton';
 import { connect } from 'react-redux';
 import { searchClients, getClient, getConfigVoucher, confirmationClient } from '../../actions';
-import { HEADERBOARD } from '../../utils/RoutePath';
+import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 
 
 class VoucherClientForm extends Component {
@@ -54,7 +54,8 @@ class VoucherClientForm extends Component {
     }
 
     render() {
-        const { search, client, config } = this.props;
+        const { search, client, config, crumbs, current, urlParameter } = this.props;
+        const [backButton, nextButton] = getBackNextButtons(crumbs, current, urlParameter);
 
         const defaultInitial = {
             cliente_razon_social: '',
@@ -164,10 +165,10 @@ class VoucherClientForm extends Component {
                                         }}
                                     />
                                 </Col>
-                                <Col style={{ textAlign: 'left', paddingLeft: '0px' }} className={"mt-2 offset-11 col-1"} >
+                                <Col style={{ textAlign: 'right', paddingLeft: '0px' }} className={"mt-2 offset-11 col-1"} >
                                     <InputButton
                                         nextButton
-                                        urlForm={HEADERBOARD}
+                                        urlForm={nextButton.url}
                                     />
                                 </Col>
                             </Form>

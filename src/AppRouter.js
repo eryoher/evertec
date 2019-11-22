@@ -22,7 +22,6 @@ const publicRoutes = [
 
 const privateRoutes = [
   { path: ORDER, component: Order },
-
   { path: `${VOUCHER}/:idComprobante?/:idOperacion?`, component: Voucher },
   { path: `${HEADERBOARD}/:idComprobante?/:idOperacion?`, component: HeaderBoard },
   { path: `${GENERATE}/:idComprobante?/:idOperacion?`, component: Generate },
