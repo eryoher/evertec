@@ -108,28 +108,28 @@ class LoadItemsTable extends Component {
 
         switch (idField) {
             case 'desc_prod':
-                style = { width: '18%' }
+                style = { width: '20%' }
                 break;
             case 'fec_entrega':
-                style = { width: '15%' }
+                style = { width: '12%' }
                 break;
             case 'avisos':
-                style = { width: '8%' }
+                style = { width: '5%' }
                 break;
             case 'ind_stock':
                 style = { width: '2%' }
                 break;
             case 'pcio_unit':
-                style = { width: '15%' }
+                style = { width: '13%' }
                 break;
             case 'modif_pcio':
                 style = { width: '1%' }
                 break;
             case 'neto':
-                style = { width: '15%' }
+                style = { width: '13%' }
                 break;
             case 'cod_unid':
-                style = { width: '15%' }
+                style = { width: '12%' }
                 break;
             case 'cantidad':
                 style = { width: '10%' }
@@ -281,7 +281,7 @@ class LoadItemsTable extends Component {
             name: `${campoId}_${row.niprod}`,
             colLabel: "col-sm-4",
             colInput: "col-sm-8",
-            divStyle: { paddingLeft: '17px' },
+            divStyle: { paddingLeft: '10px', paddingRight: '10px' },
             disable: false,
             value: customValue,
             showError: inputError,

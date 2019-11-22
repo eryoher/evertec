@@ -71,7 +71,7 @@ class InputPriceUnit extends Component {
                     }}
                     handleEnterKey={() => this.props.handleFocus(row.niprod)}
                 />}
-                <Col sm={1} style={{ paddingLeft: '0px', paddingTop: '30%' }} >
+                <Col sm={1} style={{ paddingLeft: '7px', paddingTop: '30%' }} >
                     <span style={{ cursor: 'pointer' }} onClick={this.openModal} > ...</span>
                 </Col>
                 <ModalPriceUnit
