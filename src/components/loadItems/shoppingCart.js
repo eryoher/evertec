@@ -21,8 +21,9 @@ class ShoppingCart extends Component {
     }
 
     componentDidMount = () => {
-        this.props.getConfigVoucher({ cod_proceso: 'P_CargaItemenVentas', idOperacion: 1 });
-        this.props.getProductsCart({ "idoperacion": 1 })
+        const { idOperacion } = this.props;
+        //this.props.getConfigVoucher({ cod_proceso: 'P_CargaItemenVentas', idOperacion });
+        this.props.getProductsCart({ idOperacion, page_number: 1, page_size: 10 })
     }
 
     render() {
@@ -63,7 +64,6 @@ class ShoppingCart extends Component {
 
 const mapStateToProps = ({ product, voucher }) => {
     const { config } = voucher;
-
     const { productsCart } = product;
     return { productsCart, config };
 };

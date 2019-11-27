@@ -22,6 +22,6 @@ export const checkItemByProduct = async (params) => {
 }
 
 export const getProductsCart = async (params) => {
-    const response = await Axios.get('/Productos/carro', params);
+    const response = await Axios.get('/Productos/carro', { params });
     return response.data;
 }

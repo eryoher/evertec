@@ -38,6 +38,7 @@ class HeadCartResume extends Component {
                     {this.state.showModal && <ShoppingCart
                         showModal={this.state.showModal}
                         handleClose={this.handleClose}
+                        idOperacion={this.props.idOperacion}
                     />}
                 </Col>
                 <Col sm={6} className={`${theme.Title} col-12 mt-3`} >

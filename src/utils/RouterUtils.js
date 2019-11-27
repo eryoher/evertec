@@ -19,7 +19,7 @@ export const PrivateRouteWithSubRoutes = ({ component: Component, routes, auth, 
     <Route
       {...rest}
       render={props =>
-        isLoggedIn(auth) ? ( // TODO fix when login is readyisLoggedIn
+        isLoggedIn(auth) ? (
           <Component {...props} routes={routes} />
         ) : (
             <Redirect

@@ -461,4 +461,30 @@ export default (mockAdapter) => {
         }
     });
 
+
+    mockAdapter.onGet('/Comprobantes/usuario').reply(200,
+        [
+            {
+                "modulo": "Ventas",
+                "nioperacion": 2,
+                "cod_comprob": "NVSA",
+                "descrip_comprob": "Nota de Venta",
+                "descrip_tipocomp": "NOTAS DE VENTA"
+            },
+            {
+                "modulo": "Ventas",
+                "nioperacion": 1,
+                "cod_comprob": "NVSA",
+                "descrip_comprob": "Pedido reserva autom.",
+                "descrip_tipocomp": "NOTAS DE VENTA"
+            },
+            {
+                "modulo": "Ventas",
+                "nioperacion": 3,
+                "cod_comprob": "PRE",
+                "descrip_comprob": "Presupuesto",
+                "descrip_tipocomp": "NOTAS DE VENTA"
+            }
+        ]
+    )
 }

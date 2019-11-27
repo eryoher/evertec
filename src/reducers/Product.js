@@ -91,7 +91,7 @@ function rootReducer(state = initialState, action) {
         case GET_PRODUCTS_CART:
             return { ...state, productsCart: null }
         case GET_PRODUCTS_CART_SUCCESS:
-            return { ...state, productsCart: action.payload.data }
+            return { ...state, productsCart: action.payload }
         case GET_PRODUCTS_INVOLVEMENT:
             return { ...state, productsInvol: null }
         case GET_PRODUCTS_INVOLVEMENT_SUCCESS:

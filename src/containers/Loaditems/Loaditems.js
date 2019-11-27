@@ -37,7 +37,9 @@ class Loaditems extends Component {
 
         return (
             <Row>
-                <HeadCartResume />
+                <HeadCartResume
+                    idOperacion={this.state.idOperacion}
+                />
                 <Col sm={12}>
                     <VoucherBreadCrumbs
                         crumbs={(voucherType) ? voucherType.procesos : []}

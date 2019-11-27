@@ -22,23 +22,26 @@ class ShoppingCartTable extends Component {
     getColumns = () => {
         const { config, theme } = this.props;
         const rows = config.campos.map((field) => {
+            const campoId = field.idCampo.trim();
             return {
-                dataField: field.idcampo,
+                dataField: campoId,
                 text: (field.label) ? field.label : '',
                 align: 'center',
                 headerAlign: 'center',
                 headerStyle: this.getStyleColumn(field),
                 hidden: !field.visible,
-                title: (field.idcampo === 'avisos') ? (cell, row, ) => {
+                title: (campoId === 'avisos') ? (cell, row, ) => {
                     let title = '';
-                    row.Bonificaciones.forEach(bonif => {
-                        title = `${title} ${bonif.desc_bonif}`
-                    });
+                    if (row.Bonificaciones && row.Bonificaciones.length) {
+                        row.Bonificaciones.forEach(bonif => {
+                            title = `${title} ${bonif.desc_bonif}`
+                        });
+                    }
 
                     return title;
                 } : null,
 
-                filter: (field.idcampo === 'avisos') ? selectFilter({
+                filter: (campoId === 'avisos') ? selectFilter({
                     options: this.getOptionsDeal(),
                     className: `mt-2`,
                     placeholder: 'Oferta',
@@ -55,7 +58,7 @@ class ShoppingCartTable extends Component {
 
                     return filter;
                 },
-                formatter: (field.idcampo === 'avisos' || field.idcampo === 'ind_stock') ? ((cell, row, rowIndex) => {
+                formatter: (campoId === 'avisos' || campoId === 'ind_stock') ? ((cell, row, rowIndex) => {
                     return this.renderFormat(field, cell, row)
                 }) : null
             }
@@ -121,10 +124,10 @@ class ShoppingCartTable extends Component {
 
     renderFormat = (field, value, row) => {
         let result = null;
-
-        if (field.idcampo === 'avisos') {
-            result = (row.Bonificaciones.length) ? <FontAwesomeIcon icon={faPercent} /> : null
-        } else if (field.idcampo === 'ind_stock') {
+        const campoId = field.idCampo.trim();
+        if (campoId === 'avisos') {
+            result = (row.Bonificaciones && row.Bonificaciones.length) ? <FontAwesomeIcon icon={faPercent} /> : null
+        } else if (campoId === 'ind_stock') {
             result = (<DisplayLight semaforo={value} />)
         }
         return result;
@@ -134,11 +137,11 @@ class ShoppingCartTable extends Component {
     renderExpandRow = (row) => {
         const cols = [];
         let result;
-        if (row.Atributos && row.Atributos.length) {
-            row.Atributos.forEach((atrb, index) => {
+        if (row.atributos && row.atributos.length) {
+            row.atributos.forEach((atrb, index) => {
                 cols.push(
                     <Col key={index} className={"col-6 p-2"}>
-                        <b>{`${atrb.desc_atributo}:`}</b> {atrb.desc_dato}
+                        <b>{`${atrb.desc_atrib}:`}</b> {atrb.desc_dato}
                     </Col>
                 )
             });
@@ -156,9 +159,9 @@ class ShoppingCartTable extends Component {
     getNoexpandRows = () => {
         const { search } = this.props;
         const result = []
-        if (search && search.Productos) {
-            search.Productos.forEach(prd => {
-                if (!prd.Atributos || prd.Atributos.length === 0) {
+        if (search && search.productos) {
+            search.productos.forEach(prd => {
+                if (!prd.atributos || prd.atributos.length === 0) {
                     result.push(parseInt(prd.niprod));
                 }
             });
@@ -201,8 +204,10 @@ class ShoppingCartTable extends Component {
         return (
             <Col className={`col-12`}>
                 <CommonTable
+                    remote
                     columns={tableColumns}
-                    data={cartProducts.Productos}
+                    keyField={'niprod'}
+                    data={cartProducts.productos}
                     rowClasses={theme.tableRow}
                     headerClasses={theme.tableHeader}
                     expandRow={expandRow}

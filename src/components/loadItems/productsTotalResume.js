@@ -17,10 +17,10 @@ class ProductsTotalResume extends Component {
                     <span> {`Total Ítems: ${totalItem}`}</span>
                 </Col>
                 <Col md={colspace}>
-                    <span>{`${t('loadItem.table.totalImp')} :`} <DisplayAmount amount={totalImporte} /> </span>
+                    <span>{`${t('loadItem.table.totalImp')}:`} <DisplayAmount amount={totalImporte} /> </span>
                 </Col>
                 <Col md={colspace}>
-                    <span>{`${t('loadItem.table.total_gross_margin')} : ${totalBruto}`}</span>
+                    <span>{`${t('loadItem.table.total_gross_margin')}: ${totalBruto}`}</span>
                 </Col>
             </Row>
         )
