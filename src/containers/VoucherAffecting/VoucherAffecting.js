@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
-import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
+import VoucherAffectingTable from 'components/voucherAffecting/voucherAffectingTable';
 
 
 class VoucherInvolvement extends Component {
@@ -39,7 +39,7 @@ class VoucherInvolvement extends Component {
                         urlParameter={this.state.type}
                     />
                 </Col>
-                <VoucherInvolvementTable
+                <VoucherAffectingTable
                     idOperacion={this.state.idOperacion}
                 />
 

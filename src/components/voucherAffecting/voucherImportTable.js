@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import CommonTable from 'components/common/commonTable';
 import { Col } from 'react-bootstrap';
-import styles from './involvementTable.module.css';
+import styles from './voucherImportTable.module.css';
 import { themr } from 'react-css-themr';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { getConfigVoucher, setTableDataInvolvement, salesAffectedValidate, salesAffectedSubCalculation, salesAffectedConfirm } from '../../actions/';
+import { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedConfirm } from '../../actions';
 import InputText from 'components/form/inputText';
-import InputPriceUnit from 'components/loadItems/inputPriceUnit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import NotificationMessage from 'components/common/notificationMessage';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { validateField } from 'lib/FieldValidations';
 
-class InvolvementTable extends Component {
+class VoucherImportTable extends Component {
 
     constructor(props) {
         super(props);
@@ -33,7 +32,7 @@ class InvolvementTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
-        this.props.getConfigVoucher({ cod_proceso: 'p_afectcomprob' });
+        this.props.getConfigVoucher({ cod_proceso: 'p_afectcomprobimport' });
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -61,12 +60,12 @@ class InvolvementTable extends Component {
             const campoId = field.idCampo.trim()
             return {
                 dataField: campoId,
-                text: (field.label) ? ((campoId === 'fec_emis' || campoId === 'comprob_nro' || campoId === 'cod_prod') ? '' : field.label) : '',
+                text: (field.label) ? ((campoId === 'fec_emis' || campoId === 'comprob_nro' || campoId === 'cod_prod' || campoId === 'fec_vto') ? '' : field.label) : '',
                 align: 'center',
                 headerAlign: 'center',
                 headerStyle: this.getStyleColumn(field),
                 hidden: !field.visible,
-                filter: (campoId === 'fec_emis' || campoId === 'comprob_nro' || campoId === 'cod_prod') ? selectFilter({
+                filter: (campoId === 'fec_emis' || campoId === 'comprob_nro' || campoId === 'cod_prod' || campoId === 'fec_vto') ? selectFilter({
                     options: this.getFilterOptions(campoId),
                     className: `${theme.inputFilter} mt-2`,
                     onFilter: filterVal => this.setState({ filterVal }),
@@ -185,9 +184,10 @@ class InvolvementTable extends Component {
         }
     }
 
-    validateFieldQuantity = (row, field, value) => {
-        const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: value }];
+    validateAfectImport = (row, field, value) => {
+        const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, imp_afec: value }];
         const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
+
         if (field.valid) {
             let message = '';
             if (!validateField(value, field.valid)) {
@@ -196,7 +196,7 @@ class InvolvementTable extends Component {
             } else {
                 selected.push(row.nimovcli);
                 this.setState({ selectedCheck: selected });
-                this.props.salesAffectedValidate({ idOperacion: row.nimovcli /*items*/ }); //Falta adicionar idOperacion
+                this.props.salesAffectedImportValidate({ idOperacion: row.nimovcli }); //Falta adicionar idOperacion
             }
         }
 
@@ -274,57 +274,35 @@ class InvolvementTable extends Component {
             onChange: () => { }
         }
 
-        if (campoId === 'modif_pcio') {
-            result = (
-                <InputPriceUnit
-                    optionsInput={optionsInput}
-                    fieldCant={'cant_afec'}
-                    setData={this.props.setTableDataInvolvement}
-                    calSubTotal={(params) =>
-                        this.handleSubCalculation(params, field)
+
+
+        result = (
+            <InputText
+                {...optionsInput}
+                handleEnterKey={(e, value) => {
+                    if (campoId === 'imp_afec') {
+                        this.validateAfectImport(row, field, value);
+                        //this.handleSetFocus('precio_unit', row.niprod);
+
+                    } else if (campoId === 'neto') {
+                        this.validateFieldNeto(row, field, value);
                     }
-                    handleFocus={(rowId) => {
-                        // Focus next input                           
-                        if (row.niprod === rowId) {
-                            this.handleSetFocus('neto', row.niprod);
-                        }
-                        return true;
+                    return true;
+                }}
+                onBlur={(value) => {
+                    if (campoId === 'imp_afec') { //pendiente logica.
+                        this.validateAfectImport(row, field, value);
+                    } else if (campoId === 'neto') {
+                        //this.validateFieldNeto(row, field, value);
+                    } else {
+                        const params = { niprod: row.niprod, idcampo: campoId, value };
+                        this.props.setTableDataInvolvement([params]);
+                    }
+                }}
+            />
+        )
 
-                    }}
-                    row={row}
-                />
-            )
-        } else {
 
-            result = (
-                <InputText
-                    {...optionsInput}
-                    //autoFocus={(focusInput && focusInput.input === 'neto' && focusInput.rowId === row.niprod) ? true : false}
-                    handleEnterKey={(e, value) => {
-                        if (campoId === 'cant_afec') {
-                            this.validateFieldQuantity(row, field, value);
-                            this.handleSetFocus('precio_unit', row.niprod);
-
-                        } else if (campoId === 'neto') {
-                            this.validateFieldNeto(row, field, value);
-                        }
-                        return true;
-                    }}
-                    onBlur={(value) => {
-                        if (campoId === 'cant_afec') { //pendiente logica.
-                            this.validateFieldQuantity(row, field, value);
-                        } else if (campoId === 'neto') {
-                            this.validateFieldNeto(row, field, value);
-
-                        } else {
-                            const params = { niprod: row.niprod, idcampo: campoId, value };
-                            this.props.setTableDataInvolvement([params]);
-                        }
-                    }}
-                />
-            )
-
-        }
 
         return result;
     }
@@ -389,7 +367,7 @@ class InvolvementTable extends Component {
 
                 }
                 this.setState({ rowSelected: rows, selectedCheck: selected });
-                this.props.salesAffectedValidate({ idOperacion: row.nimovcli /*item: rows*/ }); //Falta adicionar idOperacion
+                this.props.salesAffectedImportValidate({ idOperacion: row.nimovcli /*item: rows*/ }); //Falta adicionar idOperacion
 
             },
             onSelectAll: (isSelect, rows, e) => {
@@ -422,7 +400,7 @@ class InvolvementTable extends Component {
                 }
 
                 this.setState({ rowSelected: selected });
-                this.props.salesAffectedValidate({ idOperacion: 123456789, /*item: selected*/ }); //Falta adicionar idOperacion
+                this.props.salesAffectedImportValidate({ idOperacion: 123456789, /*item: selected*/ }); //Falta adicionar idOperacion
 
             }
         };
@@ -499,6 +477,6 @@ const mapStateToProps = ({ voucher, salesAffected }) => {
     return { config, productsUpdate, cantValidate };
 };
 
-const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedValidate, salesAffectedSubCalculation, salesAffectedConfirm })(InvolvementTable);
+const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedConfirm })(VoucherImportTable);
 
 export default themr('InvolvementTableStyles', styles)(withTranslation()(connectForm));

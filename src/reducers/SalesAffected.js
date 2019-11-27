@@ -7,12 +7,17 @@ import {
     SALES_AFFECTED_SUB_CALCULATION_SUCCESS,
     SALES_AFFECTED_CONFIRM,
     SALES_AFFECTED_CONFIRM_SUCCESS,
-    SET_TABLE_DATA_INVOLVEMENT
+    SET_TABLE_DATA_INVOLVEMENT,
+    SALES_AFFECTED_IMPORT,
+    SALES_AFFECTED_IMPORT_SUCCESS,
+    SALES_AFFECTED_IMPORT_VALIDATE,
+    SALES_AFFECTED_IMPORT_VALIDATE_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
     cantValidate: null,
     productsInvol: null,
+    productsImport: null,
     subCalculations: null,
     productsUpdate: null,
     salesconfirm: null
@@ -48,10 +53,43 @@ function rootReducer(state = initialState, action) {
                 });
             }
             return updateState;
+        case SALES_AFFECTED_IMPORT_VALIDATE:
+            return { ...state, cantValidate: null }
+        case SALES_AFFECTED_IMPORT_VALIDATE_SUCCESS:
+            const importItems = action.payload.data.Items;
+            let updateImportState = {
+                ...state,
+                productsUpdate: [
+                    ...state.productsImport.Items,
+                ],
+                cantValidate: action.payload.data
+            }
+
+            if (updateImportState.productsUpdate) {
+                updateImportState.productsUpdate.forEach(prd => {
+                    importItems.forEach(item => {
+                        if (prd.nimovcli === item.nimovcli && item.ind_stock === 0) {
+                            prd.imp_afec = item.imp_afec;
+                            prd.neto = item.neto;
+                            prd.saldo = item.saldo;
+                            // prd.cant_saldo = parseFloat(prd.cant_pend) - parseFloat(item.cant_afec);
+                        } else if (prd.nimovcli === item.nimovcli && item.ind_stock !== 0) {
+                            prd['error'] = true;
+                            prd['type_error'] = item.ind_stock;
+                        }
+                    });
+                });
+            }
+            console.log(updateImportState)
+            return updateImportState;
         case SALES_AFFECTED_QUANTITY:
             return { ...state, productsInvol: null }
         case SALES_AFFECTED_QUANTITY_SUCCESS:
             return { ...state, productsInvol: action.payload.data }
+        case SALES_AFFECTED_IMPORT:
+            return { ...state, productsImport: null }
+        case SALES_AFFECTED_IMPORT_SUCCESS:
+            return { ...state, productsImport: action.payload.data }
         case SALES_AFFECTED_SUB_CALCULATION:
             return { ...state, subCalculations: null }
         case SALES_AFFECTED_SUB_CALCULATION_SUCCESS:

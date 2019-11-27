@@ -5,20 +5,30 @@ import {
     salesAffectedCant,
     salesAffectedSubCalculation,
     salesAffectedConfirm,
+    salesAffectedImport,
+    salesAffectedImportValidate
 } from '../api/SalesAffected'
 
 import {
-    SALES_AFFECTED_VALIDATE, SALES_AFFECTED_QUANTITY, SALES_AFFECTED_SUB_CALCULATION, SALES_AFFECTED_CONFIRM, SET_TABLE_DATA_INVOLVEMENT
+    SALES_AFFECTED_VALIDATE, SALES_AFFECTED_QUANTITY, SALES_AFFECTED_SUB_CALCULATION, SALES_AFFECTED_CONFIRM, SET_TABLE_DATA_INVOLVEMENT, SALES_AFFECTED_IMPORT, SALES_AFFECTED_IMPORT_VALIDATE
 } from '../constants/ActionsTypes';
 
 
-import { salesAffectedValidateSuccess, salesAffectedCantSuccess, salesAffectedSubCalculationSuccess, salesAffectedConfirmSuccess, setTableDataInvolvementSuccess } from 'actions';
+import { salesAffectedValidateSuccess, salesAffectedCantSuccess, salesAffectedSubCalculationSuccess, salesAffectedConfirmSuccess, setTableDataInvolvementSuccess, salesAffectedImportSuccess, salesAffectedImportValidateSuccess } from 'actions';
 
 
 function* salesAffectedValidateRequest({ payload }) {
     try {
         const items = yield call(salesAffectedValidate, payload);
         yield put(salesAffectedValidateSuccess(items));
+    } catch (error) {
+    }
+}
+
+function* salesAffectedImportValidateRequest({ payload }) {
+    try {
+        const items = yield call(salesAffectedImportValidate, payload);
+        yield put(salesAffectedImportValidateSuccess(items));
     } catch (error) {
     }
 }
@@ -48,8 +58,20 @@ function* salesAffectedConfirmRequest({ payload }) {
     }
 }
 
+function* salesAffectedImportRequest({ payload }) {
+    try {
+        const items = yield call(salesAffectedImport, payload);
+        yield put(salesAffectedImportSuccess(items));
+    } catch (error) {
+    }
+}
+
 export function* salesAffectedValidateSaga() {
     yield takeEvery(SALES_AFFECTED_VALIDATE, salesAffectedValidateRequest);
+}
+
+export function* salesAffectedImportValidateSaga() {
+    yield takeEvery(SALES_AFFECTED_IMPORT_VALIDATE, salesAffectedImportValidateRequest);
 }
 
 export function* salesAffectedCantSaga() {
@@ -64,6 +86,10 @@ export function* salesAffectedConfirmSaga() {
     yield takeEvery(SALES_AFFECTED_CONFIRM, salesAffectedConfirmRequest);
 }
 
+export function* salesAffectedImportSaga() {
+    yield takeEvery(SALES_AFFECTED_IMPORT, salesAffectedImportRequest);
+}
+
 
 export default function* rootSaga() {
     yield all([
@@ -71,5 +97,7 @@ export default function* rootSaga() {
         fork(salesAffectedCantSaga),
         fork(salesAffectedSubCalculationSaga),
         fork(salesAffectedConfirmSaga),
+        fork(salesAffectedImportSaga),
+        fork(salesAffectedImportValidateSaga)
     ]);
 }

@@ -12,8 +12,21 @@ import Landing from './containers/Landing';
 import Loaditems from './containers/Loaditems';
 import SelectType from './containers/SelectType';
 import VoucherInvolvement from './containers/VoucherInvolvement';
+import VoucherAffecting from './containers/VoucherAffecting';
 
-import { GENERATE, HEADERBOARD, HOME, LOGIN, ORDER, VOUCHER, LANDING, LOADITEMS, SELECTTYPE, VOUCHERINVOLVEMENT } from './utils/RoutePath';
+import {
+  GENERATE,
+  HEADERBOARD,
+  HOME,
+  LOGIN,
+  ORDER,
+  VOUCHER,
+  LANDING,
+  LOADITEMS,
+  SELECTTYPE,
+  VOUCHERINVOLVEMENT,
+  VOUCHERAFFECTING
+} from './utils/RoutePath';
 
 const publicRoutes = [
   { path: HOME, component: Login, exact: true },
@@ -29,6 +42,7 @@ const privateRoutes = [
   { path: SELECTTYPE, component: SelectType },
   { path: `${LOADITEMS}/:idComprobante?/:idOperacion?`, component: Loaditems },
   { path: `${VOUCHERINVOLVEMENT}/:idComprobante?/:idOperacion?`, component: VoucherInvolvement },
+  { path: `${VOUCHERAFFECTING}/:idComprobante?/:idOperacion?`, component: VoucherAffecting },
 ]
 
 const AppRouter = props => (

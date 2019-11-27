@@ -1,6 +1,8 @@
 import {
     SALES_AFFECTED_VALIDATE,
     SALES_AFFECTED_VALIDATE_SUCCESS,
+    SALES_AFFECTED_IMPORT_VALIDATE,
+    SALES_AFFECTED_IMPORT_VALIDATE_SUCCESS,
     SALES_AFFECTED_QUANTITY,
     SALES_AFFECTED_QUANTITY_SUCCESS,
     SALES_AFFECTED_SUB_CALCULATION,
@@ -8,7 +10,10 @@ import {
     SALES_AFFECTED_CONFIRM,
     SALES_AFFECTED_CONFIRM_SUCCESS,
     SET_TABLE_DATA_INVOLVEMENT,
-    SET_TABLE_DATA_INVOLVEMENT_SUCCESS
+    SET_TABLE_DATA_INVOLVEMENT_SUCCESS,
+    SALES_AFFECTED_IMPORT,
+    SALES_AFFECTED_IMPORT_SUCCESS
+
 } from '../constants/ActionsTypes';
 
 
@@ -26,6 +31,20 @@ export const salesAffectedValidateSuccess = (response) => {
     }
 };
 
+export const salesAffectedImportValidate = (params) => {
+    return {
+        type: SALES_AFFECTED_IMPORT_VALIDATE,
+        payload: params
+    }
+};
+
+export const salesAffectedImportValidateSuccess = (response) => {
+    return {
+        type: SALES_AFFECTED_IMPORT_VALIDATE_SUCCESS,
+        payload: response
+    }
+};
+
 export const salesAffectedCant = (params) => {
     return {
         type: SALES_AFFECTED_QUANTITY,
@@ -36,6 +55,20 @@ export const salesAffectedCant = (params) => {
 export const salesAffectedCantSuccess = (response) => {
     return {
         type: SALES_AFFECTED_QUANTITY_SUCCESS,
+        payload: response
+    }
+};
+
+export const salesAffectedImport = (params) => {
+    return {
+        type: SALES_AFFECTED_IMPORT,
+        payload: params
+    }
+};
+
+export const salesAffectedImportSuccess = (response) => {
+    return {
+        type: SALES_AFFECTED_IMPORT_SUCCESS,
         payload: response
     }
 };

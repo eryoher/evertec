@@ -50,6 +50,13 @@
         }
 
     },
+    "voucherAffecting": {
+        "table": {
+            "totalVouchers": "Total Comprobantes",
+            "totalAffect": "Total Afectado",
+            "totalPending": "Total Pendiente"
+        }
+    },
     "client": {
         "title": "Cliente",
         "form": {

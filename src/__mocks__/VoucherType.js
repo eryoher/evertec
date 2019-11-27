@@ -1,9 +1,9 @@
 
 export default (mockAdapter) => {
 
-    mockAdapter.onGet('/TipoComprobantes/consulta', { params: { "idComprobante": "C.NVCR" } }).reply(200, {
+    mockAdapter.onGet('/TipoDeComprobante', { params: { idOperacion: 21 } }).reply(200, {
         data: {
-            "idOperacion": 12345,
+            "idOperacion": 21,
             "cod_comprob": "C.NVCR",
             "descrip_comprob": "Pedido reserva autom.",
             "descrip_tipocomp": "Pedido",

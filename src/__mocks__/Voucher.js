@@ -37,301 +37,323 @@ export default (mockAdapter) => {
         mensaje: 'La clave no coincide con la registrada, pruebe nuevamente'
     })
 
-    mockAdapter.onGet('/Comprobantes/config', { params: { cod_proceso: 1, idOperacion: 1 } }).reply(200, {
-        data: {
-            "cod_proceso": "P_SELCLI",
-            "descrip_proceso": "Selección Cliente",
-            "orden": "1",
-            "campos": [
-                {
-                    "idcampo": "rsocial",
-                    "descripcion": "Razón social cliente",
-                    "label": "R.Social",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "cliente_codigo",
-                    "descripcion": "Código cliente",
-                    "label": "Código",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "tipo_resp",
-                    "descripcion": "Tipo Responsable",
-                    "label": "Tipo Responsable",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "cuit",
-                    "descripcion": "CUIT",
-                    "label": "C.U.I.T",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": "idTrabajador"
-                },
-                {
-                    "idcampo": "contacto",
-                    "descripcion": "Contacto",
-                    "label": "Contacto",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "suc_tel",
-                    "descripcion": "Telefono",
-                    "label": "Teléfono",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "suc_email",
-                    "descripcion": "email",
-                    "label": "Correo",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "suc_address",
-                    "descripcion": "direccion",
-                    "label": "Dirección",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "suc_local",
-                    "descripcion": "Localidad",
-                    "label": "Localidad",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "suc_nom_prov",
-                    "descripcion": "Provincia",
-                    "label": "Provincia",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "suc_cpos",
-                    "descripcion": "codigo postal",
-                    "label": "Código postal",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "credito",
-                    "descripcion": "Credito",
-                    "label": "Límite Crédito",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "saldo_pend",
-                    "descripcion": "saldo pendiente",
-                    "label": "Crédito pendiente",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "credito_saldo",
-                    "descripcion": "credito saldo",
-                    "label": "Saldo",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "sucursales",
-                    "descripcion": "sucursales",
-                    "label": "Cliente Sucursal",
-                    "editable": 1,
-                    "requerido": 1,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "obs_cc",
-                    "descripcion": "Observaciones cuenta corriente",
-                    "label": "Obs. Cta. Cte.",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "obs_ventas",
-                    "descripcion": "Observaciones de la venta",
-                    "label": "Obs. Ventas",
-                    "editable": 1,
-                    "requerido": 0,
-                    "visible": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-            ]
-        }
-    });
+    /* mockAdapter.onGet('/Comprobantes/config', { params: { cod_proceso: 1, idOperacion: 1 } }).reply(200,
+         {
+             "cod_proceso": "P_SELCLI",
+             "descrip_proceso": "Selección Cliente",
+             "orden": "1",
+             "campos": [
+                 {
+                     "idCampo": "rsocial",
+                     "descripcion": "Razón social cliente",
+                     "label": "R.Social",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "cliente_codigo",
+                     "descripcion": "Código cliente",
+                     "label": "Código",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "tipo_resp",
+                     "descripcion": "Tipo Responsable",
+                     "label": "Tipo Responsable",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "cuit",
+                     "descripcion": "CUIT",
+                     "label": "C.U.I.T",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": "idTrabajador"
+                 },
+                 {
+                     "idCampo": "contacto",
+                     "descripcion": "Contacto",
+                     "label": "Contacto",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "suc_tel",
+                     "descripcion": "Telefono",
+                     "label": "Teléfono",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "suc_email",
+                     "descripcion": "email",
+                     "label": "Correo",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "suc_address",
+                     "descripcion": "direccion",
+                     "label": "Dirección",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "suc_local",
+                     "descripcion": "Localidad",
+                     "label": "Localidad",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "suc_nom_prov",
+                     "descripcion": "Provincia",
+                     "label": "Provincia",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "suc_cpos",
+                     "descripcion": "codigo postal",
+                     "label": "Código postal",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "credito",
+                     "descripcion": "Credito",
+                     "label": "Límite Crédito",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "saldo_pend",
+                     "descripcion": "saldo pendiente",
+                     "label": "Crédito pendiente",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "credito_saldo",
+                     "descripcion": "credito saldo",
+                     "label": "Saldo",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "sucursales",
+                     "descripcion": "sucursales",
+                     "label": "Cliente Sucursal",
+                     "editable": 1,
+                     "requerido": 1,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "obs_cc",
+                     "descripcion": "Observaciones cuenta corriente",
+                     "label": "Obs. Cta. Cte.",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "obs_ventas",
+                     "descripcion": "Observaciones de la venta",
+                     "label": "Obs. Ventas",
+                     "editable": 1,
+                     "requerido": 0,
+                     "visible": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+             ]
+ 
+         });
+ 
+     mockAdapter.onGet('/ProcesossDeComprobante').reply(200, {
+         data: {
+             "cod_proceso": "P_vtacab",
+             "descrip_proceso": "Carga datos cabecera ventas",
+             "orden": "2",
+             "campos": [
+                 {
+                     "idCampo": "suc_empresa_venta",
+                     "descripcion": "Suc.Empresa",
+                     "label": "Suc.Empresa",
+                     "editable": 1,
+                     "visible": 1,
+                     "requerido": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "Titulo_comp_vta",
+                     "descripcion": "Titulo comprobante",
+                     "label": "Titulo",
+                     "editable": 1,
+                     "visible": 1,
+                     "requerido": 0,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "fecha",
+                     "descripcion": "Fecha",
+                     "label": "Fecha",
+                     "editable": 1,
+                     "visible": 1,
+                     "requerido": 1,
+                     "valid": "FEC>=H",
+                     "mascara": "fechaLarga"
+                 },
+                 {
+                     "idCampo": "mon_comp_vta",
+                     "descripcion": "Moneda",
+                     "label": "Moneda",
+                     "editable": 1,
+                     "visible": 1,
+                     "requerido": 1,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 {
+                     "idCampo": "cotiz",
+                     "descripcion": "Cotización",
+                     "label": "Cotización",
+                     "editable": 0,
+                     "visible": 1,
+                     "requerido": 0,
+                     "valid": "",
+                     "mascara": ""
+                 },
+                 { "idCampo": "vend_comp_vta", "descripcion": "Vendedor", "label": "Vendedor", "editable": 1, "visible": 1, "requerido": 0, "valid": "", "mascara": "" },
+                 { "idCampo": "cond_comp_vta", "descripcion": "Cond.Venta", "label": "Cond.Venta", "editable": 1, "visible": 1, "requerido": 1, "valid": "", "mascara": "" },
+                 { "idCampo": "transp_comp_vta", "descripcion": "Transportista", "label": "Transportista", "editable": 0, "visible": 0, "requerido": 0, "valid": "", "mascara": "" },
+                 { "idCampo": "atrib_comp_vta", "descripcion": "Atributos", "label": "Datos Adicionales", "editable": 1, "visible": 1, "requerido": 1, "valid": "", "mascara": "" }
+ 
+             ]
+         }
+     });
+ 
+     mockAdapter.onGet('/Comprobantes/config', { params: { cod_proceso: 'P_CargaItemenVentas', idOperacion: 1 } }).reply(200, {
+         data: {
+             "cod_proceso": "P_CargaItemenVentas",
+             "descrip_proceso": "Carga Items de Ventas",
+             "orden": "3",
+             "campos": [
+                 { "idCampo": "cod_prod", "descripcion": "Código Producto", "label": "Código", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                 { "idCampo": "desc_prod", "descripcion": "Nombre Producto", "label": "Producto", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                 { "idCampo": "unid_v", "descripcion": "Presentación", "label": "Unid/Pres", "editable": 1, "visible": 1, "mascara": "", "requerido": "0" },
+                 { "idCampo": "cantidad", "descripcion": "cantidad", "label": "Cant", "editable": 1, "visible": 1, "mascara": "", "requerido": "1", "valid": "VAL>0" },
+                 { "idCampo": "ind_stock", "descripcion": "Indic.Stock", "label": "", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                 { "idCampo": "precio_unit", "descripcion": "Precio unit.", "label": "Precio Unit", "editable": 1, "visible": 1, "requerido": "1", "valid": "VAL>0", "mascara": "precioUnitario" },
+                 { "idCampo": "modif_pcio", "descripcion": "Clave para modificar precio", "label": "", "editable": 1, "visible": 0, "requerido": "0", "mascara": "" },
+                 { "idCampo": "neto", "descripcion": "Importe neto", "label": "Neto", "editable": 1, "visible": 1, "mascara": "precioUnitario", "requerido": "1", "valid": "VAL>0" },
+                 { "idCampo": "fec_entrega", "descripcion": "Fecha entrega", "label": "Fec.Entr.", "editable": 1, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
+                 { "idCampo": "avisos", "descripcion": "avisos", "label": "Ofertas", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                 //{ "idCampo": "fin_item", "visible": 1, "mascara": "" },
+             ]
+         }
+     });*/
 
-    mockAdapter.onGet('/Comprobantes/config', { params: { cod_proceso: 'p_vtacab', idOperacion: 1 } }).reply(200, {
-        data: {
-            "cod_proceso": "P_vtacab",
-            "descrip_proceso": "Carga datos cabecera ventas",
-            "orden": "2",
-            "campos": [
-                {
-                    "idcampo": "suc_empresa_venta",
-                    "descripcion": "Suc.Empresa",
-                    "label": "Suc.Empresa",
-                    "editable": 1,
-                    "visible": 1,
-                    "requerido": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "Titulo_comp_vta",
-                    "descripcion": "Titulo comprobante",
-                    "label": "Titulo",
-                    "editable": 1,
-                    "visible": 1,
-                    "requerido": 0,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "fecha",
-                    "descripcion": "Fecha",
-                    "label": "Fecha",
-                    "editable": 1,
-                    "visible": 1,
-                    "requerido": 1,
-                    "valid": "FEC>=H",
-                    "mascara": "fechaLarga"
-                },
-                {
-                    "idcampo": "mon_comp_vta",
-                    "descripcion": "Moneda",
-                    "label": "Moneda",
-                    "editable": 1,
-                    "visible": 1,
-                    "requerido": 1,
-                    "valid": "",
-                    "mascara": ""
-                },
-                {
-                    "idcampo": "cotiz",
-                    "descripcion": "Cotización",
-                    "label": "Cotización",
-                    "editable": 0,
-                    "visible": 1,
-                    "requerido": 0,
-                    "valid": "",
-                    "mascara": ""
-                },
-                { "idcampo": "vend_comp_vta", "descripcion": "Vendedor", "label": "Vendedor", "editable": 1, "visible": 1, "requerido": 0, "valid": "", "mascara": "" },
-                { "idcampo": "cond_comp_vta", "descripcion": "Cond.Venta", "label": "Cond.Venta", "editable": 1, "visible": 1, "requerido": 1, "valid": "", "mascara": "" },
-                { "idcampo": "transp_comp_vta", "descripcion": "Transportista", "label": "Transportista", "editable": 0, "visible": 0, "requerido": 0, "valid": "", "mascara": "" },
-                { "idcampo": "atrib_comp_vta", "descripcion": "Atributos", "label": "Datos Adicionales", "editable": 1, "visible": 1, "requerido": 1, "valid": "", "mascara": "" }
 
-            ]
-        }
-    });
-
-    mockAdapter.onGet('/Comprobantes/config', { params: { cod_proceso: 'P_CargaItemenVentas', idOperacion: 1 } }).reply(200, {
-        data: {
-            "cod_proceso": "P_CargaItemenVentas",
-            "descrip_proceso": "Carga Items de Ventas",
-            "orden": "3",
-            "campos": [
-                { "idcampo": "cod_prod", "descripcion": "Código Producto", "label": "Código", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-                { "idcampo": "desc_prod", "descripcion": "Nombre Producto", "label": "Producto", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-                { "idcampo": "unid_v", "descripcion": "Presentación", "label": "Unid/Pres", "editable": 1, "visible": 1, "mascara": "", "requerido": "0" },
-                { "idcampo": "cantidad", "descripcion": "cantidad", "label": "Cant", "editable": 1, "visible": 1, "mascara": "", "requerido": "1", "valid": "VAL>0" },
-                { "idcampo": "ind_stock", "descripcion": "Indic.Stock", "label": "", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-                { "idcampo": "precio_unit", "descripcion": "Precio unit.", "label": "Precio Unit", "editable": 1, "visible": 1, "requerido": "1", "valid": "VAL>0", "mascara": "precioUnitario" },
-                { "idcampo": "modif_pcio", "descripcion": "Clave para modificar precio", "label": "", "editable": 1, "visible": 0, "requerido": "0", "mascara": "" },
-                { "idcampo": "neto", "descripcion": "Importe neto", "label": "Neto", "editable": 1, "visible": 1, "mascara": "precioUnitario", "requerido": "1", "valid": "VAL>0" },
-                { "idcampo": "fec_entrega", "descripcion": "Fecha entrega", "label": "Fec.Entr.", "editable": 1, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
-                { "idcampo": "avisos", "descripcion": "avisos", "label": "Ofertas", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-                //{ "idcampo": "fin_item", "visible": 1, "mascara": "" },
-            ]
-        }
-    });
-
-    mockAdapter.onGet('/Comprobantes/config', { params: { cod_proceso: 'p_afectcomprob', idOperacion: 1 } }).reply(200, {
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afectcomprob' } }).reply(200, {
         data: {
             "cod_proceso": "p_afectcomprob",
             "descrip_proceso": "Afectacion Comprobante",
             "orden": "3",
             "campos": [
-                { "idcampo": "fec_emis", "descripcion": "Fecha", "label": "Fecha", "editable": 0, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
-                { "idcampo": "fec_vto", "descripcion": "Fecha Venta", "label": "Fecha Venta", "editable": 0, "visible": 0, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
-                { "idcampo": "comprob_nro", "descripcion": "Comprobante", "label": "Comprobante", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-                { "idcampo": "comprob_desc", "descripcion": "Comprobante Nombre", "label": "Nombre Comprobante", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
-                { "idcampo": "cod_prod", "descripcion": "Código Producto", "label": "Producto", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-                { "idcampo": "desc_prod", "descripcion": "Nombre Producto", "label": "Detalle", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-                { "idcampo": "codbarra", "descripcion": "Codigo de Barra", "label": "Codigo de Barras", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
-                { "idcampo": "base_v", "descripcion": "Base", "label": "Base", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
-                { "idcampo": "cant_pend", "descripcion": "cantidad", "label": "Cant. Pend.", "editable": 0, "visible": 1, "mascara": "", "requerido": "0", "valid": "VAL>0" },
-                { "idcampo": "cod_unid", "descripcion": "Presentación", "label": "Unidad", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-                { "idcampo": "cant_afec", "descripcion": "Cantidad Afectada", "label": "Cant. Afectada", "editable": 1, "visible": 1, "mascara": "", "requerido": "1", "valid": "VAL>0" },
-                { "idcampo": "ind_stock", "descripcion": "Indic.Stock", "label": "", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
-                { "idcampo": "precio_unit", "descripcion": "Precio unit.", "label": "Precio Unitario", "editable": 1, "visible": 1, "requerido": "1", "valid": "VAL>0", "mascara": "precioUnitario" },
-                { "idcampo": "modif_pcio", "descripcion": "Clave para modificar precio", "label": "", "editable": 1, "visible": 0, "requerido": "0", "mascara": "" },
-                { "idcampo": "neto", "descripcion": "Importe neto", "label": "Importe Neto", "editable": 1, "visible": 1, "mascara": "precioUnitario", "requerido": "1", "valid": "VAL>0" },
-                { "idcampo": "cant_saldo", "descripcion": "Saldo", "label": "Saldo", "editable": 0, "visible": 1, "mascara": "", "requerido": "0", "valid": "VAL>0" },
+                { "idCampo": "fec_emis", "descripcion": "Fecha", "label": "Fecha", "editable": 0, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
+                { "idCampo": "fec_vto", "descripcion": "Fecha Venta", "label": "Fecha Venta", "editable": 0, "visible": 0, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
+                { "idCampo": "comprob_nro", "descripcion": "Comprobante", "label": "Comprobante", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                { "idCampo": "comprob_desc", "descripcion": "Comprobante Nombre", "label": "Nombre Comprobante", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
+                { "idCampo": "cod_prod", "descripcion": "Código Producto", "label": "Producto", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                { "idCampo": "desc_prod", "descripcion": "Nombre Producto", "label": "Detalle", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                { "idCampo": "codbarra", "descripcion": "Codigo de Barra", "label": "Codigo de Barras", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
+                { "idCampo": "base_v", "descripcion": "Base", "label": "Base", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
+                { "idCampo": "cant_pend", "descripcion": "cantidad", "label": "Cant. Pend.", "editable": 0, "visible": 1, "mascara": "", "requerido": "0", "valid": "VAL>0" },
+                { "idCampo": "cod_unid", "descripcion": "Presentación", "label": "Unidad", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                { "idCampo": "cant_afec", "descripcion": "Cantidad Afectada", "label": "Cant. Afectada", "editable": 1, "visible": 1, "mascara": "", "requerido": "1", "valid": "VAL>0" },
+                { "idCampo": "ind_stock", "descripcion": "Indic.Stock", "label": "", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
+                { "idCampo": "precio_unit", "descripcion": "Precio unit.", "label": "Precio Unitario", "editable": 1, "visible": 1, "requerido": "1", "valid": "VAL>0", "mascara": "precioUnitario" },
+                { "idCampo": "modif_pcio", "descripcion": "Clave para modificar precio", "label": "", "editable": 1, "visible": 0, "requerido": "0", "mascara": "" },
+                { "idCampo": "neto", "descripcion": "Importe neto", "label": "Importe Neto", "editable": 1, "visible": 1, "mascara": "precioUnitario", "requerido": "1", "valid": "VAL>0" },
+                { "idCampo": "cant_saldo", "descripcion": "Saldo", "label": "Saldo", "editable": 0, "visible": 1, "mascara": "", "requerido": "0", "valid": "VAL>0" },
+            ]
+        }
+    });
+
+
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afectcomprobimport' } }).reply(200, {
+        data: {
+            "cod_proceso": "p_afectcomprob",
+            "descrip_proceso": "Afectacion Comprobante",
+            "orden": "3",
+            "campos": [
+                { "idCampo": "fec_emis", "descripcion": "Fecha", "label": "Fecha", "editable": 0, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
+                { "idCampo": "fec_vto", "descripcion": "Fecha Venta", "label": "Fecha Venta", "editable": 0, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
+                { "idCampo": "comprob_nro", "descripcion": "Comprobante", "label": "Comprobante", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                { "idCampo": "comprob_desc", "descripcion": "Comprobante Nombre", "label": "Nombre Comprobante", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
+                { "idCampo": "cod_prod", "descripcion": "Código Producto", "label": "Producto", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
+                { "idCampo": "desc_prod", "descripcion": "Nombre Producto", "label": "Detalle", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                { "idCampo": "imp_pend", "descripcion": "Importe pendiente", "label": "Imp. Pend.", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                { "idCampo": "cotiz", "descripcion": "Cotización del comprob. afectado", "label": "Cotiz", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                { "idCampo": "imp_afec", "descripcion": "Importe afectado", "label": "Importe Afectado", "editable": 1, "visible": 1, "mascara": "", "requerido": "1", "valid": "VAL>0" },
+                { "idCampo": "neto", "descripcion": "neto", "label": "Neto", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
+                { "idCampo": "saldo", "descripcion": "salod", "label": "Saldo", "editable": 0, "visible": 1, "mascara": "", "requerido": 0, "valid": "VAL>0" },
             ]
         }
     });
 
     mockAdapter.onGet('/Comprobantes/ventaCabecera', { params: { idOperacion: 1 } }).reply(200, {
-        data:
-        {
+        data: {
             "Titulo_comp_vta": "Nota de Venta con aprobación",
             "moneda": [
                 {

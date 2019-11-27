@@ -3,11 +3,12 @@ import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import InputDropdown from 'components/form/inputDropdown';
-import { salesAffectedCant } from '../../actions/';
-import InvolvementTable from './involvementTable';
-import InvolvementTotalResume from './involvementTotalResume';
+import { salesAffectedImport } from '../../actions/';
+import VoucherImportTable from './voucherImportTable';
+import VoucherAffectingTotal from './VoucherAffectingTotal';
 
-class VoucherInvolvementTable extends Component {
+
+class VoucherAffectingTable extends Component {
 
     constructor(props) {
         super(props);
@@ -38,20 +39,20 @@ class VoucherInvolvementTable extends Component {
     componentDidMount = () => {
         const { ComprobAvencer, OpcionMuestra } = this.state;
         const { idOperacion } = this.props;
-        this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra });
+        this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra });
     }
 
     handleGetCant = (e) => {
         const comprobante = (e.target.checked) ? 1 : 0;
         const { OpcionMuestra } = this.state;
         this.setState({ ComprobAvencer: comprobante });
-        this.props.salesAffectedCant({ ComprobAvencer: comprobante, OpcionMuestra });
+        this.props.salesAffectedImport({ ComprobAvencer: comprobante, OpcionMuestra });
     }
 
     handleChangeSelect = (value) => {
         const { ComprobAvencer } = this.state;
         this.setState({ OpcionMuestra: value });
-        this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra: value });
+        this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra: value });
     }
 
     componentDidUpdate = (prevProps) => {
@@ -71,7 +72,7 @@ class VoucherInvolvementTable extends Component {
     }
 
     render() {
-        const { t, productsInvol, readOnly } = this.props;
+        const { t, productsImport, readOnly } = this.props;
         const inputConfig = [{ idCampo: 'checkComprobAvencer', label: t('voucherInvolvement.form.sample'), visible: 1, requerido: 0, editable: 1 }]
         const customCol = (readOnly) ? 4 : { span: 5, offset: 7 };
         return (
@@ -102,24 +103,24 @@ class VoucherInvolvementTable extends Component {
                         />
                     </Col>
                     <Col sm={3}>
-                        {productsInvol && <InvolvementTotalResume classDiv={'pl-5'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
+                        {productsImport && <VoucherAffectingTotal classDiv={'pl-5'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
                     </Col>
                 </>}
                 {
                     readOnly &&
                     <Col sm={12} >
-                        <InvolvementTotalResume formatCol={{ span: 4, offset: 8 }} data={this.state} />
+                        <VoucherAffectingTotal formatCol={{ span: 4, offset: 8 }} data={this.state} />
                     </Col>
                 }
                 <Col sm={12} className={"pb-2 pl-0 pr-0"}>
-                    {productsInvol &&
-                        <InvolvementTable
-                            products={productsInvol.Items}
+                    {productsImport &&
+                        <VoucherImportTable
+                            products={productsImport.Items}
                             readOnly={readOnly}
                             idOperacion={this.props.idOperacion}
                         />
                     }
-                    {productsInvol && <InvolvementTotalResume classDiv={'pl-0'} formatCol={{ span: 5, offset: 7 }} data={this.state} />}
+                    {productsImport && <VoucherAffectingTotal classDiv={'pl-0'} formatCol={{ span: 5, offset: 7 }} data={this.state} />}
                 </Col>
             </Row>
         )
@@ -128,8 +129,8 @@ class VoucherInvolvementTable extends Component {
 
 const mapStateToProps = ({ vouchertype, salesAffected }) => {
     const { voucherType } = vouchertype;
-    const { productsInvol, cantValidate, subCalculations, salesconfirm } = salesAffected;
-    return { voucherType, productsInvol, cantValidate, subCalculations, salesconfirm };
+    const { productsImport, cantValidate, subCalculations, salesconfirm } = salesAffected;
+    return { voucherType, productsImport, cantValidate, subCalculations, salesconfirm };
 };
 
-export default connect(mapStateToProps, { salesAffectedCant })(withTranslation()(VoucherInvolvementTable));
+export default connect(mapStateToProps, { salesAffectedImport })(withTranslation()(VoucherAffectingTable));
