@@ -6,8 +6,6 @@ export const getVoucherType = async (params) => {
 }
 
 export const getVoucherTypeByUser = async () => {
-  console.log('hola')
   const response = await Axios.get('Comprobantes/usuario');
-  console.log(response, 'comprobantes')
   return response.data;
 }

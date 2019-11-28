@@ -79,28 +79,32 @@ class ShoppingCartTable extends Component {
     }
 
     getStyleColumn = (field) => {
-        const idField = field.idcampo;
+        const idField = field.idCampo.trim();
 
         let style = {};
 
         switch (idField) {
             case 'desc_prod':
-                style = { width: '20%' }
+                style = { width: '25%' }
                 break;
             case 'fec_entrega':
                 style = { width: '13%' }
                 break;
             case 'avisos':
-                style = { width: '8%' }
+                style = { width: '10%' }
                 break;
             case 'ind_stock':
-                style = { width: '3%' }
+                style = { width: '1%' }
                 break;
             case 'precio_unit':
-                style = { width: '13%' }
+                style = { width: '10%' }
                 break;
+            case 'modif_pcio':
+                style = { width: '1%' }
+                break;
+
             case 'neto':
-                style = { width: '13%' }
+                style = { width: '10%' }
                 break;
             default:
                 style = { width: '10%' }
@@ -201,6 +205,12 @@ class ShoppingCartTable extends Component {
             },
         };
 
+        const options = (cartProducts.productos) ? {
+            page: cartProducts.page_number,
+            sizePerPage: cartProducts.page_size,
+            totalSize: cartProducts.total_count,
+        } : {}
+
         return (
             <Col className={`col-12`}>
                 <CommonTable
@@ -211,6 +221,8 @@ class ShoppingCartTable extends Component {
                     rowClasses={theme.tableRow}
                     headerClasses={theme.tableHeader}
                     expandRow={expandRow}
+                    paginationOptions={options}
+                    onTableChange={this.props.handleChangeTable}
                 />
             </Col>
         )

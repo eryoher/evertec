@@ -203,7 +203,6 @@ class InputText extends Component {
         const config = this.state.configInput;
         const customStyleLabel = (config.requerido) ? { ...styleLabel, color: 'red' } : { ...styleLabel };
         const inputStyles = (this.state.requireError) ? { ...styles, border: '1px solid red' } : styles;
-
         if (config.visible) {
             const optionsInput = {
                 id: (id) ? id : inputId,

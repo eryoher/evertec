@@ -11,7 +11,7 @@ class InputTextArea extends Component {
         let result = {};
 
         fields.forEach(field => {
-            if (field.idcampo == id) {
+            if (field.idcampo === id) {
                 result = field;
             }
         });

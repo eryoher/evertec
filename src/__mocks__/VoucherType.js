@@ -1,8 +1,8 @@
 
 export default (mockAdapter) => {
 
-    mockAdapter.onGet('/TipoDeComprobante', { params: { idOperacion: 21 } }).reply(200, {
-        data: {
+    mockAdapter.onGet('/TipoDeComprobante', { params: { idOperacion: 21 } }).reply(200,
+        {
             "idOperacion": 21,
             "cod_comprob": "C.NVCR",
             "descrip_comprob": "Pedido reserva autom.",
@@ -35,7 +35,7 @@ export default (mockAdapter) => {
                 },
             ]
         }
-    });
+    );
 
 
     mockAdapter.onGet('/TipoComprobantes/consulta', { params: { "idComprobante": "C.NVAP" } }).reply(200, {

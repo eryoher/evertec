@@ -23,18 +23,22 @@ class ShoppingCart extends Component {
     componentDidMount = () => {
         const { idOperacion } = this.props;
         //this.props.getConfigVoucher({ cod_proceso: 'P_CargaItemenVentas', idOperacion });
-        this.props.getProductsCart({ idOperacion, page_number: 1, page_size: 10 })
+        this.props.getProductsCart({ idOperacion, page_number: 1, page_size: 10 });
+    }
+
+    handleChangeTable = (type, pagination) => {
+        const { idOperacion } = this.props;
+        this.props.getProductsCart({ idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
     }
 
     render() {
-        const { showModal, handleClose, t, theme, productsCart, config } = this.props;
+        const { showModal, handleClose, t, theme, productsCart, config, idOperacion } = this.props;
         return (
             <Modal
                 show={showModal}
                 size="xl"
                 onHide={handleClose}
                 aria-labelledby="ModalHeader"
-
             >
                 <Modal.Header closeButton className={theme.divHeader}>
                     <Modal.Title id='ModalHeader' className={theme.divTitle} >
@@ -50,12 +54,17 @@ class ShoppingCart extends Component {
                         </Col>
                         {productsCart && <ProductsTotalResume formatCol={{ span: 7, offset: 5 }} data={productsCart} />}
                     </Row>
-                    {productsCart && config && <ShoppingCartTable config={config} cartProducts={productsCart} />}
+                    {productsCart && config &&
+                        <ShoppingCartTable
+                            config={config}
+                            cartProducts={productsCart}
+                            idOperacion={idOperacion}
+                            handleChangeTable={this.handleChangeTable}
+                        />
+                    }
                     {productsCart && <ProductsTotalResume formatCol={{ span: 4, offset: 8 }} data={productsCart} />}
 
                 </Modal.Body>
-
-
             </Modal>
         )
     }
