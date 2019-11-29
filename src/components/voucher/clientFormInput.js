@@ -10,10 +10,10 @@ import InputDropdown from '../form/inputDropdown'
 class ClientFormInput extends Component {
 
     handleChange = (select) => {
-        const { Sucursales } = this.props.values;
+        const { cliente_Sucursales } = this.props.values;
         const val = select.target.value;
         let result = null;
-        Sucursales.forEach(opt => {
+        cliente_Sucursales.forEach(opt => {
             if (opt.suc_nro === val) {
                 result = opt;
             }
@@ -45,10 +45,10 @@ class ClientFormInput extends Component {
 
     render() {
         const { t, errors, touched, values, handleChange, handleBlur, setFieldValue, setFieldTouched, readOnly, fields } = this.props;
-        const optionsSelect = (values.Sucursales) ? values.Sucursales : [];
+        const optionsSelect = (values.cliente_Sucursales) ? values.cliente_Sucursales : [];
 
         const options = optionsSelect.map((opt) => {
-            return ({ id: opt.suc_nro, label: opt.suc_nom });
+            return ({ id: opt.suc_nro, label: opt.suc_nombre });
         })
 
         return (

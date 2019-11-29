@@ -1,4 +1,4 @@
-import { HEADERBOARD, GENERATE, LOADITEMS, VOUCHER, VOUCHERINVOLVEMENT } from '../utils/RoutePath';
+import { HEADERBOARD, GENERATE, LOADITEMS, VOUCHER, VOUCHERINVOLVEMENT, VOUCHERAFFECTING } from '../utils/RoutePath';
 
 export function getBackNextButtons(crumbs, current, urlParameter) {
     let ban = true;
@@ -48,7 +48,9 @@ const getUrl = (proccess, urlParameter) => {
         p_selcli: VOUCHER,
         p_cargaitemvta: LOADITEMS,
         p_afectcomprob: VOUCHERINVOLVEMENT,
-        p_fincomprob: GENERATE
+        p_fincomprob: GENERATE,
+        p_afectimporte: VOUCHERAFFECTING
+
     }
 
     return (urlParameter) ? `${urls[proccess]}/${urlParameter}` : urls[proccess];

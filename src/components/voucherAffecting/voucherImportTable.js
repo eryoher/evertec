@@ -56,7 +56,7 @@ class VoucherImportTable extends Component {
     getColumns = () => {
         const { config, theme, readOnly } = this.props;
 
-        const rows = config.data.campos.map((field) => {
+        const rows = config.campos.map((field) => {
             const campoId = field.idCampo.trim()
             return {
                 dataField: campoId,

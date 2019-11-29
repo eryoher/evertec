@@ -114,7 +114,7 @@ class VoucherInvolvementTable extends Component {
                 <Col sm={12} className={"pb-2 pl-0 pr-0"}>
                     {productsInvol &&
                         <InvolvementTable
-                            products={productsInvol.Items}
+                            products={productsInvol}
                             readOnly={readOnly}
                             idOperacion={this.props.idOperacion}
                         />

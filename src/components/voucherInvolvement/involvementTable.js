@@ -56,8 +56,7 @@ class InvolvementTable extends Component {
 
     getColumns = () => {
         const { config, theme, readOnly } = this.props;
-
-        const rows = config.data.campos.map((field) => {
+        const rows = config.campos.map((field) => {
             const campoId = field.idCampo.trim()
             return {
                 dataField: campoId,
@@ -111,7 +110,7 @@ class InvolvementTable extends Component {
         const { products } = this.props;
         const optionsExits = [];
         const result = [];
-        products.forEach(row => {
+        products.Items.forEach(row => {
             if (row[idField] && !optionsExits[row[idField]]) {
                 optionsExits[row[idField]] = true;
                 result.push({ value: row[idField], label: row[idField] })
@@ -334,7 +333,7 @@ class InvolvementTable extends Component {
         const { products } = this.props;
 
         const items = [];
-        products.forEach(row => {
+        products.Items.forEach(row => {
             selectedCheck.forEach(check => {
                 if (row.nimovcli === check) {
                     items.push({
@@ -432,7 +431,7 @@ class InvolvementTable extends Component {
             order: 'desc'
         }];
 
-        const rowData = (products) ? products.map((prod) => {
+        const rowData = (products) ? products.Items.map((prod) => {
             let result = {};
             if (productsUpdate) {
                 productsUpdate.forEach(update => {

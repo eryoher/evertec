@@ -122,7 +122,7 @@ class VoucherFormInput extends Component {
                         divStyle={{ paddingLeft: '23px' }}
                         disable={readOnly}
                         styleLabel={{ textAlign: 'right' }}
-                        value={values.cuit}
+                        value={values.cliente_identificador}
                         onChange={(data) => {
                             setFieldValue('cliente_identificador', data.target.value);
                         }}

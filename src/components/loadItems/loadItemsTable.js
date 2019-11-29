@@ -46,7 +46,7 @@ class LoadItemsTable extends Component {
 
     handleSetFocus = (input, rowId) => {
         const nextRef = this.inputRefs[input][rowId];
-        console.log(nextRef, input, rowId)
+        //console.log(nextRef, input, rowId)
         if (input === 'fec_entrega' && nextRef.current) {
             nextRef.current.setFocus();
         } else if (nextRef.current && nextRef.current.element) {

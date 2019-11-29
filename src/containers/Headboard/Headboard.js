@@ -21,7 +21,7 @@ class Headboard extends Component {
         if (match.params.idComprobante) {
             const idOperacion = match.params.idComprobante;
             this.setState({ idOperacion });
-            this.props.getVoucherType({ idOperacion }); //
+            this.props.getVoucherType({ idOperacion });
         }
     }
 
