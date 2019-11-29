@@ -10,7 +10,9 @@ import {
     VOUCHER_HEAD_CHECK_DATE,
     VOUCHER_HEAD_CHECK_DATE_SUCCESS,
     VOUCHER_HEAD_CONFIRM,
-    VOUCHER_HEAD_CONFIRM_SUCCESS
+    VOUCHER_HEAD_CONFIRM_SUCCESS,
+    GET_VOUCHER_HEAD_INFO,
+    GET_VOUCHER_HEAD_INFO_SUCCESS
 
 } from '../constants/ActionsTypes';
 
@@ -40,6 +42,20 @@ export const getVoucherHead = (params) => {
 export const getVoucherHeadSuccess = (response) => {
     return {
         type: GET_VOUCHER_HEAD_SUCCESS,
+        payload: response
+    }
+};
+
+export const getVoucherHeadInfo = (params) => {
+    return {
+        type: GET_VOUCHER_HEAD_INFO,
+        payload: params
+    }
+};
+
+export const getVoucherHeadInfoSuccess = (response) => {
+    return {
+        type: GET_VOUCHER_HEAD_INFO_SUCCESS,
         payload: response
     }
 };

@@ -1375,4 +1375,26 @@ export default (mockAdapter) => {
             }
         ]
     )
+
+    mockAdapter.onGet('/comprobante/encabezado').reply(200,
+        {
+            "Resultado": {
+                "Resultado": true,
+                "Tipo_error": null,
+                "Mens_error": null,
+                "Errores": null
+            },
+            "total_importe": 51916.31,
+            "total_item": 7,
+            "total_cant": 389.0,
+            "tipo_comprobante": "NOTAS DE VENTA",
+            "descrip_comprobante": "Pedido reserva autom.",
+            "razon_social": "CCFCIAFC00764 - FARMACIA 25 DE MAYO - MIELNIK HUGO R.",
+            "dato1": "29/11/2019",
+            "dato2": "Alejandro Gonzalez",
+            "dato3": "Transportista: CTES RUTA A CENTRO",
+            "dato4": ""
+        }
+    )
+
 }

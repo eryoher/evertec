@@ -6,7 +6,8 @@ import {
     voucherHeadAuto,
     voucherHeadValidatekey,
     voucherHeadCheckDate,
-    voucherHeadConfirm
+    voucherHeadConfirm,
+    getVoucherHeadInfo
 } from '../api/Voucher'
 
 import {
@@ -16,6 +17,7 @@ import {
     VOUCHER_HEAD_VALIDATE_KEY,
     VOUCHER_HEAD_CHECK_DATE,
     VOUCHER_HEAD_CONFIRM,
+    GET_VOUCHER_HEAD_INFO,
 
 } from '../constants/ActionsTypes';
 
@@ -27,6 +29,7 @@ import {
     voucherHeadValidatekeySuccess,
     voucherHeadCheckDateSuccess,
     voucherHeadConfirmSuccess,
+    getVoucherHeadInfoSuccess,
 } from '../actions/Voucher';
 
 
@@ -78,6 +81,13 @@ function* voucherHeadConfirmRequest({ payload }) {
     }
 }
 
+function* getVoucherHeadInfoRequest({ payload }) {
+    try {
+        const headInfo = yield call(getVoucherHeadInfo, payload);
+        yield put(getVoucherHeadInfoSuccess(headInfo));
+    } catch (error) {
+    }
+}
 
 export function* getConfigVoucherSaga() {
     yield takeEvery(GET_CONFIG_VOUCHER, getConfigVoucherRequest);
@@ -103,6 +113,10 @@ export function* voucherHeadConfirmSaga() {
     yield takeEvery(VOUCHER_HEAD_CONFIRM, voucherHeadConfirmRequest);
 }
 
+export function* getVoucherHeadInfoSaga() {
+    yield takeEvery(GET_VOUCHER_HEAD_INFO, getVoucherHeadInfoRequest);
+}
+
 export default function* rootSaga() {
     yield all([
         fork(getConfigVoucherSaga),
@@ -110,6 +124,7 @@ export default function* rootSaga() {
         fork(voucherHeadAutoSaga),
         fork(voucherHeadValidatekeySaga),
         fork(voucherHeadCheckDateSaga),
-        fork(voucherHeadConfirmSaga)
+        fork(getVoucherHeadInfoSaga),
+        fork(voucherHeadConfirmSaga),
     ]);
 }

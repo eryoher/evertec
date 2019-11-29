@@ -29,3 +29,8 @@ export const voucherHeadConfirm = async (params) => {
     const response = await Axios.post('/vta_cab_compr/confirmar', params);
     return response.data;
 }
+
+export const getVoucherHeadInfo = async (params) => {
+    const response = await Axios.get('/comprobante/encabezado', { params });
+    return response.data;
+}
