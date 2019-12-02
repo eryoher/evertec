@@ -33,7 +33,7 @@ class InvolvementTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
-        this.props.getConfigVoucher({ cod_proceso: 'p_afectcomprob' });
+        this.props.getConfigVoucher({ cod_proceso: 'p_afec_cant_vta', idOperacion });
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -71,7 +71,7 @@ class InvolvementTable extends Component {
                     onFilter: filterVal => this.setState({ filterVal }),
                     placeholder: field.label,
                 }) : null,
-                formatter: ((field.editable || campoId === 'avisos' || campoId === 'ind_stock') && (!readOnly)) ? ((cell, row, rowIndex) => {
+                formatter: ((field.editable || campoId === 'avisos' || campoId === 'ind_stock' || campoId === 'modif_pcio') && (!readOnly)) ? ((cell, row, rowIndex) => {
                     return this.renderFormat(field, cell, row)
                 }) : null
             }
@@ -124,20 +124,23 @@ class InvolvementTable extends Component {
     }
 
     getStyleColumn = (field) => {
-        const idField = field.idcampo;
+        const idField = field.idCampo.trim();
         let style = {};
 
         switch (idField) {
-            case 'fec_emis':
-                style = { width: '15%' }
+            case 'nimovcli':
+                style = { width: '5%' }
                 break;
-            case 'comprob_nro':
-                style = { width: '20%' }
+            case 'Cod_unid':
+                style = { width: '3%' }
                 break;
-            case 'cod_prod':
-                style = { width: '15%' }
+            case 'nitem':
+                style = { width: '8%' }
                 break;
-            case 'desc_prod':
+            case 'Cant_pend':
+                style = { width: '5%' }
+                break;
+            case 'Desc_prod':
                 style = { width: '20%' }
                 break;
             case 'fec_entrega':
@@ -149,19 +152,21 @@ class InvolvementTable extends Component {
             case 'ind_stock':
                 style = { width: '3%' }
                 break;
-            case 'precio_unit':
-                style = { width: '18%' }
+            case 'pcio_unit':
+                style = { width: '5%' }
                 break;
             case 'neto':
-                style = { width: '18%' }
+                style = { width: '8%' }
                 break;
             case 'unid_v':
                 style = { width: '5%' }
                 break;
-            case 'cant_afec':
-                style = { width: '15%' }
+            case 'modif_pcio':
+                style = { width: '1%' }
                 break;
-
+            case 'cant_saldo':
+                style = { width: '3%' }
+                break;
             default:
                 style = { width: '10%' }
                 break;
@@ -476,7 +481,7 @@ class InvolvementTable extends Component {
                 <Col className={`col-12 pl-0 pr-0`}>
                     {config && <CommonTable
                         columns={tableColumns}
-                        keyField={'nimovcli'}
+                        keyField={'niprod'}
                         data={rowData}
                         selectRow={selectRow}
                         defaultSorted={defaultSorted}

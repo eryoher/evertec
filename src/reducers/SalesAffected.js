@@ -85,7 +85,7 @@ function rootReducer(state = initialState, action) {
         case SALES_AFFECTED_QUANTITY:
             return { ...state, productsInvol: null }
         case SALES_AFFECTED_QUANTITY_SUCCESS:
-            return { ...state, productsInvol: action.payload.data }
+            return { ...state, productsInvol: action.payload }
         case SALES_AFFECTED_IMPORT:
             return { ...state, productsImport: null }
         case SALES_AFFECTED_IMPORT_SUCCESS:

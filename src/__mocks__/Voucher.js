@@ -438,31 +438,165 @@ export default (mockAdapter) => {
     );
 
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afectcomprob' } }).reply(200, {
-
-        "cod_proceso": "p_afectcomprob",
-        "descrip_proceso": "Afectacion Comprobante",
-        "orden": "3",
-        "campos": [
-            { "idCampo": "fec_emis", "descripcion": "Fecha", "label": "Fecha", "editable": 0, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
-            { "idCampo": "fec_vto", "descripcion": "Fecha Venta", "label": "Fecha Venta", "editable": 0, "visible": 0, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
-            { "idCampo": "comprob_nro", "descripcion": "Comprobante", "label": "Comprobante", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-            { "idCampo": "comprob_desc", "descripcion": "Comprobante Nombre", "label": "Nombre Comprobante", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
-            { "idCampo": "cod_prod", "descripcion": "Código Producto", "label": "Producto", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-            { "idCampo": "desc_prod", "descripcion": "Nombre Producto", "label": "Detalle", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-            { "idCampo": "codbarra", "descripcion": "Codigo de Barra", "label": "Codigo de Barras", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
-            { "idCampo": "base_v", "descripcion": "Base", "label": "Base", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
-            { "idCampo": "cant_pend", "descripcion": "cantidad", "label": "Cant. Pend.", "editable": 0, "visible": 1, "mascara": "", "requerido": "0", "valid": "VAL>0" },
-            { "idCampo": "cod_unid", "descripcion": "Presentación", "label": "Unidad", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
-            { "idCampo": "cant_afec", "descripcion": "Cantidad Afectada", "label": "Cant. Afectada", "editable": 1, "visible": 1, "mascara": "", "requerido": "1", "valid": "VAL>0" },
-            { "idCampo": "ind_stock", "descripcion": "Indic.Stock", "label": "", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
-            { "idCampo": "precio_unit", "descripcion": "Precio unit.", "label": "Precio Unitario", "editable": 1, "visible": 1, "requerido": "1", "valid": "VAL>0", "mascara": "precioUnitario" },
-            { "idCampo": "modif_pcio", "descripcion": "Clave para modificar precio", "label": "", "editable": 1, "visible": 0, "requerido": "0", "mascara": "" },
-            { "idCampo": "neto", "descripcion": "Importe neto", "label": "Importe Neto", "editable": 1, "visible": 1, "mascara": "precioUnitario", "requerido": "1", "valid": "VAL>0" },
-            { "idCampo": "cant_saldo", "descripcion": "Saldo", "label": "Saldo", "editable": 0, "visible": 1, "mascara": "", "requerido": "0", "valid": "VAL>0" },
-        ]
-
-    });
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_cant_vta' } }).reply(200,
+        {
+            "cod_proceso": "p_afec_cant_vta",
+            "desc_proceso": "Afectación Cantidades",
+            "orden": 3,
+            "campos": [
+                {
+                    "idCampo": "nimovcli                      ",
+                    "descrip": "",
+                    "label": "NºInt.Cbt.",
+                    "mascara": null,
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "nitem                         ",
+                    "descrip": "",
+                    "label": "NºItem Cbt.",
+                    "mascara": null,
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "Fec_emis                      ",
+                    "descrip": "",
+                    "label": "Fecha",
+                    "mascara": "FechaCorta",
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "Fec_vto                       ",
+                    "descrip": "",
+                    "label": "Fec.Vto.",
+                    "mascara": "FechaCorta",
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "Comprob_desc                  ",
+                    "descrip": "",
+                    "label": "Descripción",
+                    "mascara": null,
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "Comprob_nro                   ",
+                    "descrip": "",
+                    "label": "Número",
+                    "mascara": null,
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "Desc_prod                     ",
+                    "descrip": "",
+                    "label": "Producto",
+                    "mascara": null,
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "Cod_prod                      ",
+                    "descrip": "",
+                    "label": "Cod.Prod.",
+                    "mascara": null,
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "Cod_unid                      ",
+                    "descrip": "",
+                    "label": "UM",
+                    "mascara": null,
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "Cant_pend                     ",
+                    "descrip": "",
+                    "label": "Pendiente",
+                    "mascara": "CantidadEntera",
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "Cant_afec                     ",
+                    "descrip": "",
+                    "label": "Afectado",
+                    "mascara": "CantidadEntera",
+                    "editable": 1,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "pcio_unit                     ",
+                    "descrip": "",
+                    "label": "Precio",
+                    "mascara": "PrecioUnitUsual",
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "modif_pcio                    ",
+                    "descrip": "",
+                    "label": null,
+                    "mascara": null,
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "neto                          ",
+                    "descrip": "",
+                    "label": "Neto",
+                    "mascara": "NetoUsual",
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                },
+                {
+                    "idCampo": "cant_saldo                    ",
+                    "descrip": "",
+                    "label": null,
+                    "mascara": null,
+                    "editable": 0,
+                    "visible": 1,
+                    "requerido": 0,
+                    "valid": null
+                }
+            ]
+        }
+    );
 
 
     mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afectcomprobimport' } }).reply(200, {

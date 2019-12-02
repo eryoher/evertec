@@ -47,7 +47,7 @@ const getUrl = (proccess, urlParameter) => {
         p_vtacab: HEADERBOARD,
         p_selcli: VOUCHER,
         p_cargaitemvta: LOADITEMS,
-        p_afectcomprob: VOUCHERINVOLVEMENT,
+        p_afec_cant_vta: VOUCHERINVOLVEMENT,
         p_fincomprob: GENERATE,
         p_afectimporte: VOUCHERAFFECTING
 
