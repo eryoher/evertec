@@ -41,17 +41,27 @@ class VoucherInvolvementTable extends Component {
         this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: 1, page_size: 10 });
     }
 
+    onChangeTable = (type, pagination) => {
+        const { salesAffectedCant, idOperacion } = this.props;
+        console.log(type, pagination)
+        this.props.salesAffectedCant({ ...salesAffectedCant, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
+    }
+
     handleGetCant = (e) => {
         const comprobante = (e.target.checked) ? 1 : 0;
         const { OpcionMuestra } = this.state;
+        const { idOperacion } = this.props;
+
         this.setState({ ComprobAvencer: comprobante });
-        this.props.salesAffectedCant({ ComprobAvencer: comprobante, OpcionMuestra });
+        this.props.salesAffectedCant({ ComprobAvencer: comprobante, OpcionMuestra, idOperacion, page_number: 1, page_size: 1 });
     }
 
     handleChangeSelect = (value) => {
         const { ComprobAvencer } = this.state;
+        const { idOperacion } = this.props;
+
         this.setState({ OpcionMuestra: value });
-        this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra: value });
+        this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra: value, idOperacion, page_number: 1, page_size: 1 });
     }
 
     componentDidUpdate = (prevProps) => {
@@ -117,6 +127,7 @@ class VoucherInvolvementTable extends Component {
                             products={productsInvol}
                             readOnly={readOnly}
                             idOperacion={this.props.idOperacion}
+                            handleChangeTable={this.onChangeTable}
                         />
                     }
                     {productsInvol && <InvolvementTotalResume classDiv={'pl-0'} formatCol={{ span: 5, offset: 7 }} data={this.state} />}
@@ -128,8 +139,8 @@ class VoucherInvolvementTable extends Component {
 
 const mapStateToProps = ({ vouchertype, salesAffected }) => {
     const { voucherType } = vouchertype;
-    const { productsInvol, cantValidate, subCalculations, salesconfirm } = salesAffected;
-    return { voucherType, productsInvol, cantValidate, subCalculations, salesconfirm };
+    const { productsInvol, cantValidate, subCalculations, salesconfirm, salesAffectedCant } = salesAffected;
+    return { voucherType, productsInvol, cantValidate, subCalculations, salesconfirm, salesAffectedCant };
 };
 
 export default connect(mapStateToProps, { salesAffectedCant })(withTranslation()(VoucherInvolvementTable));

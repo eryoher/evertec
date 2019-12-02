@@ -355,10 +355,6 @@ class InvolvementTable extends Component {
         return items;
     }
 
-    handleOnTableChange = (type, pagination) => {
-        console.log(type, pagination)
-    }
-
 
     render() {
         const { products, theme, config, productsUpdate, readOnly } = this.props;
@@ -459,16 +455,20 @@ class InvolvementTable extends Component {
 
         }) : null;
 
-        const options = {
+
+        const options = (products) ? {
             pageStartIndex: 1,
-            sizePerPage: 10,
+            sizePerPage: products.page_size,
+            page: products.page_number,
+            totalSize: products.total_count,
             onPageChange: (page, sizePerPage) => {
                 const items = this.getSelectedCheck();
                 if (items.length) {
                     this.props.salesAffectedConfirm({ idOperacion: '123456', items })
                 }
             }
-        }
+        } : {}
+
         return (
             <>
                 <Col sm={12} className={"mb-1"} >
@@ -488,7 +488,7 @@ class InvolvementTable extends Component {
                         rowClasses={theme.tableRow}
                         headerClasses={theme.tableHeader}
                         paginationOptions={options}
-                        onTableChange={this.handleOnTableChange}
+                        onTableChange={this.props.handleChangeTable}
 
                     />}
                 </Col>

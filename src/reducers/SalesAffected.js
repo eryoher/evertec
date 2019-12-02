@@ -80,10 +80,10 @@ function rootReducer(state = initialState, action) {
                     });
                 });
             }
-            console.log(updateImportState)
+            //console.log(updateImportState)
             return updateImportState;
         case SALES_AFFECTED_QUANTITY:
-            return { ...state, productsInvol: null }
+            return { ...state, productsInvol: null, paramsProductsInvol: action.payload }
         case SALES_AFFECTED_QUANTITY_SUCCESS:
             return { ...state, productsInvol: action.payload }
         case SALES_AFFECTED_IMPORT:
