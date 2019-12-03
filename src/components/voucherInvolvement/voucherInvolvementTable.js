@@ -38,12 +38,12 @@ class VoucherInvolvementTable extends Component {
     componentDidMount = () => {
         const { ComprobAvencer, OpcionMuestra } = this.state;
         const { idOperacion } = this.props;
-        this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: 1, page_size: 10 });
+        this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: 1, page_size: 1 });
     }
 
     onChangeTable = (type, pagination) => {
-        const { salesAffectedCant, idOperacion } = this.props;
-        this.props.salesAffectedCant({ ...salesAffectedCant, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
+        const { paramsProductsInvol, idOperacion } = this.props;
+        this.props.salesAffectedCant({ ...paramsProductsInvol, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
     }
 
     handleGetCant = (e) => {
@@ -138,8 +138,8 @@ class VoucherInvolvementTable extends Component {
 
 const mapStateToProps = ({ vouchertype, salesAffected }) => {
     const { voucherType } = vouchertype;
-    const { productsInvol, cantValidate, subCalculations, salesconfirm, salesAffectedCant } = salesAffected;
-    return { voucherType, productsInvol, cantValidate, subCalculations, salesconfirm, salesAffectedCant };
+    const { productsInvol, cantValidate, subCalculations, salesconfirm, paramsProductsInvol } = salesAffected;
+    return { voucherType, productsInvol, cantValidate, subCalculations, salesconfirm, paramsProductsInvol };
 };
 
 export default connect(mapStateToProps, { salesAffectedCant })(withTranslation()(VoucherInvolvementTable));

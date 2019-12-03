@@ -190,18 +190,20 @@ class InvolvementTable extends Component {
     }
 
     validateFieldQuantity = (row, field, value) => {
-        const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: value }];
+        const { idOperacion } = this.props;
+
         const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
-        if (field.valid) {
-            let message = '';
-            if (!validateField(value, field.valid)) {
-                message = `El campo ${field.label} es requerido.`;
-                this.setState({ showError: true, errorMessage: message });
-            } else {
-                selected.push(row.nimovcli);
-                this.setState({ selectedCheck: selected });
-                this.props.salesAffectedValidate({ idOperacion: row.nimovcli /*items*/ }); //Falta adicionar idOperacion
-            }
+
+        let message = '';
+        if (!validateField(value, field.valid)) {
+            message = `El campo ${field.label} es requerido.`;
+            this.setState({ showError: true, errorMessage: message });
+        } else {
+            selected.push(row.niprod);
+            this.setState({ selectedCheck: selected });
+            const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: row.Cant_afec }];
+            this.props.salesAffectedValidate({ idOperacion, items }); //Falta adicionar idOperacion
+            this.props.salesAffectedSubCalculation({ idOperacion, Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: value, Neto: row.neto })
         }
 
     }
@@ -305,7 +307,7 @@ class InvolvementTable extends Component {
                     {...optionsInput}
                     //autoFocus={(focusInput && focusInput.input === 'neto' && focusInput.rowId === row.niprod) ? true : false}
                     handleEnterKey={(e, value) => {
-                        if (campoId === 'cant_afec') {
+                        if (campoId === 'Cant_afec') {
                             this.validateFieldQuantity(row, field, value);
                             this.handleSetFocus('precio_unit', row.niprod);
 
@@ -315,7 +317,7 @@ class InvolvementTable extends Component {
                         return true;
                     }}
                     onBlur={(value) => {
-                        if (campoId === 'cant_afec') { //pendiente logica.
+                        if (campoId === 'Cant_afec') { //pendiente logica.
                             this.validateFieldQuantity(row, field, value);
                         } else if (campoId === 'neto') {
                             this.validateFieldNeto(row, field, value);
@@ -340,13 +342,13 @@ class InvolvementTable extends Component {
         const items = [];
         products.Items.forEach(row => {
             selectedCheck.forEach(check => {
-                if (row.nimovcli === check) {
+                if (row.niprod === check) {
                     items.push({
-                        nimovcli: row.nimovcli,
-                        nitem: row.nitem,
-                        cant_afec: row.cant_afec,
-                        precio_unit: row.precio_unit,
-                        neto: row.neto
+                        Nimovcli: row.nimovcli,
+                        Nitem: row.nitem,
+                        Cant_afec: row.Cant_afec,
+                        //precio_unit: row.pcio_unit,
+                        //neto: row.neto
                     })
                 }
             });
@@ -357,7 +359,7 @@ class InvolvementTable extends Component {
 
 
     render() {
-        const { products, theme, config, productsUpdate, readOnly } = this.props;
+        const { products, theme, config, productsUpdate, readOnly, idOperacion } = this.props;
         const tableColumns = (config && products) ? this.getColumns() : [];
         const selectRow = {
             mode: 'checkbox',
@@ -369,27 +371,28 @@ class InvolvementTable extends Component {
                 return { backgroundColor };
             },
             onSelect: (row, isSelect, rowIndex, e) => {
+
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
                 if (isSelect) { //Se adiciona                                        
-                    rows.push({ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: row.cant_pend });
-                    selected.push(row.nimovcli)
+                    rows.push({ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: row.Cant_afec });
+                    selected.push(row.niprod)
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
-                        if (toDelete.Nimovcli === row.nimovcli) {
+                        if (toDelete.niprod === row.niprod) {
                             rows.splice(index, 1);
                         }
                     });
 
                     selected.forEach((delet, index) => {
-                        if (delet === row.nimovcli) {
+                        if (delet === row.niprod) {
                             selected.splice(index, 1);
                         }
                     });
 
                 }
                 this.setState({ rowSelected: rows, selectedCheck: selected });
-                this.props.salesAffectedValidate({ idOperacion: row.nimovcli /*item: rows*/ }); //Falta adicionar idOperacion
+                this.props.salesAffectedValidate({ idOperacion, item: rows });
 
             },
             onSelectAll: (isSelect, rows, e) => {
@@ -399,11 +402,11 @@ class InvolvementTable extends Component {
                 if (isSelect) {
                     this.setState({ selectedCheck: null });
                     rows.forEach(check => {
-                        checks.push(check.nimovcli);
+                        checks.push(check.niprod);
                     });
 
                     selected = rows.map(fila => {
-                        return ({ Nimovcli: fila.nimovcli, Nitem: fila.nitem, Cant_afec: fila.cant_pend });
+                        return ({ Nimovcli: fila.nimovcli, Nitem: fila.nitem, Cant_afec: fila.Cant_afec });
                     });
 
                     this.setState({ selectedCheck: checks })
@@ -411,7 +414,7 @@ class InvolvementTable extends Component {
                     for (let index = 0; index < checks.length; index++) {
                         const check = checks[index];
                         rows.forEach(fila => {
-                            if (check === fila.nimovcli) {
+                            if (check === fila.niprod) {
                                 delete checks[index]
                             }
                         });
@@ -422,7 +425,9 @@ class InvolvementTable extends Component {
                 }
 
                 this.setState({ rowSelected: selected });
-                this.props.salesAffectedValidate({ idOperacion: 123456789, /*item: selected*/ }); //Falta adicionar idOperacion
+                if (selected.length) {
+                    this.props.salesAffectedValidate({ idOperacion, item: selected });
+                }
 
             }
         };
@@ -464,7 +469,7 @@ class InvolvementTable extends Component {
             onPageChange: (page, sizePerPage) => {
                 const items = this.getSelectedCheck();
                 if (items.length) {
-                    this.props.salesAffectedConfirm({ idOperacion: '123456', items })
+                    this.props.salesAffectedConfirm({ idOperacion, items })
                 }
             }
         } : {}
@@ -479,18 +484,20 @@ class InvolvementTable extends Component {
                     />
                 </Col>
                 <Col className={`col-12 pl-0 pr-0`}>
-                    {config && <CommonTable
-                        columns={tableColumns}
-                        keyField={'niprod'}
-                        data={rowData}
-                        selectRow={selectRow}
-                        defaultSorted={defaultSorted}
-                        rowClasses={theme.tableRow}
-                        headerClasses={theme.tableHeader}
-                        paginationOptions={options}
-                        onTableChange={this.props.handleChangeTable}
-
-                    />}
+                    {config &&
+                        <CommonTable
+                            remote
+                            columns={tableColumns}
+                            keyField={'niprod'}
+                            data={rowData}
+                            selectRow={selectRow}
+                            defaultSorted={defaultSorted}
+                            rowClasses={theme.tableRow}
+                            headerClasses={theme.tableHeader}
+                            paginationOptions={options}
+                            onTableChange={this.props.handleChangeTable}
+                        />
+                    }
                 </Col>
             </>
         )

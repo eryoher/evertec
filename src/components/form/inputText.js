@@ -149,7 +149,7 @@ class InputText extends Component {
                 response = (
                     <IMaskInput
                         {...options}
-                        value={options.value.toString()}
+                        value={(options.value) ? options.value.toString() : null}
                         mask={maskInput}
                     />
                 )

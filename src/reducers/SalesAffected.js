@@ -93,13 +93,13 @@ function rootReducer(state = initialState, action) {
         case SALES_AFFECTED_SUB_CALCULATION:
             return { ...state, subCalculations: null }
         case SALES_AFFECTED_SUB_CALCULATION_SUCCESS:
-            const updateItem = action.payload.data;
+            const updateItem = action.payload;
             let updateCalsub = {
                 ...state,
                 productsUpdate: [
                     ...state.productsInvol.Items,
                 ],
-                subCalculations: action.payload.data
+                subCalculations: action.payload
             }
             if (updateCalsub.productsUpdate) {
 
@@ -117,9 +117,10 @@ function rootReducer(state = initialState, action) {
         case SALES_AFFECTED_CONFIRM:
             return { ...state, salesconfirm: null }
         case SALES_AFFECTED_CONFIRM_SUCCESS:
-            return { ...state, salesconfirm: action.payload.data }
+            return { ...state, salesconfirm: action.payload }
         case SET_TABLE_DATA_INVOLVEMENT:
             const paramsArray = action.payload;
+            ///console.log(paramsArray, 'respuesta')
             let createState = {
                 ...state,
                 productsUpdate: [
