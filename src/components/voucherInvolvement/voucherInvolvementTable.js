@@ -43,7 +43,6 @@ class VoucherInvolvementTable extends Component {
 
     onChangeTable = (type, pagination) => {
         const { salesAffectedCant, idOperacion } = this.props;
-        console.log(type, pagination)
         this.props.salesAffectedCant({ ...salesAffectedCant, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
     }
 
