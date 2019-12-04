@@ -440,6 +440,7 @@ class InvolvementTable extends Component {
         const rowData = (products) ? products.Items.map((prod) => {
             let result = {};
             if (productsUpdate) {
+
                 productsUpdate.forEach(update => {
                     if (update.niprod === prod.niprod) {
                         result = {
@@ -473,6 +474,8 @@ class InvolvementTable extends Component {
                 }
             }
         } : {}
+
+
 
         return (
             <>

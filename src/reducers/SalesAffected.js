@@ -115,7 +115,7 @@ function rootReducer(state = initialState, action) {
 
             return updateCalsub;
         case SALES_AFFECTED_CONFIRM:
-            return { ...state, salesconfirm: null }
+            return { ...state, salesconfirm: null, productsUpdate: null }
         case SALES_AFFECTED_CONFIRM_SUCCESS:
             return { ...state, salesconfirm: action.payload }
         case SET_TABLE_DATA_INVOLVEMENT:
