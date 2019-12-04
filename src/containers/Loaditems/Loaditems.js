@@ -34,6 +34,8 @@ class Loaditems extends Component {
         const { voucherType } = this.props;
         const [backButton, nextButton] = (voucherType) ? getBackNextButtons((voucherType) ? voucherType.procesos : [], 'p_cargaitemvta', this.state.idOperacion) : [];
 
+        console.log(backButton, nextButton, voucherType)
+
         return (
             <Row>
                 {this.state.idOperacion && <HeadCartResume

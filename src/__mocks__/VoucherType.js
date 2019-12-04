@@ -60,7 +60,7 @@ export default (mockAdapter) => {
                     "orden": 3
                 },
                 {
-                    "cod_proceso": "p_afectcomprob",
+                    "cod_proceso": "p_afec_cant_vta",
                     "desc_proceso": "Afectacion Comprobante",
                     "orden": 5
                 },

@@ -56,13 +56,13 @@ function rootReducer(state = initialState, action) {
         case SALES_AFFECTED_IMPORT_VALIDATE:
             return { ...state, cantValidate: null }
         case SALES_AFFECTED_IMPORT_VALIDATE_SUCCESS:
-            const importItems = action.payload.data.Items;
+            const importItems = action.payload.Items;
             let updateImportState = {
                 ...state,
                 productsUpdate: [
                     ...state.productsImport.Items,
                 ],
-                cantValidate: action.payload.data
+                cantValidate: action.payload
             }
 
             if (updateImportState.productsUpdate) {
@@ -89,7 +89,7 @@ function rootReducer(state = initialState, action) {
         case SALES_AFFECTED_IMPORT:
             return { ...state, productsImport: null }
         case SALES_AFFECTED_IMPORT_SUCCESS:
-            return { ...state, productsImport: action.payload.data }
+            return { ...state, productsImport: action.payload }
         case SALES_AFFECTED_SUB_CALCULATION:
             return { ...state, subCalculations: null }
         case SALES_AFFECTED_SUB_CALCULATION_SUCCESS:

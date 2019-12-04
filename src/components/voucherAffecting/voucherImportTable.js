@@ -185,6 +185,7 @@ class VoucherImportTable extends Component {
     }
 
     validateAfectImport = (row, field, value) => {
+        const { idOperacion } = this.props;
         const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, imp_afec: value }];
         const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
 
@@ -194,9 +195,9 @@ class VoucherImportTable extends Component {
                 message = `El campo ${field.label} es requerido.`;
                 this.setState({ showError: true, errorMessage: message });
             } else {
-                selected.push(row.nimovcli);
+                selected.push(row.niprod);
                 this.setState({ selectedCheck: selected });
-                this.props.salesAffectedImportValidate({ idOperacion: row.nimovcli }); //Falta adicionar idOperacion
+                this.props.salesAffectedImportValidate({ idOperacion, items }); //Falta adicionar idOperacion
             }
         }
 
@@ -335,7 +336,7 @@ class VoucherImportTable extends Component {
 
 
     render() {
-        const { products, theme, config, productsUpdate, readOnly } = this.props;
+        const { products, theme, config, productsUpdate, readOnly, idOperacion } = this.props;
         const tableColumns = (config && products) ? this.getColumns() : [];
         const selectRow = {
             mode: 'checkbox',
@@ -350,24 +351,24 @@ class VoucherImportTable extends Component {
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
                 if (isSelect) { //Se adiciona                                        
-                    rows.push({ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: row.cant_pend });
-                    selected.push(row.nimovcli)
+                    rows.push({ Nimovcli: row.nimovcli, Nitem: row.nitem, imp_afec: row.imp_afec });
+                    selected.push(row.niprod)
+                    this.props.salesAffectedImportValidate({ idOperacion, item: rows });
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
-                        if (toDelete.Nimovcli === row.nimovcli) {
+                        if (toDelete.niprod === row.niprod) {
                             rows.splice(index, 1);
                         }
                     });
 
                     selected.forEach((delet, index) => {
-                        if (delet === row.nimovcli) {
+                        if (delet === row.niprod) {
                             selected.splice(index, 1);
                         }
                     });
 
                 }
                 this.setState({ rowSelected: rows, selectedCheck: selected });
-                this.props.salesAffectedImportValidate({ idOperacion: row.nimovcli /*item: rows*/ }); //Falta adicionar idOperacion
 
             },
             onSelectAll: (isSelect, rows, e) => {
@@ -377,7 +378,7 @@ class VoucherImportTable extends Component {
                 if (isSelect) {
                     this.setState({ selectedCheck: null });
                     rows.forEach(check => {
-                        checks.push(check.nimovcli);
+                        checks.push(check.niprod);
                     });
 
                     selected = rows.map(fila => {
@@ -389,7 +390,7 @@ class VoucherImportTable extends Component {
                     for (let index = 0; index < checks.length; index++) {
                         const check = checks[index];
                         rows.forEach(fila => {
-                            if (check === fila.nimovcli) {
+                            if (check === fila.niprod) {
                                 delete checks[index]
                             }
                         });
@@ -455,7 +456,7 @@ class VoucherImportTable extends Component {
                 <Col className={`col-12 pl-0 pr-0`}>
                     {config && <CommonTable
                         columns={tableColumns}
-                        keyField={'nimovcli'}
+                        keyField={'niprod'}
                         data={rowData}
                         selectRow={selectRow}
                         defaultSorted={defaultSorted}

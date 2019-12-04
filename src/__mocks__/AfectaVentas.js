@@ -215,6 +215,68 @@ export default (mockAdapter) => {
         ]
     });
 
+    mockAdapter.onGet('/AfectaVentas/importe', { params: { ComprobAvencer: 0, OpcionMuestra: "0" } }).reply(200, {
+        "page_size": 10,
+        "page_number": 1,
+        "total_count": 2,
+        "Resultado": {
+            "Resultado": true,
+            "Tipo_error": null,
+            "Mens_error": null,
+            "Errores": null
+        },
+        "Items": [
+            {
+                "nimovcli": 1,
+                "nitem": 1,
+                "fec_emis": "2019-11-27T00:00:00",
+                "fec_vto": "2019-11-27T00:00:00",
+                "Comprob_desc": "Presupuesto",
+                "comprob_nro": "00005809",
+                "niprod": 59961,
+                "cod_prod": "34037",
+                "desc_prod": "ACTRON 600 RAPIDA ACCION caps.gelat.blanda x 10",
+                "codbarra": "7793640215523",
+                "Cod_unid": "UN",
+                "desc_unid": "Unidad",
+                "base_v": 1.0,
+                "imp_pend": 99.66,
+                "imp_afec": 0,
+                "cotiz": 2653.6,
+                "Cant_pend": 2.0,
+                "Cant_afec": 0.0,
+                "cant_saldo": 2.0,
+                "neto": 199.32,
+                "saldo": 1203.89
+
+            },
+            {
+                "nimovcli": 1,
+                "nitem": 2,
+                "fec_emis": "2019-11-27T00:00:00",
+                "fec_vto": "2019-11-27T00:00:00",
+                "Comprob_desc": "Presupuesto",
+                "comprob_nro": "00005809",
+                "niprod": 59962,
+                "cod_prod": "41637",
+                "desc_prod": "ACTRON 600 RAPIDA ACCION caps.gelat.blanda x 20",
+                "codbarra": "7793640215622",
+                "Cod_unid": "UN",
+                "desc_unid": "Unidad",
+                "base_v": 1.0,
+                "imp_pend": 188.63,
+                "imp_afec": 0,
+                "cotiz": 2653.6,
+                "Cant_pend": 3.0,
+                "Cant_afec": 0.0,
+                "cant_saldo": 3.0,
+                "neto": 565.89,
+                "saldo": 1203.89
+
+            }
+        ]
+    });
+
     mockAdapter.onGet('/AfectaVentas/cantidad/Validar', { params: { idOperacion: 45334 } }).reply(200, {
         data: {
             "Items": [
