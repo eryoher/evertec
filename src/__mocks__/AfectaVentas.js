@@ -277,6 +277,32 @@ export default (mockAdapter) => {
         ]
     });
 
+    mockAdapter.onGet('/AfectaVentas/importe/Validar', { params: { idOperacion: 21, item: { Nimovcli: 1, Nitem: 1, imp_afec: 0 } } }).reply(200, {
+        "Items": [
+            {
+                "niprod": 59962,
+                "nitem": 1,
+                "imp_afec": 500,
+                "neto": '3332.25',
+                "saldo": '3332.25',
+                "ind_stock": 0
+            },
+            {
+                "niprod": 59961,
+                "nitem": 1,
+                "imp_afec": 100,
+                "neto": '36545.25',
+                "saldo": '36545.25',
+                "ind_stock": 0
+            },
+
+        ],
+        "total_importe": 154454,
+        "total_item": 2,
+        "total_cant": 600
+
+    });
+
     mockAdapter.onGet('/AfectaVentas/cantidad/Validar', { params: { idOperacion: 45334 } }).reply(200, {
         data: {
             "Items": [
@@ -444,96 +470,7 @@ export default (mockAdapter) => {
         }
     });
 
-    mockAdapter.onGet('/AfectaVentas/importe/Validar').reply(200, {
-        data: {
-            "Items": [
-                {
-                    "nimovcli": 45335,
-                    "nitem": 1,
-                    "imp_afec": 500,
-                    "neto": '3332.25',
-                    "saldo": '3332.25',
-                    "ind_stock": 1
-                },
-                {
-                    "nimovcli": 45334,
-                    "nitem": 1,
-                    "imp_afec": 100,
-                    "neto": '36545.25',
-                    "saldo": '36545.25',
-                    "ind_stock": 0
-                },
-                {
-                    "nimovcli": 45336,
-                    "nitem": 1,
-                    "imp_afec": 500,
-                    "neto": '46545.25',
-                    "saldo": '46545.25',
-                    "ind_stock": 0
-                },
-                {
-                    "nimovcli": 45337,
-                    "nitem": 1,
-                    "imp_afec": 378,
-                    "neto": '46545.25',
-                    "saldo": '46545.25',
-                    "ind_stock": 0
-                },
-                {
-                    "nimovcli": 45338,
-                    "nitem": 1,
-                    "imp_afec": 350,
-                    "neto": '46545.25',
-                    "saldo": '46545.25',
-                    "ind_stock": 0
-                },
-                {
-                    "nimovcli": 45339,
-                    "nitem": 1,
-                    "imp_afec": 225,
-                    "neto": '46545.25',
-                    "saldo": '46545.25',
-                    "ind_stock": 0
-                },
-                {
-                    "nimovcli": 45340,
-                    "nitem": 1,
-                    "imp_afec": 625,
-                    "neto": '46545.25',
-                    "saldo": '46545.25',
-                    "ind_stock": 0
-                },
-                {
-                    "nimovcli": 45341,
-                    "nitem": 1,
-                    "imp_afec": 925,
-                    "neto": '46545.25',
-                    "saldo": '46545.25',
-                    "ind_stock": 0
-                },
-                {
-                    "nimovcli": 45342,
-                    "nitem": 1,
-                    "imp_afec": 200,
-                    "neto": '46545.25',
-                    "saldo": '46545.25',
-                    "ind_stock": 0
-                },
-                {
-                    "nimovcli": 45343,
-                    "nitem": 1,
-                    "imp_afec": 150,
-                    "neto": '46545.25',
-                    "saldo": '46545.25',
-                    "ind_stock": 0
-                }
 
-            ],
-            "total_importe": 154454,
-            "total_item": 2,
-            "total_cant": 600
-        }
-    });
 
     mockAdapter.onGet('/AfectaVentas/cantidad/CalculoSubtotales').reply(200, {
         data: {
