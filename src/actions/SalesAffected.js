@@ -9,10 +9,11 @@ import {
     SALES_AFFECTED_SUB_CALCULATION_SUCCESS,
     SALES_AFFECTED_CONFIRM,
     SALES_AFFECTED_CONFIRM_SUCCESS,
-    SET_TABLE_DATA_INVOLVEMENT,
-    SET_TABLE_DATA_INVOLVEMENT_SUCCESS,
+    SET_TABLE_DATA_INVOLVEMENT,    
     SALES_AFFECTED_IMPORT,
-    SALES_AFFECTED_IMPORT_SUCCESS
+    SALES_AFFECTED_IMPORT_SUCCESS,
+    SALES_AFFECTED_IMPORT_CONFIRM,
+    SALES_AFFECTED_IMPORT_CONFIRM_SUCCESS
 
 } from '../constants/ActionsTypes';
 
@@ -97,6 +98,20 @@ export const salesAffectedConfirm = (params) => {
 export const salesAffectedConfirmSuccess = (response) => {
     return {
         type: SALES_AFFECTED_CONFIRM_SUCCESS,
+        payload: response
+    }
+};
+
+export const salesAffectedImportConfirm = (params) => {
+    return {
+        type: SALES_AFFECTED_IMPORT_CONFIRM,
+        payload: params
+    }
+};
+
+export const salesAffectedImportConfirmSuccess = (response) => {
+    return {
+        type: SALES_AFFECTED_IMPORT_CONFIRM_SUCCESS,
         payload: response
     }
 };

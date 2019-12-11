@@ -277,24 +277,7 @@ export default (mockAdapter) => {
         ]
     });
 
-    mockAdapter.onGet('/AfectaVentas/importe/Validar').reply(200, {
-        "Items": [            
-            {
-                "niprod": 59961,
-                "nitem": 0,
-                "imp_afec": 100,
-                "neto": '36545.25',
-                "saldo": '36545.25',
-                "ind_stock": 0
-            },
-
-        ],
-        "total_importe": 154454,
-        "total_item": 2,
-        "total_cant": 600
-
-    });
-
+    
     mockAdapter.onGet('/AfectaVentas/importe/Validar', { params: { idOperacion: 123456789 } }).reply(200, {
         "Items": [
             {
@@ -320,6 +303,25 @@ export default (mockAdapter) => {
         "total_cant": 600
 
     });
+
+    mockAdapter.onGet('/AfectaVentas/importe/Validar').reply(200, {
+        "Items": [            
+            {
+                "niprod": 59961,
+                "nitem": 0,
+                "imp_afec": 100,
+                "neto": '36545.25',
+                "saldo": '36545.25',
+                "ind_stock": 0
+            },
+
+        ],
+        "total_importe": 154454,
+        "total_item": 2,
+        "total_cant": 600
+
+    });
+
 
     
     mockAdapter.onGet('/AfectaVentas/cantidad/Validar', { params: { idOperacion: 45334 } }).reply(200, {
@@ -506,6 +508,17 @@ export default (mockAdapter) => {
     });
 
     mockAdapter.onGet('/AfectaVentas/cantidad/confirmar').reply(200, {
+        data: {
+            "solic_stock": 0,
+            "total_importe": 12541.35,
+            "total_item": 9,
+            "total_cant": 335,
+            "Resultado": 'T',
+            "mens_error": "Item correcto",
+        },
+    });
+
+    mockAdapter.onGet('/AfectaVentas/importe/confirmar').reply(200, {
         data: {
             "solic_stock": 0,
             "total_importe": 12541.35,

@@ -11,7 +11,9 @@ import {
     SALES_AFFECTED_IMPORT,
     SALES_AFFECTED_IMPORT_SUCCESS,
     SALES_AFFECTED_IMPORT_VALIDATE,
-    SALES_AFFECTED_IMPORT_VALIDATE_SUCCESS
+    SALES_AFFECTED_IMPORT_VALIDATE_SUCCESS,
+    SALES_AFFECTED_IMPORT_CONFIRM,
+    SALES_AFFECTED_IMPORT_CONFIRM_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
@@ -20,7 +22,8 @@ const initialState = {
     productsImport: null,
     subCalculations: null,
     productsUpdate: null,
-    salesconfirm: null
+    salesImportconfirm:null,
+    salesconfirm: null,
 }
 
 function rootReducer(state = initialState, action) {
@@ -118,6 +121,10 @@ function rootReducer(state = initialState, action) {
             return { ...state, salesconfirm: null, productsUpdate: null }
         case SALES_AFFECTED_CONFIRM_SUCCESS:
             return { ...state, salesconfirm: action.payload }
+        case SALES_AFFECTED_IMPORT_CONFIRM:
+            return { ...state, salesImportconfirm: null, productsUpdate: null }
+        case SALES_AFFECTED_IMPORT_CONFIRM_SUCCESS:
+            return { ...state, salesImportconfirm: action.payload }
         case SET_TABLE_DATA_INVOLVEMENT:
             const paramsArray = action.payload;
             ///console.log(paramsArray, 'respuesta')
@@ -138,6 +145,8 @@ function rootReducer(state = initialState, action) {
             }
 
             return createState;
+
+            
         default:
             return state
     }
