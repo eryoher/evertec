@@ -277,19 +277,11 @@ export default (mockAdapter) => {
         ]
     });
 
-    mockAdapter.onGet('/AfectaVentas/importe/Validar', { params: { idOperacion: 21, item: { Nimovcli: 1, Nitem: 1, imp_afec: 0 } } }).reply(200, {
-        "Items": [
-            {
-                "niprod": 59962,
-                "nitem": 1,
-                "imp_afec": 500,
-                "neto": '3332.25',
-                "saldo": '3332.25',
-                "ind_stock": 0
-            },
+    mockAdapter.onGet('/AfectaVentas/importe/Validar').reply(200, {
+        "Items": [            
             {
                 "niprod": 59961,
-                "nitem": 1,
+                "nitem": 0,
                 "imp_afec": 100,
                 "neto": '36545.25',
                 "saldo": '36545.25',
@@ -303,6 +295,33 @@ export default (mockAdapter) => {
 
     });
 
+    mockAdapter.onGet('/AfectaVentas/importe/Validar', { params: { idOperacion: 123456789 } }).reply(200, {
+        "Items": [
+            {
+                "niprod": 59962,
+                "nitem": 1,
+                "imp_afec": 500,
+                "neto": '3332.25',
+                "saldo": '3332.25',
+                "ind_stock": 0
+            },
+            {
+                "niprod": 59961,
+                "nitem": 1,
+                "imp_afec": 0,
+                "neto": '36545.25',
+                "saldo": '36545.25',
+                "ind_stock": 1
+            },
+
+        ],
+        "total_importe": 154454,
+        "total_item": 2,
+        "total_cant": 600
+
+    });
+
+    
     mockAdapter.onGet('/AfectaVentas/cantidad/Validar', { params: { idOperacion: 45334 } }).reply(200, {
         data: {
             "Items": [
