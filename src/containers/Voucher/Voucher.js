@@ -21,9 +21,9 @@ class Voucher extends Component {
         const { match } = this.props;
         if (match.params.idComprobante) {
             const type = match.params.idComprobante;
-            this.setState({ type: 26 });
+            this.setState({ type: type });
             //{ idComprobante: 1, idEmpresa: 1 } //Iniciar un nuevo comprobante
-            this.props.getVoucherType({ idOperacion: 26 }); //Comprobante que ya existe
+            this.props.getVoucherType({ idComprobante: type, idEmpresa: 1 }); //Comprobante que ya existe
         }
     }
 
@@ -35,18 +35,18 @@ class Voucher extends Component {
             <Row>
                 <Col sm={12} className={theme.Title} >
                     {t("voucher.title")}
-                </Col>
-                <VoucherBreadCrumbs
+                </Col >
+                { voucherType && <VoucherBreadCrumbs
                     crumbs={(voucherType) ? voucherType.procesos : []}
                     current={'p_selcli'}
-                    urlParameter={this.state.type}
-                />
+                    urlParameter={voucherType.idOperacion}
+                />}
                 {voucherType &&
                     <VoucherClientForm
                         idOperacion={voucherType.idOperacion}
                         crumbs={(voucherType) ? voucherType.procesos : []}
                         current={'p_selcli'}
-                        urlParameter={this.state.type}
+                        urlParameter={voucherType.idOperacion}
                     />
                 }
             </Row>
