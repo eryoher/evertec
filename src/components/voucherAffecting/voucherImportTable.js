@@ -5,7 +5,7 @@ import styles from './voucherImportTable.module.css';
 import { themr } from 'react-css-themr';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedConfirm } from '../../actions';
+import { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedImportConfirm } from '../../actions';
 import InputText from 'components/form/inputText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
@@ -48,8 +48,10 @@ class VoucherImportTable extends Component {
 
     componentWillUnmount = () => {
         const items = this.getSelectedCheck();
+        const {idOperacion} = this.props;
+        console.log(items)
         if (items.length) {
-            this.props.salesAffectedConfirm({ idOperacion: this.props.idOperacion, items })  // FALTA ID OPERACION
+            this.props.salesAffectedImportConfirm({ idOperacion, items }) 
         }
     }
 
@@ -315,13 +317,12 @@ class VoucherImportTable extends Component {
         const items = [];
         products.forEach(row => {
             selectedCheck.forEach(check => {
-                if (row.nimovcli === check) {
-                    items.push({
-                        nimovcli: row.nimovcli,
-                        nitem: row.nitem,
-                        cant_afec: row.cant_afec,
-                        precio_unit: row.precio_unit,
-                        neto: row.neto
+                if (row.niprod === check) {
+                    items.push({                        
+                        Nimovcli: row.nimovcli, 
+                        Nitem: row.nitem, 
+                        imp_afec: row.imp_afec,
+                        niprod:row.niprod
                     })
                 }
             });
@@ -440,7 +441,7 @@ class VoucherImportTable extends Component {
             onPageChange: (page, sizePerPage) => {
                 const items = this.getSelectedCheck();
                 if (items.length) {
-                    this.props.salesAffectedConfirm({ idOperacion: '123456', items })
+                    this.props.salesAffectedImportConfirm({idOperacion, items })
                 }
             }
         }
@@ -478,6 +479,6 @@ const mapStateToProps = ({ voucher, salesAffected }) => {
     return { config, productsUpdate, cantValidate };
 };
 
-const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedConfirm })(VoucherImportTable);
+const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedImportConfirm })(VoucherImportTable);
 
 export default themr('InvolvementTableStyles', styles)(withTranslation()(connectForm));

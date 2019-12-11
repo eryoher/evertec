@@ -1,7 +1,7 @@
 
 export default (mockAdapter) => {
 
-    mockAdapter.onGet('/TipoDeComprobante', { params: { idOperacion: 21 } }).reply(200,
+    mockAdapter.onGet('/TipoDeComprobante').reply(200,
         {
             "idOperacion": 21,
             "cod_comprob": "C.NVCR",
@@ -24,9 +24,14 @@ export default (mockAdapter) => {
                     "orden": 3
                 },
                 {
-                    "cod_proceso": "p_afectcomprob",
+                    "cod_proceso": "p_afec_cant_vta",
                     "desc_proceso": "Afectacion Comprobante",
                     "orden": 5
+                },
+                {
+                    "cod_proceso": "p_afectimporte",
+                    "desc_proceso": "Afectacion Importe",
+                    "orden": 6
                 },
                 {
                     "cod_proceso": "p_fincomprob",
@@ -76,34 +81,7 @@ export default (mockAdapter) => {
                 },
             ]
         }
-    );
-
-
-    mockAdapter.onGet('/TipoComprobantes/consulta', { params: { "idComprobante": "C.NVAP" } }).reply(200, {
-        data: {
-            "idOperacion": 12345,
-            "cod_comprob": "C.NVAP",
-            "descrip_comprob": "Pedido reserva autom.",
-            "descrip_tipocomp": "Pedido",
-            "procesos": [
-                {
-                    "cod_proceso": "p_selcli",
-                    "desc_proceso": "Selección cliente",
-                    "orden:": 1
-                },
-                {
-                    "cod_proceso": "p_cargaitemvta",
-                    "desc_proceso": "Carga de Items",
-                    "orden:": 3
-                },
-                {
-                    "cod_proceso": "p_fincomprob",
-                    "desc_proceso": "Final Comprobante",
-                    "orden:": 9
-                },
-            ]
-        }
-    });
+    );  
 
 
     mockAdapter.onGet('/TipoComprobantes/user').reply(200, {
