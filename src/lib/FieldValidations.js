@@ -1,4 +1,5 @@
 import moment from "moment";
+import * as Yup from 'yup';
 
 export function validateField(value, type) {
     let result = false;
@@ -59,4 +60,16 @@ export function validateField(value, type) {
     }
 
     return result;
+}
+
+export function getValidationSchema(campos, t) {
+    const validations = {}
+    campos.forEach(field => {
+        if (field.requerido) {
+            const idField = field.idCampo.trim();
+            validations[idField] = Yup.string().required(t('validation-required', { field: field.label }));
+        }
+    });
+
+    return Yup.object().shape(validations);
 }

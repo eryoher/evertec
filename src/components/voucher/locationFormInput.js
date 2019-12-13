@@ -25,7 +25,7 @@ class LocationFormInput extends Component {
                         disable={readOnly}
                         value={values.cliente_Localidad}
                         onChange={(data) => {
-                            setFieldValue('cliente_Localidad', data.target.value);
+                            setFieldValue('cliente_Localidad', data);
                         }}
                     />
 
@@ -43,7 +43,7 @@ class LocationFormInput extends Component {
                         disable={readOnly}
                         value={values.cliente_Provincia}
                         onChange={(data) => {
-                            setFieldValue('cliente_Provincia', data.target.value);
+                            setFieldValue('cliente_Provincia', data);
                         }}
                     />
                 </Row>
@@ -61,7 +61,7 @@ class LocationFormInput extends Component {
                         disable={readOnly}
                         value={values.cliente_Cpos}
                         onChange={(data) => {
-                            setFieldValue('cliente_Cpos', data.target.value);
+                            setFieldValue('cliente_Cpos', data);
                         }}
                     />
                 </Row>

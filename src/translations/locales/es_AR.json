@@ -1,4 +1,5 @@
 {
+    "validation-required": "{{field}} es requerido",
     "screen": {
         "title": "Resetear Stack a siguiente pantalla",
         "change_language_to_english": "Cambiar lenguaje a ingles",

@@ -64,7 +64,10 @@ class InputDropdown extends Component {
             theme,
             inputFormCol,
             rowStyle,
-            value } = this.props;
+            value,
+            errorInput,
+            touched
+        } = this.props;
 
         const classInput = (label) ? colInput : "col-sm-12";
         const classLabel = (label) ? colLabel : "";
@@ -103,6 +106,7 @@ class InputDropdown extends Component {
                         }
 
                     </Row>
+                    
                 </Col>
             )
         } else {

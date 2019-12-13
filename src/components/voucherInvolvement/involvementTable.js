@@ -56,6 +56,7 @@ class InvolvementTable extends Component {
 
     getColumns = () => {
         const { config, theme, readOnly } = this.props;
+        console.log(config,'los campos')
         const rows = config.campos.map((field) => {
             const campoId = field.idCampo.trim()
             return {
@@ -360,6 +361,7 @@ class InvolvementTable extends Component {
 
     render() {
         const { products, theme, config, productsUpdate, readOnly, idOperacion } = this.props;
+        console.log(config, 'config')
         const tableColumns = (config && products) ? this.getColumns() : [];
         const selectRow = {
             mode: 'checkbox',
@@ -440,7 +442,6 @@ class InvolvementTable extends Component {
         const rowData = (products) ? products.Items.map((prod) => {
             let result = {};
             if (productsUpdate) {
-
                 productsUpdate.forEach(update => {
                     if (update.niprod === prod.niprod) {
                         result = {
@@ -474,7 +475,6 @@ class InvolvementTable extends Component {
                 }
             }
         } : {}
-
 
 
         return (

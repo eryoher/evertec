@@ -1,5 +1,5 @@
 export default (mockAdapter) => {
-    mockAdapter.onGet('/AfectaVentas/cantidad', { params: { ComprobAvencer: 1, OpcionMuestra: "0" } }).reply(200, {
+    mockAdapter.onGet('/AfectaVentas/cantidad', { params: { ComprobAvencer: 1, OpcionMuestra: "0", idOperacion: "21", page_number: 1, page_size: 10 } }).reply(200, {
         "page_size": 10,
         "page_number": 1,
         "total_count": 2,
@@ -161,7 +161,7 @@ export default (mockAdapter) => {
         ]
     });
 
-    mockAdapter.onGet('/AfectaVentas/cantidad', { params: { ComprobAvencer: 0, OpcionMuestra: "0" } }).reply(200, {
+    mockAdapter.onGet('/AfectaVentas/Cantidad', { params: { ComprobAvencer: 0, OpcionMuestra: "0", idOperacion: "21", page_number: 1, page_size: 10 } }).reply(200, {
         "page_size": 10,
         "page_number": 1,
         "total_count": 2,
@@ -277,7 +277,7 @@ export default (mockAdapter) => {
         ]
     });
 
-    
+
     mockAdapter.onGet('/AfectaVentas/importe/Validar', { params: { idOperacion: 123456789 } }).reply(200, {
         "Items": [
             {
@@ -305,7 +305,7 @@ export default (mockAdapter) => {
     });
 
     mockAdapter.onGet('/AfectaVentas/importe/Validar').reply(200, {
-        "Items": [            
+        "Items": [
             {
                 "niprod": 59961,
                 "nitem": 0,
@@ -323,7 +323,7 @@ export default (mockAdapter) => {
     });
 
 
-    
+
     mockAdapter.onGet('/AfectaVentas/cantidad/Validar', { params: { idOperacion: 45334 } }).reply(200, {
         data: {
             "Items": [

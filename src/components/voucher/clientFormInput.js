@@ -66,8 +66,10 @@ class ClientFormInput extends Component {
                     options={options}
                     disable={readOnly}
                     onChange={this.handleChange}
+                    errorInput = {errors.cliente_Sucursales}
+                    touched = {touched.cliente_Sucursales}
+                />                
 
-                />
                 <InputText
                     inputFormCol={{ sm: 11 }}
                     fields={fields}
@@ -81,7 +83,7 @@ class ClientFormInput extends Component {
                     disable={readOnly}
                     value={values.cliente_Contacto}
                     onChange={(data) => {
-                        setFieldValue('cliente_Contacto', data.target.value);
+                        setFieldValue('cliente_Contacto', data);
                     }}
                 />
                 <Row className={'col-11'} style={{ paddingRight: '0px' }} >
@@ -98,7 +100,7 @@ class ClientFormInput extends Component {
                         divStyle={{ paddingLeft: '17px' }}
                         value={values.cliente_Telefono}
                         onChange={(data) => {
-                            setFieldValue('cliente_Telefono', data.target.value);
+                            setFieldValue('cliente_Telefono', data);
                         }}
                     />
 
@@ -115,7 +117,7 @@ class ClientFormInput extends Component {
                         disable={readOnly}
                         value={values.cliente_email}
                         onChange={(data) => {
-                            setFieldValue('cliente_email', data.target.value);
+                            setFieldValue('cliente_email', data);
                         }}
                     />
                 </Row>
@@ -132,7 +134,7 @@ class ClientFormInput extends Component {
                     disable={readOnly}
                     value={values.cliente_domicilio}
                     onChange={(data) => {
-                        setFieldValue('cliente_domicilio', data.target.value);
+                        setFieldValue('cliente_domicilio', data);
                     }}
                 />
 

@@ -90,7 +90,15 @@ class InputText extends Component {
 
         if (configInput.requerido && !this.state.inputValue) {
             this.setState({ requireError: true });
+        }else if(this.state.inputValue){
+            this.setState({ requireError: false });
+
         }
+        
+        if (onBlur ) {
+            onBlur();
+        }
+
 
     }
 
@@ -196,7 +204,27 @@ class InputText extends Component {
     }
 
     renderField = () => {
-        const { label, placeholder, name, styles, inputId, id, colInput, colLabel, styleLabel, divStyle, disable, theme, type, inputFormCol, lock, rowStyle, autoFocus } = this.props;
+        const { label,
+            placeholder,
+            name,
+            styles,
+            inputId,
+            id,
+            colInput,
+            colLabel,
+            styleLabel,
+            divStyle,
+            disable,
+            theme,
+            type,
+            inputFormCol,
+            lock,
+            rowStyle,
+            autoFocus,
+            errorInput,
+            touched,
+         } = this.props;
+
         const classInput = (label) ? colInput : "col-sm-12";
         const classLabel = (label) ? colLabel : "";
         const classText = (disable) ? theme.inputDisabled : '';
@@ -234,6 +262,7 @@ class InputText extends Component {
                                 }
                             </Col>
                         </Row>
+                     
                     </Col>
                     {
                         lock && <Col className={theme.lock} sm={1}>

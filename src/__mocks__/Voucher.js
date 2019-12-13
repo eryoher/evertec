@@ -78,7 +78,7 @@ export default (mockAdapter) => {
                     "descripcion": "CUIT",
                     "label": "C.U.I.T",
                     "editable": 1,
-                    "requerido": 0,
+                    "requerido": 1,
                     "visible": 1,
                     "valid": "",
                     "mascara": "idTrabajador"
@@ -438,7 +438,7 @@ export default (mockAdapter) => {
     );
 
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_cant_vta' } }).reply(200,
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_cant_vta' ,idOperacion:'21' } }).reply(200,
         {
             "cod_proceso": "p_afec_cant_vta",
             "desc_proceso": "Afectación Cantidades",

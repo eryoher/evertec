@@ -28,7 +28,6 @@ class VoucherFormInput extends Component {
             handleSelect,
             fields
         } = this.props;
-
         return (
             <Row>
                 {!readOnly &&
@@ -68,7 +67,7 @@ class VoucherFormInput extends Component {
                     disable={readOnly}
                     value={values.cliente_razon_social}
                     onChange={(data) => {
-                        setFieldValue('cliente_razon_social', data.target.value);
+                        setFieldValue('cliente_razon_social', data);
                     }}
                 />
 
@@ -88,7 +87,7 @@ class VoucherFormInput extends Component {
                     disable={readOnly}
                     value={values.cliente_codigo}
                     onChange={(data) => {
-                        setFieldValue('cliente_codigo', data.target.value);
+                        setFieldValue('cliente_codigo', data);
                     }}
                 />
 
@@ -107,7 +106,7 @@ class VoucherFormInput extends Component {
                         divStyle={{ paddingLeft: '17px' }}
                         value={values.cliente_Tipo_resp}
                         onChange={(data) => {
-                            setFieldValue('cliente_Tipo_resp', data.target.value);
+                            setFieldValue('cliente_Tipo_resp', data);
                         }}
                     />
                     <InputText
@@ -122,10 +121,14 @@ class VoucherFormInput extends Component {
                         divStyle={{ paddingLeft: '23px' }}
                         disable={readOnly}
                         styleLabel={{ textAlign: 'right' }}
+                        errorInput = {errors.cliente_identificador}
+                        touched = {touched.cliente_identificador}
                         value={values.cliente_identificador}
                         onChange={(data) => {
-                            setFieldValue('cliente_identificador', data.target.value);
+                            setFieldValue('cliente_identificador', data);
                         }}
+                        onBlur = {handleBlur}
+                        
                     />
                 </Row>
             </Row>

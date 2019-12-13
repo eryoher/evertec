@@ -65,7 +65,7 @@ class AccountFormInput extends Component {
                         disable={readOnly}
                         value={values.cliente_Limcred}
                         onChange={(data) => {
-                            setFieldValue('cliente_Limcred', data.target.value);
+                            setFieldValue('cliente_Limcred', data);
                         }}
                     />
 
@@ -82,7 +82,7 @@ class AccountFormInput extends Component {
                         disable={readOnly}
                         value={values.cliente_Pendcred}
                         onChange={(data) => {
-                            setFieldValue('cliente_Pendcred', data.target.value);
+                            setFieldValue('cliente_Pendcred', data);
                         }}
                     />
 
@@ -101,7 +101,7 @@ class AccountFormInput extends Component {
                         divStyle={{ paddingLeft: '17px' }}
                         value={values.cliente_Saldo}
                         onChange={(data) => {
-                            setFieldValue('cliente_Saldo', data.target.value);
+                            setFieldValue('cliente_Saldo', data);
                         }}
                     />
 

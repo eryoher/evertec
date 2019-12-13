@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Form, Col } from 'react-bootstrap';
+import { Form, Col, Button } from 'react-bootstrap';
 import VoucherFormInput from './voucherFormInput';
 import { withTranslation } from 'react-i18next';
 import ClientFormInput from './clientFormInput';
@@ -11,21 +11,26 @@ import InputButton from 'components/form/inputButton';
 import { connect } from 'react-redux';
 import { searchClients, getClient, getConfigVoucher, confirmationClient } from '../../actions';
 import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
-
+import NotificationsErrors from '../common/notificationsErrors';
+import { getValidationSchema } from '../../lib/FieldValidations';
+import { withRouter } from "react-router-dom";
 
 class VoucherClientForm extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            loading: false
+            loading: false,
+            showError: false,
+            errrorTitle: '',
+            errorMessage: '',
+            urlForm: ''
         }
     }
 
     componentDidMount = () => {
         const { idOperacion } = this.props
         this.props.getConfigVoucher({ cod_proceso: 'p_selcli', idOperacion })
-
     }
 
     componentDidUpdate = (prevProps) => {
@@ -41,6 +46,10 @@ class VoucherClientForm extends Component {
         }
     }
 
+    handleCloseError = () => {
+        this.setState({ showError: false });
+    }
+
     handleSearch = (value) => {
         const { idOperacion } = this.props
         this.props.searchClients({ criterio_cliente: value, idOperacion });
@@ -53,8 +62,10 @@ class VoucherClientForm extends Component {
         this.props.getClient({ idCliente: selected.id, idOperacion });
     }
 
+
+
     render() {
-        const { search, client, config, crumbs, current, urlParameter } = this.props;
+        const { search, client, config, crumbs, current, urlParameter, t } = this.props;
         const [backButton, nextButton] = getBackNextButtons(crumbs, current, urlParameter);
 
         const defaultInitial = {
@@ -74,7 +85,8 @@ class VoucherClientForm extends Component {
             cliente_Localidad: '',
             cliente_Provincia: '',
             cliente_Cpos: '',
-            cliente_criterio: ''
+            cliente_criterio: '',
+            cliente_Sucursales: []
         }
 
         const initial = (client) ? client : defaultInitial;
@@ -82,96 +94,108 @@ class VoucherClientForm extends Component {
             return ({ id: opt.idCliente, label: opt.Rsocial });
         }) : [];
 
+        const validationSchema = (config) ? getValidationSchema(config.campos, t) : {};
+
         if (config) {
             return (
                 <Col sm={12} className={"mb-1"} >
                     <Formik
                         initialValues={{ ...initial }}
                         onSubmit={(values, actions) => {
-
+                            if (this.state.urlForm) {
+                                this.props.history.push(this.state.urlForm)
+                            }
                         }}
-                        validationSchema={Yup.object().shape({
-
-                        })}
+                        validationSchema={validationSchema}
                         enableReinitialize={true}
                         render={({ values, handleBlur, handleChange, errors, touched, isSubmitting, handleSubmit, setFieldValue, setFieldTouched }) => (
-                            <Form onSubmit={handleSubmit} className="voucher-info-form">
-                                <Col>
-                                    <VoucherFormInput
-                                        handleSearch={this.handleSearch}
-                                        auoptions={optionsSync}
-                                        handleLoading={this.state.loading}
-                                        handleSelect={this.handleSelect}
-                                        fields={(config) ? config.campos : null}
-                                        {...{
-                                            values,
-                                            handleBlur,
-                                            handleChange,
-                                            errors,
-                                            touched,
-                                            isSubmitting,
-                                            handleSubmit,
-                                            setFieldValue,
-                                            setFieldTouched
+                            <>
+                                <Col sm={11} >
+                                    <NotificationsErrors
+                                        errors={errors}
+                                        touched={touched}
+                                    />
+                                </Col>
+                                <Form onSubmit={handleSubmit} className="voucher-info-form">
+                                    <Col>
+                                        <VoucherFormInput
+                                            handleSearch={this.handleSearch}
+                                            auoptions={optionsSync}
+                                            handleLoading={this.state.loading}
+                                            handleSelect={this.handleSelect}
+                                            fields={(config) ? config.campos : null}
+                                            {...{
+                                                values,
+                                                handleBlur,
+                                                handleChange,
+                                                errors,
+                                                touched,
+                                                isSubmitting,
+                                                handleSubmit,
+                                                setFieldValue,
+                                                setFieldTouched
+                                            }}
+                                        />
+                                    </Col>
+                                    <div className="dropdown-divider col-11 p-1" />
+                                    <Col>
+                                        <ClientFormInput
+                                            fields={(config) ? config.campos : null}
+                                            {...{
+                                                values,
+                                                handleBlur,
+                                                handleChange,
+                                                errors,
+                                                touched,
+                                                isSubmitting,
+                                                handleSubmit,
+                                                setFieldValue,
+                                                setFieldTouched
+                                            }}
+                                        />
+                                        <LocationFormInput
+                                            fields={(config) ? config.campos : null}
+                                            {...{
+                                                values,
+                                                handleBlur,
+                                                handleChange,
+                                                errors,
+                                                touched,
+                                                isSubmitting,
+                                                handleSubmit,
+                                                setFieldValue,
+                                                setFieldTouched
+                                            }}
+                                        />
+                                    </Col>
+                                    <div className="dropdown-divider col-11 p-1" />
+                                    <Col>
+                                        <AccountFormInput
+                                            fields={(config) ? config.campos : null}
+                                            {...{
+                                                values,
+                                                handleBlur,
+                                                handleChange,
+                                                errors,
+                                                touched,
+                                                isSubmitting,
+                                                handleSubmit,
+                                                setFieldValue,
+                                                setFieldTouched
+                                            }}
+                                        />
+                                    </Col>
+                                    <Col style={{ textAlign: 'right', paddingLeft: '0px' }} className={"mt-2 offset-11 col-1"} >
+                                        <InputButton
+                                            nextButton
+                                            urlForm={nextButton.url}
+                                            type="primary"
+                                            onClick={() => this.setState({ urlForm: nextButton.url })}
+                                        />
+                                    </Col>
+                                </Form>
+                            </>
 
-                                        }}
-                                    />
-                                </Col>
-                                <div className="dropdown-divider col-11 p-1" />
-                                <Col>
-                                    <ClientFormInput
-                                        fields={(config) ? config.campos : null}
-                                        {...{
-                                            values,
-                                            handleBlur,
-                                            handleChange,
-                                            errors,
-                                            touched,
-                                            isSubmitting,
-                                            handleSubmit,
-                                            setFieldValue,
-                                            setFieldTouched
-                                        }}
-                                    />
-                                    <LocationFormInput
-                                        fields={(config) ? config.campos : null}
-                                        {...{
-                                            values,
-                                            handleBlur,
-                                            handleChange,
-                                            errors,
-                                            touched,
-                                            isSubmitting,
-                                            handleSubmit,
-                                            setFieldValue,
-                                            setFieldTouched
-                                        }}
-                                    />
-                                </Col>
-                                <div className="dropdown-divider col-11 p-1" />
-                                <Col>
-                                    <AccountFormInput
-                                        fields={(config) ? config.campos : null}
-                                        {...{
-                                            values,
-                                            handleBlur,
-                                            handleChange,
-                                            errors,
-                                            touched,
-                                            isSubmitting,
-                                            handleSubmit,
-                                            setFieldValue,
-                                            setFieldTouched
-                                        }}
-                                    />
-                                </Col>
-                                <Col style={{ textAlign: 'right', paddingLeft: '0px' }} className={"mt-2 offset-11 col-1"} >
-                                    <InputButton
-                                        nextButton
-                                        urlForm={nextButton.url}
-                                    />
-                                </Col>
-                            </Form>
                         )}
                     />
                 </Col>
@@ -188,4 +212,4 @@ const mapStateToProps = ({ clients, voucher }) => {
     return { search, client, config };
 };
 
-export default connect(mapStateToProps, { searchClients, getClient, getConfigVoucher, confirmationClient })(withTranslation()(VoucherClientForm));
+export default connect(mapStateToProps, { searchClients, getClient, getConfigVoucher, confirmationClient })(withTranslation()(withRouter(VoucherClientForm)));

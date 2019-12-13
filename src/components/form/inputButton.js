@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import styles from "./inputButton.module.css";
 import { themr } from "react-css-themr";
+import { Button } from "react-bootstrap";
 
 class InputButton extends Component {
 
@@ -15,7 +16,7 @@ class InputButton extends Component {
   }
 
   render() {
-    const { theme, backButton, nextButton, valueButton, urlForm } = this.props;
+    const { theme, backButton, nextButton, valueButton, urlForm, type } = this.props;
     const withStyle = (nextButton || backButton) ? null : { minWidth: '100px' };
 
     let labelButton =
@@ -32,15 +33,20 @@ class InputButton extends Component {
         );
 
     return (
-      <Link onClick={this.handleOnclick} className={theme.linkClass} to={
-        {
-          pathname: urlForm,
+      <>
+        {!type &&
+          <Link onClick={this.handleOnclick} className={theme.linkClass} to={{ pathname: urlForm, }}>
+            <div className={`btn btn-primary ${theme.formButton}`} style={withStyle}>
+              {labelButton}
+            </div>
+          </Link>
         }
-      }>
-        <div className={`btn btn-primary ${theme.formButton}`} style={withStyle}>
-          {labelButton}
-        </div>
-      </Link>
+        {type === 'primary' &&
+          <Button type="primary" className={`btn btn-primary ${theme.formButton}`} onClick={() => this.props.onClick()}  >
+            {labelButton}
+          </Button>
+        }
+      </>
     );
   }
 }
