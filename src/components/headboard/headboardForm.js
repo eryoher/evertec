@@ -11,6 +11,7 @@ import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 import NotificationError from 'components/common/notificationsErrors';
 import { getValidationSchema } from 'lib/FieldValidations';
 import { withRouter } from "react-router-dom";
+import moment from 'moment';
 
 
 class HeadboardForm extends Component {
@@ -18,7 +19,8 @@ class HeadboardForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            urlSubmitForm: ''
+            urlSubmitForm: '',
+            timeSet: ''
         }
     }
 
@@ -28,21 +30,39 @@ class HeadboardForm extends Component {
         this.props.getVoucherHead({ idOperacion });
     }
 
+    setUrlForm = (url) => {
+        const now = new moment();
+        this.setState({ urlSubmitForm: url, timeSet: now })
+    }
+
+    getUrlSubmit = () => {
+        let urlSubmit = ''
+        if (this.state.urlSubmitForm || this.props.urlSubmitForm) {
+            if (this.state.urlSubmitForm && this.props.urlSubmitForm) { //Las dos tienen url
+                urlSubmit = (this.state.timeSet.isSameOrAfter(this.props.timeSet)) ? this.state.urlSubmitForm : this.props.urlSubmitForm;
+            } else {
+                urlSubmit = (this.props.urlSubmitForm) ? this.props.urlSubmitForm : this.state.urlSubmitForm;   //la url solo esta en una variable
+            }
+        }
+
+        return urlSubmit;
+    }
+
     render() {
         const { config, headSale, crumbs, current, urlParameter, t } = this.props;
         const defaultInitial = {
             Titulo_comp_vta: '',
-            fecha: '',
-            formData: { cotiz_comp_vta: '', fecha_comp_vta: '' },
             Suc_empresa_vta: '',
             fecha_comp_vta: '',
-            mon_comp_vta: ''
+            mon_comp_vta: '',
+            cotiz_comp_vta: [],
+            cond_comp_vta: [],
         };
 
         const initial = (headSale) ? { ...headSale, Titulo_comp_vta: '', fecha_comp_vta: '', } : defaultInitial;
         const [backButton, nextButton] = (crumbs) ? getBackNextButtons(crumbs, current, urlParameter) : [];
         const validationSchema = (config) ? getValidationSchema(config.campos, t) : {};
-        //console.log(validationSchema)
+
         if (config) {
             return (
                 <Col sm={12}>
@@ -50,19 +70,16 @@ class HeadboardForm extends Component {
                         ref={this.props.formRef}
                         initialValues={{ ...initial }}
                         onSubmit={(values, actions) => {
-
-                            if (this.state.urlSubmitForm || this.props.urlSubmitForm) {
-                                const urlSubmit = (this.props.urlSubmitForm) ? this.props.urlSubmitForm : this.state.urlSubmitForm;
+                            const urlSubmit = this.getUrlSubmit()
+                            if (urlSubmit) {
                                 this.props.history.push(urlSubmit)
                             }
-
                         }}
                         validationSchema={validationSchema}
                         enableReinitialize={true}
                         render={({ values, handleBlur, handleChange, errors, touched, isSubmitting, handleSubmit, setFieldValue, setFieldTouched }) => (
                             <>
                                 <Col sm={11} >
-                                    {console.log(errors)}
                                     <NotificationError
                                         errors={errors}
                                         touched={touched}
@@ -96,7 +113,7 @@ class HeadboardForm extends Component {
                                                     backButton
                                                     urlForm={backButton.url}
                                                     type="primary"
-                                                    onClick={() => this.setState({ urlSubmitForm: backButton.url })}
+                                                    onClick={() => this.setUrlForm(backButton.url)}
                                                 />
                                             }
                                         </Col>
@@ -107,7 +124,7 @@ class HeadboardForm extends Component {
                                                     nextButton
                                                     urlForm={nextButton.url}
                                                     type="primary"
-                                                    onClick={() => this.setState({ urlSubmitForm: nextButton.url })}
+                                                    onClick={() => this.setUrlForm(nextButton.url)}
                                                 />
                                             }
                                         </Col>

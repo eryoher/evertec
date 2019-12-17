@@ -6,6 +6,7 @@ import HeadboardForm from 'components/headboard/headboardForm';
 import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
+import moment from 'moment';
 
 class Headboard extends Component {
 
@@ -29,7 +30,8 @@ class Headboard extends Component {
 
     callBackButton = (urlSubmitForm) => {
         this.formRef.current.handleSubmit();
-        this.setState({ urlSubmitForm })
+        const now = new moment();
+        this.setState({ urlSubmitForm, timeSet: now })
     }
 
     render() {
@@ -46,6 +48,7 @@ class Headboard extends Component {
                     current={'p_vtacab'}
                     urlParameter={this.state.idOperacion}
                     callBackButton={this.callBackButton}
+                    buttonsType={'primary'}
                 />
 
                 {
@@ -57,6 +60,7 @@ class Headboard extends Component {
                         urlParameter={this.state.idOperacion}
                         formRef={this.formRef}
                         urlSubmitForm={this.state.urlSubmitForm}
+                        timeSet={this.state.timeSet}
                     />
                 }
             </Row>

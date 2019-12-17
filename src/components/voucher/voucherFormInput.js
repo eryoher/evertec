@@ -68,10 +68,10 @@ class VoucherFormInput extends Component {
                     colInput={"col-sm-10"}
                     disable={readOnly}
                     value={values.cliente_razon_social}
-                    errorInput={errors.cliente_razon_social}
-                    touched={touched.cliente_razon_social}
+                    onBlur={handleBlur}
                     onChange={(data) => {
                         setFieldValue('cliente_razon_social', data);
+                        handleChange();
                     }}
                 />
 
@@ -90,10 +90,10 @@ class VoucherFormInput extends Component {
                     colInput={"col-sm-10"}
                     disable={readOnly}
                     value={values.cliente_codigo}
-                    errorInput={errors.cliente_codigo}
-                    touched={touched.cliente_codigo}
+                    onBlur={handleBlur}
                     onChange={(data) => {
                         setFieldValue('cliente_codigo', data);
+                        handleChange();
                     }}
                 />
 
@@ -110,11 +110,11 @@ class VoucherFormInput extends Component {
                         disable={readOnly}
                         styleLabel={{ paddingRight: '0px' }}
                         divStyle={{ paddingLeft: '17px' }}
-                        errorInput={errors.cliente_Tipo_resp}
-                        touched={touched.cliente_Tipo_resp}
+                        onBlur={handleBlur}
                         value={values.cliente_Tipo_resp}
                         onChange={(data) => {
                             setFieldValue('cliente_Tipo_resp', data);
+                            handleChange();
                         }}
                     />
                     <InputText
@@ -130,10 +130,11 @@ class VoucherFormInput extends Component {
                         disable={readOnly}
                         styleLabel={{ textAlign: 'right' }}
                         value={values.cliente_identificador}
+                        onBlur={handleBlur}
                         onChange={(data) => {
                             setFieldValue('cliente_identificador', data);
+                            handleChange();
                         }}
-                        onBlur={handleBlur}
 
                     />
                 </Row>

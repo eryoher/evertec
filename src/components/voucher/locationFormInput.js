@@ -24,8 +24,7 @@ class LocationFormInput extends Component {
                         divStyle={{ paddingLeft: '17px' }}
                         disable={readOnly}
                         value={values.cliente_Localidad}
-                        errorInput={errors.cliente_Localidad}
-                        touched={touched.cliente_Localidad}
+                        onBlur={handleBlur}
                         onChange={(data) => {
                             setFieldValue('cliente_Localidad', data);
                             handleChange();
@@ -44,11 +43,11 @@ class LocationFormInput extends Component {
                         divStyle={{ paddingLeft: '23px' }}
                         styleLabel={{ textAlign: 'right' }}
                         disable={readOnly}
-                        errorInput={errors.cliente_Provincia}
-                        touched={touched.cliente_Provincia}
+                        onBlur={handleBlur}
                         value={values.cliente_Provincia}
                         onChange={(data) => {
                             setFieldValue('cliente_Provincia', data);
+                            handleChange();
                         }}
                     />
                 </Row>
@@ -64,10 +63,10 @@ class LocationFormInput extends Component {
                         colInput={"col-sm-8"}
                         divStyle={{ paddingLeft: '17px' }}
                         disable={readOnly}
-                        errorInput={errors.cliente_Cpos}
-                        touched={touched.cliente_Cpos}
+                        onBlur={handleBlur}
                         value={values.cliente_Cpos}
                         onChange={(data) => {
+                            handleChange();
                             setFieldValue('cliente_Cpos', data);
                         }}
                     />

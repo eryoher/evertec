@@ -11,6 +11,7 @@ import { voucherHeadValidatekey, voucherHeadCheckDate, voucherHeadConfirm } from
 import { connect } from 'react-redux';
 import moment from 'moment';
 import NotificationMessage from 'components/common/notificationMessage';
+import { isArray } from 'util';
 
 
 class HeadBoardFormInput extends Component {
@@ -52,8 +53,19 @@ class HeadBoardFormInput extends Component {
 
     componentWillUnmount = () => {
         const { idOperacion, values } = this.props;
-        const { formData } = values;
-        this.props.voucherHeadConfirm({ ...formData, idOperacion })
+
+        const requestData = {
+            transp_comp_vta: values.transp_comp_vta,
+            Suc_empresa_vta: values.Suc_empresa_vta,
+            cond_comp_vta: values.cond_comp_vta,
+            cotiz_comp_vta: values.cotiz_comp_vta,
+            fecha_comp_vta: values.fecha_comp_vta,
+            mon_comp_vta: values.mon_comp_vta,
+            titulo_comp_vta: values.titulo_comp_vta,
+            vend_comp_vta: values.vend_comp_vta,
+
+        }
+        this.props.voucherHeadConfirm({ ...requestData, idOperacion })
     }
 
     setError = (error) => {
@@ -73,8 +85,8 @@ class HeadBoardFormInput extends Component {
         const code = select.target.value;
         values.moneda.forEach(currency => {
             if (currency.cod_moneda === code) {
-                setFieldValue('formData.cotiz_comp_vta', currency.cotiz)
-                setFieldValue('formData.mon_comp_vta', code)
+                setFieldValue('cotiz_comp_vta', currency.cotiz)
+                setFieldValue('mon_comp_vta', code)
             }
         });
     }
@@ -85,22 +97,20 @@ class HeadBoardFormInput extends Component {
     }
 
     handleChangeDate = (date) => {
-        const { idOperacion } = this.props;
+        const { idOperacion, handleChange } = this.props;
         const { setFieldValue } = this.props;
         const dateFormated = moment(date).format("DD/MM/YYYY");
-
         this.props.voucherHeadCheckDate({ idOperacion, fecha: dateFormated });
-
-        //setFieldValue('fecha_comp_vta', date);
-        setFieldValue('formData.fecha_comp_vta', date);
-
+        const valueDate = (date) ? date : '';
+        setFieldValue('fecha_comp_vta', valueDate);
+        handleChange();
     }
 
     handleChangeGeneric = (data) => {
         const { values, setFieldValue } = this.props;
-        const { formData } = values;
+        const { atrib_comp_vta } = values;
 
-        let generic = (formData.atrib_comp_vta) ? formData.atrib_comp_vta : [];
+        let generic = (atrib_comp_vta) ? atrib_comp_vta : [];
         let ban = true;
 
         generic.forEach((field, index) => {
@@ -114,7 +124,7 @@ class HeadBoardFormInput extends Component {
             generic.push(data) //La primera vez
         }
 
-        setFieldValue('formData.atrib_comp_vta', generic);
+        setFieldValue('atrib_comp_vta', generic);
     }
 
     handleCloseError = () => {
@@ -122,7 +132,7 @@ class HeadBoardFormInput extends Component {
     }
 
     renderCarrier = () => {
-        const { readOnly, t, fields, values, setFieldValue } = this.props;
+        const { readOnly, t, fields, values, setFieldValue, handleBlur } = this.props;
         let result = [];
         const optionsTrans = (values.transporte) ? values.transporte.map((opt) => {
             return ({ id: opt.cod_transp, label: opt.nom_transp })
@@ -142,8 +152,9 @@ class HeadBoardFormInput extends Component {
                     divStyle={{ paddingLeft: '17px' }}
                     options={optionsTrans}
                     disable={readOnly}
+                    onBlur={handleBlur}
                     onChange={(data) => {
-                        setFieldValue('formData.transp_comp_vta', data.target.value);
+                        setFieldValue('transp_comp_vta', data.target.value);
                     }}
                 />
             </Row>
@@ -178,7 +189,7 @@ class HeadBoardFormInput extends Component {
             return ({ id: opt.cod_vend, label: opt.nom_vend })
         }) : []
 
-        const optionsConditions = (values.cond_comp_vta) ? values.cond_comp_vta.map((opt) => {
+        const optionsConditions = (values.cond_comp_vta && isArray(values.cond_comp_vta)) ? values.cond_comp_vta.map((opt) => {
             return ({ id: opt.cod_cond_vta, label: opt.desc_cond_vta })
         }) : []
 
@@ -204,10 +215,10 @@ class HeadBoardFormInput extends Component {
                         colInput={"col-sm-10"}
                         options={optionsCompany}
                         disable={readOnly}
-                        touched={touched.cliente_Sucursales}
-                        errorInput={errors.cliente_Sucursales}
+                        onBlur={handleBlur}
                         onChange={(data) => {
                             setFieldValue('Suc_empresa_vta', data.target.value);
+                            handleChange()
                         }}
                     />
                     <Row className={'col-11'} style={{ paddingRight: '0px' }} >
@@ -223,10 +234,10 @@ class HeadBoardFormInput extends Component {
                             divStyle={{ paddingLeft: '17px' }}
                             disable={readOnly}
                             value={values.Titulo_comp_vta}
-                            touched={touched.Titulo_comp_vta}
-                            errorInput={errors.Titulo_comp_vta}
+                            onBlur={handleBlur}
                             onChange={(data) => {
-                                setFieldValue('formData.Titulo_comp_vta', data.target.value);
+                                setFieldValue('Titulo_comp_vta', data.target.value);
+                                handleChange()
                             }}
                         />
                         <InputText
@@ -240,15 +251,9 @@ class HeadBoardFormInput extends Component {
                             colInput={"col-sm-8"}
                             styleLabel={{ textAlign: 'right' }}
                             disable={readOnly}
-                            touched={touched.fecha_comp_vta}
-                            errorInput={errors.fecha_comp_vta}
-                            value={(values.formData) ? values.formData.fecha_comp_vta : ''}
-                            onChange={() => {
-                                this.handleChangeDate()
-                                handleChange();
-                            }}
+                            value={values.fecha_comp_vta}
+                            onChange={this.handleChangeDate}
                             onBlur={handleBlur}
-
                         />
 
                     </Row>
@@ -266,6 +271,8 @@ class HeadBoardFormInput extends Component {
                             disable={readOnly}
                             options={optionsCurrency}
                             onChange={this.handleChangeCurreny}
+                            onBlur={handleBlur}
+
                         />
                         <InputText
                             inputFormCol={{ sm: 5, style: { paddingLeft: '12px' } }}
@@ -280,9 +287,11 @@ class HeadBoardFormInput extends Component {
                             colInput={"col-sm-7"}
                             styleLabel={{ textAlign: 'right' }}
                             disable={readOnly}
-                            value={(values.formData) ? values.formData.cotiz_comp_vta : ''}
+                            value={values.cotiz_comp_vta}
+                            onBlur={handleBlur}
                             onChange={(data) => {
-                                setFieldValue('formData.cotiz_comp_vta', data.target.value);
+                                setFieldValue('cotiz_comp_vta', data.target.value);
+                                handleChange()
                             }}
 
                         />
@@ -301,8 +310,10 @@ class HeadBoardFormInput extends Component {
                             divStyle={{ paddingLeft: '17px' }}
                             disable={readOnly}
                             options={optionsSaler}
+                            onBlur={handleBlur}
                             onChange={(data) => {
-                                setFieldValue('formData.vend_comp_vta', data.target.value);
+                                setFieldValue('vend_comp_vta', data.target.value);
+                                handleChange();
                             }}
                         />
 
@@ -319,8 +330,11 @@ class HeadBoardFormInput extends Component {
                             disable={readOnly}
                             options={optionsConditions}
                             onChange={(data) => {
-                                setFieldValue('formData.cond_comp_vta', data.target.value);
+                                setFieldValue('cond_comp_vta', data.target.value);
+                                handleChange();
                             }}
+                            onBlur={handleBlur}
+
                         />
 
                     </Row>

@@ -45,6 +45,7 @@ class InputTextArea extends Component {
                                 disabled={!config.editable}
                                 className={`${theme.inputTextArea} ${classText}`}
                                 onChange={(v) => onChange(v)}
+                                onBlur={this.props.onBlur}
                                 value={value}
                             />
                         </Col>

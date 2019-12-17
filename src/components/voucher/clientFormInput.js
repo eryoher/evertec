@@ -11,6 +11,7 @@ class ClientFormInput extends Component {
 
     handleChange = (select) => {
         const { cliente_Sucursales } = this.props.values;
+        const { handleChange } = this.props;
         const val = select.target.value;
         let result = null;
         cliente_Sucursales.forEach(opt => {
@@ -18,7 +19,7 @@ class ClientFormInput extends Component {
                 result = opt;
             }
         });
-
+        handleChange();
         this.setValues(result);
     }
 
@@ -65,8 +66,7 @@ class ClientFormInput extends Component {
                     colInput={"col-sm-10"}
                     options={options}
                     disable={readOnly}
-                    errorInput={errors.cliente_Sucursales}
-                    touched={touched.cliente_Sucursales}
+                    onBlur={handleBlur}
                     onChange={this.handleChange}
                 />
 
@@ -82,10 +82,10 @@ class ClientFormInput extends Component {
                     colInput={"col-sm-10"}
                     disable={readOnly}
                     value={values.cliente_Contacto}
-                    errorInput={errors.cliente_Contacto}
-                    touched={touched.cliente_Contacto}
+                    onBlur={handleBlur}
                     onChange={(data) => {
                         setFieldValue('cliente_Contacto', data);
+                        handleChange();
                     }}
                 />
                 <Row className={'col-11'} style={{ paddingRight: '0px' }} >
@@ -101,13 +101,12 @@ class ClientFormInput extends Component {
                         disable={readOnly}
                         divStyle={{ paddingLeft: '17px' }}
                         value={values.cliente_Telefono}
-                        errorInput={errors.cliente_Telefono}
-                        touched={touched.cliente_Telefono}
+                        onBlur={handleBlur}
                         onChange={(data) => {
                             setFieldValue('cliente_Telefono', data);
+                            handleChange();
                         }}
                     />
-
                     <InputText
                         inputFormCol={{ sm: 6, style: { paddingRight: '0px' } }}
                         fields={fields}
@@ -119,11 +118,11 @@ class ClientFormInput extends Component {
                         colInput={"col-sm-8"}
                         styleLabel={{ textAlign: 'right' }}
                         disable={readOnly}
-                        errorInput={errors.cliente_email}
-                        touched={touched.cliente_email}
+                        onBlur={handleBlur}
                         value={values.cliente_email}
                         onChange={(data) => {
                             setFieldValue('cliente_email', data);
+                            handleChange();
                         }}
                     />
                 </Row>
@@ -138,11 +137,11 @@ class ClientFormInput extends Component {
                     colLabel={"col-sm-2"}
                     colInput={"col-sm-10"}
                     disable={readOnly}
-                    errorInput={errors.cliente_domicilio}
-                    touched={touched.cliente_domicilio}
+                    onBlur={handleBlur}
                     value={values.cliente_domicilio}
                     onChange={(data) => {
                         setFieldValue('cliente_domicilio', data);
+                        handleChange();
                     }}
                 />
 
