@@ -12,8 +12,10 @@ class Headboard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            idOperacion: null
+            idOperacion: null,
+            urlSubmitForm: ''
         }
+        this.formRef = React.createRef();
     }
 
     componentDidMount() {
@@ -23,6 +25,11 @@ class Headboard extends Component {
             this.setState({ idOperacion });
             this.props.getVoucherType({ idOperacion });
         }
+    }
+
+    callBackButton = (urlSubmitForm) => {
+        this.formRef.current.handleSubmit();
+        this.setState({ urlSubmitForm })
     }
 
     render() {
@@ -38,13 +45,18 @@ class Headboard extends Component {
                     crumbs={(voucherType) ? voucherType.procesos : []}
                     current={'p_vtacab'}
                     urlParameter={this.state.idOperacion}
+                    callBackButton={this.callBackButton}
                 />
-                {this.state.idOperacion &&
+
+                {
+                    this.state.idOperacion &&
                     <HeadboardForm
                         idOperacion={this.state.idOperacion}
                         crumbs={(voucherType) ? voucherType.procesos : []}
                         current={'p_vtacab'}
                         urlParameter={this.state.idOperacion}
+                        formRef={this.formRef}
+                        urlSubmitForm={this.state.urlSubmitForm}
                     />
                 }
             </Row>

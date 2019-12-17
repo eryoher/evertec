@@ -63,7 +63,6 @@ class VoucherClientForm extends Component {
     }
 
 
-
     render() {
         const { search, client, config, crumbs, current, urlParameter, t } = this.props;
         const [backButton, nextButton] = getBackNextButtons(crumbs, current, urlParameter);
@@ -100,10 +99,12 @@ class VoucherClientForm extends Component {
             return (
                 <Col sm={12} className={"mb-1"} >
                     <Formik
+                        ref={this.props.formRef}
                         initialValues={{ ...initial }}
                         onSubmit={(values, actions) => {
-                            if (this.state.urlForm) {
-                                this.props.history.push(this.state.urlForm)
+                            if (this.state.urlForm || this.props.urlSubmitForm) {
+                                const urlSubmit = (this.props.urlSubmitForm) ? this.props.urlSubmitForm : this.state.urlForm
+                                this.props.history.push(urlSubmit)
                             }
                         }}
                         validationSchema={validationSchema}

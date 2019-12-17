@@ -35,6 +35,7 @@ export default class VoucherBreadCrumbs extends Component {
                     nextButton={next}
                     backButton={back}
                     completed={completed}
+                    callBackButton={this.props.callBackButton}
                 />
             )
         } else {

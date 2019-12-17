@@ -5,10 +5,10 @@ import NotificationMessage from './notificationMessage';
 
 export default class NotificationError extends Component {
 
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
-            showError : true
+            showError: true
         }
     }
 
@@ -20,7 +20,7 @@ export default class NotificationError extends Component {
                 result.push(errors[error])
             }
         }
-        
+
         return result;
     }
 
@@ -30,11 +30,13 @@ export default class NotificationError extends Component {
 
     render() {
         const errors = this.getErrors()
+        console.log(errors, 'lslslslsl  ')
         const showError = (errors.length && this.state.showError) ? true : false;
+
         return (
             <NotificationMessage
                 showError={showError}
-                errorMessage = {errors}
+                errorMessage={errors}
                 handleCloseError={this.handleCloseError}
                 type={'danger'}
             />

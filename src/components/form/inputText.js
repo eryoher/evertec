@@ -81,7 +81,6 @@ class InputText extends Component {
 
         if (configInput.valid && !validateField(inputValue, configInput.valid)) {
             ban = false
-            console.log('no paso')
         }
 
         if (onBlur && ban) {
@@ -90,12 +89,12 @@ class InputText extends Component {
 
         if (configInput.requerido && !this.state.inputValue) {
             this.setState({ requireError: true });
-        }else if(this.state.inputValue){
+        } else if (this.state.inputValue) {
             this.setState({ requireError: false });
 
         }
-        
-        if (onBlur ) {
+
+        if (onBlur) {
             onBlur();
         }
 
@@ -223,7 +222,7 @@ class InputText extends Component {
             autoFocus,
             errorInput,
             touched,
-         } = this.props;
+        } = this.props;
 
         const classInput = (label) ? colInput : "col-sm-12";
         const classLabel = (label) ? colLabel : "";
@@ -262,7 +261,7 @@ class InputText extends Component {
                                 }
                             </Col>
                         </Row>
-                     
+
                     </Col>
                     {
                         lock && <Col className={theme.lock} sm={1}>

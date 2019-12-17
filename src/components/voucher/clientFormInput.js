@@ -65,10 +65,10 @@ class ClientFormInput extends Component {
                     colInput={"col-sm-10"}
                     options={options}
                     disable={readOnly}
+                    errorInput={errors.cliente_Sucursales}
+                    touched={touched.cliente_Sucursales}
                     onChange={this.handleChange}
-                    errorInput = {errors.cliente_Sucursales}
-                    touched = {touched.cliente_Sucursales}
-                />                
+                />
 
                 <InputText
                     inputFormCol={{ sm: 11 }}
@@ -82,6 +82,8 @@ class ClientFormInput extends Component {
                     colInput={"col-sm-10"}
                     disable={readOnly}
                     value={values.cliente_Contacto}
+                    errorInput={errors.cliente_Contacto}
+                    touched={touched.cliente_Contacto}
                     onChange={(data) => {
                         setFieldValue('cliente_Contacto', data);
                     }}
@@ -99,6 +101,8 @@ class ClientFormInput extends Component {
                         disable={readOnly}
                         divStyle={{ paddingLeft: '17px' }}
                         value={values.cliente_Telefono}
+                        errorInput={errors.cliente_Telefono}
+                        touched={touched.cliente_Telefono}
                         onChange={(data) => {
                             setFieldValue('cliente_Telefono', data);
                         }}
@@ -115,6 +119,8 @@ class ClientFormInput extends Component {
                         colInput={"col-sm-8"}
                         styleLabel={{ textAlign: 'right' }}
                         disable={readOnly}
+                        errorInput={errors.cliente_email}
+                        touched={touched.cliente_email}
                         value={values.cliente_email}
                         onChange={(data) => {
                             setFieldValue('cliente_email', data);
@@ -132,6 +138,8 @@ class ClientFormInput extends Component {
                     colLabel={"col-sm-2"}
                     colInput={"col-sm-10"}
                     disable={readOnly}
+                    errorInput={errors.cliente_domicilio}
+                    touched={touched.cliente_domicilio}
                     value={values.cliente_domicilio}
                     onChange={(data) => {
                         setFieldValue('cliente_domicilio', data);

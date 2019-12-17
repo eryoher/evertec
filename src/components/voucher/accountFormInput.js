@@ -24,6 +24,8 @@ class AccountFormInput extends Component {
                     cols={3}
                     rows={3}
                     disable={readOnly}
+                    errorInput={errors.cliente_Obs_cc}
+                    touched={touched.cliente_Obs_cc}
                     value={values.cliente_Obs_cc}
                     onChange={(data) => {
                         setFieldValue('cliente_Obs_cc', data.target.value);
@@ -43,6 +45,8 @@ class AccountFormInput extends Component {
                     cols={3}
                     rows={3}
                     disable={readOnly}
+                    errorInput={errors.cliente_Obs_vta}
+                    touched={touched.cliente_Obs_vta}
                     value={values.cliente_Obs_vta}
                     onChange={(data) => {
                         setFieldValue('cliente_Obs_vta', data.target.value);
@@ -63,6 +67,8 @@ class AccountFormInput extends Component {
                         colInput={"col-sm-8"}
                         divStyle={{ paddingLeft: '17px' }}
                         disable={readOnly}
+                        errorInput={errors.cliente_Limcred}
+                        touched={touched.cliente_Limcred}
                         value={values.cliente_Limcred}
                         onChange={(data) => {
                             setFieldValue('cliente_Limcred', data);
@@ -80,6 +86,8 @@ class AccountFormInput extends Component {
                         colInput={"col-sm-8"}
                         styleLabel={{ textAlign: 'right', paddingRight: '0px' }}
                         disable={readOnly}
+                        errorInput={errors.cliente_Pendcred}
+                        touched={touched.cliente_Pendcred}
                         value={values.cliente_Pendcred}
                         onChange={(data) => {
                             setFieldValue('cliente_Pendcred', data);
@@ -99,6 +107,8 @@ class AccountFormInput extends Component {
                         colInput={"col-sm-8"}
                         disable={readOnly}
                         divStyle={{ paddingLeft: '17px' }}
+                        errorInput={errors.cliente_Saldo}
+                        touched={touched.cliente_Saldo}
                         value={values.cliente_Saldo}
                         onChange={(data) => {
                             setFieldValue('cliente_Saldo', data);

@@ -13,8 +13,11 @@ class Voucher extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            type: null
+            type: null,
+            urlSubmitForm: ''
         }
+        this.formRef = React.createRef();
+
     }
 
     componentDidMount() {
@@ -26,6 +29,10 @@ class Voucher extends Component {
         }
     }
 
+    callBackButton = (urlSubmitForm) => {
+        this.formRef.current.handleSubmit();
+        this.setState({ urlSubmitForm })
+    }
 
     render() {
         const { t, theme, voucherType } = this.props;
@@ -34,18 +41,23 @@ class Voucher extends Component {
             <Row>
                 <Col sm={12} className={theme.Title} >
                     {t("voucher.title")}
-                </Col >
-                { voucherType && <VoucherBreadCrumbs
-                    crumbs={(voucherType) ? voucherType.procesos : []}
-                    current={'p_selcli'}
-                    urlParameter={voucherType.idOperacion}
-                />}
+                </Col>
+                {voucherType &&
+                    <VoucherBreadCrumbs
+                        crumbs={(voucherType) ? voucherType.procesos : []}
+                        current={'p_selcli'}
+                        urlParameter={voucherType.idOperacion}
+                        callBackButton={this.callBackButton}
+                    />
+                }
                 {voucherType &&
                     <VoucherClientForm
                         idOperacion={voucherType.idOperacion}
                         crumbs={(voucherType) ? voucherType.procesos : []}
                         current={'p_selcli'}
-                        urlParameter={voucherType.idOperacion}
+                        urlParameter={voucherType.idOperacion}                        
+                        formRef={this.formRef}
+                        urlSubmitForm={this.state.urlSubmitForm}
                     />
                 }
             </Row>

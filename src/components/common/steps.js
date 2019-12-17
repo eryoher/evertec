@@ -48,6 +48,8 @@ class Steps extends Component {
                     <InputButton
                         nextButton
                         urlForm={nextButton.url}
+                        type="primary"
+                        onClick={() => this.props.callBackButton(nextButton.url)}
                     />
                 </Col>
             )

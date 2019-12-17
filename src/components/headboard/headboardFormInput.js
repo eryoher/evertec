@@ -90,6 +90,8 @@ class HeadBoardFormInput extends Component {
         const dateFormated = moment(date).format("DD/MM/YYYY");
 
         this.props.voucherHeadCheckDate({ idOperacion, fecha: dateFormated });
+
+        //setFieldValue('fecha_comp_vta', date);
         setFieldValue('formData.fecha_comp_vta', date);
 
     }
@@ -202,8 +204,10 @@ class HeadBoardFormInput extends Component {
                         colInput={"col-sm-10"}
                         options={optionsCompany}
                         disable={readOnly}
+                        touched={touched.cliente_Sucursales}
+                        errorInput={errors.cliente_Sucursales}
                         onChange={(data) => {
-                            setFieldValue('formData.Suc_empresa_vta', data.target.value);
+                            setFieldValue('Suc_empresa_vta', data.target.value);
                         }}
                     />
                     <Row className={'col-11'} style={{ paddingRight: '0px' }} >
@@ -219,6 +223,8 @@ class HeadBoardFormInput extends Component {
                             divStyle={{ paddingLeft: '17px' }}
                             disable={readOnly}
                             value={values.Titulo_comp_vta}
+                            touched={touched.Titulo_comp_vta}
+                            errorInput={errors.Titulo_comp_vta}
                             onChange={(data) => {
                                 setFieldValue('formData.Titulo_comp_vta', data.target.value);
                             }}
@@ -234,8 +240,15 @@ class HeadBoardFormInput extends Component {
                             colInput={"col-sm-8"}
                             styleLabel={{ textAlign: 'right' }}
                             disable={readOnly}
+                            touched={touched.fecha_comp_vta}
+                            errorInput={errors.fecha_comp_vta}
                             value={(values.formData) ? values.formData.fecha_comp_vta : ''}
-                            onChange={this.handleChangeDate}
+                            onChange={() => {
+                                this.handleChangeDate()
+                                handleChange();
+                            }}
+                            onBlur={handleBlur}
+
                         />
 
                     </Row>
