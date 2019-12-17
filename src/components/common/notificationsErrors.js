@@ -31,7 +31,7 @@ export default class NotificationError extends Component {
     render() {
         const errors = this.getErrors()
         const showError = (errors.length && this.state.showError) ? true : false;
-
+        //console.log(this.props.errors, this.props.touched)
         return (
             <NotificationMessage
                 showError={showError}

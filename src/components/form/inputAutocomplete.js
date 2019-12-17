@@ -73,9 +73,13 @@ class InputAutocomplete extends Component {
                             }}
                             minLength={3}
                             onSearch={this._handleSearch}
-                            onChange={handleSelect}
+                            onChange={(selected) => {
+                                handleSelect(selected);
+                                this.props.onChange();
+                            }}
                             className={`${theme.inputText}`}
                             placeholder={placeholder}
+                            onBlur={this.props.onBlur}
                             renderMenuItemChildren={(option) => {
                                 return (<option key={option.id} >{option.label}</option>);
                             }}

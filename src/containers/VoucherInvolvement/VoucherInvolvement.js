@@ -38,7 +38,7 @@ class VoucherInvolvement extends Component {
                     <VoucherBreadCrumbs
                         crumbs={(voucherType) ? voucherType.procesos : []}
                         current={'p_afec_cant_vta'}
-                        urlParameter={this.state.type}
+                        urlParameter={this.state.idOperacion}
                     />
                 </Col>
                 {

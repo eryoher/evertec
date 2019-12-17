@@ -28,6 +28,7 @@ class VoucherFormInput extends Component {
             handleSelect,
             fields
         } = this.props;
+
         return (
             <Row>
                 {
@@ -45,6 +46,8 @@ class VoucherFormInput extends Component {
                         auoptions={auoptions}
                         handleLoading={handleLoading}
                         handleSelect={handleSelect}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
                         labelKey={"label"}
                         disable={readOnly}
                     />

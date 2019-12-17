@@ -59,7 +59,10 @@ class VoucherClientForm extends Component {
     handleSelect = (client) => {
         const { idOperacion } = this.props;
         const selected = client[0];
-        this.props.getClient({ idCliente: selected.id, idOperacion });
+        if (selected) {
+            this.props.getClient({ idCliente: selected.id, idOperacion });
+            this.setState({ cliente_criterio: selected.label })
+        }
     }
 
 
@@ -88,7 +91,7 @@ class VoucherClientForm extends Component {
             cliente_Sucursales: []
         }
 
-        const initial = (client) ? client : defaultInitial;
+        const initial = (client) ? { ...client, cliente_criterio: this.state.cliente_criterio } : defaultInitial;
         const optionsSync = (search) ? search.clientes.map((opt) => {
             return ({ id: opt.idCliente, label: opt.Rsocial });
         }) : [];
