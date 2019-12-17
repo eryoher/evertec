@@ -48,6 +48,8 @@ class Voucher extends Component {
                         current={'p_selcli'}
                         urlParameter={voucherType.idOperacion}
                         callBackButton={this.callBackButton}
+                        buttonsType={'primary'}
+
                     />
                 }
                 {voucherType &&
@@ -55,7 +57,7 @@ class Voucher extends Component {
                         idOperacion={voucherType.idOperacion}
                         crumbs={(voucherType) ? voucherType.procesos : []}
                         current={'p_selcli'}
-                        urlParameter={voucherType.idOperacion}                        
+                        urlParameter={voucherType.idOperacion}
                         formRef={this.formRef}
                         urlSubmitForm={this.state.urlSubmitForm}
                     />
