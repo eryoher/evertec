@@ -26,6 +26,8 @@ class Voucher extends Component {
             const type = match.params.idComprobante;
             this.setState({ type: type });
             this.props.getVoucherType({ idComprobante: type, idEmpresa: 1 }); //Comprobante que ya existe
+            //this.props.getVoucherType({ idOperacion: type })
+
         }
     }
 
