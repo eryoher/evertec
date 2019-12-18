@@ -55,7 +55,7 @@ class HeadBoardFormInput extends Component {
         const { idOperacion, values } = this.props;
 
         const requestData = {
-            transp_comp_vta: values.transp_comp_vta,
+            Transp_comp_vta: values.transp_comp_vta,
             Suc_empresa_vta: values.Suc_empresa_vta,
             cond_comp_vta: values.cond_comp_vta,
             cotiz_comp_vta: values.cotiz_comp_vta,
@@ -63,8 +63,9 @@ class HeadBoardFormInput extends Component {
             mon_comp_vta: values.mon_comp_vta,
             titulo_comp_vta: values.titulo_comp_vta,
             vend_comp_vta: values.vend_comp_vta,
-
+            atrib_comp_vta: values.atrib_comp_vta_field
         }
+
         this.props.voucherHeadConfirm({ ...requestData, idOperacion })
     }
 
@@ -108,9 +109,9 @@ class HeadBoardFormInput extends Component {
 
     handleChangeGeneric = (data) => {
         const { values, setFieldValue } = this.props;
-        const { atrib_comp_vta } = values;
+        const { atrib_comp_vta_field } = values;
 
-        let generic = (atrib_comp_vta) ? atrib_comp_vta : [];
+        let generic = (atrib_comp_vta_field) ? atrib_comp_vta_field : [];
         let ban = true;
 
         generic.forEach((field, index) => {
@@ -124,7 +125,7 @@ class HeadBoardFormInput extends Component {
             generic.push(data) //La primera vez
         }
 
-        setFieldValue('atrib_comp_vta', generic);
+        setFieldValue('atrib_comp_vta_field', generic);
     }
 
     handleCloseError = () => {

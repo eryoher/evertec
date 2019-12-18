@@ -47,7 +47,7 @@ class GenericInputForm extends Component {
             return ({ id: opt.cod_dato, label: opt.desc_dato.trim() });
         }) : [];
 
-        const inputConfig = [{ idCampo: config.cod_atrib.trim(), label: config.descripcion, visible: 1, requerido: 0, editable: 1 }]
+        const inputConfig = [{ idCampo: (config.cod_atrib) ? config.cod_atrib.trim() : '', label: config.descripcion, visible: 1, requerido: 0, editable: 1 }]
         const properties = {
             inputFormCol: { sm: 11 },
             fields: inputConfig,
@@ -69,6 +69,7 @@ class GenericInputForm extends Component {
                     auoptions={optionsSync}
                     handleLoading={this.state.loadingSearch}
                     handleSelect={this.handleSelect}
+                    onChange={() => { }}
                     labelKey={"label"}
                 />
             )
