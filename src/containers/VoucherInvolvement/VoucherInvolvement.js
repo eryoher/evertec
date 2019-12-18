@@ -31,9 +31,12 @@ class VoucherInvolvement extends Component {
         const { t, theme, voucherType } = this.props
         return (
             <Row>
-                {this.state.idOperacion && <HeadCartResume
-                    idOperacion={this.state.idOperacion}
-                />}
+                {
+                    this.state.idOperacion &&
+                    <HeadCartResume
+                        idOperacion={this.state.idOperacion}
+                    />
+                }
                 <Col sm={12}>
                     <VoucherBreadCrumbs
                         crumbs={(voucherType) ? voucherType.procesos : []}

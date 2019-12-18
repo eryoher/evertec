@@ -56,7 +56,6 @@ class InvolvementTable extends Component {
 
     getColumns = () => {
         const { config, theme, readOnly } = this.props;
-        console.log(config,'los campos')
         const rows = config.campos.map((field) => {
             const campoId = field.idCampo.trim()
             return {
@@ -129,38 +128,24 @@ class InvolvementTable extends Component {
         let style = {};
 
         switch (idField) {
-            case 'nimovcli':
-                style = { width: '5%' }
-                break;
             case 'Cod_unid':
-                style = { width: '3%' }
-                break;
-            case 'nitem':
-                style = { width: '8%' }
-                break;
+            case 'Cod_prod':
             case 'Cant_pend':
                 style = { width: '5%' }
                 break;
             case 'Desc_prod':
-                style = { width: '20%' }
+                style = { width: '15%' }
                 break;
-            case 'fec_entrega':
-                style = { width: '13%' }
-                break;
-            case 'avisos':
+            case 'Fec_emis':
+            case 'Fec_vto':
                 style = { width: '8%' }
                 break;
-            case 'ind_stock':
-                style = { width: '3%' }
-                break;
+            case 'Cant_afec':
             case 'pcio_unit':
-                style = { width: '5%' }
-                break;
             case 'neto':
-                style = { width: '8%' }
-                break;
-            case 'unid_v':
-                style = { width: '5%' }
+            case 'Comprob_desc':
+            case 'Comprob_nro':
+                style = { width: '6%' }
                 break;
             case 'modif_pcio':
                 style = { width: '1%' }
@@ -174,7 +159,7 @@ class InvolvementTable extends Component {
 
         }
 
-        if (field.requerido === '1') {
+        if (field.requerido) {
             style.color = 'red';
         }
 
@@ -361,7 +346,6 @@ class InvolvementTable extends Component {
 
     render() {
         const { products, theme, config, productsUpdate, readOnly, idOperacion } = this.props;
-        console.log(config, 'config')
         const tableColumns = (config && products) ? this.getColumns() : [];
         const selectRow = {
             mode: 'checkbox',

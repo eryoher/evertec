@@ -438,32 +438,12 @@ export default (mockAdapter) => {
     );
 
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_cant_vta' ,idOperacion:'21' } }).reply(200,
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_cant_vta', idOperacion: '21' } }).reply(200,
         {
             "cod_proceso": "p_afec_cant_vta",
             "desc_proceso": "Afectación Cantidades",
             "orden": 3,
             "campos": [
-                {
-                    "idCampo": "nimovcli                      ",
-                    "descrip": "",
-                    "label": "NºInt.Cbt.",
-                    "mascara": null,
-                    "editable": 0,
-                    "visible": 1,
-                    "requerido": 0,
-                    "valid": null
-                },
-                {
-                    "idCampo": "nitem                         ",
-                    "descrip": "",
-                    "label": "NºItem Cbt.",
-                    "mascara": null,
-                    "editable": 0,
-                    "visible": 1,
-                    "requerido": 0,
-                    "valid": null
-                },
                 {
                     "idCampo": "Fec_emis                      ",
                     "descrip": "",
@@ -485,19 +465,9 @@ export default (mockAdapter) => {
                     "valid": null
                 },
                 {
-                    "idCampo": "Comprob_desc                  ",
-                    "descrip": "",
-                    "label": "Descripción",
-                    "mascara": null,
-                    "editable": 0,
-                    "visible": 1,
-                    "requerido": 0,
-                    "valid": null
-                },
-                {
                     "idCampo": "Comprob_nro                   ",
                     "descrip": "",
-                    "label": "Número",
+                    "label": "Comprobante",
                     "mascara": null,
                     "editable": 0,
                     "visible": 1,
@@ -505,9 +475,9 @@ export default (mockAdapter) => {
                     "valid": null
                 },
                 {
-                    "idCampo": "Desc_prod                     ",
+                    "idCampo": "Comprob_desc                  ",
                     "descrip": "",
-                    "label": "Producto",
+                    "label": "Desc. Comp.",
                     "mascara": null,
                     "editable": 0,
                     "visible": 1,
@@ -517,7 +487,7 @@ export default (mockAdapter) => {
                 {
                     "idCampo": "Cod_prod                      ",
                     "descrip": "",
-                    "label": "Cod.Prod.",
+                    "label": "Producto",
                     "mascara": null,
                     "editable": 0,
                     "visible": 1,
@@ -525,9 +495,9 @@ export default (mockAdapter) => {
                     "valid": null
                 },
                 {
-                    "idCampo": "Cod_unid                      ",
+                    "idCampo": "Desc_prod                     ",
                     "descrip": "",
-                    "label": "UM",
+                    "label": "Detalle",
                     "mascara": null,
                     "editable": 0,
                     "visible": 1,
@@ -545,23 +515,33 @@ export default (mockAdapter) => {
                     "valid": null
                 },
                 {
-                    "idCampo": "Cant_afec                     ",
+                    "idCampo": "Cod_unid                      ",
                     "descrip": "",
-                    "label": "Afectado",
-                    "mascara": "CantidadEntera",
-                    "editable": 1,
+                    "label": "Unidad",
+                    "mascara": null,
+                    "editable": 0,
                     "visible": 1,
                     "requerido": 0,
                     "valid": null
                 },
                 {
+                    "idCampo": "Cant_afec                     ",
+                    "descrip": "",
+                    "label": "Cant. Afectada",
+                    "mascara": "CantidadEntera",
+                    "editable": 1,
+                    "visible": 1,
+                    "requerido": 1,
+                    "valid": null
+                },
+                {
                     "idCampo": "pcio_unit                     ",
                     "descrip": "",
-                    "label": "Precio",
+                    "label": "Precio Unitario",
                     "mascara": "PrecioUnitUsual",
-                    "editable": 0,
+                    "editable": 1,
                     "visible": 1,
-                    "requerido": 0,
+                    "requerido": 1,
                     "valid": null
                 },
                 {
@@ -577,17 +557,17 @@ export default (mockAdapter) => {
                 {
                     "idCampo": "neto                          ",
                     "descrip": "",
-                    "label": "Neto",
+                    "label": "Importe Neto",
                     "mascara": "NetoUsual",
-                    "editable": 0,
+                    "editable": 1,
                     "visible": 1,
-                    "requerido": 0,
+                    "requerido": 1,
                     "valid": null
                 },
                 {
                     "idCampo": "cant_saldo                    ",
                     "descrip": "",
-                    "label": null,
+                    "label": "Saldo",
                     "mascara": null,
                     "editable": 0,
                     "visible": 1,
