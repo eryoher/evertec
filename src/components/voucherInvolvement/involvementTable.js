@@ -13,6 +13,7 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import NotificationMessage from 'components/common/notificationMessage';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { validateField } from 'lib/FieldValidations';
+import moment from 'moment';
 
 class InvolvementTable extends Component {
 
@@ -71,7 +72,7 @@ class InvolvementTable extends Component {
                     onFilter: filterVal => this.setState({ filterVal }),
                     placeholder: field.label,
                 }) : null,
-                formatter: ((field.editable || campoId === 'avisos' || campoId === 'ind_stock' || campoId === 'modif_pcio') && (!readOnly)) ? ((cell, row, rowIndex) => {
+                formatter: ((field.editable || field.mascara || campoId === 'modif_pcio') && (!readOnly)) ? ((cell, row, rowIndex) => {
                     return this.renderFormat(field, cell, row)
                 }) : null
             }
@@ -191,12 +192,12 @@ class InvolvementTable extends Component {
             this.props.salesAffectedValidate({ idOperacion, items }); //Falta adicionar idOperacion
             this.props.salesAffectedSubCalculation({ idOperacion, Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: value, Neto: row.neto })
         }
-
     }
 
     validateFieldNeto = (row, field, value) => {
+        const { idOperacion } = this.props
         const params = {
-            "IdOperacion": 12345,
+            idOperacion,
             "nimovcli": row.nimovcli,
             "nitem": row.nitem,
             "niprod": row.niprod,
@@ -236,7 +237,6 @@ class InvolvementTable extends Component {
         const inputError = (value === 'error_input') ? true : false;
         const customValue = (value === 'error_input') ? '' : value;
         const inputStyle = (campoId === 'cant_afec' || campoId === 'precio_unit' || campoId === 'neto') ? { textAlign: 'right' } : {}
-
 
         if (field.editable && !this.inputRefs[campoId]) {
             this.inputRefs[campoId] = {}
@@ -286,8 +286,7 @@ class InvolvementTable extends Component {
                     row={row}
                 />
             )
-        } else {
-
+        } else if (field.editable) {
             result = (
                 <InputText
                     {...optionsInput}
@@ -316,6 +315,23 @@ class InvolvementTable extends Component {
                 />
             )
 
+        } else if (field.mascara) {
+            result = this.getValueMask(value, field.mascara);
+        }
+
+        return result;
+    }
+
+    getValueMask = (value, mascara) => {
+        const { authUser } = this.props
+        const mask = authUser.configApp.mascaras[mascara];
+        let result = '';
+
+        if (mask.tipo === 'fecha') {
+            const date = new moment(value)
+            result = date.format(mask.valor);
+        } else if (mask.tipo === 'personalizado') {
+            result = value;
         }
 
         return result;
@@ -491,10 +507,11 @@ class InvolvementTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, salesAffected }) => {
+const mapStateToProps = ({ voucher, salesAffected, auth }) => {
     const { config } = voucher;
     const { productsUpdate, cantValidate } = salesAffected;
-    return { config, productsUpdate, cantValidate };
+    const { authUser } = auth;
+    return { config, productsUpdate, cantValidate, authUser };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedValidate, salesAffectedSubCalculation, salesAffectedConfirm })(InvolvementTable);

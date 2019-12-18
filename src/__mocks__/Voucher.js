@@ -585,8 +585,8 @@ export default (mockAdapter) => {
         "descrip_proceso": "Afectacion Importe",
         "orden": "8",
         "campos": [
-            { "idCampo": "fec_emis", "descripcion": "Fecha", "label": "Fecha", "editable": 0, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
-            { "idCampo": "fec_vto", "descripcion": "Fecha Venta", "label": "Fecha Venta", "editable": 0, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "fechaLarga" },
+            { "idCampo": "fec_emis", "descripcion": "Fecha", "label": "Fecha", "editable": 0, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "FechaLarga" },
+            { "idCampo": "fec_vto", "descripcion": "Fecha Venta", "label": "Fecha Venta", "editable": 0, "visible": 1, "requerido": "0", "valid": "FEC>=H", "mascara": "FechaLarga" },
             { "idCampo": "comprob_nro", "descripcion": "Comprobante", "label": "Comprobante", "editable": 0, "visible": 1, "mascara": "", "requerido": "0" },
             { "idCampo": "comprob_desc", "descripcion": "Comprobante Nombre", "label": "Nombre Comprobante", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },
             { "idCampo": "cod_prod", "descripcion": "Código Producto", "label": "Producto", "editable": 0, "visible": 0, "mascara": "", "requerido": "0" },

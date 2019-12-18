@@ -142,7 +142,6 @@ class InputText extends Component {
             const mask = this.getMask(config); //Se obtiene las posibles opciones de mascara.. aca se agregan validaciones.
             if (mask.tipo === 'fecha') {
                 const formatDate = (mask.valor) ? mask.valor.replace(/D/g, 'd').replace(/Y/g, 'y') : 'MM-dd-yyyy';
-
                 response = (
                     <DatePicker
                         {...options}
@@ -178,7 +177,6 @@ class InputText extends Component {
                 )
             }
         } else {
-
             if (allowClear) {
                 response = (
                     <div className="input-group mb-3">

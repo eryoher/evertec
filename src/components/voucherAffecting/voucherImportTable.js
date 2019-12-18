@@ -12,6 +12,7 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import NotificationMessage from 'components/common/notificationMessage';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { validateField } from 'lib/FieldValidations';
+import moment from 'moment';
 
 class VoucherImportTable extends Component {
 
@@ -48,10 +49,10 @@ class VoucherImportTable extends Component {
 
     componentWillUnmount = () => {
         const items = this.getSelectedCheck();
-        const {idOperacion} = this.props;
+        const { idOperacion } = this.props;
         console.log(items)
         if (items.length) {
-            this.props.salesAffectedImportConfirm({ idOperacion, items }) 
+            this.props.salesAffectedImportConfirm({ idOperacion, items })
         }
     }
 
@@ -73,7 +74,7 @@ class VoucherImportTable extends Component {
                     onFilter: filterVal => this.setState({ filterVal }),
                     placeholder: field.label,
                 }) : null,
-                formatter: ((field.editable || campoId === 'avisos' || campoId === 'ind_stock') && (!readOnly)) ? ((cell, row, rowIndex) => {
+                formatter: ((field.editable || field.mascara) && (!readOnly)) ? ((cell, row, rowIndex) => {
                     return this.renderFormat(field, cell, row)
                 }) : null
             }
@@ -241,6 +242,22 @@ class VoucherImportTable extends Component {
 
     }
 
+    getValueMask = (value, mascara) => {
+
+        const { authUser } = this.props
+        const mask = authUser.configApp.mascaras[mascara];
+        let result = '';
+
+        if (mask.tipo === 'fecha') {
+            const date = new moment(value)
+            result = date.format(mask.valor);
+        } else if (mask.tipo === 'personalizado') {
+            result = value;
+        }
+
+        return result;
+    }
+
     renderFormat = (field, value, row) => {
         const campoId = field.idCampo.trim();
         let result = null;
@@ -277,35 +294,35 @@ class VoucherImportTable extends Component {
             onChange: () => { }
         }
 
+        if (field.editable) {
+            result = (
+                <InputText
+                    {...optionsInput}
+                    handleEnterKey={(e, value) => {
+                        if (campoId === 'imp_afec') {
+                            this.validateAfectImport(row, field, value);
+                            //this.handleSetFocus('precio_unit', row.niprod);
 
-
-        result = (
-            <InputText
-                {...optionsInput}
-                handleEnterKey={(e, value) => {
-                    if (campoId === 'imp_afec') {
-                        this.validateAfectImport(row, field, value);
-                        //this.handleSetFocus('precio_unit', row.niprod);
-
-                    } else if (campoId === 'neto') {
-                        this.validateFieldNeto(row, field, value);
-                    }
-                    return true;
-                }}
-                onBlur={(value) => {
-                    if (campoId === 'imp_afec') { //pendiente logica.
-                        this.validateAfectImport(row, field, value);
-                    } else if (campoId === 'neto') {
-                        //this.validateFieldNeto(row, field, value);
-                    } else {
-                        const params = { niprod: row.niprod, idcampo: campoId, value };
-                        this.props.setTableDataInvolvement([params]);
-                    }
-                }}
-            />
-        )
-
-
+                        } else if (campoId === 'neto') {
+                            this.validateFieldNeto(row, field, value);
+                        }
+                        return true;
+                    }}
+                    onBlur={(value) => {
+                        if (campoId === 'imp_afec') { //pendiente logica.
+                            this.validateAfectImport(row, field, value);
+                        } else if (campoId === 'neto') {
+                            //this.validateFieldNeto(row, field, value);
+                        } else {
+                            const params = { niprod: row.niprod, idcampo: campoId, value };
+                            this.props.setTableDataInvolvement([params]);
+                        }
+                    }}
+                />
+            )
+        } else if (field.mascara) {
+            result = this.getValueMask(value, field.mascara);
+        }
 
         return result;
     }
@@ -318,11 +335,11 @@ class VoucherImportTable extends Component {
         products.forEach(row => {
             selectedCheck.forEach(check => {
                 if (row.niprod === check) {
-                    items.push({                        
-                        Nimovcli: row.nimovcli, 
-                        Nitem: row.nitem, 
+                    items.push({
+                        Nimovcli: row.nimovcli,
+                        Nitem: row.nitem,
                         imp_afec: row.imp_afec,
-                        niprod:row.niprod
+                        niprod: row.niprod
                     })
                 }
             });
@@ -332,7 +349,7 @@ class VoucherImportTable extends Component {
     }
 
     handleOnTableChange = (type, pagination) => {
-        console.log(type, pagination)
+        //console.log(type, pagination)
     }
 
 
@@ -441,7 +458,7 @@ class VoucherImportTable extends Component {
             onPageChange: (page, sizePerPage) => {
                 const items = this.getSelectedCheck();
                 if (items.length) {
-                    this.props.salesAffectedImportConfirm({idOperacion, items })
+                    this.props.salesAffectedImportConfirm({ idOperacion, items })
                 }
             }
         }
@@ -473,10 +490,11 @@ class VoucherImportTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, salesAffected }) => {
+const mapStateToProps = ({ voucher, salesAffected, auth }) => {
     const { config } = voucher;
+    const { authUser } = auth
     const { productsUpdate, cantValidate } = salesAffected;
-    return { config, productsUpdate, cantValidate };
+    return { config, productsUpdate, cantValidate, authUser };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedImportConfirm })(VoucherImportTable);
