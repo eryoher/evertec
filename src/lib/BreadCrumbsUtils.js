@@ -49,7 +49,7 @@ const getUrl = (proccess, urlParameter) => {
         p_cargaitemvta: LOADITEMS,
         p_afec_cant_vta: VOUCHERINVOLVEMENT,
         p_fincomprob: GENERATE,
-        p_afectimporte: VOUCHERAFFECTING
+        p_afec_impo_vta: VOUCHERAFFECTING
 
     }
 

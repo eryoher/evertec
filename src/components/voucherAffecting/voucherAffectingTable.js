@@ -39,8 +39,15 @@ class VoucherAffectingTable extends Component {
     componentDidMount = () => {
         const { ComprobAvencer, OpcionMuestra } = this.state;
         const { idOperacion } = this.props;
-        this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra });
+        this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra, idOperacion, page_size: 10, page_number: 1 });
     }
+
+    onChangeTable = (type, pagination) => {
+        const { ComprobAvencer, OpcionMuestra } = this.state;
+        const { idOperacion } = this.props;
+        this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
+    }
+
 
     handleGetCant = (e) => {
         const comprobante = (e.target.checked) ? 1 : 0;
@@ -115,9 +122,11 @@ class VoucherAffectingTable extends Component {
                 <Col sm={12} className={"pb-2 pl-0 pr-0"}>
                     {productsImport &&
                         <VoucherImportTable
-                            products={productsImport.Items}
+                            products={productsImport}
                             readOnly={readOnly}
                             idOperacion={this.props.idOperacion}
+                            handleChangeTable={this.onChangeTable}
+
                         />
                     }
                     {productsImport && <VoucherAffectingTotal classDiv={'pl-0'} formatCol={{ span: 5, offset: 7 }} data={this.state} />}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CommonTable from 'components/common/commonTable';
-import { Col } from 'react-bootstrap';
+import { Col, Button } from 'react-bootstrap';
 import styles from './voucherImportTable.module.css';
 import { themr } from 'react-css-themr';
 import { connect } from 'react-redux';
@@ -33,7 +33,7 @@ class VoucherImportTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
-        this.props.getConfigVoucher({ cod_proceso: 'p_afectcomprobimport' });
+        this.props.getConfigVoucher({ cod_proceso: 'p_afec_impo_vta', idOperacion });
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -50,11 +50,12 @@ class VoucherImportTable extends Component {
     componentWillUnmount = () => {
         const items = this.getSelectedCheck();
         const { idOperacion } = this.props;
-        console.log(items)
+
         if (items.length) {
             this.props.salesAffectedImportConfirm({ idOperacion, items })
         }
     }
+
 
     getColumns = () => {
         const { config, theme, readOnly } = this.props;
@@ -113,7 +114,7 @@ class VoucherImportTable extends Component {
         const { products } = this.props;
         const optionsExits = [];
         const result = [];
-        products.forEach(row => {
+        products.Items.forEach(row => {
             if (row[idField] && !optionsExits[row[idField]]) {
                 optionsExits[row[idField]] = true;
                 result.push({ value: row[idField], label: row[idField] })
@@ -207,8 +208,9 @@ class VoucherImportTable extends Component {
     }
 
     validateFieldNeto = (row, field, value) => {
+        const { idOperacion } = this.props
         const params = {
-            "IdOperacion": 12345,
+            "IdOperacion": idOperacion,
             "nimovcli": row.nimovcli,
             "nitem": row.nitem,
             "niprod": row.niprod,
@@ -332,9 +334,9 @@ class VoucherImportTable extends Component {
         const { products } = this.props;
 
         const items = [];
-        products.forEach(row => {
+        products.Items.forEach(row => {
             selectedCheck.forEach(check => {
-                if (row.niprod === check) {
+                if (row.nimovcli === check) {
                     items.push({
                         Nimovcli: row.nimovcli,
                         Nitem: row.nitem,
@@ -347,11 +349,6 @@ class VoucherImportTable extends Component {
 
         return items;
     }
-
-    handleOnTableChange = (type, pagination) => {
-        //console.log(type, pagination)
-    }
-
 
     render() {
         const { products, theme, config, productsUpdate, readOnly, idOperacion } = this.props;
@@ -368,24 +365,26 @@ class VoucherImportTable extends Component {
             onSelect: (row, isSelect, rowIndex, e) => {
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
-                if (isSelect) { //Se adiciona                                        
-                    rows.push({ Nimovcli: row.nimovcli, Nitem: row.nitem, imp_afec: row.imp_afec });
-                    selected.push(row.niprod)
-                    this.props.salesAffectedImportValidate({ idOperacion, item: rows });
+                if (isSelect) { //Se adiciona    
+                    rows.push({ Nimovcli: row.nimovcli, nitem: row.nitem, imp_afec: row.imp_afec });
+                    selected.push(row.nimovcli)
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
-                        if (toDelete.niprod === row.niprod) {
+                        if (toDelete.Nimovcli === row.nimovcli) {
                             rows.splice(index, 1);
                         }
                     });
 
                     selected.forEach((delet, index) => {
-                        if (delet === row.niprod) {
+                        if (delet === row.nimovcli) {
                             selected.splice(index, 1);
                         }
                     });
-
                 }
+                if (rows.length) {
+                    this.props.salesAffectedImportValidate({ idOperacion, items: rows });
+                }
+
                 this.setState({ rowSelected: rows, selectedCheck: selected });
 
             },
@@ -396,11 +395,11 @@ class VoucherImportTable extends Component {
                 if (isSelect) {
                     this.setState({ selectedCheck: null });
                     rows.forEach(check => {
-                        checks.push(check.niprod);
+                        checks.push(check.nimovcli);
                     });
 
                     selected = rows.map(fila => {
-                        return ({ Nimovcli: fila.nimovcli, Nitem: fila.nitem, Cant_afec: fila.cant_pend });
+                        return ({ Nimovcli: fila.nimovcli, nitem: fila.nitem, imp_afec: fila.imp_afec });
                     });
 
                     this.setState({ selectedCheck: checks })
@@ -408,7 +407,7 @@ class VoucherImportTable extends Component {
                     for (let index = 0; index < checks.length; index++) {
                         const check = checks[index];
                         rows.forEach(fila => {
-                            if (check === fila.niprod) {
+                            if (check === fila.nimovcli) {
                                 delete checks[index]
                             }
                         });
@@ -419,7 +418,9 @@ class VoucherImportTable extends Component {
                 }
 
                 this.setState({ rowSelected: selected });
-                this.props.salesAffectedImportValidate({ idOperacion: 123456789, /*item: selected*/ }); //Falta adicionar idOperacion
+                if (selected.length) {
+                    this.props.salesAffectedImportValidate({ idOperacion, items: selected });
+                }
 
             }
         };
@@ -429,14 +430,13 @@ class VoucherImportTable extends Component {
             order: 'desc'
         }];
 
-        const rowData = (products) ? products.map((prod) => {
+        const rowData = (products) ? products.Items.map((prod) => {
             let result = {};
             if (productsUpdate) {
                 productsUpdate.forEach(update => {
-                    if (update.niprod === prod.niprod) {
+                    if (update.nimovcli === prod.nimovcli) {
                         result = {
                             ...update,
-                            id: prod.niprod
                         }
                     }
                 });
@@ -444,7 +444,6 @@ class VoucherImportTable extends Component {
             } else {
                 result = {
                     ...prod,
-                    id: prod.niprod
                 }
             }
 
@@ -454,7 +453,9 @@ class VoucherImportTable extends Component {
 
         const options = {
             pageStartIndex: 1,
-            sizePerPage: 10,
+            sizePerPage: products.page_size,
+            page: products.page_number,
+            totalSize: products.total_count,
             onPageChange: (page, sizePerPage) => {
                 const items = this.getSelectedCheck();
                 if (items.length) {
@@ -462,6 +463,7 @@ class VoucherImportTable extends Component {
                 }
             }
         }
+
         return (
             <>
                 <Col sm={12} className={"mb-1"} >
@@ -472,18 +474,20 @@ class VoucherImportTable extends Component {
                     />
                 </Col>
                 <Col className={`col-12 pl-0 pr-0`}>
-                    {config && <CommonTable
-                        columns={tableColumns}
-                        keyField={'niprod'}
-                        data={rowData}
-                        selectRow={selectRow}
-                        defaultSorted={defaultSorted}
-                        rowClasses={theme.tableRow}
-                        headerClasses={theme.tableHeader}
-                        paginationOptions={options}
-                        onTableChange={this.handleOnTableChange}
+                    {config &&
+                        <CommonTable
+                            columns={tableColumns}
+                            keyField={'nimovcli'}
+                            data={rowData}
+                            selectRow={selectRow}
+                            defaultSorted={defaultSorted}
+                            rowClasses={theme.tableRow}
+                            headerClasses={theme.tableHeader}
+                            paginationOptions={options}
+                            onTableChange={this.props.handleChangeTable}
 
-                    />}
+                        />
+                    }
                 </Col>
             </>
         )

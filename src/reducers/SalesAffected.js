@@ -22,7 +22,7 @@ const initialState = {
     productsImport: null,
     subCalculations: null,
     productsUpdate: null,
-    salesImportconfirm:null,
+    salesImportconfirm: null,
     salesconfirm: null,
 }
 
@@ -71,12 +71,12 @@ function rootReducer(state = initialState, action) {
             if (updateImportState.productsUpdate) {
                 updateImportState.productsUpdate.forEach(prd => {
                     importItems.forEach(item => {
-                        if (prd.niprod === item.niprod && item.ind_stock === 0) {
+                        if (prd.nimovcli === item.nimovcli) {
                             prd.imp_afec = item.imp_afec;
-                            prd.neto = item.neto;
-                            prd.saldo = item.saldo;
+                            //prd.neto = item.neto;
+                            //prd.saldo = item.saldo;
                             // prd.cant_saldo = parseFloat(prd.cant_pend) - parseFloat(item.cant_afec);
-                        } else if (prd.niprod === item.niprod && item.ind_stock !== 0) {
+                        } else if (prd.nimovcli === item.nimovcli && item.ind_stock !== 0) {
                             prd['error'] = true;
                             prd['type_error'] = item.ind_stock;
                         }
@@ -146,7 +146,7 @@ function rootReducer(state = initialState, action) {
 
             return createState;
 
-            
+
         default:
             return state
     }

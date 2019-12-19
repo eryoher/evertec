@@ -21,7 +21,7 @@ class HeadCartResume extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
-        this.props.getLoadItems({ niprod: 123456 });
+        //this.props.getLoadItems({ niprod: 123456 });
         this.props.getVoucherHeadInfo({ idOperacion })
     }
 

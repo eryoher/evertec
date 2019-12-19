@@ -28,23 +28,31 @@ class VoucherInvolvement extends Component {
     }
 
     render() {
-        const { t, theme, voucherType } = this.props
-        return (
-            <Row>
-                <HeadCartResume />
-                <Col sm={12}>
-                    <VoucherBreadCrumbs
-                        crumbs={(voucherType) ? voucherType.procesos : []}
-                        current={'p_afectimporte'}
-                        urlParameter={this.state.idOperacion}
+        const { voucherType } = this.props
+        const { idOperacion } = this.state;
+        if (idOperacion) {
+            return (
+                <Row>
+                    <HeadCartResume
+                        idOperacion={idOperacion}
                     />
-                </Col>
-                <VoucherAffectingTable
-                    idOperacion={this.state.idOperacion}
-                />
 
-            </Row>
-        )
+                    <Col sm={12}>
+                        <VoucherBreadCrumbs
+                            crumbs={(voucherType) ? voucherType.procesos : []}
+                            current={'p_afec_impo_vta'}
+                            urlParameter={idOperacion}
+                        />
+                    </Col>
+                    <VoucherAffectingTable
+                        idOperacion={idOperacion}
+                    />
+
+                </Row>
+            )
+        } else {
+            return null
+        }
     }
 }
 
