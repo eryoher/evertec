@@ -19,8 +19,6 @@ class Steps extends Component {
                     <InputButton
                         backButton
                         urlForm={backButton.url}
-                        type={this.props.buttonsType}
-                        onClick={() => this.props.callBackButton(backButton.url)}
                     />
                 </Col>
             )

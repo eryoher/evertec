@@ -112,12 +112,10 @@ class HeadboardForm extends Component {
                                                 <InputButton
                                                     backButton
                                                     urlForm={backButton.url}
-                                                    type="primary"
-                                                    onClick={() => this.setUrlForm(backButton.url)}
                                                 />
                                             }
                                         </Col>
-                                        <Col style={{ textAlign: 'left', paddingLeft: '0px' }} className={"mt-2 col-1 offset-10"} >
+                                        <Col style={{ textAlign: 'right', paddingRight: '2%' }} className={"mt-2 col-1 offset-10"} >
                                             {
                                                 nextButton &&
                                                 <InputButton
