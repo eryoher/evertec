@@ -34,3 +34,8 @@ export const salesAffectedImportConfirm = async (params) => {
     const response = await Axios.post('/AfectaVentas/importe/confirmar', params);
     return response.data;
 }
+
+export const salesAffectedState = async (params) => {
+    const response = await Axios.get('/AfectaVentas/estado', { params });
+    return response.data;
+}

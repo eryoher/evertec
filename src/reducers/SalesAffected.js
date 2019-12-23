@@ -13,7 +13,9 @@ import {
     SALES_AFFECTED_IMPORT_VALIDATE,
     SALES_AFFECTED_IMPORT_VALIDATE_SUCCESS,
     SALES_AFFECTED_IMPORT_CONFIRM,
-    SALES_AFFECTED_IMPORT_CONFIRM_SUCCESS
+    SALES_AFFECTED_IMPORT_CONFIRM_SUCCESS,
+    SALES_AFFECTED_STATE,
+    SALES_AFFECTED_STATE_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
@@ -24,6 +26,7 @@ const initialState = {
     productsUpdate: null,
     salesImportconfirm: null,
     salesconfirm: null,
+    productsState: null
 }
 
 function rootReducer(state = initialState, action) {
@@ -146,7 +149,10 @@ function rootReducer(state = initialState, action) {
 
             return createState;
 
-
+        case SALES_AFFECTED_STATE:
+            return { ...state, productsState: null }
+        case SALES_AFFECTED_STATE_SUCCESS:
+            return { ...state, productsState: action.payload }
         default:
             return state
     }

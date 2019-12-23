@@ -13,6 +13,7 @@ import Loaditems from './containers/Loaditems';
 import SelectType from './containers/SelectType';
 import VoucherInvolvement from './containers/VoucherInvolvement';
 import VoucherAffecting from './containers/VoucherAffecting';
+import VoucherState from 'containers/VoucherState/VoucherState';
 
 import {
   GENERATE,
@@ -25,7 +26,8 @@ import {
   LOADITEMS,
   SELECTTYPE,
   VOUCHERINVOLVEMENT,
-  VOUCHERAFFECTING
+  VOUCHERAFFECTING,
+  VOUCHERSTATE
 } from './utils/RoutePath';
 
 const publicRoutes = [
@@ -43,6 +45,7 @@ const privateRoutes = [
   { path: `${LOADITEMS}/:idComprobante?/:idOperacion?`, component: Loaditems },
   { path: `${VOUCHERINVOLVEMENT}/:idComprobante?/:idOperacion?`, component: VoucherInvolvement },
   { path: `${VOUCHERAFFECTING}/:idComprobante?/:idOperacion?`, component: VoucherAffecting },
+  { path: `${VOUCHERSTATE}/:idComprobante?/:idOperacion?`, component: VoucherState },
 ]
 
 const AppRouter = props => (

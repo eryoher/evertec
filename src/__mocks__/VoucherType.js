@@ -9,6 +9,7 @@ export default (mockAdapter) => {
             "descrip_tipocomp": "Pedido",
             "procesos": [
                 {
+
                     "cod_proceso": "p_selcli",
                     "desc_proceso": "Selección cliente",
                     "orden": 1
@@ -24,12 +25,17 @@ export default (mockAdapter) => {
                     "orden": 3
                 },
                 {
+                    "cod_proceso": "p_afec_stado_vta",
+                    "desc_proceso": "Afectacion Estado",
+                    "orden": 4
+                },
+                {
                     "cod_proceso": "p_afec_cant_vta",
                     "desc_proceso": "Afectacion Comprobante",
                     "orden": 5
                 },
                 {
-                    "cod_proceso": "p_afectimporte",
+                    "cod_proceso": "p_afec_impo_vta",
                     "desc_proceso": "Afectacion Importe",
                     "orden": 6
                 },
@@ -65,12 +71,17 @@ export default (mockAdapter) => {
                     "orden": 3
                 },
                 {
+                    "cod_proceso": "p_afec_stado_vta",
+                    "desc_proceso": "Afectacion Estado",
+                    "orden": 4
+                },
+                {
                     "cod_proceso": "p_afec_cant_vta",
                     "desc_proceso": "Afectacion Comprobante",
                     "orden": 5
                 },
                 {
-                    "cod_proceso": "p_afectimporte",
+                    "cod_proceso": "p_afec_impo_vta",
                     "desc_proceso": "Afectacion Importe",
                     "orden": 6
                 },
@@ -81,7 +92,7 @@ export default (mockAdapter) => {
                 },
             ]
         }
-    );  
+    );
 
 
     mockAdapter.onGet('/TipoComprobantes/user').reply(200, {

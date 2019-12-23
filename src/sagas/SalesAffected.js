@@ -7,15 +7,32 @@ import {
     salesAffectedConfirm,
     salesAffectedImport,
     salesAffectedImportValidate,
-    salesAffectedImportConfirm
+    salesAffectedImportConfirm,
+    salesAffectedState
 } from '../api/SalesAffected'
 
 import {
-    SALES_AFFECTED_VALIDATE, SALES_AFFECTED_QUANTITY, SALES_AFFECTED_SUB_CALCULATION, SALES_AFFECTED_CONFIRM, SET_TABLE_DATA_INVOLVEMENT, SALES_AFFECTED_IMPORT, SALES_AFFECTED_IMPORT_VALIDATE, SALES_AFFECTED_IMPORT_CONFIRM
+    SALES_AFFECTED_VALIDATE,
+    SALES_AFFECTED_QUANTITY,
+    SALES_AFFECTED_SUB_CALCULATION,
+    SALES_AFFECTED_CONFIRM,
+    SALES_AFFECTED_IMPORT,
+    SALES_AFFECTED_IMPORT_VALIDATE,
+    SALES_AFFECTED_IMPORT_CONFIRM,
+    SALES_AFFECTED_STATE
 } from '../constants/ActionsTypes';
 
 
-import { salesAffectedValidateSuccess, salesAffectedCantSuccess, salesAffectedSubCalculationSuccess, salesAffectedConfirmSuccess, setTableDataInvolvementSuccess, salesAffectedImportSuccess, salesAffectedImportValidateSuccess, salesAffectedImportConfirmSuccess } from 'actions';
+import {
+    salesAffectedValidateSuccess,
+    salesAffectedCantSuccess,
+    salesAffectedSubCalculationSuccess,
+    salesAffectedConfirmSuccess,
+    salesAffectedImportSuccess,
+    salesAffectedImportValidateSuccess,
+    salesAffectedImportConfirmSuccess,
+    salesAffectedStateSuccess
+} from 'actions';
 
 
 function* salesAffectedValidateRequest({ payload }) {
@@ -75,6 +92,14 @@ function* salesAffectedImportRequest({ payload }) {
     }
 }
 
+function* salesAffectedStateRequest({ payload }) {
+    try {
+        const items = yield call(salesAffectedState, payload);
+        yield put(salesAffectedStateSuccess(items));
+    } catch (error) {
+    }
+}
+
 export function* salesAffectedValidateSaga() {
     yield takeEvery(SALES_AFFECTED_VALIDATE, salesAffectedValidateRequest);
 }
@@ -103,6 +128,9 @@ export function* salesAffectedImportSaga() {
     yield takeEvery(SALES_AFFECTED_IMPORT, salesAffectedImportRequest);
 }
 
+export function* salesAffectedStateSaga() {
+    yield takeEvery(SALES_AFFECTED_STATE, salesAffectedStateRequest);
+}
 
 export default function* rootSaga() {
     yield all([
@@ -113,6 +141,6 @@ export default function* rootSaga() {
         fork(salesAffectedImportSaga),
         fork(salesAffectedImportValidateSaga),
         fork(salesAffectedImportConfirmSaga),
-
+        fork(salesAffectedStateSaga),
     ]);
 }

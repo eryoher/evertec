@@ -8,4 +8,5 @@ export const LANDING = '/landing';
 export const LOADITEMS = '/loaditems';
 export const SELECTTYPE = '/selecttype';
 export const VOUCHERINVOLVEMENT = '/involvement';
-export const VOUCHERAFFECTING = '/voucherAffecting'
+export const VOUCHERAFFECTING = '/voucherAffecting';
+export const VOUCHERSTATE = '/voucherState';

@@ -215,7 +215,7 @@ export default (mockAdapter) => {
         ]
     });
 
-    mockAdapter.onGet('/AfectaVentas/importe', { params: { ComprobAvencer: 0, OpcionMuestra: "0" } }).reply(200, {
+    mockAdapter.onGet('/AfectaVentas/importe').reply(200, {
         "page_size": 10,
         "page_number": 1,
         "total_count": 2,
@@ -527,5 +527,73 @@ export default (mockAdapter) => {
             "Resultado": 'T',
             "mens_error": "Item correcto",
         },
+    });
+
+
+    mockAdapter.onGet('/AfectaVentas/estado').reply(200, {
+        "page_size": 10,
+        "page_number": 1,
+        "total_count": 2,
+        "Resultado": {
+            "Resultado": true,
+            "Tipo_error": null,
+            "Mens_error": null,
+            "Errores": null
+        },
+        "item_states": [
+            {
+                id: '0001',
+                label: 'Aprobado'
+            },
+            {
+                id: '0002',
+                label: 'Pendiente'
+            },
+            {
+                id: '0003',
+                label: 'Cancelado'
+            },
+        ],
+        "Items": [
+            {
+                "nimovcli": 1,
+                "nitem": 1,
+                "fec_emis": "2019-11-27T00:00:00",
+                "fec_vto": "2019-11-27T00:00:00",
+                "Comprob_desc": "Presupuesto",
+                "comprob_nro": "00005809",
+                "niprod": 59961,
+                "cod_prod": "34037",
+                "comprob_desc": "Comprobante",
+                "cond_venta": "10 dias F.F.",
+                "desc_prod": "Desodotante AXE Marine",
+                "moneda": "ARS",
+                "Cod_unid": "UN",
+                "desc_unid": "Unidad",
+                "Cant_pend": 100,
+                "imp_pendiente": "1203.86",
+                "item_estado": "Pendiente Aprobacion",
+            },
+            {
+                "nimovcli": 2,
+                "nitem": 2,
+                "fec_emis": "2019-11-27T00:00:00",
+                "fec_vto": "2019-11-27T00:00:00",
+                "Comprob_desc": "Presupuesto",
+                "comprob_nro": "00005809",
+                "niprod": 59962,
+                "cod_prod": "41637",
+                "comprob_desc": "Comprobante",
+                "cond_venta": "10 dias F.F.",
+                "desc_prod": "ACTRON Ibuprofeno 400",
+                "moneda": "ARS",
+                "Cod_unid": "UN",
+                "desc_unid": "Unidad",
+                "Cant_pend": 100,
+                "imp_pendiente": "1203.86",
+                "item_estado": "Pendiente Aprobacion",
+
+            }
+        ]
     });
 }
