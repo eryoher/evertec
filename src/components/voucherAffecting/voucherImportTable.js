@@ -463,7 +463,6 @@ class VoucherImportTable extends Component {
                 }
             }
         }
-
         return (
             <>
                 <Col sm={12} className={"mb-1"} >
@@ -474,7 +473,7 @@ class VoucherImportTable extends Component {
                     />
                 </Col>
                 <Col className={`col-12 pl-0 pr-0`}>
-                    {config &&
+                    {config && config.campos.length &&
                         <CommonTable
                             columns={tableColumns}
                             keyField={'nimovcli'}
