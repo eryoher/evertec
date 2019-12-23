@@ -85,6 +85,8 @@ class InputText extends Component {
 
         if (onBlur && ban) {
             onBlur(this.state.inputValue);
+        } else if (onBlur) {
+            onBlur();
         }
 
         if (configInput.requerido && !this.state.inputValue) {
@@ -94,9 +96,7 @@ class InputText extends Component {
 
         }
 
-        if (onBlur) {
-            onBlur();
-        }
+
 
 
     }

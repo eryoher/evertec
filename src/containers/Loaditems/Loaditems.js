@@ -34,8 +34,6 @@ class Loaditems extends Component {
         const { voucherType } = this.props;
         const [backButton, nextButton] = (voucherType) ? getBackNextButtons((voucherType) ? voucherType.procesos : [], 'p_cargaitemvta', this.state.idOperacion) : [];
 
-        console.log(backButton, nextButton, voucherType)
-
         return (
             <Row>
                 {this.state.idOperacion && <HeadCartResume
@@ -49,11 +47,13 @@ class Loaditems extends Component {
                     />
                 </Col>
                 <Col sm={12}>
-                    {this.state.idOperacion && <LoadItemsTable
-                        searchBox
-                        divClass={"mt-1"}
-                        idOperacion={this.state.idOperacion}
-                    />}
+                    {this.state.idOperacion &&
+                        <LoadItemsTable
+                            searchBox
+                            divClass={"mt-1"}
+                            idOperacion={this.state.idOperacion}
+                        />
+                    }
                 </Col>
                 <Col sm={1} style={{ textAlign: 'left', paddingLeft: '2rem' }} className={"mt-2"} >
                     {

@@ -226,6 +226,7 @@ class LoadItemsTable extends Component {
 
     handleOnblourInput = (value, campoId, row) => {
         if (campoId === 'cantidad') {
+            console.log('aca...', value)
             this.props.getPriceByProduct({
                 "idOperacion": this.props.idOperacion,
                 "Idproducto": row.niprod,

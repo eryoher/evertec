@@ -22,7 +22,7 @@ export const checkItemByProduct = async (params) => {
 }
 
 export const getProductsCart = async (params) => {
-    console.log(params)
+    //console.log(params)
     const response = await Axios.get('/Productos/carro', { params });
     return response.data;
 }
