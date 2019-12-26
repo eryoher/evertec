@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import moment from 'moment';
+import HeadCartResume from 'components/loadItems/HeadCartResume';
 
 class Headboard extends Component {
 
@@ -39,9 +40,9 @@ class Headboard extends Component {
 
         return (
             <Row className="" >
-                <Col sm={12} className={"title m-3 "} style={{ fontSize: '14pt' }} >
-                    {t("voucher.title")}
-                </Col>
+                {this.state.idOperacion && <HeadCartResume
+                    idOperacion={this.state.idOperacion}
+                />}
 
                 <VoucherBreadCrumbs
                     crumbs={(voucherType) ? voucherType.procesos : []}

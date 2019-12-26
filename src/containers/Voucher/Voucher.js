@@ -6,6 +6,7 @@ import VoucherClientForm from 'components/voucher/voucherClientForm';
 import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
+import HeadCartResume from 'components/loadItems/HeadCartResume';
 
 
 class Voucher extends Component {
@@ -43,9 +44,9 @@ class Voucher extends Component {
 
         return (
             <Row>
-                <Col sm={12} className={theme.Title} >
-                    {t("voucher.title")}
-                </Col>
+                {voucherType && <HeadCartResume
+                    idOperacion={voucherType.idOperacion}
+                />}
                 {voucherType &&
                     <VoucherBreadCrumbs
                         crumbs={(voucherType) ? voucherType.procesos : []}
