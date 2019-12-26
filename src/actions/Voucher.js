@@ -12,7 +12,7 @@ import {
     VOUCHER_HEAD_CONFIRM,
     VOUCHER_HEAD_CONFIRM_SUCCESS,
     GET_VOUCHER_HEAD_INFO,
-    GET_VOUCHER_HEAD_INFO_SUCCESS
+    GET_VOUCHER_HEAD_INFO_SUCCESS,
 
 } from '../constants/ActionsTypes';
 
@@ -118,3 +118,4 @@ export const voucherHeadConfirmSuccess = (response) => {
         payload: response
     }
 };
+

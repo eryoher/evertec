@@ -8,7 +8,8 @@ import { withTranslation } from 'react-i18next';
 import { themr } from 'react-css-themr';
 import styles from '../../containers/Loaditems/Loaditems.module.css';
 import { connect } from 'react-redux';
-import { getLoadItems, getVoucherHeadInfo } from '../../actions/';
+import { getLoadItems, getVoucherHeadInfo, voucherCancel } from '../../actions/';
+import ConfirmModal from 'components/common/confirmModal';
 
 class HeadCartResume extends Component {
 
@@ -32,6 +33,12 @@ class HeadCartResume extends Component {
     handleClose = () => {
         this.setState({ showModal: false });
     }
+
+    handleCancel = () => {
+        const { idOperacion } = this.props;
+        this.props.voucherCancel({ idOperacion })
+    }
+
     render() {
         const { theme, t, itemsCart, headInfo } = this.props;
 
@@ -63,6 +70,15 @@ class HeadCartResume extends Component {
                         </Col>
                     </>
                 }
+                <Col sm={2}>
+                    <ConfirmModal
+                        messageBody={t('form.modal.confirmationMessage')}
+                        onSubmitModal={this.handleCancel}
+                        labelButton={t('form.button.cancel')}
+                        modalTitle={t('form.modal.confirmationTitle')}
+                        buttonStyle={{ fontSize: '11pt', height: '33px' }}
+                    />
+                </Col>
 
                 <Col sm={2} className={"text-left  mt-3"} style={{ paddingLeft: '5px' }} >
                     <FontAwesomeIcon icon={faShoppingCart} onClick={this.handleOpen} />
@@ -70,9 +86,11 @@ class HeadCartResume extends Component {
                 {
                     headInfo &&
                     <Col sm={6} style={{ lineHeight: '1.4' }} >
-                        <span style={{ fontSize: '13pt' }}>{`${headInfo.tipo_comprobante} - ${headInfo.descrip_comprobante}`}</span> <br />
-                        <span style={{ fontSize: '9pt', color: 'grey' }}>{headInfo.razon_social} </span><br />
                         <Row>
+                            <Col sm={10}>
+                                <span style={{ fontSize: '13pt' }}>{`${headInfo.tipo_comprobante} - ${headInfo.descrip_comprobante}`}</span> <br />
+                                <span style={{ fontSize: '9pt', color: 'grey' }}>{headInfo.razon_social} </span><br />
+                            </Col>
                             <Col sm={6}>
                                 <span style={{ fontSize: '9pt' }}>{headInfo.dato1}</span>
                             </Col>
@@ -101,5 +119,5 @@ const mapStateToProps = ({ loadItems, voucher }) => {
     return { itemsCart, headInfo };
 };
 
-const connectForm = connect(mapStateToProps, { getLoadItems, getVoucherHeadInfo })(HeadCartResume);
+const connectForm = connect(mapStateToProps, { getLoadItems, getVoucherHeadInfo, voucherCancel })(HeadCartResume);
 export default themr('LoaditemsPage', styles)(withTranslation()(connectForm));

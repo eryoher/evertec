@@ -3,6 +3,8 @@ import {
   GET_VOUCHER_TYPE_SUCCESS,
   GET_VOUCHER_TYPE_BY_USER,
   GET_VOUCHER_TYPE_BY_USER_SUCCESS,
+  VOUCHER_CANCEL,
+  VOUCHER_CANCEL_SUCCESS
 
 } from '../constants/ActionsTypes';
 
@@ -35,3 +37,16 @@ export const getVoucherTypeByUserSuccess = (response) => {
   }
 };
 
+export const voucherCancel = (params) => {
+  return {
+    type: VOUCHER_CANCEL,
+    payload: params
+  }
+};
+
+export const voucherCancelSuccess = (response) => {
+  return {
+    type: VOUCHER_CANCEL_SUCCESS,
+    payload: response
+  }
+};

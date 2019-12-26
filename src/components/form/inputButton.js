@@ -16,7 +16,7 @@ class InputButton extends Component {
   }
 
   render() {
-    const { theme, backButton, nextButton, valueButton, urlForm, type } = this.props;
+    const { theme, backButton, nextButton, valueButton, urlForm, type, customStyle } = this.props;
     const withStyle = (nextButton || backButton) ? null : { minWidth: '100px' };
 
     let labelButton =
@@ -42,7 +42,7 @@ class InputButton extends Component {
           </Link>
         }
         {type === 'primary' &&
-          <Button type="primary" className={`btn btn-primary ${theme.formButton}`} onClick={() => this.props.onClick()}  >
+          <Button type="primary" style={customStyle} className={`btn btn-primary ${theme.formButton}`} onClick={() => this.props.onClick()}  >
             {labelButton}
           </Button>
         }

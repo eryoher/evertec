@@ -7,7 +7,7 @@ import {
     voucherHeadValidatekey,
     voucherHeadCheckDate,
     voucherHeadConfirm,
-    getVoucherHeadInfo
+    getVoucherHeadInfo,
 } from '../api/Voucher'
 
 import {

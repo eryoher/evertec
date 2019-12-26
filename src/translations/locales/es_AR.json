@@ -10,7 +10,12 @@
             "next": "Siguiente",
             "back": "Atrás",
             "close": "Cerrar",
-            "submit": "Enviar"
+            "submit": "Enviar",
+            "cancel": "Cancelar"
+        },
+        "modal": {
+            "confirmationMessage": "Está seguro de Cancelar el Ingreso del Comprobante actual?",
+            "confirmationTitle": "Cancelar Comprobate"
         },
         "input": {
             "validate_input": "Ingrese la contraseña"
