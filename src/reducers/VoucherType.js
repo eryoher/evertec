@@ -2,6 +2,7 @@ import { GET_VOUCHER_TYPE, GET_VOUCHER_TYPE_SUCCESS, GET_VOUCHER_TYPE_BY_USER, G
 
 const initialState = {
   voucherType: null,
+  voucherTypeCancel: null,
   userVoucherType: (typeof window !== 'undefined') ? ((window.localStorage.getItem('userVoucherType')) ? JSON.parse(window.localStorage.getItem('userVoucherType')) : undefined) : undefined,
 }
 
@@ -18,7 +19,7 @@ function rootReducer(state = initialState, action) {
     case VOUCHER_CANCEL:
       return { ...state, voucherTypeCancel: null }
     case VOUCHER_CANCEL_SUCCESS:
-      return { ...state, voucherTypeCancel: action.payload }
+      return { ...state, ...initialState, voucherTypeCancel: action.payload, }
     default:
       return state
   }

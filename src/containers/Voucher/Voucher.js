@@ -26,9 +26,9 @@ class Voucher extends Component {
         if (match.params.idComprobante) {
             const { idOperacion, idComprobante } = match.params;
             if (idComprobante !== 'null') {
-                this.props.getVoucherType({ idOperacion: idComprobante })
+                this.props.getVoucherType({ idOperacion: idComprobante }) //Comprobante. que ya existe.
             } else {
-                this.props.getVoucherType({ idComprobante: idOperacion, idEmpresa: 1 }); //Comprobante que ya existe
+                this.props.getVoucherType({ idComprobante: idOperacion, idEmpresa: 1 }); //Comprobante nuevo.
             }
             this.setState({ type: idComprobante });
         }
@@ -44,9 +44,11 @@ class Voucher extends Component {
 
         return (
             <Row>
-                {voucherType && <HeadCartResume
-                    idOperacion={voucherType.idOperacion}
-                />}
+                {voucherType &&
+                    <HeadCartResume
+                        idOperacion={voucherType.idOperacion}
+                    />
+                }
                 {voucherType &&
                     <VoucherBreadCrumbs
                         crumbs={(voucherType) ? voucherType.procesos : []}
@@ -61,7 +63,7 @@ class Voucher extends Component {
                     <VoucherClientForm
                         idOperacion={voucherType.idOperacion}
                         crumbs={(voucherType) ? voucherType.procesos : []}
-                        current={'p_selcli'}
+                        current={' '}
                         urlParameter={voucherType.idOperacion}
                         formRef={this.formRef}
                         urlSubmitForm={this.state.urlSubmitForm}

@@ -40,9 +40,11 @@ class Headboard extends Component {
 
         return (
             <Row className="" >
-                {this.state.idOperacion && <HeadCartResume
-                    idOperacion={this.state.idOperacion}
-                />}
+                {this.state.idOperacion &&
+                    <HeadCartResume
+                        idOperacion={this.state.idOperacion}
+                    />
+                }
 
                 <VoucherBreadCrumbs
                     crumbs={(voucherType) ? voucherType.procesos : []}

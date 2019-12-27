@@ -10,6 +10,8 @@ import styles from '../../containers/Loaditems/Loaditems.module.css';
 import { connect } from 'react-redux';
 import { getLoadItems, getVoucherHeadInfo, voucherCancel } from '../../actions/';
 import ConfirmModal from 'components/common/confirmModal';
+import { withRouter } from "react-router-dom";
+import { LANDING } from 'utils/RoutePath';
 
 class HeadCartResume extends Component {
 
@@ -22,8 +24,13 @@ class HeadCartResume extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
-        //this.props.getLoadItems({ niprod: 123456 });
         this.props.getVoucherHeadInfo({ idOperacion })
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if (this.props.voucherTypeCancel !== prevProps.voucherTypeCancel && this.props.voucherTypeCancel) {
+            this.props.history.push(LANDING)
+        }
     }
 
     handleOpen = () => {
@@ -113,11 +120,12 @@ class HeadCartResume extends Component {
     }
 }
 
-const mapStateToProps = ({ loadItems, voucher }) => {
+const mapStateToProps = ({ loadItems, voucher, vouchertype }) => {
     const { itemsCart } = loadItems;
+    const { voucherTypeCancel } = vouchertype;
     const { headInfo } = voucher;
-    return { itemsCart, headInfo };
+    return { itemsCart, headInfo, voucherTypeCancel };
 };
 
-const connectForm = connect(mapStateToProps, { getLoadItems, getVoucherHeadInfo, voucherCancel })(HeadCartResume);
+const connectForm = connect(mapStateToProps, { getLoadItems, getVoucherHeadInfo, voucherCancel })(withRouter(HeadCartResume));
 export default themr('LoaditemsPage', styles)(withTranslation()(connectForm));
