@@ -22,7 +22,7 @@ class Generate extends Component {
         if (match.params.idComprobante) {
             const type = match.params.idComprobante;
             this.setState({ idComprobante: type });
-            this.props.getVoucherType({ idComprobante: type });
+            this.props.getVoucherType({ idOperacion: type });
         }
     }
 
@@ -44,9 +44,9 @@ class Generate extends Component {
                     completed={this.state.completed}
                     urlParameter={this.state.idComprobante}
                 />
-                <GenerateForm
+                {false && <GenerateForm
                     handleChangeSuccess={this.successStep}
-                />
+                />}
             </Row>
         )
     }

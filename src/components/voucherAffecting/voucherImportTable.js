@@ -366,7 +366,7 @@ class VoucherImportTable extends Component {
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
                 if (isSelect) { //Se adiciona    
-                    rows.push({ Nimovcli: row.nimovcli, nitem: row.nitem, imp_afec: row.imp_afec });
+                    rows.push({ Nimovcli: row.nimovcli, nitem: row.nitem, imp_afec: (row.imp_afec) ? row.imp_afec : row.imp_pend });
                     selected.push(row.nimovcli)
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
@@ -399,7 +399,7 @@ class VoucherImportTable extends Component {
                     });
 
                     selected = rows.map(fila => {
-                        return ({ Nimovcli: fila.nimovcli, nitem: fila.nitem, imp_afec: fila.imp_afec });
+                        return ({ Nimovcli: fila.nimovcli, nitem: fila.nitem, imp_afec: (fila.imp_afec) ? fila.imp_afec : fila.imp_pend });
                     });
 
                     this.setState({ selectedCheck: checks })
