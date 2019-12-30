@@ -19,7 +19,6 @@ class InputDropdown extends Component {
     renderOptions = () => {
         const { options } = this.props;
         const result = [];
-
         options.forEach(option => {
             result.push(
                 <option value={option.id} key={option.id}>{option.label}</option>
@@ -65,8 +64,6 @@ class InputDropdown extends Component {
             inputFormCol,
             rowStyle,
             value,
-            errorInput,
-            touched
         } = this.props;
 
         const classInput = (label) ? colInput : "col-sm-12";
@@ -106,7 +103,7 @@ class InputDropdown extends Component {
                         }
 
                     </Row>
-                    
+
                 </Col>
             )
         } else {

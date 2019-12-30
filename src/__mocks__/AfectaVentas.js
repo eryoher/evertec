@@ -540,42 +540,50 @@ export default (mockAdapter) => {
             "Mens_error": null,
             "Errores": null
         },
-        "item_states": [
+        "estado_destino": [
             {
-                id: '0001',
-                label: 'Aprobado'
+                "cod_estado": "APROB",
+                "descrip_estado": "Aprobado"
             },
             {
-                id: '0002',
-                label: 'Pendiente'
+                "cod_estado": "RECH",
+                "descrip_estado": "Rechazado"
             },
             {
-                id: '0003',
-                label: 'Cancelado'
-            },
+                "cod_estado": "SUSP",
+                "descrip_estado": "Suspendido"
+            }
         ],
         "Items": [
             {
-                "nimovcli": 1,
+                "nimovcli": 3212312,
                 "nitem": 1,
                 "fec_emis": "2019-11-27T00:00:00",
                 "fec_vto": "2019-11-27T00:00:00",
-                "Comprob_desc": "Presupuesto",
                 "comprob_nro": "00005809",
-                "niprod": 59961,
                 "cod_prod": "34037",
                 "comprob_desc": "Comprobante",
-                "cond_venta": "10 dias F.F.",
-                "desc_prod": "Desodotante AXE Marine",
-                "moneda": "ARS",
-                "Cod_unid": "UN",
+                "desc_cond_vta": "10 dias F.F.",
+                "desc_item": "Desodotante AXE Marine",
+                "cod_mone": "ARS",
+                "cod_unid": "UN",
                 "desc_unid": "Unidad",
-                "Cant_pend": 100,
-                "imp_pendiente": "1203.86",
-                "item_estado": "Pendiente Aprobacion",
+                "cant_pend": 100,
+                "imp_pend": "1203.86",
+                "estado_orig": "PENAP",
+                "estado_afec": [
+                    {
+                        "cod_estado": "APROB",
+                        "descrip_estado": "Aprobado"
+                    },
+                    {
+                        "cod_estado": "SUSP",
+                        "descrip_estado": "Suspendido"
+                    }
+                ]
             },
             {
-                "nimovcli": 2,
+                "nimovcli": 525252,
                 "nitem": 2,
                 "fec_emis": "2019-11-27T00:00:00",
                 "fec_vto": "2019-11-27T00:00:00",
@@ -584,14 +592,24 @@ export default (mockAdapter) => {
                 "niprod": 59962,
                 "cod_prod": "41637",
                 "comprob_desc": "Comprobante",
-                "cond_venta": "10 dias F.F.",
-                "desc_prod": "ACTRON Ibuprofeno 400",
-                "moneda": "ARS",
-                "Cod_unid": "UN",
+                "desc_cond_vta": "10 dias F.F.",
+                "desc_item": "ACTRON Ibuprofeno 400",
+                "cod_mone": "ARS",
+                "cod_unid": "UN",
                 "desc_unid": "Unidad",
-                "Cant_pend": 100,
-                "imp_pendiente": "1203.86",
-                "item_estado": "Pendiente Aprobacion",
+                "cant_pend": 100,
+                "imp_pend": "1203.86",
+                "estado_orig": "PENAP",
+                "estado_afec": [
+                    {
+                        "cod_estado": "APROB",
+                        "descrip_estado": "Aprobado"
+                    },
+                    {
+                        "cod_estado": "SUSP",
+                        "descrip_estado": "Suspendido"
+                    }
+                ]
 
             }
         ]

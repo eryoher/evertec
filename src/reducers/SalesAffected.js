@@ -15,7 +15,11 @@ import {
     SALES_AFFECTED_IMPORT_CONFIRM,
     SALES_AFFECTED_IMPORT_CONFIRM_SUCCESS,
     SALES_AFFECTED_STATE,
-    SALES_AFFECTED_STATE_SUCCESS
+    SALES_AFFECTED_STATE_SUCCESS,
+    SALES_AFFECTED_STATE_VALIDATE,
+    SALES_AFFECTED_STATE_VALIDATE_SUCCESS,
+    SALES_AFFECTED_STATE_CONFIRM,
+    SALES_AFFECTED_STATE_CONFIRM_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
@@ -26,7 +30,8 @@ const initialState = {
     productsUpdate: null,
     salesImportconfirm: null,
     salesconfirm: null,
-    productsState: null
+    productsState: null,
+    stateConfirm: null
 }
 
 function rootReducer(state = initialState, action) {
@@ -153,6 +158,36 @@ function rootReducer(state = initialState, action) {
             return { ...state, productsState: null }
         case SALES_AFFECTED_STATE_SUCCESS:
             return { ...state, productsState: action.payload }
+        case SALES_AFFECTED_STATE_VALIDATE:
+            return { ...state, stateValidate: null }
+        case SALES_AFFECTED_STATE_VALIDATE_SUCCESS:
+            const stateValidateItems = action.payload.Items;
+            let updateStateValidate = {
+                ...state,
+                productsUpdate: [
+                    ...state.productsImport.Items,
+                ],
+                stateValidate: action.payload
+            }
+
+            if (updateStateValidate.productsUpdate) {
+                updateStateValidate.productsUpdate.forEach(prd => {
+                    stateValidateItems.forEach(item => {
+                        if (prd.nimovcli === item.nimovcli) {
+                            prd.nItem = item.nItem;
+                            prd.estado_afec = item.estado_afec;
+                        } else if (prd.nimovcli === item.nimovcli && item.ind_stock !== 0) {
+                            prd['error'] = true;
+                            prd['type_error'] = item.ind_stock;
+                        }
+                    });
+                });
+            }
+            return updateStateValidate;
+        case SALES_AFFECTED_STATE_CONFIRM:
+            return { ...state, stateConfirm: null, productsUpdate: null }
+        case SALES_AFFECTED_STATE_CONFIRM_SUCCESS:
+            return { ...state, stateConfirm: action.payload }
         default:
             return state
     }

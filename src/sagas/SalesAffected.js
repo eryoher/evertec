@@ -8,7 +8,9 @@ import {
     salesAffectedImport,
     salesAffectedImportValidate,
     salesAffectedImportConfirm,
-    salesAffectedState
+    salesAffectedState,
+    salesAffectedStateValidate,
+    salesAffectedStateConfirm
 } from '../api/SalesAffected'
 
 import {
@@ -19,7 +21,9 @@ import {
     SALES_AFFECTED_IMPORT,
     SALES_AFFECTED_IMPORT_VALIDATE,
     SALES_AFFECTED_IMPORT_CONFIRM,
-    SALES_AFFECTED_STATE
+    SALES_AFFECTED_STATE,
+    SALES_AFFECTED_STATE_VALIDATE,
+    SALES_AFFECTED_STATE_CONFIRM
 } from '../constants/ActionsTypes';
 
 
@@ -31,7 +35,9 @@ import {
     salesAffectedImportSuccess,
     salesAffectedImportValidateSuccess,
     salesAffectedImportConfirmSuccess,
-    salesAffectedStateSuccess
+    salesAffectedStateSuccess,
+    salesAffectedStateValidateSuccess,
+    salesAffectedStateConfirmSuccess
 } from 'actions';
 
 
@@ -100,6 +106,23 @@ function* salesAffectedStateRequest({ payload }) {
     }
 }
 
+
+function* salesAffectedStateValidateRequest({ payload }) {
+    try {
+        const itemsValidate = yield call(salesAffectedStateValidate, payload);
+        yield put(salesAffectedStateValidateSuccess(itemsValidate));
+    } catch (error) {
+    }
+}
+
+function* salesAffectedStateConfirmRequest({ payload }) {
+    try {
+        const confirmState = yield call(salesAffectedStateConfirm, payload);
+        yield put(salesAffectedStateConfirmSuccess(confirmState));
+    } catch (error) {
+    }
+}
+
 export function* salesAffectedValidateSaga() {
     yield takeEvery(SALES_AFFECTED_VALIDATE, salesAffectedValidateRequest);
 }
@@ -132,6 +155,13 @@ export function* salesAffectedStateSaga() {
     yield takeEvery(SALES_AFFECTED_STATE, salesAffectedStateRequest);
 }
 
+export function* salesAffectedStateValidateSaga() {
+    yield takeEvery(SALES_AFFECTED_STATE_VALIDATE, salesAffectedStateValidateRequest);
+}
+export function* salesAffectedStateConfirmSaga() {
+    yield takeEvery(SALES_AFFECTED_STATE_CONFIRM, salesAffectedStateConfirmRequest);
+}
+
 export default function* rootSaga() {
     yield all([
         fork(salesAffectedValidateSaga),
@@ -142,5 +172,7 @@ export default function* rootSaga() {
         fork(salesAffectedImportValidateSaga),
         fork(salesAffectedImportConfirmSaga),
         fork(salesAffectedStateSaga),
+        fork(salesAffectedStateValidateSaga),
+        fork(salesAffectedStateConfirmSaga),
     ]);
 }

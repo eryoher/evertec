@@ -645,7 +645,7 @@ export default (mockAdapter) => {
                 "mascara": "", "requerido": "0"
             },
             {
-                "idCampo": "cond_venta",
+                "idCampo": "desc_cond_vta",
                 "descripcion": "Condicion de venta",
                 "label": "Cond. Venta",
                 "editable": 0,
@@ -654,7 +654,7 @@ export default (mockAdapter) => {
                 "requerido": "0"
             },
             {
-                "idCampo": "desc_prod",
+                "idCampo": "desc_item",
                 "descripcion": "Detalle del Item",
                 "label": "Item.detalle",
                 "editable": 0,
@@ -672,7 +672,7 @@ export default (mockAdapter) => {
                 "requerido": "0"
             },
             {
-                "idCampo": "moneda",
+                "idCampo": "cod_mone",
                 "descripcion": "Moneda",
                 "label": "Moneda",
                 "editable": 0,
@@ -681,7 +681,7 @@ export default (mockAdapter) => {
                 "requerido": "0"
             },
             {
-                "idCampo": "Cod_unid",
+                "idCampo": "cod_unid",
                 "descripcion": "Present",
                 "label": "Prensent.",
                 "editable": 0,
@@ -690,7 +690,7 @@ export default (mockAdapter) => {
                 "requerido": "0"
             },
             {
-                "idCampo": "Cant_pend",
+                "idCampo": "cant_pend",
                 "descripcion": "Cantidad Pendiente",
                 "label": "Cant. Pendiente",
                 "editable": 0,
@@ -699,7 +699,7 @@ export default (mockAdapter) => {
                 "requerido": "0"
             },
             {
-                "idCampo": "imp_pendiente",
+                "idCampo": "imp_pend",
                 "descripcion": "Importe Pendiente",
                 "label": "Imp. Pendiente",
                 "editable": 0,
@@ -708,7 +708,7 @@ export default (mockAdapter) => {
                 "requerido": "0"
             },
             {
-                "idCampo": "item_estado",
+                "idCampo": "estado_orig",
                 "descripcion": "Estado",
                 "label": "Estado",
                 "editable": 0,
@@ -717,7 +717,7 @@ export default (mockAdapter) => {
                 "requerido": "0"
             },
             {
-                "idCampo": "estado_afectado",
+                "idCampo": "estado_afec",
                 "descripcion": "Estado Afectado",
                 "label": "Estado Afectado",
                 "editable": 1,

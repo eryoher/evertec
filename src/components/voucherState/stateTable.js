@@ -5,7 +5,7 @@ import styles from './voucherStateTable.module.css';
 import { themr } from 'react-css-themr';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedImportConfirm } from '../../actions';
+import { getConfigVoucher, setTableDataInvolvement, salesAffectedStateValidate, salesAffectedSubCalculation, salesAffectedStateConfirm } from '../../actions';
 import InputText from 'components/form/inputText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
@@ -54,7 +54,7 @@ class StateTable extends Component {
         const { idOperacion } = this.props;
 
         if (items.length) {
-            this.props.salesAffectedImportConfirm({ idOperacion, items })
+            this.props.salesAffectedStateConfirm({ idOperacion, items })
         }
     }
 
@@ -203,7 +203,7 @@ class StateTable extends Component {
             } else {
                 selected.push(row.niprod);
                 this.setState({ selectedCheck: selected });
-                this.props.salesAffectedImportValidate({ idOperacion, items }); //Falta adicionar idOperacion
+                this.props.salesAffectedStateValidate({ idOperacion, items }); //Falta adicionar idOperacion
             }
         }
 
@@ -262,13 +262,18 @@ class StateTable extends Component {
         return result;
     }
 
+    handleChangeSelect = (data, row) => {
+        const { idOperacion } = this.props;
+        const items = [{ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: data.target.value }];
+        this.props.salesAffectedStateValidate({ idOperacion, items });
+    }
+
     renderFormat = (field, value, row) => {
-        const { products } = this.props;
-        const optionsState = products.item_states;
+
         const campoId = field.idCampo.trim();
         let result = null;
         const inputError = (value === 'error_input') ? true : false;
-        const customValue = (value === 'error_input') ? '' : value;
+        const customValue = (value === 'error_input') ? '' : !Array.isArray(value) ? value : value[0].cod_estado;
         const inputStyle = (campoId === 'cant_afec' || campoId === 'precio_unit' || campoId === 'neto') ? { textAlign: 'right' } : {}
 
 
@@ -276,9 +281,9 @@ class StateTable extends Component {
             this.inputRefs[campoId] = {}
         }
 
-        if (field.editable && !this.inputRefs[campoId][row.niprod]) {
+        if (field.editable && !this.inputRefs[campoId][row.nimovcli]) {
             const customRef = React.createRef();
-            this.inputRefs[campoId][row.niprod] = customRef
+            this.inputRefs[campoId][row.nimovcli] = customRef
         }
 
         const optionsInput = {
@@ -287,8 +292,8 @@ class StateTable extends Component {
             fields: [{ ...field, label: false }],
             label: false,
             inputId: `${campoId}`,
-            id: `${campoId}_${row.niprod}`,
-            name: `${campoId}_${row.niprod}`,
+            id: `${campoId}_${row.nimovcli}`,
+            name: `${campoId}_${row.nimovcli}`,
             colLabel: "col-sm-4",
             colInput: "col-sm-8",
             divStyle: { paddingLeft: '17px' },
@@ -300,12 +305,16 @@ class StateTable extends Component {
             onChange: () => { }
         }
 
-        if (field.idCampo === 'estado_afectado') {
+        if (field.idCampo === 'estado_afec') {
+            const optionsState = value.map(state => {
+                return { id: state.cod_estado, label: state.descrip_estado }
+            })
+
             result = (
                 <InputDropdown
                     {...optionsInput}
                     options={optionsState}
-                //onChange={this.handleChange}
+                    onChange={(obj) => this.handleChangeSelect(obj, row)}
                 />
             )
         } else if (field.editable) {
@@ -378,11 +387,11 @@ class StateTable extends Component {
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
                 if (isSelect) { //Se adiciona    
-                    rows.push({ Nimovcli: row.nimovcli, nitem: row.nitem, imp_afec: row.imp_afec });
+                    rows.push({ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: row.estado_afec });
                     selected.push(row.nimovcli)
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
-                        if (toDelete.Nimovcli === row.nimovcli) {
+                        if (toDelete.nimovcli === row.nimovcli) {
                             rows.splice(index, 1);
                         }
                     });
@@ -394,7 +403,7 @@ class StateTable extends Component {
                     });
                 }
                 if (rows.length) {
-                    this.props.salesAffectedImportValidate({ idOperacion, items: rows });
+                    this.props.salesAffectedStateValidate({ idOperacion, items: rows });
                 }
 
                 this.setState({ rowSelected: rows, selectedCheck: selected });
@@ -411,7 +420,7 @@ class StateTable extends Component {
                     });
 
                     selected = rows.map(fila => {
-                        return ({ Nimovcli: fila.nimovcli, nitem: fila.nitem, imp_afec: fila.imp_afec });
+                        return ({ nimovcli: fila.nimovcli, nitem: fila.nitem, estado_afec: fila.estado_afec });
                     });
 
                     this.setState({ selectedCheck: checks })
@@ -431,7 +440,7 @@ class StateTable extends Component {
 
                 this.setState({ rowSelected: selected });
                 if (selected.length) {
-                    this.props.salesAffectedImportValidate({ idOperacion, items: selected });
+                    this.props.salesAffectedStateValidate({ idOperacion, items: selected });
                 }
 
             }
@@ -471,7 +480,7 @@ class StateTable extends Component {
             onPageChange: (page, sizePerPage) => {
                 const items = this.getSelectedCheck();
                 if (items.length) {
-                    this.props.salesAffectedImportConfirm({ idOperacion, items })
+                    this.props.salesAffectedStateConfirm({ idOperacion, items })
                 }
             }
         }
@@ -516,9 +525,9 @@ const mapStateToProps = ({ voucher, salesAffected, auth }) => {
 const connectForm = connect(mapStateToProps, {
     getConfigVoucher,
     setTableDataInvolvement,
-    salesAffectedImportValidate,
+    salesAffectedStateValidate,
     salesAffectedSubCalculation,
-    salesAffectedImportConfirm
+    salesAffectedStateConfirm
 })(StateTable);
 
 export default themr('StateTableStyles', styles)(withTranslation()(connectForm));

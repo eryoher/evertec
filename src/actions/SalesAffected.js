@@ -15,7 +15,11 @@ import {
     SALES_AFFECTED_IMPORT_CONFIRM,
     SALES_AFFECTED_IMPORT_CONFIRM_SUCCESS,
     SALES_AFFECTED_STATE,
-    SALES_AFFECTED_STATE_SUCCESS
+    SALES_AFFECTED_STATE_SUCCESS,
+    SALES_AFFECTED_STATE_VALIDATE,
+    SALES_AFFECTED_STATE_VALIDATE_SUCCESS,
+    SALES_AFFECTED_STATE_CONFIRM,
+    SALES_AFFECTED_STATE_CONFIRM_SUCCESS
 
 } from '../constants/ActionsTypes';
 
@@ -135,6 +139,35 @@ export const salesAffectedState = (params) => {
 export const salesAffectedStateSuccess = (response) => {
     return {
         type: SALES_AFFECTED_STATE_SUCCESS,
+        payload: response
+    }
+};
+
+
+export const salesAffectedStateValidate = (params) => {
+    return {
+        type: SALES_AFFECTED_STATE_VALIDATE,
+        payload: params
+    }
+};
+
+export const salesAffectedStateValidateSuccess = (response) => {
+    return {
+        type: SALES_AFFECTED_STATE_VALIDATE_SUCCESS,
+        payload: response
+    }
+};
+
+export const salesAffectedStateConfirm = (params) => {
+    return {
+        type: SALES_AFFECTED_STATE_CONFIRM,
+        payload: params
+    }
+};
+
+export const salesAffectedStateConfirmSuccess = (response) => {
+    return {
+        type: SALES_AFFECTED_STATE_CONFIRM_SUCCESS,
         payload: response
     }
 };

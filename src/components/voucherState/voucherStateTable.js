@@ -81,38 +81,40 @@ class VoucherStateTable extends Component {
     render() {
         const { t, productsState, readOnly } = this.props;
         const inputConfig = [{ idCampo: 'checkComprobAvencer', label: t('voucherInvolvement.form.sample'), visible: 1, requerido: 0, editable: 1 }]
-        const customCol = (readOnly) ? 4 : { span: 5, offset: 7 };
+
         return (
             <Row style={{ marginLeft: '0px' }}>
-                {!readOnly && <>
-                    <Col className={"pl-4"} sm={3}>
-                        <input type="checkbox" className={"form-check-input"} onChange={this.handleGetCant} value="1" />
+                {!readOnly &&
+                    <>
+                        <Col className={"pl-4"} sm={3}>
+                            <input type="checkbox" className={"form-check-input"} onChange={this.handleGetCant} value="1" />
 
-                        <label className={"form-check-label pt-1"}>
-                            {t('voucherInvolvement.form.checkbox')}
-                        </label>
-                    </Col>
-                    <Col sm={3} style={{ textAlign: 'center' }} >
-                        <InputDropdown
-                            inputFormCol={{ sm: 12 }}
-                            fields={inputConfig}
-                            label={t('voucherInvolvement.form.sample')}
-                            inputId={'checkComprobAvencer'}
-                            name={'checkComprobAvencer'}
-                            placeholder={t('client.form.select_sample')}
-                            styles={{ width: '100%' }}
-                            colLabel={"col-sm-4"}
-                            colInput={"col-sm-8"}
-                            options={this.optionsInput}
-                            onChange={(data) => {
-                                this.handleChangeSelect(data.target.value);
-                            }}
-                        />
-                    </Col>
-                    <Col sm={3}>
-                        {productsState && <VoucherAffectingTotal classDiv={'pl-5'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
-                    </Col>
-                </>}
+                            <label className={"form-check-label pt-1"}>
+                                {t('voucherInvolvement.form.checkbox')}
+                            </label>
+                        </Col>
+                        <Col sm={3} style={{ textAlign: 'center' }} >
+                            <InputDropdown
+                                inputFormCol={{ sm: 12 }}
+                                fields={inputConfig}
+                                label={t('voucherInvolvement.form.sample')}
+                                inputId={'checkComprobAvencer'}
+                                name={'checkComprobAvencer'}
+                                placeholder={t('client.form.select_sample')}
+                                styles={{ width: '100%' }}
+                                colLabel={"col-sm-4"}
+                                colInput={"col-sm-8"}
+                                options={this.optionsInput}
+                                onChange={(data) => {
+                                    this.handleChangeSelect(data.target.value);
+                                }}
+                            />
+                        </Col>
+                        <Col sm={3}>
+                            {productsState && <VoucherAffectingTotal classDiv={'pl-5'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
+                        </Col>
+                    </>
+                }
                 {
                     readOnly &&
                     <Col sm={12} >
