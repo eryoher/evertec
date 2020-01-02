@@ -35,7 +35,7 @@ class StateTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
-        this.props.getConfigVoucher({ cod_proceso: 'p_afec_stado_vta', idOperacion });
+        this.props.getConfigVoucher({ cod_proceso: 'p_afec_estados_vta', idOperacion });
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -203,7 +203,7 @@ class StateTable extends Component {
             } else {
                 selected.push(row.niprod);
                 this.setState({ selectedCheck: selected });
-                this.props.salesAffectedStateValidate({ idOperacion, items }); //Falta adicionar idOperacion
+                this.props.salesAffectedStateValidate({ idOperacion, items });
             }
         }
 
@@ -305,7 +305,7 @@ class StateTable extends Component {
             onChange: () => { }
         }
 
-        if (field.idCampo === 'estado_afec') {
+        if (campoId === 'estado_afec') {
             const optionsState = value.map(state => {
                 return { id: state.cod_estado, label: state.descrip_estado }
             })
@@ -387,7 +387,7 @@ class StateTable extends Component {
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
                 if (isSelect) { //Se adiciona    
-                    rows.push({ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: row.estado_afec });
+                    rows.push({ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: row.estado_afec[0].cod_estado }); //Temporal... 
                     selected.push(row.nimovcli)
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
@@ -432,9 +432,7 @@ class StateTable extends Component {
                                 delete checks[index]
                             }
                         });
-
                     }
-
                     this.setState({ selectedCheck: checks });
                 }
 

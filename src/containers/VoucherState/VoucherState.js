@@ -40,7 +40,7 @@ class VoucherState extends Component {
                     <Col sm={12}>
                         <VoucherBreadCrumbs
                             crumbs={(voucherType) ? voucherType.procesos : []}
-                            current={'p_afec_stado_vta'}
+                            current={'p_afec_estados_vta'}
                             urlParameter={idOperacion}
                         />
                     </Col>

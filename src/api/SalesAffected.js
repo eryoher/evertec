@@ -41,7 +41,7 @@ export const salesAffectedState = async (params) => {
 }
 
 export const salesAffectedStateValidate = async (params) => {
-    const response = await Axios.get('/AfectaVentas/estado/Validar', { params });
+    const response = await Axios.post('/AfectaVentas/estado/Validar', params);
     return response.data;
 }
 

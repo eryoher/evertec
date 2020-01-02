@@ -50,7 +50,7 @@ const getUrl = (proccess, urlParameter) => {
         p_afec_cant_vta: VOUCHERINVOLVEMENT,
         p_fincomprob: GENERATE,
         p_afec_impo_vta: VOUCHERAFFECTING,
-        p_afec_stado_vta: VOUCHERSTATE
+        p_afec_estados_vta: VOUCHERSTATE
 
     }
 
