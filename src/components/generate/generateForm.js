@@ -13,7 +13,6 @@ import CollapseBotton from 'components/common/collapseBoton';
 import { themr } from 'react-css-themr';
 import styles from './generateForm.module.css';
 import InputButton from 'components/form/inputButton';
-import { LOADITEMS } from '../../utils/RoutePath';
 import LoadItemsTableReadOnly from 'components/loadItems/loadItemsTableReadOnly';
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
 import NotificationMessage from 'components/common/notificationMessage';
@@ -22,99 +21,103 @@ import { getClientHeadboard, finishGenerate } from '../../actions';
 
 const FIELDS = [
     {
-        idcampo: 'rsocial',
+        idCampo: 'cliente_razon_social',
         visible: true
     },
     {
-        idcampo: 'tipo_resp',
+        idCampo: 'cliente_codigo',
         visible: true
     },
     {
-        idcampo: 'cuit',
+        idCampo: 'cliente_Tipo_resp',
         visible: true
     },
     {
-        idcampo: 'contacto',
+        idCampo: 'cliente_identificador',
         visible: true
     },
     {
-        idcampo: 'obs_cc',
+        idCampo: 'cliente_Contacto',
         visible: true
     },
     {
-        idcampo: 'obs_ventas',
+        idCampo: 'cliente_Obs_cc',
         visible: true
     },
     {
-        idcampo: 'credito',
+        idCampo: 'cliente_Obs_vta',
         visible: true
     },
     {
-        idcampo: 'saldo_pend',
+        idCampo: 'cliente_Limcred',
         visible: true
     },
     {
-        idcampo: 'credito_saldo',
+        idCampo: 'cliente_Pendcred',
         visible: true
     },
     {
-        idcampo: 'suc_email',
+        idCampo: 'cliente_Saldo',
         visible: true
     },
     {
-        idcampo: 'suc_tel',
+        idCampo: 'cliente_email',
         visible: true
     },
     {
-        idcampo: 'suc_address',
+        idCampo: 'cliente_Telefono',
         visible: true
     },
     {
-        idcampo: 'suc_local',
+        idCampo: 'suc_address',
         visible: true
     },
     {
-        idcampo: 'suc_nom_prov',
+        idCampo: 'cliente_Localidad',
         visible: true
     },
     {
-        idcampo: 'suc_cpos',
+        idCampo: 'cliente_Provincia',
         visible: true
     },
     {
-        idcampo: 'suc_empresa',
+        idCampo: 'cliente_Cpos',
         visible: true
     },
     {
-        idcampo: 'transp_comp_vta',
+        idCampo: 'suc_empresa',
         visible: true
     },
     {
-        idcampo: 'suc_empresa_venta',
+        idCampo: 'transp_comp_vta',
         visible: true
     },
     {
-        idcampo: 'Titulo_comp_vta',
+        idCampo: 'suc_empresa_venta',
         visible: true
     },
     {
-        idcampo: 'fecha',
+        idCampo: 'Titulo_comp_vta',
         visible: true
     },
     {
-        idcampo: 'mon_comp_vta',
+        idCampo: 'fecha',
         visible: true
     },
     {
-        idcampo: 'cotiz',
+        idCampo: 'mon_comp_vta',
         visible: true
     },
     {
-        idcampo: 'vend_comp_vta',
+        idCampo: 'cotiz',
         visible: true
     },
     {
-        idcampo: 'cond_comp_vta',
+        idCampo: 'vend_comp_vta',
+        visible: true
+    },
+    {
+        idCampo: 'cond_comp_vta',
         visible: true
     },
 
@@ -167,24 +170,25 @@ class GenerateForm extends Component {
         const { t, theme, clientHeadboard } = this.props;
 
         const defaultInitial = (clientHeadboard) ? clientHeadboard.Cliente : {
-            rsocial: '',
-            tipo_resp: '',
-            cuit: '',
-            contacto: '',
-            obs_cc: '',
-            obs_ventas: '',
-            credito: '',
-            saldo_pend: '',
+            cliente_razon_social: '',
+            cliente_Tipo_resp: '',
+            cliente_identificador: '',
+            cliente_Contacto: '',
+            cliente_Obs_cc: '',
+            cliente_Obs_vta: '',
+            cliente_Limcred: '',
+            cliente_Pendcred: '',
             credito_saldo: '',
-            suc_email: '',
-            suc_tel: '',
+            cliente_email: '',
+            cliente_telefono: '',
             suc_address: '',
-            suc_local: '',
-            suc_nom_prov: '',
-            suc_cpos: '',
+            cliente_Localidad: '',
+            cliente_Provincia: '',
+            cliente_Cpos: '',
             suc_empresa: null,
             Sucursal: {},
-            Cabecera: {}
+            Cabecera: {},
+            cliente_Sucursale: []
         }
 
         return (
@@ -245,7 +249,6 @@ class GenerateForm extends Component {
                         values={defaultInitial}
                         readOnly
                         fields={FIELDS}
-
                     />
                     <div className="dropdown-divider col-11 p-1" />
                     <ClientFormInput
@@ -270,14 +273,12 @@ class GenerateForm extends Component {
                             values={defaultInitial}
                             readOnly
                             fields={FIELDS}
-
                         />
                         <div className="dropdown-divider col-11 p-1" />
                         <AccountFormInput
                             readOnly
                             values={defaultInitial}
                             fields={FIELDS}
-
                         />
                     </Collapse>
                 </Card>

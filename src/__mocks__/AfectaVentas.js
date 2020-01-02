@@ -614,4 +614,30 @@ export default (mockAdapter) => {
             }
         ]
     });
+
+    mockAdapter.onGet('/AfectaVentas/estado/Validar').reply(200, {
+        "Items": [
+            {
+                "nimovcli": 3212312,
+                "nitem": 1,
+                "estado_afec": "APROB"
+            },
+            {
+                "nimovcli": 525252,
+                "nitem": 3,
+                "estado_afec": "ERROR"
+            }
+        ],
+        "total_importe": 554,
+        "total_item": 2,
+        "total_cant": 10
+
+    });
+
+    mockAdapter.onGet('/AfectaVentas/estado/confirmar').reply(200,
+        {
+            "total_importe": 554,
+            "total_item": 2,
+            "total_cant": 10
+        });
 }

@@ -20,7 +20,6 @@ export const printGenerate = async (params) => {
     return response.data;
 }
 
-
 export const getGeneratesalesAffected = async (params) => {
     const response = await Axios.get('/vta_generar_compr/comprob_afectados');
     return response.data;

@@ -165,7 +165,7 @@ function rootReducer(state = initialState, action) {
             let updateStateValidate = {
                 ...state,
                 productsUpdate: [
-                    ...state.productsImport.Items,
+                    ...state.productsState.Items,
                 ],
                 stateValidate: action.payload
             }
@@ -175,7 +175,7 @@ function rootReducer(state = initialState, action) {
                     stateValidateItems.forEach(item => {
                         if (prd.nimovcli === item.nimovcli) {
                             prd.nItem = item.nItem;
-                            prd.estado_afec = item.estado_afec;
+                            //prd.estado_afec = item.estado_afec; //Temporal 
                         } else if (prd.nimovcli === item.nimovcli && item.ind_stock !== 0) {
                             prd['error'] = true;
                             prd['type_error'] = item.ind_stock;

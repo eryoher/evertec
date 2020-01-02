@@ -44,9 +44,11 @@ class Generate extends Component {
                     completed={this.state.completed}
                     urlParameter={this.state.idComprobante}
                 />
-                {false && <GenerateForm
-                    handleChangeSuccess={this.successStep}
-                />}
+                {
+                    <GenerateForm
+                        handleChangeSuccess={this.successStep}
+                    />
+                }
             </Row>
         )
     }

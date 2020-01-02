@@ -46,11 +46,6 @@ class ClientFormInput extends Component {
 
     render() {
         const { t, errors, touched, values, handleChange, handleBlur, setFieldValue, setFieldTouched, readOnly, fields } = this.props;
-        const optionsSelect = (values.cliente_Sucursales) ? values.cliente_Sucursales : [];
-
-        const options = optionsSelect.map((opt) => {
-            return ({ id: opt.suc_nro, label: opt.suc_nombre });
-        })
 
         return (
             <Row>
@@ -64,7 +59,7 @@ class ClientFormInput extends Component {
                     styles={{ width: '100%' }}
                     colLabel={"col-sm-2"}
                     colInput={"col-sm-10"}
-                    options={options}
+                    options={[]}
                     disable={readOnly}
                     onBlur={handleBlur}
                     onChange={this.handleChange}

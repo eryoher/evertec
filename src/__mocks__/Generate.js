@@ -10,26 +10,26 @@ export default (mockAdapter) => {
                 "nom_categ": "Gestion",
                 "cod_sin_formato": "FAR0399 ",
                 "cod_con_formato": "FAR-0399 ",
-                "rsocial": "FARMACIA CENTRAL Y PERFUMERIA PM S.R.L. ",
+                "cliente_razon_social": "FARMACIA CENTRAL Y PERFUMERIA PM S.R.L. ",
                 "abrev": "FARMACIA CENTRAL",
-                "tipo_resp": "I",
-                "tipo_resp_desc": "Inscripto",
-                "cuit": "30572374196",
-                "dom_calle": "25 DE MAYO ",
+                "cliente_Tipo_resp": "I",
+                "cliente_Tipo_resp_desc": "Inscripto",
+                "cliente_identificador": "30572374196",
+                "cliente_domicilio": "25 DE MAYO ",
                 "dom_nro": "272",
                 "dom_piso": "PB",
                 "dom_dpto": "",
                 "dom_observ": "Puerta azul",
-                "dom_cpos": "9120",
-                "dom_local": "PUERTO MADRYN",
+                "cliente_Cpos": "9120",
+                "cliente_Localidad": "PUERTO MADRYN",
                 "dom_cod_prov": "U",
-                "dom_nom_prov": "Chubut",
+                "cliente_Provincia": "Chubut",
                 "pais": "Argentina",
-                "tel": "(0280) 4454804 ",
+                "cliente_Telefono": "(0280) 4454804 ",
                 "fax": "",
-                "email": "info@farmaciacentral.com.ar ",
+                "cliente_email": "info@farmaciacentral.com.ar ",
                 "pagweb": "www.farmaciacentral.com.ar",
-                "contacto": "ANABELA ",
+                "cliente_Contacto": "ANABELA ",
                 "cod_monex": "U$S",
                 "vend_id": 2,
                 "vend_nom": "Juan Fernandez",
@@ -38,24 +38,25 @@ export default (mockAdapter) => {
                 "trans_cod": "FL01",
                 "trans_desc": "Transporte Sur",
                 "dir_loc_ega": "Rivadavia 627, Puerto Madryn",
-                "saldo_pend": 257345.23,
-                "credito": 200000.00,
-                "credito_saldo": -57345.23,
+                "cliente_Pendcred": 257345.23,
+                "cliente_Limcred": 200000.00,
+                "cliente_Saldo": -57345.23,
                 "doc_tipo": "",
                 "doc_nro": "",
                 "cod_preclis": "L1",
                 "nom_preclis": "Lista precios Mayorista",
                 "cod_preclis2": "Of1",
                 "nom_preclis2": "Lista Ofertas",
-                "obs_ventas": "Aplicar lista mayorista -5%",
-                "obs_cc": "",
+                "cliente_Obs_vta": "Aplicar lista mayorista -5%",
+                "cliente_Obs_cc": "",
                 "obs_desp": "Entregas antes de las 15 hs",
                 "cto_fondos": "IIVT",
                 "cto_fondos_desc": "Ingreso por ventas",
                 "habilitado": 1,
                 "fecha_inicio": "2017-05-23",
-                "fecha_ult_vta": "2019-04-08",
+                "fecha_comp_vta": "2019-04-08",
                 "fecha_modif": "2018-12-23",
+                cliente_Sucursales: [],
                 "Sucursal": {
                     "suc_nombre": "Esquel",
                     "suc_calle": "Belgrano",
@@ -82,18 +83,19 @@ export default (mockAdapter) => {
                 }
             },
             Cabecera: {
-                "moneda":
+                "cliente_Sucursales": [],
+                "mon_comp_vta":
                     [{
                         "cod_moneda": "$",
                         "desc_moneda": "Pesos Arg.",
                         "cotiz": 1,
                     }],
-                "vendedor":
+                "vend_comp_vta":
                     [{
                         "cod_vendedor": 45,
                         "nom_vendedor": "Pedro Martinez",
                     }],
-                "cond_comp_vta":
+                "cotiz_comp_vta":
                     [{
                         "cod_cond_vta": "CO",
                         "desc_cond_vta": "Contado",
@@ -104,7 +106,7 @@ export default (mockAdapter) => {
                         "nom_transp": "Trasporte Gutierrez",
                     }],
 
-                "suc_empresa": [
+                "Suc_empresa_vta": [
                     {
                         "cod_suc": "03",
                         "nom_suc": "Suc. San Isidro",
