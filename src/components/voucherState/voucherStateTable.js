@@ -81,6 +81,7 @@ class VoucherStateTable extends Component {
     render() {
         const { t, productsState, readOnly } = this.props;
         const inputConfig = [{ idCampo: 'checkComprobAvencer', label: t('voucherInvolvement.form.sample'), visible: 1, requerido: 0, editable: 1 }]
+        const customCol = (readOnly) ? 4 : { span: 5, offset: 7 };
 
         return (
             <Row style={{ marginLeft: '0px' }}>
@@ -118,7 +119,7 @@ class VoucherStateTable extends Component {
                 {
                     readOnly &&
                     <Col sm={12} >
-                        <VoucherAffectingTotal formatCol={{ span: 4, offset: 8 }} data={this.state} />
+                        <VoucherAffectingTotal formatCol={{ span: 4 }} data={this.state} />
                     </Col>
                 }
                 <Col sm={12} className={"pb-2 pl-0 pr-0"}>
@@ -131,7 +132,7 @@ class VoucherStateTable extends Component {
 
                         />
                     }
-                    {productsState && <VoucherAffectingTotal classDiv={'pl-0'} formatCol={{ span: 5, offset: 7 }} data={this.state} />}
+                    {productsState && <VoucherAffectingTotal classDiv={'pl-0'} formatCol={customCol} data={this.state} />}
                 </Col>
             </Row>
         )

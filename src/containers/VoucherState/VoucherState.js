@@ -7,6 +7,7 @@ import { getVoucherType } from '../../actions';
 import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
 import VoucherStateTable from 'components/voucherState/voucherStateTable';
+import { P_AFEC_STADO_VTA } from 'constants/ConfigProcessNames';
 
 
 class VoucherState extends Component {
@@ -40,14 +41,13 @@ class VoucherState extends Component {
                     <Col sm={12}>
                         <VoucherBreadCrumbs
                             crumbs={(voucherType) ? voucherType.procesos : []}
-                            current={'p_afec_stado_vta'}
+                            current={P_AFEC_STADO_VTA}
                             urlParameter={idOperacion}
                         />
                     </Col>
                     <VoucherStateTable
                         idOperacion={idOperacion}
                     />
-
                 </Row>
             )
         } else {

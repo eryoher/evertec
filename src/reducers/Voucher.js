@@ -37,9 +37,13 @@ function rootReducer(state = initialState, action) {
         case GET_VOUCHER_HEAD_INFO_SUCCESS:
             return { ...state, headInfo: action.payload }
         case GET_CONFIG_VOUCHER:
-            return { ...state, config: null }
+            return { ...state }
         case GET_CONFIG_VOUCHER_SUCCESS:
-            return { ...state, config: action.payload }
+            const code = action.payload.cod_proceso;
+            console.log(code, 'el form')
+            const config = (state.config) ? state.config : {};
+            config[code] = action.payload;
+            return { ...state, config }
         case VOUCHER_HEAD_AUTO:
             return { ...state, autodata: [] }
         case VOUCHER_HEAD_AUTO_SUCCESS:

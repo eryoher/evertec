@@ -1,6 +1,7 @@
 import Axios from 'axios';
 
 export const getConfigVoucher = async (params) => {
+    console.log(params)
     const response = await Axios.get('/ProcesoDeComprobante', { params });
     return response.data;
 }

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
+import { P_SELCLI } from 'constants/ConfigProcessNames';
 
 
 class Voucher extends Component {
@@ -52,7 +53,7 @@ class Voucher extends Component {
                 {voucherType &&
                     <VoucherBreadCrumbs
                         crumbs={(voucherType) ? voucherType.procesos : []}
-                        current={'p_selcli'}
+                        current={P_SELCLI}
                         urlParameter={voucherType.idOperacion}
                         callBackButton={this.callBackButton}
                         buttonsType={'primary'}

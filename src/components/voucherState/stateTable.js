@@ -14,6 +14,7 @@ import { selectFilter } from 'react-bootstrap-table2-filter';
 import { validateField } from 'lib/FieldValidations';
 import moment from 'moment';
 import InputDropdown from 'components/form/inputDropdown';
+import { P_AFEC_STADO_VTA } from 'constants/ConfigProcessNames';
 
 
 class StateTable extends Component {
@@ -35,7 +36,7 @@ class StateTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
-        this.props.getConfigVoucher({ cod_proceso: 'p_afec_stado_vta', idOperacion });
+        this.props.getConfigVoucher({ cod_proceso: P_AFEC_STADO_VTA, idOperacion });
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -60,7 +61,7 @@ class StateTable extends Component {
 
 
     getColumns = () => {
-        const { config, theme, readOnly } = this.props;
+        const { config, theme } = this.props;
 
         const rows = config.campos.map((field) => {
             const campoId = field.idCampo.trim()
@@ -77,7 +78,7 @@ class StateTable extends Component {
                     onFilter: filterVal => this.setState({ filterVal }),
                     placeholder: field.label,
                 }) : null,
-                formatter: ((field.editable || field.mascara) && (!readOnly)) ? ((cell, row, rowIndex) => {
+                formatter: ((field.editable || field.mascara)) ? ((cell, row, rowIndex) => {
                     return this.renderFormat(field, cell, row)
                 }) : null
             }
@@ -516,7 +517,7 @@ class StateTable extends Component {
 }
 
 const mapStateToProps = ({ voucher, salesAffected, auth }) => {
-    const { config } = voucher;
+    const config = (voucher.config) ? voucher.config[P_AFEC_STADO_VTA] : null;
     const { authUser } = auth
     const { productsUpdate, cantValidate } = salesAffected;
     return { config, productsUpdate, cantValidate, authUser };

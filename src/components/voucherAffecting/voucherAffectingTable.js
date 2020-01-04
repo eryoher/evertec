@@ -116,7 +116,7 @@ class VoucherAffectingTable extends Component {
                 {
                     readOnly &&
                     <Col sm={12} >
-                        <VoucherAffectingTotal formatCol={{ span: 4, offset: 8 }} data={this.state} />
+                        <VoucherAffectingTotal formatCol={{ span: 4 }} data={this.state} />
                     </Col>
                 }
                 <Col sm={12} className={"pb-2 pl-0 pr-0"}>
@@ -129,7 +129,7 @@ class VoucherAffectingTable extends Component {
 
                         />
                     }
-                    {productsImport && <VoucherAffectingTotal classDiv={'pl-0'} formatCol={{ span: 5, offset: 7 }} data={this.state} />}
+                    {productsImport && <VoucherAffectingTotal classDiv={'pl-0'} formatCol={customCol} data={this.state} />}
                 </Col>
             </Row>
         )

@@ -3,12 +3,12 @@ import withMenu from '../../components/common/withMenu'
 import { Row, Col } from 'react-bootstrap';
 import LoadItemsTable from 'components/loadItems/loadItemsTable';
 import InputButton from 'components/form/inputButton';
-import { HEADERBOARD, GENERATE } from '../../utils/RoutePath';
 import { getVoucherType } from '../../actions';
 import { connect } from 'react-redux';
 import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
 import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
+import { P_CARGAITEMVTA } from 'constants/ConfigProcessNames';
 
 
 class Loaditems extends Component {
@@ -32,7 +32,7 @@ class Loaditems extends Component {
 
     render() {
         const { voucherType } = this.props;
-        const [backButton, nextButton] = (voucherType) ? getBackNextButtons((voucherType) ? voucherType.procesos : [], 'p_cargaitemvta', this.state.idOperacion) : [];
+        const [backButton, nextButton] = (voucherType) ? getBackNextButtons((voucherType) ? voucherType.procesos : [], P_CARGAITEMVTA, this.state.idOperacion) : [];
 
         return (
             <Row>
@@ -42,7 +42,7 @@ class Loaditems extends Component {
                 <Col sm={12}>
                     <VoucherBreadCrumbs
                         crumbs={(voucherType) ? voucherType.procesos : []}
-                        current={'p_cargaitemvta'}
+                        current={P_CARGAITEMVTA}
                         urlParameter={this.state.idOperacion}
                     />
                 </Col>

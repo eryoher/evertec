@@ -14,6 +14,7 @@ import NotificationMessage from 'components/common/notificationMessage';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { validateField } from 'lib/FieldValidations';
 import moment from 'moment';
+import { P_AFEC_CANT_VTA } from 'constants/ConfigProcessNames';
 
 class InvolvementTable extends Component {
 
@@ -34,7 +35,7 @@ class InvolvementTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
-        this.props.getConfigVoucher({ cod_proceso: 'p_afec_cant_vta', idOperacion });
+        this.props.getConfigVoucher({ cod_proceso: P_AFEC_CANT_VTA, idOperacion });
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -508,7 +509,7 @@ class InvolvementTable extends Component {
 }
 
 const mapStateToProps = ({ voucher, salesAffected, auth }) => {
-    const { config } = voucher;
+    const config = (voucher.config) ? voucher.config[P_AFEC_CANT_VTA] : null;
     const { productsUpdate, cantValidate } = salesAffected;
     const { authUser } = auth;
     return { config, productsUpdate, cantValidate, authUser };

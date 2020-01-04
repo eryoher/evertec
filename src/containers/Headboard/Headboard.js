@@ -8,6 +8,7 @@ import { getVoucherType } from '../../actions';
 import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import moment from 'moment';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
+import { P_VTACAB } from 'constants/ConfigProcessNames';
 
 class Headboard extends Component {
 
@@ -48,7 +49,7 @@ class Headboard extends Component {
 
                 <VoucherBreadCrumbs
                     crumbs={(voucherType) ? voucherType.procesos : []}
-                    current={'p_vtacab'}
+                    current={P_VTACAB}
                     urlParameter={this.state.idOperacion}
                     callBackButton={this.callBackButton}
                     buttonsType={'primary'}
@@ -59,7 +60,7 @@ class Headboard extends Component {
                     <HeadboardForm
                         idOperacion={this.state.idOperacion}
                         crumbs={(voucherType) ? voucherType.procesos : []}
-                        current={'p_vtacab'}
+                        current={P_VTACAB}
                         urlParameter={this.state.idOperacion}
                         formRef={this.formRef}
                         urlSubmitForm={this.state.urlSubmitForm}

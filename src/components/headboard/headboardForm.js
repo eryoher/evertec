@@ -12,6 +12,7 @@ import NotificationError from 'components/common/notificationsErrors';
 import { getValidationSchema } from 'lib/FieldValidations';
 import { withRouter } from "react-router-dom";
 import moment from 'moment';
+import { P_VTACAB } from 'constants/ConfigProcessNames';
 
 
 class HeadboardForm extends Component {
@@ -26,7 +27,7 @@ class HeadboardForm extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
-        this.props.getConfigVoucher({ cod_proceso: 'p_vtacab', idOperacion });
+        this.props.getConfigVoucher({ cod_proceso: P_VTACAB, idOperacion });
         this.props.getVoucherHead({ idOperacion });
     }
 
@@ -140,7 +141,8 @@ class HeadboardForm extends Component {
 }
 
 const mapStateToProps = ({ voucher }) => {
-    const { config, headSale } = voucher;
+    const config = (voucher.config) ? voucher.config[P_VTACAB] : null
+    const { headSale } = voucher;
     return { config, headSale };
 };
 

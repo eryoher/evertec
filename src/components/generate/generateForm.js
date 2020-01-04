@@ -18,6 +18,8 @@ import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolv
 import NotificationMessage from 'components/common/notificationMessage';
 import { connect } from 'react-redux';
 import { getClientHeadboard, finishGenerate } from '../../actions';
+import VoucherAffectingTable from 'components/voucherAffecting/voucherAffectingTable';
+import VoucherStateTable from 'components/voucherState/voucherStateTable';
 
 const FIELDS = [
     {
@@ -131,7 +133,9 @@ class GenerateForm extends Component {
             collapseItemTable: false,
             collapse: false,
             generated: false,
-            collapseVoucherTable: false
+            collapseVoucherTable: false,
+            collapseVoucherAffectingTable: false,
+            collapseVoucherStateTable: false
         }
     }
 
@@ -155,6 +159,15 @@ class GenerateForm extends Component {
 
     toggleTableVoucher = () => {
         this.setState(state => ({ collapseVoucherTable: !state.collapseVoucherTable }));
+    }
+
+    toggleVoucherAffecting = () => {
+        this.setState(state => ({ collapseVoucherAffectingTable: !state.collapseVoucherAffectingTable }));
+    }
+
+    toggleVoucherState = () => {
+        this.setState(state => ({ collapseVoucherStateTable: !state.collapseVoucherStateTable }));
+
     }
 
     handleCloseNotification = () => {
@@ -193,20 +206,17 @@ class GenerateForm extends Component {
 
         return (
             <Col sm={12}>
-                {!this.state.generated && <Row>
-
-                    <Col sm={{ span: 2, offset: 8 }} style={{ textAlign: 'right' }} className={"mt-3 mb-3"} >
-                        <InputButton
-                            valueButton={t('global.cancelar')}
-                        />
-                    </Col>
-                    <Col sm={2} style={{ textAlign: 'left' }} className={"mt-3 mb-3"} >
-                        <InputButton
-                            onClick={this.handleGeneratebtn}
-                            valueButton={t('voucher.step.generate')}
-                        />
-                    </Col>
-                </Row>}
+                {!this.state.generated &&
+                    <Row>
+                        <Col sm={{ span: 2, offset: 8 }} style={{ textAlign: 'right' }} className={"mt-3 mb-3"} />
+                        <Col sm={2} style={{ textAlign: 'left' }} className={"mt-3 mb-3"} >
+                            <InputButton
+                                onClick={this.handleGeneratebtn}
+                                valueButton={t('voucher.step.generate')}
+                            />
+                        </Col>
+                    </Row>
+                }
                 {
                     this.state.generated &&
                     <Row>
@@ -296,7 +306,6 @@ class GenerateForm extends Component {
                         collapse
                         values={(clientHeadboard) ? clientHeadboard.Cabecera : null}
                         fields={FIELDS}
-
                     />
                 </Card>
                 <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
@@ -359,6 +368,75 @@ class GenerateForm extends Component {
                         <Row>
                             <Collapse isOpen={this.state.collapseVoucherTable}>
                                 <VoucherInvolvementTable
+                                    idOperacion={this.props.idOperacion}
+                                    readOnly
+                                />
+                            </Collapse>
+                        </Row>
+                    </Container>
+                </Card>
+                <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
+                    <Row className={"mb-3"}>
+                        <Col sm={6} className={theme.title} >
+                            {t('voucherAffecting.title')}
+                        </Col>
+                        <Col sm={3} className={theme.title} >
+
+                        </Col>
+                        <Col sm={2} className={"text-right"} >
+                            <FontAwesomeIcon icon={faPencilAlt} />
+                        </Col>
+                    </Row>
+                    <Row className={'mt-2'}>
+                        <Col sm={1}>
+                            <CollapseBotton
+                                onPress={() => this.toggleVoucherAffecting()}
+                                status={this.state.collapseVoucherAffectingTable}
+                            />
+                        </Col>
+                        <Col sm={11}>
+                            <div className="dropdown-divider col-11 p-1" />
+                        </Col>
+                    </Row>
+                    <Container style={{ maxWidth: '95%' }}>
+                        <Row>
+                            <Collapse isOpen={this.state.collapseVoucherAffectingTable}>
+                                <VoucherAffectingTable
+                                    idOperacion={this.props.idOperacion}
+                                    readOnly
+                                />
+                            </Collapse>
+                        </Row>
+                    </Container>
+                </Card>
+                <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
+                    <Row className={"mb-3"}>
+                        <Col sm={6} className={theme.title} >
+                            {t('voucherState.title')}
+                        </Col>
+                        <Col sm={3} className={theme.title} >
+
+                        </Col>
+                        <Col sm={2} className={"text-right"} >
+                            <FontAwesomeIcon icon={faPencilAlt} />
+                        </Col>
+                    </Row>
+                    <Row className={'mt-2'}>
+                        <Col sm={1}>
+                            <CollapseBotton
+                                onPress={() => this.toggleVoucherState()}
+                                status={this.state.collapseVoucherStateTable}
+                            />
+                        </Col>
+                        <Col sm={11}>
+                            <div className="dropdown-divider col-11 p-1" />
+                        </Col>
+                    </Row>
+                    <Container style={{ maxWidth: '95%' }}>
+                        <Row>
+                            <Collapse isOpen={this.state.collapseVoucherStateTable}>
+                                <VoucherStateTable
+                                    idOperacion={this.props.idOperacion}
                                     readOnly
                                 />
                             </Collapse>
@@ -366,11 +444,8 @@ class GenerateForm extends Component {
                     </Container>
                 </Card>
                 {!this.state.generated && <Row>
-                    <Col sm={{ span: 2, offset: 8 }} style={{ textAlign: 'right' }} className={"mt-2"} >
-                        <InputButton
-                            valueButton={t('global.cancelar')}
-                        />
-                    </Col>
+                    <Col sm={{ span: 2, offset: 8 }} style={{ textAlign: 'right' }} className={"mt-2"} />
+
                     <Col sm={2} style={{ textAlign: 'left' }} className={"mt-2"} >
                         <InputButton
                             valueButton={t('voucher.step.generate')}
