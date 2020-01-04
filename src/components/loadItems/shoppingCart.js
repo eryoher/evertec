@@ -22,7 +22,6 @@ class ShoppingCart extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
-        //this.props.getConfigVoucher({ cod_proceso: 'P_CargaItemenVentas', idOperacion });
         this.props.getProductsCart({ idOperacion, page_number: 1, page_size: 10 });
     }
 

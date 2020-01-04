@@ -13,6 +13,7 @@ import NotificationMessage from 'components/common/notificationMessage';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { validateField } from 'lib/FieldValidations';
 import moment from 'moment';
+import { P_AFEC_IMPO_VTA } from 'constants/ConfigProcessNames';
 
 class VoucherImportTable extends Component {
 
@@ -33,7 +34,7 @@ class VoucherImportTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
-        this.props.getConfigVoucher({ cod_proceso: 'p_afec_impo_vta', idOperacion });
+        this.props.getConfigVoucher({ cod_proceso: P_AFEC_IMPO_VTA, idOperacion });
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -494,7 +495,7 @@ class VoucherImportTable extends Component {
 }
 
 const mapStateToProps = ({ voucher, salesAffected, auth }) => {
-    const { config } = voucher;
+    const config = (voucher.config) ? voucher.config[P_AFEC_IMPO_VTA] : null;
     const { authUser } = auth
     const { productsUpdate, cantValidate } = salesAffected;
     return { config, productsUpdate, cantValidate, authUser };

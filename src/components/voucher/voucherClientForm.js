@@ -14,6 +14,7 @@ import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 import NotificationsErrors from '../common/notificationsErrors';
 import { getValidationSchema } from '../../lib/FieldValidations';
 import { withRouter } from "react-router-dom";
+import { P_SELCLI } from 'constants/ConfigProcessNames';
 
 class VoucherClientForm extends Component {
 
@@ -30,7 +31,7 @@ class VoucherClientForm extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
-        this.props.getConfigVoucher({ cod_proceso: 'p_selcli', idOperacion })
+        this.props.getConfigVoucher({ cod_proceso: P_SELCLI, idOperacion })
     }
 
     componentDidUpdate = (prevProps) => {
@@ -69,7 +70,7 @@ class VoucherClientForm extends Component {
     render() {
         const { search, client, config, crumbs, current, urlParameter, t } = this.props;
         const [backButton, nextButton] = getBackNextButtons(crumbs, current, urlParameter);
-
+        console.log(config)
         const defaultInitial = {
             cliente_razon_social: '',
             cliente_codigo: '',
@@ -212,7 +213,7 @@ class VoucherClientForm extends Component {
 
 const mapStateToProps = ({ clients, voucher }) => {
     const { search, client } = clients;
-    const { config } = voucher;
+    const config = (voucher.config) ? voucher.config[P_SELCLI] : null;
     return { search, client, config };
 };
 

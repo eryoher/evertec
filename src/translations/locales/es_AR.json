@@ -56,7 +56,12 @@
         }
 
     },
+    "voucherState": {
+        "title": "Afectación Estados"
+    },
     "voucherAffecting": {
+        "title": "Afectación Importes",
+
         "table": {
             "totalVouchers": "Total Comprobantes",
             "totalAffect": "Total Afectado",

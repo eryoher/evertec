@@ -39,7 +39,7 @@ export default (mockAdapter) => {
 
     mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_selcli', idOperacion: 21 } }).reply(200,
         {
-            "cod_proceso": "P_SELCLI",
+            "cod_proceso": "p_selcli",
             "descrip_proceso": "Selección Cliente",
             "orden": "1",
             "campos": [
@@ -580,7 +580,6 @@ export default (mockAdapter) => {
 
 
     mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_impo_vta', idOperacion: '21' } }).reply(200, {
-
         "cod_proceso": "p_afec_impo_vta",
         "descrip_proceso": "Afectacion Importe",
         "orden": "8",
@@ -601,7 +600,6 @@ export default (mockAdapter) => {
     });
 
     mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_stado_vta', idOperacion: '21' } }).reply(200, {
-
         "cod_proceso": "p_afec_stado_vta",
         "descrip_proceso": "Afectacion Importe",
         "orden": "8",

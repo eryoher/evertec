@@ -18,6 +18,7 @@ import InputDropdown from 'components/form/inputDropdown';
 import InputPriceUnit from './inputPriceUnit';
 import { validateField } from 'lib/FieldValidations';
 import NotificationMessage from 'components/common/notificationMessage';
+import { P_CARGAITEMVTA } from 'constants/ConfigProcessNames';
 
 
 class LoadItemsTable extends Component {
@@ -37,7 +38,7 @@ class LoadItemsTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
-        this.props.getConfigVoucher({ cod_proceso: 'p_cargaitemvta', idOperacion });
+        this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
     }
 
     handleCloseError = () => {
@@ -508,7 +509,7 @@ class LoadItemsTable extends Component {
 }
 
 const mapStateToProps = ({ voucher, product }) => {
-    const { config } = voucher;
+    const config = (voucher.config) ? voucher.config[P_CARGAITEMVTA] : null;
     const { search, searchParameters, productsUpdate, focusInput, updateCant } = product
     return { config, search, searchParameters, productsUpdate, focusInput, updateCant };
 };
