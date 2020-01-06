@@ -4,7 +4,8 @@ import {
   SEARCH_CLIENTS,
   SEARCH_CLIENTS_SUCCESS,
   CONFIRMATION_CLIENT,
-  CONFIRMATION_CLIENT_SUCCESS
+  CONFIRMATION_CLIENT_SUCCESS,
+  VOUCHER_CANCEL_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
@@ -27,6 +28,8 @@ function rootReducer(state = initialState, action) {
       return { ...state, confirmation: null }
     case CONFIRMATION_CLIENT_SUCCESS:
       return { ...state, confirmation: action.payload }
+    case VOUCHER_CANCEL_SUCCESS:
+      return { ...state, ...initialState }
     default:
       return state
   }
