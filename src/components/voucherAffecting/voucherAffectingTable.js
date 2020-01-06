@@ -50,16 +50,19 @@ class VoucherAffectingTable extends Component {
 
 
     handleGetCant = (e) => {
+        const { idOperacion } = this.props;
         const comprobante = (e.target.checked) ? 1 : 0;
         const { OpcionMuestra } = this.state;
         this.setState({ ComprobAvencer: comprobante });
-        this.props.salesAffectedImport({ ComprobAvencer: comprobante, OpcionMuestra });
+        this.props.salesAffectedImport({ ComprobAvencer: comprobante, OpcionMuestra, idOperacion });
     }
 
     handleChangeSelect = (value) => {
         const { ComprobAvencer } = this.state;
+        const { idOperacion } = this.props;
+
         this.setState({ OpcionMuestra: value });
-        this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra: value });
+        this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra: value, idOperacion });
     }
 
     componentDidUpdate = (prevProps) => {
