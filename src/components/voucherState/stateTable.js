@@ -131,44 +131,21 @@ class StateTable extends Component {
     }
 
     getStyleColumn = (field) => {
-        const idField = field.idcampo;
+        const idField = field.idCampo.trim();
         let style = {};
 
         switch (idField) {
             case 'fec_emis':
-                style = { width: '15%' }
+            case 'fec_vto':
+                style = { width: '12%' }
                 break;
-            case 'comprob_nro':
-                style = { width: '20%' }
-                break;
-            case 'cod_prod':
-                style = { width: '15%' }
-                break;
-            case 'desc_prod':
-                style = { width: '20%' }
-                break;
-            case 'fec_entrega':
-                style = { width: '13%' }
-                break;
-            case 'avisos':
+            case 'estado_orig':
+            case 'cod_unid':
                 style = { width: '8%' }
                 break;
-            case 'ind_stock':
-                style = { width: '3%' }
-                break;
-            case 'precio_unit':
+            case 'estado_afec':
                 style = { width: '18%' }
                 break;
-            case 'neto':
-                style = { width: '18%' }
-                break;
-            case 'unid_v':
-                style = { width: '5%' }
-                break;
-            case 'cant_afec':
-                style = { width: '15%' }
-                break;
-
             default:
                 style = { width: '10%' }
                 break;

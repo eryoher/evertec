@@ -40,7 +40,6 @@ function rootReducer(state = initialState, action) {
             return { ...state }
         case GET_CONFIG_VOUCHER_SUCCESS:
             const code = action.payload.cod_proceso;
-            console.log(code, 'el form')
             const config = (state.config) ? state.config : {};
             config[code] = action.payload;
             return { ...state, config }
