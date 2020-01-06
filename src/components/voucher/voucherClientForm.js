@@ -70,7 +70,6 @@ class VoucherClientForm extends Component {
     render() {
         const { search, client, config, crumbs, current, urlParameter, t } = this.props;
         const [backButton, nextButton] = getBackNextButtons(crumbs, current, urlParameter);
-        console.log(config)
         const defaultInitial = {
             cliente_razon_social: '',
             cliente_codigo: '',

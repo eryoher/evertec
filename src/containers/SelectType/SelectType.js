@@ -25,7 +25,7 @@ class SelectType extends Component {
         const voucherOptions = (userVoucherType) ? userVoucherType.map((voucher) => {
             return (
                 {
-                    id: voucher.cod_comprob,
+                    id: voucher.nioperacion,
                     label: voucher.descrip_comprob
                 }
             )

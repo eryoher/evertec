@@ -5,15 +5,15 @@ import { Form, Col, Button } from 'react-bootstrap';
 import InputDropdown from 'components/form/inputDropdown';
 import { withTranslation } from 'react-i18next';
 import { Router, Redirect, withRouter } from "react-router-dom";
-
 import { VOUCHER } from '../../utils/RoutePath';
+import { IDCLIENT } from 'constants/ConfigProcessNames';
 
 
 
 class SelectForm extends Component {
 
     onSubmit = (values) => {
-        this.props.history.push(`${VOUCHER}/${values.voucherType}`);
+        this.props.history.push(`${VOUCHER}/${IDCLIENT}/${values.voucherType}`);
     }
 
     render() {

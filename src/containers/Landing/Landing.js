@@ -11,6 +11,7 @@ import DisplayAmount from 'components/common/displayAmount';
 import { LANDING, VOUCHER } from '../../utils/RoutePath';
 import { connect } from 'react-redux';
 import { getVoucherTypeByUser } from '../../actions';
+import { IDCLIENT } from 'constants/ConfigProcessNames';
 
 
 const voucher = [
@@ -74,13 +75,12 @@ class Landing extends Component {
     renderVoucher = () => {
         const { userVoucherType } = this.props
         const result = [];
-        const idOperacion = null;
         userVoucherType.forEach(voucher => {
             result.push(
                 <Col sm={2} key={voucher.nioperacion} className={"m-2 text-center"}>
                     <InputButton
                         valueButton={<FontAwesomeIcon icon={faPlus} />}
-                        urlForm={`${VOUCHER}/${idOperacion}/${voucher.nioperacion}`}
+                        urlForm={`${VOUCHER}/${IDCLIENT}/${voucher.nioperacion}`}
                     />
                     <div className={'text-center pt-1'}>
                         <b>{voucher.descrip_comprob}</b>

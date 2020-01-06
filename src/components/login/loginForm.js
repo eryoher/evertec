@@ -24,7 +24,6 @@ class LoginForm extends Component {
 
     componentDidMount = () => {
         const { auth } = this.props;
-        console.log(auth, 'auth')
         if (isLoggedIn(auth)) {
             this.props.history.push(LANDING) //Accion para cuando se carga el form y se encuentra logeado
         }
