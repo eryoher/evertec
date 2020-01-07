@@ -73,7 +73,7 @@ class StateTable extends Component {
                 headerStyle: this.getStyleColumn(field),
                 hidden: !field.visible,
                 filter: (campoId === 'fec_emis' || campoId === 'comprob_nro' || campoId === 'comprob_desc' || campoId === 'fec_vto') ? selectFilter({
-                    options: this.getFilterOptions(campoId),
+                    options: this.getFilterOptions(campoId, field),
                     className: `${theme.inputFilter} mt-2`,
                     onFilter: filterVal => this.setState({ filterVal }),
                     placeholder: field.label,
@@ -113,14 +113,15 @@ class StateTable extends Component {
         return rows;
     }
 
-    getFilterOptions = (idField) => {
+    getFilterOptions = (idField, field) => {
         const { products } = this.props;
         const optionsExits = [];
         const result = [];
         products.Items.forEach(row => {
             if (row[idField] && !optionsExits[row[idField]]) {
+                const labelValue = (field.mascara) ? this.getValueMask(row[idField], field.mascara) : row[idField];
                 optionsExits[row[idField]] = true;
-                result.push({ value: row[idField], label: row[idField] })
+                result.push({ value: row[idField], label: labelValue })
             }
         });
         return result

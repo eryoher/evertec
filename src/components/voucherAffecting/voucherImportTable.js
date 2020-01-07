@@ -71,7 +71,7 @@ class VoucherImportTable extends Component {
                 headerStyle: this.getStyleColumn(field),
                 hidden: !field.visible,
                 filter: (campoId === 'fec_emis' || campoId === 'comprob_nro' || campoId === 'cod_prod' || campoId === 'fec_vto') ? selectFilter({
-                    options: this.getFilterOptions(campoId),
+                    options: this.getFilterOptions(campoId, field),
                     className: `${theme.inputFilter} mt-2`,
                     onFilter: filterVal => this.setState({ filterVal }),
                     placeholder: field.label,
@@ -111,14 +111,15 @@ class VoucherImportTable extends Component {
         return rows;
     }
 
-    getFilterOptions = (idField) => {
+    getFilterOptions = (idField, field) => {
         const { products } = this.props;
         const optionsExits = [];
         const result = [];
         products.Items.forEach(row => {
             if (row[idField] && !optionsExits[row[idField]]) {
+                const labelValue = (field.mascara) ? this.getValueMask(row[idField], field.mascara) : row[idField];
                 optionsExits[row[idField]] = true;
-                result.push({ value: row[idField], label: row[idField] })
+                result.push({ value: row[idField], label: labelValue })
             }
         });
         return result
@@ -129,12 +130,13 @@ class VoucherImportTable extends Component {
     }
 
     getStyleColumn = (field) => {
-        const idField = field.idcampo;
+        const idField = field.idCampo.trim();
         let style = {};
 
         switch (idField) {
             case 'fec_emis':
-                style = { width: '15%' }
+            case 'fec_vto':
+                style = { width: '12%' }
                 break;
             case 'comprob_nro':
                 style = { width: '20%' }
@@ -213,29 +215,6 @@ class VoucherImportTable extends Component {
 
     }
 
-    validateFieldNeto = (row, field, value) => {
-        const { idOperacion } = this.props
-        const params = {
-            "IdOperacion": idOperacion,
-            "nimovcli": row.nimovcli,
-            "nitem": row.nitem,
-            "niprod": row.niprod,
-            "cod_unid": row.cod_unid,
-            "cant_afec": row.cant_afec,
-            "precio_unit": row.precio_unit,
-            "neto": value
-        }
-
-        if (field.valid) {
-            let message = '';
-            if (!validateField(value, field.valid)) {
-                message = `El campo ${field.label} es requerido.`;
-                this.setState({ showError: true, errorMessage: message });
-            } else {
-                this.props.salesAffectedSubCalculation(params)
-            }
-        }
-    }
 
     handleSubCalculation = (params, field) => {
         if (field.valid) {
