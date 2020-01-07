@@ -81,9 +81,7 @@ function rootReducer(state = initialState, action) {
                     importItems.forEach(item => {
                         if (prd.nimovcli === item.nimovcli) {
                             prd.imp_afec = item.imp_afec;
-                            //prd.neto = item.neto;
-                            //prd.saldo = item.saldo;
-                            // prd.cant_saldo = parseFloat(prd.cant_pend) - parseFloat(item.cant_afec);
+                            prd.saldo = parseInt(prd.imp_pend) - parseInt(item.imp_afec);
                         } else if (prd.nimovcli === item.nimovcli && item.ind_stock !== 0) {
                             prd['error'] = true;
                             prd['type_error'] = item.ind_stock;

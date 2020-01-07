@@ -202,8 +202,13 @@ class VoucherImportTable extends Component {
             } else {
                 selected.push(row.niprod);
                 this.setState({ selectedCheck: selected });
-                this.props.salesAffectedImportValidate({ idOperacion, items }); //Falta adicionar idOperacion
+                this.props.salesAffectedImportValidate({ idOperacion, items });
             }
+        } else {
+            selected.push(row.nimovcli);
+            this.setState({ selectedCheck: selected });
+            this.props.salesAffectedImportValidate({ idOperacion, items });
+
         }
 
     }
@@ -297,6 +302,7 @@ class VoucherImportTable extends Component {
             onChange: () => { }
         }
 
+
         if (field.editable) {
             result = (
                 <InputText
@@ -304,13 +310,10 @@ class VoucherImportTable extends Component {
                     handleEnterKey={(e, value) => {
                         if (campoId === 'imp_afec') {
                             this.validateAfectImport(row, field, value);
-                            //this.handleSetFocus('precio_unit', row.niprod);
-
-                        } else if (campoId === 'neto') {
-                            this.validateFieldNeto(row, field, value);
                         }
                         return true;
                     }}
+
                     onBlur={(value) => {
                         if (campoId === 'imp_afec') { //pendiente logica.
                             this.validateAfectImport(row, field, value);
