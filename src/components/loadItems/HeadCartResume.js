@@ -61,8 +61,17 @@ class HeadCartResume extends Component {
                         />
                     }
                 </Col>
-                <Col sm={6} className={`${theme.Title} col-12 mt-3`} >
+                <Col sm={4} className={`${theme.Title} col-12 mt-3`} >
                     {t("loadItem.title")}
+                </Col>
+                <Col sm={2}>
+                    <ConfirmModal
+                        messageBody={t('form.modal.confirmationMessage')}
+                        onSubmitModal={this.handleCancel}
+                        labelButton={t('form.button.cancel')}
+                        modalTitle={t('form.modal.confirmationTitle')}
+                        buttonStyle={{ fontSize: '11pt', height: '33px' }}
+                    />
                 </Col>
                 {
                     itemsCart &&
@@ -77,15 +86,6 @@ class HeadCartResume extends Component {
                         </Col>
                     </>
                 }
-                <Col sm={2}>
-                    <ConfirmModal
-                        messageBody={t('form.modal.confirmationMessage')}
-                        onSubmitModal={this.handleCancel}
-                        labelButton={t('form.button.cancel')}
-                        modalTitle={t('form.modal.confirmationTitle')}
-                        buttonStyle={{ fontSize: '11pt', height: '33px' }}
-                    />
-                </Col>
 
                 <Col sm={2} className={"text-left  mt-3"} style={{ paddingLeft: '5px' }} >
                     <FontAwesomeIcon icon={faShoppingCart} onClick={this.handleOpen} />
