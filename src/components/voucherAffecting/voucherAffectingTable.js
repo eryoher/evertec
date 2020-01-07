@@ -27,11 +27,11 @@ class VoucherAffectingTable extends Component {
             },
             {
                 id: 1,
-                label: 'Solo comprob.afectados(cant_afec <> 0)'
+                label: 'Solo comprob. afectados'
             },
             {
                 id: 2,
-                label: 'Solo comprob.sin afectar(cant_afec = 0)'
+                label: 'Solo comprob. sin afectar'
             }
         ]
     }
