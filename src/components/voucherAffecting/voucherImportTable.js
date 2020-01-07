@@ -375,7 +375,7 @@ class VoucherImportTable extends Component {
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
                         if (toDelete.Nimovcli === row.nimovcli) {
-                            rows.splice(index, 1);
+                            toDelete.imp_afec = 0;
                         }
                     });
 
