@@ -11,14 +11,18 @@ import { LANDING } from '../../utils/RoutePath';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { isLoggedIn } from 'lib/AuthUtils';
+import NotificationsErrors from 'components/common/notificationsErrors';
+import NotificationMessage from 'components/common/notificationMessage';
 
 
 class LoginForm extends Component {
 
-    componentDidUpdate = (prevProps) => {
-        const { auth } = this.props;
-        if (prevProps.auth !== auth && isLoggedIn(auth)) {
-            this.props.history.push(LANDING) //Accion para cuando se logea
+    constructor(props) {
+        super(props);
+        this.state = {
+            showError: false,
+            errorMessage: '',
+            type: 'danger'
         }
     }
 
@@ -28,6 +32,18 @@ class LoginForm extends Component {
             this.props.history.push(LANDING) //Accion para cuando se carga el form y se encuentra logeado
         }
     }
+    componentDidUpdate = (prevProps) => {
+        const { auth, common, t } = this.props;
+        if (prevProps.auth !== auth && isLoggedIn(auth)) {
+            this.props.history.push(LANDING) //Accion para cuando se logea
+        }
+
+        if (prevProps.common.error !== common.error && common.error) {
+            this.setState({ showError: true, errorMessage: t(common.error.trim()) })
+        }
+    }
+
+
 
     render() {
         const { t } = this.props;
@@ -45,11 +61,23 @@ class LoginForm extends Component {
                         actions.setSubmitting(false);
                     }}
                     validationSchema={Yup.object().shape({
-                        //user: Yup.number().required(t('validation-required', { field: t('Sequence') })).min(0, t('sequence-error-min')),
-                        //pass: Yup.string().required(t('validation-required', { field: t('Description') })),
+                        user: Yup.string().required(t('validation-required', { field: t('login.form.username') })),
+                        pass: Yup.string().required(t('validation-required', { field: t('login.form.password') })),
                     })}
                     render={({ values, handleBlur, handleChange, errors, touched, isSubmitting, handleSubmit, setFieldValue, setFieldTouched }) => (
                         <Form onSubmit={handleSubmit} className="voucher-info-form">
+                            <Col sm={11}>
+                                <NotificationMessage
+                                    {...this.state}
+                                    handleCloseError={this.handleCloseNotification}
+                                />
+                            </Col>
+                            <Col sm={11} >
+                                <NotificationsErrors
+                                    errors={errors}
+                                    touched={touched}
+                                />
+                            </Col>
                             <Col sm={12}>
                                 <InputGroupText
                                     label={t('login.form.username')}
@@ -99,8 +127,8 @@ class LoginForm extends Component {
 }
 
 
-const mapStateToProps = ({ auth }) => {
-    return { auth };
+const mapStateToProps = ({ auth, common }) => {
+    return { auth, common };
 };
 
 export default connect(mapStateToProps, { userSignIn })(withTranslation()(withRouter(LoginForm)));

@@ -33,7 +33,6 @@ import {
 import { getVoucherTypeByUserSuccess } from 'actions';
 
 function* signInUserRequest({ payload }) {
-
   try {
     const user = yield call(signInUser, payload);
     localStorage.setItem('user', JSON.stringify(user));
@@ -44,9 +43,8 @@ function* signInUserRequest({ payload }) {
 
     yield put(userSignInSuccess(user));
     yield put(getVoucherTypeByUserSuccess(voucherType));
-
   } catch (error) {
-    console.log(error, error)
+    //console.log(error, error)
     if (error.response && error.response.status === 401) {
       yield put(showError('Invalid username or password'));
     } else if (!error.response && error.request && error.request.status === 0) {
