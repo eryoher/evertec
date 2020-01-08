@@ -188,30 +188,6 @@ class StateTable extends Component {
 
     }
 
-    validateFieldNeto = (row, field, value) => {
-        const { idOperacion } = this.props
-        const params = {
-            "IdOperacion": idOperacion,
-            "nimovcli": row.nimovcli,
-            "nitem": row.nitem,
-            "niprod": row.niprod,
-            "cod_unid": row.cod_unid,
-            "cant_afec": row.cant_afec,
-            "precio_unit": row.precio_unit,
-            "neto": value
-        }
-
-        if (field.valid) {
-            let message = '';
-            if (!validateField(value, field.valid)) {
-                message = `El campo ${field.label} es requerido.`;
-                this.setState({ showError: true, errorMessage: message });
-            } else {
-                this.props.salesAffectedSubCalculation(params)
-            }
-        }
-    }
-
     handleSubCalculation = (params, field) => {
         if (field.valid) {
             let message = '';
@@ -226,7 +202,6 @@ class StateTable extends Component {
     }
 
     getValueMask = (value, mascara) => {
-
         const { authUser } = this.props
         const mask = authUser.configApp.mascaras[mascara];
         let result = '';
@@ -242,19 +217,22 @@ class StateTable extends Component {
     }
 
     handleChangeSelect = (data, row) => {
+        const selected = data.target.value;
         const { idOperacion } = this.props;
-        const items = [{ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: data.target.value }];
+        row.estado_afec_selected = selected;
+        const selectedArray = (this.state.selectedCheck) ? this.state.selectedCheck : [];
+        const items = [{ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: selected }];
+        selectedArray.push(row.nimovcli);
+        this.setState({ selectedCheck: selectedArray });
         this.props.salesAffectedStateValidate({ idOperacion, items });
     }
 
     renderFormat = (field, value, row) => {
-
         const campoId = field.idCampo.trim();
         let result = null;
         const inputError = (value === 'error_input') ? true : false;
         const customValue = (value === 'error_input') ? '' : !Array.isArray(value) ? value : value[0].cod_estado;
         const inputStyle = (campoId === 'cant_afec' || campoId === 'precio_unit' || campoId === 'neto') ? { textAlign: 'right' } : {}
-
 
         if (field.editable && !this.inputRefs[campoId]) {
             this.inputRefs[campoId] = {}
@@ -293,6 +271,7 @@ class StateTable extends Component {
                 <InputDropdown
                     {...optionsInput}
                     options={optionsState}
+                    value={row.estado_afec_selected}
                     onChange={(obj) => this.handleChangeSelect(obj, row)}
                 />
             )
@@ -366,7 +345,7 @@ class StateTable extends Component {
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
                 if (isSelect) { //Se adiciona    
-                    rows.push({ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: row.estado_afec[0].cod_estado }); //Temporal... 
+                    rows.push({ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: (row.estado_afec_selected) ? row.estado_afec_selected : row.estado_afec[0].cod_estado }); //Temporal... 
                     selected.push(row.nimovcli)
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
@@ -399,7 +378,7 @@ class StateTable extends Component {
                     });
 
                     selected = rows.map(fila => {
-                        return ({ nimovcli: fila.nimovcli, nitem: fila.nitem, estado_afec: fila.estado_afec });
+                        return ({ nimovcli: fila.nimovcli, nitem: fila.nitem, estado_afec: (fila.estado_afec_selected) ? fila.estado_afec_selected : fila.estado_afec[0].cod_estado });
                     });
 
                     this.setState({ selectedCheck: checks })

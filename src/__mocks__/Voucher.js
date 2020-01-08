@@ -599,8 +599,8 @@ export default (mockAdapter) => {
 
     });
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_stado_vta', idOperacion: '21' } }).reply(200, {
-        "cod_proceso": "p_afec_stado_vta",
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_estados_vta', idOperacion: '21' } }).reply(200, {
+        "cod_proceso": "p_afec_estados_vta",
         "descrip_proceso": "Afectacion Importe",
         "orden": "8",
         "campos": [
