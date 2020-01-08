@@ -1,11 +1,16 @@
-.menuContainer{
-    padding-right:0px;
-    color:#fff; 
-    background-color:#2F80ED; 
-    font-size:20px;
-    height: 100%;    
+.menuContainer {
+    padding-right: 0px;
+    color: #fff;
+    background-color: #2F80ED;
+    font-size: 20px;
+    height: 100%;
 }
 
-.subContainer{
+.subContainer {
     height: 40%;
+}
+
+.imgLogo {
+    height: 30px;
+    margin-top: 25px;
 }

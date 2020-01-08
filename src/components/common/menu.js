@@ -7,6 +7,7 @@ import { SELECTTYPE, LOGIN } from 'utils/RoutePath';
 import { connect } from 'react-redux';
 import { userSignOut } from '../../actions';
 import { isLoggedIn } from 'lib/AuthUtils';
+import { Image } from 'react-bootstrap';
 
 
 class Menu extends Component {
@@ -36,6 +37,9 @@ class Menu extends Component {
         return (
             <div className={theme.menuContainer} >
                 <div className={`d-flex align-items-start flex-column bd-highlight mb-3 ${theme.subContainer}`}>
+                    <div className="p-2 bd-highlight" style={{ margin: "0px auto" }} >
+                        <Image className={theme.imgLogo} src="assets/images/menu_logo.png" />
+                    </div>
                     <div className="p-2 bd-highlight" style={{ margin: "0px auto" }} >
                         <FontAwesomeIcon icon={faStar} />
                     </div>
