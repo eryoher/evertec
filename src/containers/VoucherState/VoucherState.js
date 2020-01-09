@@ -8,6 +8,7 @@ import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
 import VoucherStateTable from 'components/voucherState/voucherStateTable';
 import { P_AFEC_STADO_VTA } from 'constants/ConfigProcessNames';
+import GlobalContainer from 'components/common/globalContainer';
 
 
 class VoucherState extends Component {
@@ -30,29 +31,24 @@ class VoucherState extends Component {
 
     render() {
         const { voucherType } = this.props
-        const { idOperacion } = this.state;
-        if (idOperacion) {
-            return (
-                <Row>
-                    <HeadCartResume
-                        idOperacion={idOperacion}
-                    />
 
-                    <Col sm={12}>
-                        <VoucherBreadCrumbs
-                            crumbs={(voucherType) ? voucherType.procesos : []}
-                            current={P_AFEC_STADO_VTA}
-                            urlParameter={idOperacion}
-                        />
-                    </Col>
-                    <VoucherStateTable
-                        idOperacion={idOperacion}
+        return (
+            <Row>
+                {voucherType &&
+                    <GlobalContainer
+                        codeProccess={P_AFEC_STADO_VTA}
+                        voucherType={voucherType}
+                        childForm={
+                            <VoucherStateTable
+                                idOperacion={voucherType.idOperacion}
+                            />
+                        }
                     />
-                </Row>
-            )
-        } else {
-            return null
-        }
+                }
+
+            </Row>
+        )
+
     }
 }
 
