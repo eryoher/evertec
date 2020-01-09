@@ -4,7 +4,7 @@ export const P_AFEC_IMPO_VTA = 'p_afec_impo_vta';
 export const P_AFEC_STADO_VTA = 'p_afec_estados_vta';
 export const P_SELCLI = 'p_selcli';
 export const P_VTACAB = 'p_vtacab';
-
+export const P_FINCOMPROB = 'p_fincomprob';
 
 //////
 export const IDCLIENT = 1;

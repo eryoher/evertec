@@ -327,7 +327,7 @@ export default (mockAdapter) => {
         }
     );
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_cargaitemvta', idOperacion: "21" } }).reply(200,
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_cargaitemvta', idOperacion: 21 } }).reply(200,
         {
             "cod_proceso": "p_cargaitemvta",
             "desc_proceso": "Carga de Items",

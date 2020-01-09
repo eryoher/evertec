@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import withMenu from '../../components/common/withMenu'
 import { withTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
 import VoucherClientForm from 'components/voucher/voucherClientForm';
 import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
-import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
-import HeadCartResume from 'components/loadItems/HeadCartResume';
 import { P_SELCLI } from 'constants/ConfigProcessNames';
+import GlobalContainer from 'components/common/globalContainer';
 
 
 class Voucher extends Component {
@@ -46,28 +45,21 @@ class Voucher extends Component {
         return (
             <Row>
                 {voucherType &&
-                    <HeadCartResume
-                        idOperacion={voucherType.idOperacion}
-                    />
-                }
-                {voucherType &&
-                    <VoucherBreadCrumbs
-                        crumbs={(voucherType) ? voucherType.procesos : []}
-                        current={P_SELCLI}
-                        urlParameter={voucherType.idOperacion}
+                    <GlobalContainer
+                        codeProccess={P_SELCLI}
                         callBackButton={this.callBackButton}
-                        buttonsType={'primary'}
-
-                    />
-                }
-                {voucherType &&
-                    <VoucherClientForm
-                        idOperacion={voucherType.idOperacion}
-                        crumbs={(voucherType) ? voucherType.procesos : []}
-                        current={' '}
-                        urlParameter={voucherType.idOperacion}
-                        formRef={this.formRef}
-                        urlSubmitForm={this.state.urlSubmitForm}
+                        voucherType={voucherType}
+                        breadCrumbButtonType={'primary'}
+                        childForm={
+                            <VoucherClientForm
+                                idOperacion={voucherType.idOperacion}
+                                crumbs={(voucherType) ? voucherType.procesos : []}
+                                current={P_SELCLI}
+                                urlParameter={voucherType.idOperacion}
+                                formRef={this.formRef}
+                                urlSubmitForm={this.state.urlSubmitForm}
+                            />
+                        }
                     />
                 }
             </Row>
