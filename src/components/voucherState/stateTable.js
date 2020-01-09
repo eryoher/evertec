@@ -145,7 +145,7 @@ class StateTable extends Component {
                 style = { width: '8%' }
                 break;
             case 'estado_afec':
-                style = { width: '18%' }
+                style = { width: '13%' }
                 break;
             default:
                 style = { width: '10%' }
