@@ -4,8 +4,6 @@ import { withTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
-import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
-import HeadCartResume from 'components/loadItems/HeadCartResume';
 import VoucherStateTable from 'components/voucherState/voucherStateTable';
 import { P_AFEC_STADO_VTA } from 'constants/ConfigProcessNames';
 import GlobalContainer from 'components/common/globalContainer';
@@ -34,18 +32,15 @@ class VoucherState extends Component {
 
         return (
             <Row>
-                {voucherType &&
-                    <GlobalContainer
-                        codeProccess={P_AFEC_STADO_VTA}
-                        voucherType={voucherType}
-                        childForm={
-                            <VoucherStateTable
-                                idOperacion={voucherType.idOperacion}
-                            />
-                        }
-                    />
-                }
-
+                <GlobalContainer
+                    codeProccess={P_AFEC_STADO_VTA}
+                    voucherType={voucherType}
+                    childForm={(voucherType) ?
+                        <VoucherStateTable
+                            idOperacion={voucherType.idOperacion}
+                        /> : <div />
+                    }
+                />
             </Row>
         )
 

@@ -40,25 +40,23 @@ class Headboard extends Component {
 
         return (
             <Row >
-                {voucherType &&
-                    <GlobalContainer
-                        codeProccess={P_VTACAB}
-                        callBackButton={this.callBackButton}
-                        voucherType={voucherType}
-                        breadCrumbButtonType={'primary'}
-                        childForm={
-                            <HeadboardForm
-                                idOperacion={this.state.idOperacion}
-                                crumbs={(voucherType) ? voucherType.procesos : []}
-                                current={P_VTACAB}
-                                urlParameter={this.state.idOperacion}
-                                formRef={this.formRef}
-                                urlSubmitForm={this.state.urlSubmitForm}
-                                timeSet={this.state.timeSet}
-                            />
-                        }
-                    />
-                }
+                <GlobalContainer
+                    codeProccess={P_VTACAB}
+                    callBackButton={this.callBackButton}
+                    voucherType={voucherType}
+                    breadCrumbButtonType={'primary'}
+                    childForm={(voucherType) ?
+                        <HeadboardForm
+                            idOperacion={this.state.idOperacion}
+                            crumbs={(voucherType) ? voucherType.procesos : []}
+                            current={P_VTACAB}
+                            urlParameter={this.state.idOperacion}
+                            formRef={this.formRef}
+                            urlSubmitForm={this.state.urlSubmitForm}
+                            timeSet={this.state.timeSet}
+                        /> : <div />
+                    }
+                />
             </Row>
         )
     }

@@ -44,13 +44,13 @@ class Voucher extends Component {
 
         return (
             <Row>
-                {voucherType &&
-                    <GlobalContainer
-                        codeProccess={P_SELCLI}
-                        callBackButton={this.callBackButton}
-                        voucherType={voucherType}
-                        breadCrumbButtonType={'primary'}
-                        childForm={
+                <GlobalContainer
+                    codeProccess={P_SELCLI}
+                    callBackButton={this.callBackButton}
+                    voucherType={voucherType}
+                    breadCrumbButtonType={'primary'}
+                    childForm={
+                        (voucherType) ?
                             <VoucherClientForm
                                 idOperacion={voucherType.idOperacion}
                                 crumbs={(voucherType) ? voucherType.procesos : []}
@@ -59,9 +59,9 @@ class Voucher extends Component {
                                 formRef={this.formRef}
                                 urlSubmitForm={this.state.urlSubmitForm}
                             />
-                        }
-                    />
-                }
+                            : <div />
+                    }
+                />
             </Row>
         )
     }

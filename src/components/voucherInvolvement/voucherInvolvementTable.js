@@ -38,7 +38,9 @@ class VoucherInvolvementTable extends Component {
     componentDidMount = () => {
         const { ComprobAvencer, OpcionMuestra } = this.state;
         const { idOperacion } = this.props;
-        this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: 1, page_size: 10 });
+        if (idOperacion) {
+            this.props.salesAffectedCant({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: 1, page_size: 10 });
+        }
     }
 
     onChangeTable = (type, pagination) => {

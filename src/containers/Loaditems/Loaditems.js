@@ -37,40 +37,39 @@ class Loaditems extends Component {
 
         return (
             <Row>
-                {voucherType &&
-                    <GlobalContainer
-                        codeProccess={P_CARGAITEMVTA}
-                        voucherType={voucherType}
-                        childForm={
-                            <Fragment >
-                                <Col sm={12}>
-                                    <LoadItemsTable
-                                        searchBox
-                                        divClass={"mt-1"}
-                                        idOperacion={voucherType.idOperacion}
+                <GlobalContainer
+                    codeProccess={P_CARGAITEMVTA}
+                    voucherType={voucherType}
+                    childForm={(voucherType) ?
+                        <Fragment >
+                            <Col sm={12}>
+                                <LoadItemsTable
+                                    searchBox
+                                    divClass={"mt-1"}
+                                    idOperacion={voucherType.idOperacion}
+                                />
+                            </Col>
+                            <Col sm={1} style={{ textAlign: 'left', paddingLeft: '2rem' }} className={"mt-2"} >
+                                {
+                                    backButton &&
+                                    <InputButton
+                                        backButton
+                                        urlForm={backButton.url}
                                     />
-                                </Col>
-                                <Col sm={1} style={{ textAlign: 'left', paddingLeft: '2rem' }} className={"mt-2"} >
-                                    {
-                                        backButton &&
-                                        <InputButton
-                                            backButton
-                                            urlForm={backButton.url}
-                                        />
-                                    }
-                                </Col>
-                                <Col style={{ textAlign: 'rigth' }} className={"mt-2 col-1 offset-10"} >
-                                    {
-                                        nextButton &&
-                                        <InputButton
-                                            nextButton
-                                            urlForm={nextButton.url}
-                                        />}
-                                </Col>
-                            </Fragment>
-                        }
-                    />
-                }
+                                }
+                            </Col>
+                            <Col style={{ textAlign: 'rigth' }} className={"mt-2 col-1 offset-10"} >
+                                {
+                                    nextButton &&
+                                    <InputButton
+                                        nextButton
+                                        urlForm={nextButton.url}
+                                    />}
+                            </Col>
+                        </Fragment>
+                        : <div />
+                    }
+                />
             </Row>
         )
     }

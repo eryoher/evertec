@@ -20,8 +20,9 @@ class LoadItemsTableReadOnly extends Component {
     }
 
     componentDidMount = () => {
+        const { idOperacion } = this.props;
         this.props.getProductsCart({ idOperacion: '21', page_number: 1, page_size: 10 });
-        this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion: '21' });
+        this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
         this.props.getGenerateItems({ "idoperacion": 1 })
     }
 
