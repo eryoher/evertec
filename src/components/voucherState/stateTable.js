@@ -219,7 +219,6 @@ class StateTable extends Component {
     handleChangeSelect = (data, row) => {
         const selected = data.target.value;
         const { idOperacion } = this.props;
-        row.estado_afec_selected = selected;
         const selectedArray = (this.state.selectedCheck) ? this.state.selectedCheck : [];
         const items = [{ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: selected }];
         selectedArray.push(row.nimovcli);
@@ -345,7 +344,7 @@ class StateTable extends Component {
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
                 if (isSelect) { //Se adiciona    
-                    rows.push({ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: (row.estado_afec_selected) ? row.estado_afec_selected : row.estado_afec[0].cod_estado }); //Temporal... 
+                    rows.push({ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: (row.cod_estado_dest) ? row.cod_estado_dest : row.estado_afec[1].cod_estado }); //Temporal... 
                     selected.push(row.nimovcli)
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
@@ -378,7 +377,7 @@ class StateTable extends Component {
                     });
 
                     selected = rows.map(fila => {
-                        return ({ nimovcli: fila.nimovcli, nitem: fila.nitem, estado_afec: (fila.estado_afec_selected) ? fila.estado_afec_selected : fila.estado_afec[0].cod_estado });
+                        return ({ nimovcli: fila.nimovcli, nitem: fila.nitem, estado_afec: (fila.cod_estado_dest) ? fila.cod_estado_dest : fila.estado_afec[1].cod_estado });
                     });
 
                     this.setState({ selectedCheck: checks })
