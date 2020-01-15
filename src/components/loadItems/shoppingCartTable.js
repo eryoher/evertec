@@ -217,7 +217,7 @@ class ShoppingCartTable extends Component {
                     remote
                     columns={tableColumns}
                     keyField={'niprod'}
-                    data={cartProducts.Productos}
+                    data={cartProducts.productos}
                     rowClasses={theme.tableRow}
                     headerClasses={theme.tableHeader}
                     expandRow={expandRow}

@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { getProductsCart, getConfigVoucher } from '../../actions/';
 import ShoppingCartTable from './shoppingCartTable';
 import ProductsTotalResume from './productsTotalResume';
+import { P_CARGAITEMVTA } from 'constants/ConfigProcessNames';
 
 
 class ShoppingCart extends Component {
@@ -22,6 +23,7 @@ class ShoppingCart extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
+        this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion })
         this.props.getProductsCart({ idOperacion, page_number: 1, page_size: 10 });
     }
 
@@ -71,7 +73,7 @@ class ShoppingCart extends Component {
 
 
 const mapStateToProps = ({ product, voucher }) => {
-    const { config } = voucher;
+    const config = (voucher.config) ? voucher.config[P_CARGAITEMVTA] : null;
     const { productsCart } = product;
     return { productsCart, config };
 };
