@@ -6,6 +6,7 @@ import InputDropdown from 'components/form/inputDropdown';
 import { salesAffectedCant } from '../../actions/';
 import InvolvementTable from './involvementTable';
 import InvolvementTotalResume from './involvementTotalResume';
+import FiltersTable from 'components/common/filtersTable';
 
 class VoucherInvolvementTable extends Component {
 
@@ -18,21 +19,6 @@ class VoucherInvolvementTable extends Component {
             ComprobAvencer: 0,
             OpcionMuestra: "0"
         }
-
-        this.optionsInput = [
-            {
-                id: 0,
-                label: 'Todos'
-            },
-            {
-                id: 1,
-                label: 'Solo comprob.afectados(cant_afec <> 0)'
-            },
-            {
-                id: 2,
-                label: 'Solo comprob.sin afectar(cant_afec = 0)'
-            }
-        ]
     }
 
     componentDidMount = () => {
@@ -85,35 +71,19 @@ class VoucherInvolvementTable extends Component {
         const customCol = (readOnly) ? 4 : { span: 5, offset: 7 };
         return (
             <Row style={{ marginLeft: '0px' }}>
-                {!readOnly && <>
-                    <Col className={"pl-4"} sm={3}>
-                        <input type="checkbox" className={"form-check-input"} onChange={this.handleGetCant} value="1" />
-
-                        <label className={"form-check-label pt-1"}>
-                            {t('voucherInvolvement.form.checkbox')}
-                        </label>
-                    </Col>
-                    <Col sm={3} style={{ textAlign: 'center' }} >
-                        <InputDropdown
-                            inputFormCol={{ sm: 12 }}
-                            fields={inputConfig}
-                            label={t('voucherInvolvement.form.sample')}
-                            inputId={'checkComprobAvencer'}
-                            name={'checkComprobAvencer'}
-                            placeholder={t('client.form.select_sample')}
-                            styles={{ width: '100%' }}
-                            colLabel={"col-sm-4"}
-                            colInput={"col-sm-8"}
-                            options={this.optionsInput}
-                            onChange={(data) => {
-                                this.handleChangeSelect(data.target.value);
-                            }}
+                {!readOnly &&
+                    <>
+                        <FiltersTable
+                            handleGetCant={this.handleGetCant}
+                            t={t}
+                            inputConfig={inputConfig}
+                            handleChangeSelect={(value) => this.handleChangeSelect(value)}
                         />
-                    </Col>
-                    <Col sm={3}>
-                        {productsInvol && <InvolvementTotalResume classDiv={'pl-5'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
-                    </Col>
-                </>}
+                        <Col sm={3}>
+                            {productsInvol && <InvolvementTotalResume classDiv={'pl-5'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
+                        </Col>
+                    </>
+                }
                 {
                     readOnly &&
                     <Col sm={12} >

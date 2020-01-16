@@ -6,6 +6,7 @@ import InputDropdown from 'components/form/inputDropdown';
 import { salesAffectedImport } from '../../actions/';
 import VoucherImportTable from './voucherImportTable';
 import VoucherAffectingTotal from './VoucherAffectingTotal';
+import FiltersTable from 'components/common/filtersTable';
 
 
 class VoucherAffectingTable extends Component {
@@ -19,21 +20,6 @@ class VoucherAffectingTable extends Component {
             ComprobAvencer: 0,
             OpcionMuestra: "0"
         }
-
-        this.optionsInput = [
-            {
-                id: 0,
-                label: 'Todos'
-            },
-            {
-                id: 1,
-                label: 'Solo comprob. afectados'
-            },
-            {
-                id: 2,
-                label: 'Solo comprob. sin afectar'
-            }
-        ]
     }
 
     componentDidMount = () => {
@@ -54,15 +40,14 @@ class VoucherAffectingTable extends Component {
         const comprobante = (e.target.checked) ? 1 : 0;
         const { OpcionMuestra } = this.state;
         this.setState({ ComprobAvencer: comprobante });
-        this.props.salesAffectedImport({ ComprobAvencer: comprobante, OpcionMuestra, idOperacion });
+        this.props.salesAffectedImport({ ComprobAvencer: comprobante, OpcionMuestra, idOperacion, page_size: 10, page_number: 1 });
     }
 
     handleChangeSelect = (value) => {
         const { ComprobAvencer } = this.state;
         const { idOperacion } = this.props;
-
         this.setState({ OpcionMuestra: value });
-        this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra: value, idOperacion });
+        this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra: value, idOperacion, page_size: 10, page_number: 1 });
     }
 
     componentDidUpdate = (prevProps) => {
@@ -87,35 +72,19 @@ class VoucherAffectingTable extends Component {
         const customCol = (readOnly) ? 4 : { span: 5, offset: 7 };
         return (
             <Row style={{ marginLeft: '0px' }}>
-                {!readOnly && <>
-                    <Col className={"pl-4"} sm={3}>
-                        <input type="checkbox" className={"form-check-input"} onChange={this.handleGetCant} value="1" />
-
-                        <label className={"form-check-label pt-1"}>
-                            {t('voucherInvolvement.form.checkbox')}
-                        </label>
-                    </Col>
-                    <Col sm={3} style={{ textAlign: 'center' }} >
-                        <InputDropdown
-                            inputFormCol={{ sm: 12 }}
-                            fields={inputConfig}
-                            label={t('voucherInvolvement.form.sample')}
-                            inputId={'checkComprobAvencer'}
-                            name={'checkComprobAvencer'}
-                            placeholder={t('client.form.select_sample')}
-                            styles={{ width: '100%' }}
-                            colLabel={"col-sm-4"}
-                            colInput={"col-sm-8"}
-                            options={this.optionsInput}
-                            onChange={(data) => {
-                                this.handleChangeSelect(data.target.value);
-                            }}
+                {!readOnly &&
+                    <>
+                        <FiltersTable
+                            handleGetCant={this.handleGetCant}
+                            t={t}
+                            inputConfig={inputConfig}
+                            handleChangeSelect={(value) => this.handleChangeSelect(value)}
                         />
-                    </Col>
-                    <Col sm={3}>
-                        {productsImport && <VoucherAffectingTotal classDiv={'pl-5'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
-                    </Col>
-                </>}
+                        <Col sm={3}>
+                            {productsImport && <VoucherAffectingTotal classDiv={'pl-5'} formatCol={{ span: 10, offset: 3 }} data={this.state} />}
+                        </Col>
+                    </>
+                }
                 {
                     readOnly &&
                     <Col sm={12} >

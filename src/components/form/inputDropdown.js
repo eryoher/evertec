@@ -17,11 +17,12 @@ class InputDropdown extends Component {
     }
 
     renderOptions = () => {
-        const { options } = this.props;
+        const { options, tooltip } = this.props;
         const result = [];
         options.forEach(option => {
+            const titleOption = (tooltip) ? option.label : null;
             result.push(
-                <option value={option.id} key={option.id}>{option.label}</option>
+                <option data-toggle="tooltip" title={titleOption} value={option.id} key={option.id}>{option.label}</option>
             )
         });
 
@@ -72,6 +73,7 @@ class InputDropdown extends Component {
         const customStyleLabel = (config.requerido) ? { ...styleLabel, paddingTop: '4px', color: 'red' } : { ...styleLabel, paddingTop: '4px' };
         const classText = (disable) ? theme.inputDisabled : '';
         let customValue = this.getCustomValue(options)
+
 
         if (config.visible) {
             return (

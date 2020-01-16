@@ -48,7 +48,7 @@
     "voucherInvolvement": {
         "form": {
             "checkbox": "Incluir comprobantes previos a vencer",
-            "sample": "Muestra",
+            "sample": "Mostrar:",
             "select_sample": "Seleccione una muestra"
         },
         "table": {
