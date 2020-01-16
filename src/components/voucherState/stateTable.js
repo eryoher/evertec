@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import CommonTable from 'components/common/commonTable';
-import { Col, Button } from 'react-bootstrap';
+import { Col, Button, Row } from 'react-bootstrap';
 import styles from './voucherStateTable.module.css';
 import { themr } from 'react-css-themr';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { withTranslation } from 'react-i18next';
 import { getConfigVoucher, setTableDataInvolvement, salesAffectedStateValidate, salesAffectedSubCalculation, salesAffectedStateConfirm } from '../../actions';
 import InputText from 'components/form/inputText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faCheck } from '@fortawesome/free-solid-svg-icons';
 import NotificationMessage from 'components/common/notificationMessage';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { validateField } from 'lib/FieldValidations';
@@ -27,7 +27,8 @@ class StateTable extends Component {
             showError: false,
             errorMessage: '',
             selectedCheck: [],
-            checksByPage: []
+            checksByPage: [],
+            globalStateAfect: null
         }
 
         this.rowErrors = []
@@ -328,10 +329,63 @@ class StateTable extends Component {
         return items;
     }
 
+    handleSetStatus = () => {
+        const { products, idOperacion } = this.props;
+        const items = products.Items.map(row => {
+            return ({ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: this.state.globalStateAfect });
+        });
+
+        this.props.salesAffectedStateValidate({ idOperacion, items });
+    }
+
+    renderGlobalSelect = () => {
+        const { t, products } = this.props
+
+        const options = (products.estado_destino.length) ? products.estado_destino.map(opt => {
+            return { id: opt.cod_estado, label: opt.descrip_estado }
+        }) : []
+        const inputConfig = [{ idCampo: 'cambiar_masivamente', label: false, visible: 1, requerido: 0, editable: 1 }];
+
+        const optionsInput = {
+            inputFormCol: { sm: 12 },
+            fields: inputConfig,
+            label: false,
+            inputId: 'cambiar_masivamente',
+            name: 'cambiar_masivamente',
+            colLabel: "col-sm-4",
+            colInput: "col-sm-8",
+            divStyle: { paddingLeft: '17px' },
+            disable: false,
+            rowStyle: { marginBottom: '5px' },
+            options: options,
+            onChange: (obj) => {
+                this.setState({ globalStateAfect: obj.target.value })
+            }
+        }
+
+        return (
+            <Row className={'mt-2'}>
+                <Col sm={{ span: 2, offset: 6 }} className={'text-right pt-1'}>
+                    {t('voucherState.change_global')}
+                </Col>
+                <Col sm={3}>
+                    <InputDropdown
+                        {...optionsInput}
+                    />
+                </Col>
+                <Col>
+                    <Button type={'primary'} className={'btn btn-primary'} style={{ fontSize: '9pt' }} onClick={this.handleSetStatus} >
+                        <FontAwesomeIcon icon={faCheck} />
+                    </Button>
+                </Col>
+            </Row>
+        );
+    }
+
     render() {
         const { products, theme, config, productsUpdate, readOnly, idOperacion } = this.props;
         const tableColumns = (config && products) ? this.getColumns() : [];
-        const selectRow = {
+        /*const selectRow = {
             mode: 'checkbox',
             selectColumnPosition: 'right',
             selected: this.state.selectedCheck,
@@ -399,7 +453,7 @@ class StateTable extends Component {
                 }
 
             }
-        };
+        }; */
 
         const defaultSorted = [{
             dataField: 'fec_entrega',
@@ -449,13 +503,15 @@ class StateTable extends Component {
                         type={'danger'}
                     />
                 </Col>
+                <Col sm={12}>
+                    {this.renderGlobalSelect()}
+                </Col>
                 <Col className={`col-12 pl-0 pr-0`}>
                     {config &&
                         <CommonTable
                             columns={tableColumns}
                             keyField={'nimovcli'}
                             data={rowData}
-                            selectRow={selectRow}
                             defaultSorted={defaultSorted}
                             rowClasses={theme.tableRow}
                             headerClasses={theme.tableHeader}

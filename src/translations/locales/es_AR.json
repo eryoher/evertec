@@ -58,7 +58,8 @@
 
     },
     "voucherState": {
-        "title": "Afectación Estados"
+        "title": "Afectación Estados",
+        "change_global": "Cambiar Masivamente"
     },
     "voucherAffecting": {
         "title": "Afectación Importes",
