@@ -89,7 +89,7 @@ class VoucherStateTable extends Component {
                         <VoucherAffectingTotal formatCol={{ span: 4 }} data={this.state} />
                     </Col>
                 }
-                <Col sm={12} className={"pb-2 pl-0 pr-0"}>
+                <Col sm={12} className={"pb-2 pl-0"}>
                     {productsState &&
                         <StateTable
                             products={productsState}
