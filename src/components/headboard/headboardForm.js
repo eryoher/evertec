@@ -56,8 +56,8 @@ class HeadboardForm extends Component {
             Suc_empresa_vta: '',
             fecha_comp_vta: '',
             mon_comp_vta: '',
-            cotiz_comp_vta: [],
-            cond_comp_vta: [],
+            cotiz_comp_vta: '',
+            cond_comp_vta: '',
         };
 
         const initial = (headSale) ? { ...headSale, Titulo_comp_vta: '', fecha_comp_vta: '', } : defaultInitial;
@@ -69,7 +69,7 @@ class HeadboardForm extends Component {
                 <Col sm={12}>
                     <Formik
                         ref={this.props.formRef}
-                        initialValues={{ ...initial }}
+                        initialValues={{ ...defaultInitial }}
                         onSubmit={(values, actions) => {
                             const urlSubmit = this.getUrlSubmit()
                             if (urlSubmit) {

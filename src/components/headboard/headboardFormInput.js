@@ -11,7 +11,6 @@ import { voucherHeadValidatekey, voucherHeadCheckDate, voucherHeadConfirm } from
 import { connect } from 'react-redux';
 import moment from 'moment';
 import NotificationMessage from 'components/common/notificationMessage';
-import { isArray } from 'util';
 
 
 class HeadBoardFormInput extends Component {
@@ -133,9 +132,9 @@ class HeadBoardFormInput extends Component {
     }
 
     renderCarrier = () => {
-        const { readOnly, t, fields, values, setFieldValue, handleBlur } = this.props;
+        const { readOnly, t, fields, headSale, setFieldValue, handleBlur } = this.props;
         let result = [];
-        const optionsTrans = (values.transporte) ? values.transporte.map((opt) => {
+        const optionsTrans = (headSale.transporte) ? headSale.transporte.map((opt) => {
             return ({ id: opt.cod_transp, label: opt.nom_transp })
         }) : []
 
@@ -160,8 +159,8 @@ class HeadBoardFormInput extends Component {
                 />
             </Row>
         )
-        if (values.atrib_comp_vta) {
-            values.atrib_comp_vta.forEach(element => {
+        if (headSale.atrib_comp_vta) {
+            headSale.atrib_comp_vta.forEach(element => {
                 result.push(
                     <GenericInputForm config={element} key={element.cod_atrib} handleChange={this.handleChangeGeneric} />
                 );
@@ -172,28 +171,27 @@ class HeadBoardFormInput extends Component {
     }
 
     render() {
-        const { t, errors, touched, values, handleChange, handleBlur, setFieldValue, setFieldTouched, readOnly, collapse, fields } = this.props;
+        const { t, errors, touched, values, handleChange, handleBlur, setFieldValue, headSale, readOnly, collapse, fields } = this.props;
 
-        if (!values) {
+        if (!headSale) {
             return null;
         }
 
-        const optionsCompany = (values.suc_empresa) ? values.suc_empresa.map((opt) => {
+        const optionsCompany = (headSale.suc_empresa) ? headSale.suc_empresa.map((opt) => {
             return ({ id: opt.Cod_Suc, label: opt.Nom_suc });
         }) : []
 
-        const optionsCurrency = (values.moneda) ? values.moneda.map((opt) => {
+        const optionsCurrency = (headSale.moneda) ? headSale.moneda.map((opt) => {
             return ({ id: opt.cod_moneda, label: opt.desc_moneda })
         }) : []
 
-        const optionsSaler = (values.vendedor) ? values.vendedor.map((opt) => {
+        const optionsSaler = (headSale.vendedor) ? headSale.vendedor.map((opt) => {
             return ({ id: opt.cod_vend, label: opt.nom_vend })
         }) : []
 
-        const optionsConditions = (values.cond_comp_vta && isArray(values.cond_comp_vta)) ? values.cond_comp_vta.map((opt) => {
+        const optionsConditions = (headSale.cond_comp_vta) ? headSale.cond_comp_vta.map((opt) => {
             return ({ id: opt.cod_cond_vta, label: opt.desc_cond_vta })
         }) : []
-
 
         if (fields) {
             return (
@@ -372,8 +370,8 @@ class HeadBoardFormInput extends Component {
 
 
 const mapStateToProps = ({ voucher }) => {
-    const { checkKey, checkDate } = voucher;
-    return { checkKey, checkDate };
+    const { checkKey, checkDate, headSale } = voucher;
+    return { checkKey, checkDate, headSale };
 };
 
 
