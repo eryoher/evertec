@@ -51,16 +51,24 @@ class HeadboardForm extends Component {
 
     render() {
         const { config, headSale, crumbs, current, urlParameter, t } = this.props;
-        const defaultInitial = {
+        const defaultInitial = (!headSale) ? {
             Titulo_comp_vta: '',
             Suc_empresa_vta: '',
             fecha_comp_vta: '',
             mon_comp_vta: '',
             cotiz_comp_vta: '',
             cond_comp_vta: '',
-        };
+        } : {
+                Suc_empresa_vta: headSale.suc_empresa[0].Cod_Suc,
+                mon_comp_vta: headSale.moneda[0].cod_moneda,
+                cond_comp_vta: headSale.cond_comp_vta[0].cod_cond_vta,
+                vend_comp_vta: headSale.vendedor[0].cod_vend,
+                fecha_comp_vta: '',
+                Titulo_comp_vta: '',
+                cotiz_comp_vta: '',
+            };
 
-        const initial = (headSale) ? { ...headSale, Titulo_comp_vta: '', fecha_comp_vta: '', } : defaultInitial;
+
         const [backButton, nextButton] = (crumbs) ? getBackNextButtons(crumbs, current, urlParameter) : [];
         const validationSchema = (config) ? getValidationSchema(config.campos, t) : {};
 

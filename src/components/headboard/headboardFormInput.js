@@ -81,9 +81,9 @@ class HeadBoardFormInput extends Component {
     }
 
     handleChangeCurreny = (select) => {
-        const { values, setFieldValue } = this.props;
+        const { headSale, setFieldValue } = this.props;
         const code = select.target.value;
-        values.moneda.forEach(currency => {
+        headSale.moneda.forEach(currency => {
             if (currency.cod_moneda === code) {
                 setFieldValue('cotiz_comp_vta', currency.cotiz)
                 setFieldValue('mon_comp_vta', code)
@@ -214,6 +214,7 @@ class HeadBoardFormInput extends Component {
                         colInput={"col-sm-10"}
                         options={optionsCompany}
                         disable={readOnly}
+                        value={(optionsCompany)}
                         onBlur={handleBlur}
                         onChange={(data) => {
                             setFieldValue('Suc_empresa_vta', data.target.value);
@@ -309,6 +310,7 @@ class HeadBoardFormInput extends Component {
                             divStyle={{ paddingLeft: '17px' }}
                             disable={readOnly}
                             options={optionsSaler}
+                            value={values.vend_comp_vta}
                             onBlur={handleBlur}
                             onChange={(data) => {
                                 setFieldValue('vend_comp_vta', data.target.value);
@@ -328,6 +330,7 @@ class HeadBoardFormInput extends Component {
                             styleLabel={{ textAlign: 'right' }}
                             disable={readOnly}
                             options={optionsConditions}
+                            value={values.cond_comp_vta}
                             onChange={(data) => {
                                 setFieldValue('cond_comp_vta', data.target.value);
                                 handleChange();

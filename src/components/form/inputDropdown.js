@@ -9,7 +9,7 @@ class InputDropdown extends Component {
         const { options, onChange } = this.props;
 
         if (prevProps.options.length !== options.length && options.length) {
-            // console.log(options[0], 'opcioness  xxxxxxxx')
+            //console.log(options[0], 'opcioness  xxxxxxxx')
             if (options[0] && onChange) {
                 onChange({ target: { value: options[0].id } });
             }
