@@ -327,7 +327,7 @@ export default (mockAdapter) => {
         }
     );
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_cargaitemvta', idOperacion: "21" } }).reply(200,
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_cargaitemvta', idOperacion: 21 } }).reply(200,
         {
             "cod_proceso": "p_cargaitemvta",
             "desc_proceso": "Carga de Items",
@@ -438,7 +438,7 @@ export default (mockAdapter) => {
     );
 
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_cant_vta', idOperacion: '21' } }).reply(200,
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_cant_vta', idOperacion: "21" } }).reply(200,
         {
             "cod_proceso": "p_afec_cant_vta",
             "desc_proceso": "Afectación Cantidades",
@@ -579,7 +579,7 @@ export default (mockAdapter) => {
     );
 
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_impo_vta', idOperacion: '21' } }).reply(200, {
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_impo_vta', idOperacion: 21 } }).reply(200, {
         "cod_proceso": "p_afec_impo_vta",
         "descrip_proceso": "Afectacion Importe",
         "orden": "8",
@@ -599,7 +599,7 @@ export default (mockAdapter) => {
 
     });
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_estados_vta', idOperacion: '21' } }).reply(200, {
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_afec_estados_vta', idOperacion: 21 } }).reply(200, {
         "cod_proceso": "p_afec_estados_vta",
         "descrip_proceso": "Afectacion Importe",
         "orden": "8",

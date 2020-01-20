@@ -189,8 +189,8 @@ class InvolvementTable extends Component {
         } else {
             selected.push(row.niprod);
             this.setState({ selectedCheck: selected });
-            const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: row.Cant_afec }];
-            this.props.salesAffectedValidate({ idOperacion, items }); //Falta adicionar idOperacion
+            const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: value }];
+            this.props.salesAffectedValidate({ idOperacion, items });
             this.props.salesAffectedSubCalculation({ idOperacion, Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: value, Neto: row.neto })
         }
     }
@@ -279,7 +279,7 @@ class InvolvementTable extends Component {
                     handleFocus={(rowId) => {
                         // Focus next input                           
                         if (row.niprod === rowId) {
-                            this.handleSetFocus('neto', row.niprod);
+                            //this.handleSetFocus('neto', row.niprod);
                         }
                         return true;
 
@@ -295,7 +295,7 @@ class InvolvementTable extends Component {
                     handleEnterKey={(e, value) => {
                         if (campoId === 'Cant_afec') {
                             this.validateFieldQuantity(row, field, value);
-                            this.handleSetFocus('precio_unit', row.niprod);
+                            //this.handleSetFocus('precio_unit', row.niprod);
 
                         } else if (campoId === 'neto') {
                             this.validateFieldNeto(row, field, value);

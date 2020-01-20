@@ -7,7 +7,8 @@ import { getVoucherType } from '../../actions';
 import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
-
+import GlobalContainer from 'components/common/globalContainer';
+import { P_AFEC_CANT_VTA } from "../../constants/ConfigProcessNames";
 
 class VoucherInvolvement extends Component {
 
@@ -28,29 +29,18 @@ class VoucherInvolvement extends Component {
     }
 
     render() {
-        const { t, theme, voucherType } = this.props
+        const { voucherType } = this.props
         return (
             <Row>
-                {
-                    this.state.idOperacion &&
-                    <HeadCartResume
-                        idOperacion={this.state.idOperacion}
-                    />
-                }
-                <Col sm={12}>
-                    <VoucherBreadCrumbs
-                        crumbs={(voucherType) ? voucherType.procesos : []}
-                        current={'p_afec_cant_vta'}
-                        urlParameter={this.state.idOperacion}
-                    />
-                </Col>
-                {
-                    this.state.idOperacion &&
-                    <VoucherInvolvementTable
-                        idOperacion={this.state.idOperacion}
-                    />
-                }
-
+                <GlobalContainer
+                    codeProccess={P_AFEC_CANT_VTA}
+                    voucherType={voucherType}
+                    childForm={(voucherType) ?
+                        <VoucherInvolvementTable
+                            idOperacion={this.state.idOperacion}
+                        /> : <div />
+                    }
+                />
             </Row>
         )
     }

@@ -4,8 +4,9 @@ import { withTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
 import GenerateForm from 'components/generate/generateForm';
 import { getVoucherType } from '../../actions';
-import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import { connect } from 'react-redux';
+import GlobalContainer from 'components/common/globalContainer';
+import { P_FINCOMPROB } from 'constants/ConfigProcessNames';
 
 class Generate extends Component {
 
@@ -35,23 +36,17 @@ class Generate extends Component {
 
         return (
             <Row>
-                <Col sm={12} className={"title mt-3 "} style={{ fontSize: '14pt' }} >
-                    {t("voucher.title")}
-                </Col>
-                <VoucherBreadCrumbs
-                    crumbs={(voucherType) ? voucherType.procesos : []}
-                    current={'p_fincomprob'}
-                    completed={this.state.completed}
-                    urlParameter={this.state.idOperacion}
-                />
-
-                {
-                    this.state.idOperacion &&
-                    <GenerateForm
-                        handleChangeSuccess={this.successStep}
-                        idOperacion={this.state.idOperacion}
+                {voucherType &&
+                    <GlobalContainer
+                        codeProccess={P_FINCOMPROB}
+                        voucherType={voucherType}
+                        childForm={
+                            <GenerateForm
+                                handleChangeSuccess={this.successStep}
+                                idOperacion={voucherType.idOperacion}
+                            />
+                        }
                     />
-
                 }
             </Row>
         )

@@ -251,7 +251,7 @@ export default (mockAdapter) => {
 
             },
             {
-                "nimovcli": 1,
+                "nimovcli": 2,
                 "nitem": 2,
                 "fec_emis": "2019-11-27T00:00:00",
                 "fec_vto": "2019-11-27T00:00:00",

@@ -65,6 +65,15 @@ export default function configureAxios(store) {
             description: "The required resource was not found"
           })
         );
+      } else if (error.response && error.response.status === 409) {
+
+        store.dispatch(
+          showMessage({
+            type: "error",
+            message: "Error 409",
+            description: error.response.data
+          })
+        );
       } else if (error.response && error.response.status === 403) {
         store.dispatch(
           showMessage({

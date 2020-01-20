@@ -175,8 +175,9 @@ class GenerateForm extends Component {
     }
 
     handleGeneratebtn = () => {
+        const { idOperacion } = this.props
         this.props.handleChangeSuccess(); //To fisinish the steps
-        this.props.finishGenerate({ idOperacion: '123123312' });
+        this.props.finishGenerate({ idOperacion });
     }
 
     render() {
@@ -336,6 +337,7 @@ class GenerateForm extends Component {
                         <LoadItemsTableReadOnly
                             divClass={"mt-1"}
                             searchBox
+                            idOperacion={this.props.idOperacion}
                         />
                     </Collapse>
 

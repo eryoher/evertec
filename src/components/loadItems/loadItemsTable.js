@@ -227,7 +227,6 @@ class LoadItemsTable extends Component {
 
     handleOnblourInput = (value, campoId, row) => {
         if (campoId === 'cantidad') {
-            console.log('aca...', value)
             this.props.getPriceByProduct({
                 "idOperacion": this.props.idOperacion,
                 "Idproducto": row.niprod,
@@ -245,7 +244,6 @@ class LoadItemsTable extends Component {
             const newValue = (value) ? parseFloat(value.split(',').join('.')) : 0;
             const cantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
             const newPrice = (cantidad) ? (parseFloat(row.base_v) * newValue) / cantidad : 0;
-            console.log(cantidad, newPrice, row.base_v)
 
             const params = { niprod: row.niprod, idCampo: 'pcio_unit', value: newPrice.toString() }
             const paramsNeto = { niprod: row.niprod, idCampo: 'neto', value: newValue.toString() }

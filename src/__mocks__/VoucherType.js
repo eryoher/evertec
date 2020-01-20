@@ -25,7 +25,7 @@ export default (mockAdapter) => {
                     "orden": 3
                 },
                 {
-                    "cod_proceso": "p_afec_stado_vta",
+                    "cod_proceso": "p_afec_estados_vta",
                     "desc_proceso": "Afectacion Estado",
                     "orden": 4
                 },
