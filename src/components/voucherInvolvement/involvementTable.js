@@ -374,16 +374,15 @@ class InvolvementTable extends Component {
                 return { backgroundColor };
             },
             onSelect: (row, isSelect, rowIndex, e) => {
-
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
                 if (isSelect) { //Se adiciona                                        
-                    rows.push({ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: row.Cant_afec });
+                    rows.push({ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: (row.Cant_afec) ? row.Cant_afec : row.Cant_pend });
                     selected.push(row.niprod)
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
-                        if (toDelete.niprod === row.niprod) {
-                            rows.splice(index, 1);
+                        if (toDelete.Nitem === row.nitem) {
+                            toDelete.Cant_afec = 0;
                         }
                     });
 
@@ -393,9 +392,10 @@ class InvolvementTable extends Component {
                         }
                     });
 
+
                 }
                 this.setState({ rowSelected: rows, selectedCheck: selected });
-                this.props.salesAffectedValidate({ idOperacion, item: rows });
+                this.props.salesAffectedValidate({ idOperacion, items: rows });
 
             },
             onSelectAll: (isSelect, rows, e) => {
@@ -409,7 +409,7 @@ class InvolvementTable extends Component {
                     });
 
                     selected = rows.map(fila => {
-                        return ({ Nimovcli: fila.nimovcli, Nitem: fila.nitem, Cant_afec: fila.Cant_afec });
+                        return ({ Nimovcli: fila.nimovcli, Nitem: fila.nitem, Cant_afec: (fila.Cant_afec) ? fila.Cant_afec : fila.Cant_pend });
                     });
 
                     this.setState({ selectedCheck: checks })
@@ -423,13 +423,16 @@ class InvolvementTable extends Component {
                         });
 
                     }
+                    selected = rows.map(fila => {
+                        return ({ Nimovcli: fila.nimovcli, Nitem: fila.nitem, Cant_afec: 0 });
+                    });
 
                     this.setState({ selectedCheck: checks });
                 }
 
                 this.setState({ rowSelected: selected });
                 if (selected.length) {
-                    this.props.salesAffectedValidate({ idOperacion, item: selected });
+                    this.props.salesAffectedValidate({ idOperacion, items: selected });
                 }
 
             }
