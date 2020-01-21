@@ -38,7 +38,9 @@ class LoadItemsTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
-        this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
+        if (idOperacion) {
+            this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
+        }
     }
 
     handleCloseError = () => {
