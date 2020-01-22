@@ -2,9 +2,27 @@ import React, { Component } from 'react'
 import { Row, Col, Button, Toast } from 'react-bootstrap';
 
 export default class GlobalNotfications extends Component {
+
+    renderMessage = (message) => {
+        let result = (message.Resultado.Mens_error) ? message.Resultado.Mens_error : '';
+        const errors = []
+        if (message.Errores) {
+            message.Errores.forEach(error => {
+                errors.push(
+                    <li key={error.idCampo}>
+                        {error.mensaje}
+                    </li>
+                )
+            });
+        }
+
+        return (errors.length) ? errors : result;
+    }
+
+
     render() {
         const { message, showMessage, voucherType } = this.props
-        const resultMessage = (typeof (message) === 'object') ? message.Resultado.Mens_error : message;
+        const resultMessage = (typeof (message) === 'object') ? this.renderMessage(message) : message;
 
         const styles = (voucherType) ? {
             position: 'absolute',
@@ -22,7 +40,7 @@ export default class GlobalNotfications extends Component {
                 <Toast
                     onClose={() => this.props.setShow(false)}
                     show={showMessage}
-                    delay={4000}
+                    delay={5000}
                     style={styles}
                     className={'alert alert-danger'}
                     autohide

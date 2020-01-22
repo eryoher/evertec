@@ -65,8 +65,9 @@ class HeadBoardFormInput extends Component {
                 vend_comp_vta: values.vend_comp_vta,
                 atrib_comp_vta: values.atrib_comp_vta_field
             }
-
-            this.props.voucherHeadConfirm({ ...requestData, idOperacion })
+            if (idOperacion) {
+                this.props.voucherHeadConfirm({ ...requestData, idOperacion })
+            }
         }
     }
 
@@ -181,19 +182,19 @@ class HeadBoardFormInput extends Component {
 
         const optionsCompany = (headSale.suc_empresa) ? headSale.suc_empresa.map((opt) => {
             return ({ id: opt.Cod_Suc, label: opt.Nom_suc });
-        }) : []
+        }) : [];
 
         const optionsCurrency = (headSale.moneda) ? headSale.moneda.map((opt) => {
             return ({ id: opt.cod_moneda, label: opt.desc_moneda })
-        }) : []
+        }) : [];
 
         const optionsSaler = (headSale.vendedor) ? headSale.vendedor.map((opt) => {
             return ({ id: opt.cod_vend, label: opt.nom_vend })
-        }) : []
+        }) : [];
 
         const optionsConditions = (headSale.cond_comp_vta) ? headSale.cond_comp_vta.map((opt) => {
             return ({ id: opt.cod_cond_vta, label: opt.desc_cond_vta })
-        }) : []
+        }) : [];
 
         if (fields) {
             return (
@@ -216,7 +217,7 @@ class HeadBoardFormInput extends Component {
                         colInput={"col-sm-10"}
                         options={optionsCompany}
                         disable={readOnly}
-                        value={(optionsCompany)}
+                        value={values.Suc_empresa_vta}
                         onBlur={handleBlur}
                         onChange={(data) => {
                             setFieldValue('Suc_empresa_vta', data.target.value);

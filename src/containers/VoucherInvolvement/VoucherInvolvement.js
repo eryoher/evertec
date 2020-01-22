@@ -4,8 +4,6 @@ import { withTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
-import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
-import HeadCartResume from 'components/loadItems/HeadCartResume';
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
 import GlobalContainer from 'components/common/globalContainer';
 import { P_AFEC_CANT_VTA } from "../../constants/ConfigProcessNames";
@@ -37,7 +35,7 @@ class VoucherInvolvement extends Component {
                     voucherType={voucherType}
                     childForm={(voucherType) ?
                         <VoucherInvolvementTable
-                            idOperacion={this.state.idOperacion}
+                            idOperacion={voucherType.idOperacion}
                         /> : <div />
                     }
                 />

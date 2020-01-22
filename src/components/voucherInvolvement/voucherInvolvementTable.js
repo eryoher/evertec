@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import InputDropdown from 'components/form/inputDropdown';
 import { salesAffectedCant } from '../../actions/';
 import InvolvementTable from './involvementTable';
 import InvolvementTotalResume from './involvementTotalResume';
