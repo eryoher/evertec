@@ -29,7 +29,7 @@ function* getVoucherTypeByUserRequest({ payload }) {
     const voucherTypes = yield call(getVoucherTypeByUser, payload);
     yield put(getVoucherTypeByUserSuccess(voucherTypes));
   } catch (error) {
-    console.log('algun error', error)
+    //console.log('algun error', error)
   }
 }
 
