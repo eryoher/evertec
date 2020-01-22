@@ -31,12 +31,13 @@ class GenericInputForm extends Component {
     handleSelect = (selected) => {
         const { config } = this.props;
         const value = selected[0];
-
-        this.props.handleChange({
-            cod_atributo: config.cod_atrib,
-            desc_dato: value.id.trim(),
-            //desc_dato: value.label
-        })
+        if (value) {
+            this.props.handleChange({
+                cod_atributo: config.cod_atrib,
+                desc_dato: value.id.trim(),
+                //desc_dato: value.label
+            })
+        }
     }
 
 
