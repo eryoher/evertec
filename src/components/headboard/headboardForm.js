@@ -27,8 +27,10 @@ class HeadboardForm extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
-        this.props.getConfigVoucher({ cod_proceso: P_VTACAB, idOperacion });
-        this.props.getVoucherHead({ idOperacion });
+        if (idOperacion) {
+            this.props.getConfigVoucher({ cod_proceso: P_VTACAB, idOperacion });
+            this.props.getVoucherHead({ idOperacion });
+        }
     }
 
     setUrlForm = (url) => {
@@ -94,7 +96,7 @@ class HeadboardForm extends Component {
                                         touched={touched}
                                     />
                                 </Col>
-                                <Form onSubmit={handleSubmit} className="voucher-info-form">
+                                <Form onSubmit={handleSubmit} className={"voucher-info-form"}>
                                     <Col>
                                         <HeadboardFormInput
                                             fields={(config) ? config.campos : null}
