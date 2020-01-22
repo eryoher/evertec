@@ -364,7 +364,6 @@ class LoadItemsTable extends Component {
 
     renderExpandRow = (row) => {
         const cols = [];
-
         let result;
         if (row && row.atributos && row.atributos.length) {
             row.atributos.forEach((atrb, index) => {

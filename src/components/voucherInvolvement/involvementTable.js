@@ -362,14 +362,27 @@ class InvolvementTable extends Component {
         return items;
     }
 
+    getRowsCantAfect = () => {
+        const { products } = this.props;
+        const result = [];
+        products.Items.forEach(row => {
+            if (row.Cant_afec) {
+                result.push(row.niprod);
+            }
+        });
+
+        return result;
+    }
+
 
     render() {
         const { products, theme, config, productsUpdate, readOnly, idOperacion } = this.props;
         const tableColumns = (config && products) ? this.getColumns() : [];
+        const selected = this.getRowsCantAfect();
         const selectRow = {
             mode: 'checkbox',
             selectColumnPosition: 'right',
-            selected: this.state.selectedCheck,
+            selected: selected.concat(this.state.selectedCheck),
             hideSelectColumn: (readOnly) ? true : false,
             style: (row) => {
                 const backgroundColor = row.error ? '#f8d7da' : '#FFF';
