@@ -1,5 +1,5 @@
-import { HEADERBOARD, GENERATE, LOADITEMS, VOUCHER, VOUCHERINVOLVEMENT, VOUCHERAFFECTING, VOUCHERSTATE } from '../utils/RoutePath';
-import { P_VTACAB, P_SELCLI, P_CARGAITEMVTA, P_AFEC_CANT_VTA, P_FINCOMPROB, P_AFEC_IMPO_VTA, P_AFEC_STADO_VTA } from 'constants/ConfigProcessNames';
+import { HEADERBOARD, GENERATE, LOADITEMS, VOUCHER, VOUCHERINVOLVEMENT, VOUCHERAFFECTING, VOUCHERSTATE, ACCOUNTINGSEAT } from '../utils/RoutePath';
+import { P_VTACAB, P_SELCLI, P_CARGAITEMVTA, P_AFEC_CANT_VTA, P_FINCOMPROB, P_AFEC_IMPO_VTA, P_AFEC_STADO_VTA, P_ASIEN_CONT } from 'constants/ConfigProcessNames';
 
 export function getBackNextButtons(crumbs, current, urlParameter) {
     let ban = true;
@@ -52,6 +52,7 @@ const getUrl = (proccess, urlParameter) => {
     urls[P_FINCOMPROB] = GENERATE;
     urls[P_AFEC_IMPO_VTA] = VOUCHERAFFECTING;
     urls[P_AFEC_STADO_VTA] = VOUCHERSTATE;
+    urls[P_ASIEN_CONT] = ACCOUNTINGSEAT;
 
     return (urlParameter) ? `${urls[proccess]}/${urlParameter}` : urls[proccess];
 }

@@ -40,6 +40,11 @@ export default (mockAdapter) => {
                     "orden": 6
                 },
                 {
+                    "cod_proceso": "p_asiento_cont",
+                    "desc_proceso": "Asiento Contable",
+                    "orden": 7
+                },
+                {
                     "cod_proceso": "p_fincomprob",
                     "desc_proceso": "Generar",
                     "orden": 9

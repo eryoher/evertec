@@ -723,6 +723,98 @@ export default (mockAdapter) => {
                 "mascara": "",
                 "requerido": "1"
             },
+
+        ]
+
+    });
+
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_asiento_cont', idOperacion: 21 } }).reply(200, {
+        "cod_proceso": "p_asiento_cont",
+        "descrip_proceso": "Asiento Contable",
+        "orden": "8",
+        "campos": [
+            {
+                "idCampo": "niasto",
+                "descripcion": "Niasto",
+                "label": "Niasto",
+                "editable": 0,
+                "visible": 0,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+            {
+                "idCampo": "nitem",
+                "descripcion": "IT",
+                "label": "IT",
+                "editable": 0,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+            {
+                "idCampo": "cuenta",
+                "descripcion": "Cuenta",
+                "label": "Cuenta",
+                "editable": 0,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+
+            {
+                "idCampo": "detalle",
+                "descripcion": "Detalle",
+                "label": "Detalle",
+                "editable": 0,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+            {
+                "idCampo": "centrocosto",
+                "descripcion": "Centro de costo",
+                "label": "C. Costos",
+                "editable": 0,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+            {
+                "idCampo": "masc_cta",
+                "descripcion": "Descripcion Centro de costo",
+                "label": "Desc. C.C.",
+                "editable": 0,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+
+            {
+                "idCampo": "debe",
+                "descripcion": "Debe",
+                "label": "Debe",
+                "editable": 0,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+            {
+                "idCampo": "haber",
+                "descripcion": "haber",
+                "label": "Haber",
+                "editable": 0,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
         ]
 
     });

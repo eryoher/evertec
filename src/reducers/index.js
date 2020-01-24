@@ -8,6 +8,7 @@ import ProductReducer from './Product';
 import LoadItemsReducer from './LoadItems';
 import SalesAffectedReducer from './SalesAffected';
 import GenerateReducer from './Generate';
+import AccountingReducer from './AccountingSeat';
 
 const reducers = combineReducers({
   common: Common,
@@ -18,7 +19,8 @@ const reducers = combineReducers({
   product: ProductReducer,
   loadItems: LoadItemsReducer,
   salesAffected: SalesAffectedReducer,
-  generateForm: GenerateReducer
+  generateForm: GenerateReducer,
+  accountingSeats: AccountingReducer
 });
 
 const rootReducer = (state, action) => {

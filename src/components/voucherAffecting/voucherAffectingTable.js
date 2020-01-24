@@ -25,7 +25,9 @@ class VoucherAffectingTable extends Component {
     componentDidMount = () => {
         const { ComprobAvencer, OpcionMuestra } = this.state;
         const { idOperacion } = this.props;
-        this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra, idOperacion, page_size: 10, page_number: 1 });
+        if (idOperacion) {
+            this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra, idOperacion, page_size: 10, page_number: 1 });
+        }
     }
 
     onChangeTable = (type, pagination) => {

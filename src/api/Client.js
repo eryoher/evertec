@@ -1,8 +1,6 @@
 import Axios from 'axios';
 
 export const getClient = async (params) => {
-  //console.log(params)
-
   const response = await Axios.get('/Clientes/Consulta', { params });
   return response.data;
 }

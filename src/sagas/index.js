@@ -7,6 +7,7 @@ import productSaga from './Product';
 import loadItemsSaga from './LoadItems';
 import salesAffectedSaga from './SalesAffected';
 import generateSaga from './Generate';
+import accountingSeatSaga from './AccontingSeat';
 
 export default function* rootSaga(getState) {
   yield all([
@@ -17,6 +18,7 @@ export default function* rootSaga(getState) {
     productSaga(),
     loadItemsSaga(),
     salesAffectedSaga(),
-    generateSaga()
+    generateSaga(),
+    accountingSeatSaga()
   ]);
 }
