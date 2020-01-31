@@ -21,9 +21,10 @@ class AccountingSeatTable extends Component {
     }
 
     onChangeTable = (type, pagination) => {
-        const { ComprobAvencer, OpcionMuestra } = this.state;
-        const { idOperacion } = this.props;
-        this.props.getVoucherAccounting({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
+
+        return true
+
+        //this.props.getVoucherAccounting({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
     }
 
 
@@ -42,8 +43,6 @@ class AccountingSeatTable extends Component {
 
     render() {
         const { t, accountingItems, readOnly } = this.props;
-        //const inputConfig = [{ idCampo: 'checkComprobAvencer', label: t('voucherInvolvement.form.sample'), visible: 1, requerido: 0, editable: 1 }]
-        //const customCol = (readOnly) ? 4 : { span: 5, offset: 7 };
 
         return (
             <Row style={{ marginLeft: '0px' }}>

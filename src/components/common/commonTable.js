@@ -5,6 +5,7 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory from 'react-bootstrap-table2-filter';
+import cellEditFactory from 'react-bootstrap-table2-editor';
 
 
 export default class CommonTable extends Component {
@@ -14,7 +15,7 @@ export default class CommonTable extends Component {
     }
 
     render() {
-        const { columns, wrapperClasses, bordered, rowStyle, rowClasses, headerClasses, data, selectRow, expandRow, defaultSorted, keyField, paginationOptions, remote, onTableChange } = this.props;
+        const { columns, wrapperClasses, bordered, rowStyle, rowClasses, headerClasses, data, selectRow, expandRow, defaultSorted, keyField, paginationOptions, remote, onTableChange, editProperties, refTable } = this.props;
 
         const border = (bordered) ? bordered : false;
         const customkeyField = (keyField) ? keyField : 'id';
@@ -22,7 +23,8 @@ export default class CommonTable extends Component {
 
         return (
             <BootstrapTable
-                remote
+                ref={refTable}
+                remote={remote}
                 keyField={customkeyField}
                 data={data}
                 columns={columns}
@@ -37,6 +39,7 @@ export default class CommonTable extends Component {
                 defaultSorted={defaultSorted}
                 pagination={paginationFactory(customPagination)}
                 onTableChange={onTableChange}
+                cellEdit={cellEditFactory(editProperties)}
             />
 
         )
