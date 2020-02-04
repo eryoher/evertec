@@ -65,7 +65,8 @@ class HeadboardForm extends Component {
                 mon_comp_vta: headSale.moneda[0].cod_moneda,
                 cond_comp_vta: headSale.cond_comp_vta[0].cod_cond_vta,
                 vend_comp_vta: headSale.vendedor[0].cod_vend,
-                fecha_comp_vta: '',
+                fecha_comp_vta: moment(headSale.fecha_comp_vta).format('DD/MM/YYYY'),
+                //fecha_comp_vta: headSale.fecha_comp_vta,
                 Titulo_comp_vta: '',
                 cotiz_comp_vta: '',
             };
