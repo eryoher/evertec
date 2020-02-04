@@ -5,6 +5,8 @@ import { withTranslation } from 'react-i18next';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
 import { clearMessage } from '../../actions';
 import GlobalNotfications from './globalNotfications';
+import { LANDING } from 'utils/RoutePath';
+import { withRouter } from "react-router-dom";
 
 
 class GlobalContainer extends Component {
@@ -18,7 +20,6 @@ class GlobalContainer extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-
         const { message, clearMessage } = this.props;
 
         if (prevProps.message !== message && message) {
@@ -26,7 +27,11 @@ class GlobalContainer extends Component {
             clearMessage();
         }
 
+        if (this.props.voucherTypeCancel !== prevProps.voucherTypeCancel && this.props.voucherTypeCancel) {
+            this.props.history.push(LANDING)
+        }
     }
+
 
     handleSetShow = (state) => {
         this.setState({ showMessage: state })
@@ -66,10 +71,11 @@ class GlobalContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ common }) => {
+const mapStateToProps = ({ common, vouchertype }) => {
     const { message } = common;
-    return { message };
+    const { voucherTypeCancel } = vouchertype;
+    return { message, voucherTypeCancel };
 };
 
 
-export default connect(mapStateToProps, { clearMessage })(withTranslation()(GlobalContainer));
+export default connect(mapStateToProps, { clearMessage })(withTranslation()(withRouter(GlobalContainer)));

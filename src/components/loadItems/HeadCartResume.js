@@ -27,11 +27,7 @@ class HeadCartResume extends Component {
         this.props.getVoucherHeadInfo({ idOperacion })
     }
 
-    componentDidUpdate = (prevProps) => {
-        if (this.props.voucherTypeCancel !== prevProps.voucherTypeCancel && this.props.voucherTypeCancel) {
-            this.props.history.push(LANDING)
-        }
-    }
+
 
     handleOpen = () => {
         this.setState({ showModal: true });
