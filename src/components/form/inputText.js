@@ -152,6 +152,7 @@ class InputText extends Component {
                 )
             } else if (mask.tipo === 'personalizado') {
                 const maskInput = (mask.valor) ? mask.valor.mask : null;
+
                 response = (
                     <IMaskInput
                         {...options}
