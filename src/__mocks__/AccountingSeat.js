@@ -114,5 +114,18 @@ export default (mockAdapter) => {
         ]
     });
 
+    mockAdapter.onPost('/Asiento/ValidarLinea').reply(200, [
+        {
+            "nicc": 55,
+            "centrocosto": "2.01 - Empresa 2 Local 01",
+            "cod_cc": "201",
+            "desc_cc": "Empresa 2 Local 01",
+            "nicodcta": 2311,
+            "cuenta": "4.3.01.01 - IVA no computable",
+            "nitem": 2
+        }
+    ]);
+
+
 
 }

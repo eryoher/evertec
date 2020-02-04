@@ -4,14 +4,16 @@ import {
     SEARCH_ACCOUNT,
     SEARCH_ACCOUNT_SUCCESS,
     GET_ACCOUNT_DETAIL,
-    GET_ACCOUNT_DETAIL_SUCCESS
+    GET_ACCOUNT_DETAIL_SUCCESS,
+    ACCOUNT_VALIDATE,
+    ACCOUNT_VALIDATE_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
     accountingItems: null,
     searchItems: null,
     accountDetail: null,
-    productsUpdate: null
+    accountsUpdate: null
 }
 
 function rootReducer(state = initialState, action) {
@@ -28,7 +30,31 @@ function rootReducer(state = initialState, action) {
             return { ...state, accountDetail: null }
         case GET_ACCOUNT_DETAIL_SUCCESS:
             return { ...state, accountDetail: action.payload }
+        case ACCOUNT_VALIDATE:
+            return { ...state, accountValidate: null }
+        case ACCOUNT_VALIDATE_SUCCESS:
+            const validateItems = action.payload;
+            let accountState = {
+                ...state,
+                accountsUpdate: [
+                    ...state.accountingItems.Items,
+                ]
+            }
 
+            if (accountState.accountsUpdate) {
+                accountState.accountsUpdate.forEach(prd => {
+                    validateItems.forEach(params => {
+                        if (prd.nitem === params.nitem) {
+                            prd.nicc = params.nicc;
+                            prd.cuenta = params.cuenta;
+                            prd.centrocosto = params.centrocosto;
+                            prd.nicodcta = params.nicodcta;
+                        }
+                    });
+                });
+            }
+
+            return accountState;
         default:
             return state
     }

@@ -3,16 +3,17 @@ import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import {
     getVoucherAccounting,
     searchAccount,
-    getAccountDetail
+    getAccountDetail,
+    accountValidate
 } from '../api/AccountingSeat';
 
 import {
-    GET_VOUCHER_ACCOUNTING, SEARCH_ACCOUNT, GET_ACCOUNT_DETAIL
+    GET_VOUCHER_ACCOUNTING, SEARCH_ACCOUNT, GET_ACCOUNT_DETAIL, ACCOUNT_VALIDATE
 } from '../constants/ActionsTypes';
 
 
 import {
-    getVoucherAccountingSuccess, searchAccountSuccess, getAccountDetailSuccess
+    getVoucherAccountingSuccess, searchAccountSuccess, getAccountDetailSuccess, accountValidateSuccess
 } from 'actions';
 
 function* getVoucherAccountingRequest({ payload }) {
@@ -40,6 +41,15 @@ function* getAccountDetailRequest({ payload }) {
     }
 }
 
+
+function* accountValidateRequest({ payload }) {
+    try {
+        const validate = yield call(accountValidate, payload);
+        yield put(accountValidateSuccess(validate));
+    } catch (error) {
+    }
+}
+
 export function* getVoucherAccountingSaga() {
     yield takeEvery(GET_VOUCHER_ACCOUNTING, getVoucherAccountingRequest);
 }
@@ -52,10 +62,15 @@ export function* getAccountDetailSaga() {
     yield takeEvery(GET_ACCOUNT_DETAIL, getAccountDetailRequest);
 }
 
+export function* accountValidateSaga() {
+    yield takeEvery(ACCOUNT_VALIDATE, accountValidateRequest);
+}
+
 export default function* rootSaga() {
     yield all([
         fork(getVoucherAccountingSaga),
         fork(searchAccountSaga),
         fork(getAccountDetailSaga),
+        fork(accountValidateSaga),
     ]);
 }

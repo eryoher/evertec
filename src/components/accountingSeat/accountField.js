@@ -20,8 +20,9 @@ class AccountField extends Component {
     }
 
     handleSelect = (account) => {
-        const { idOperacion } = this.props;
+        const { idOperacion, row } = this.props;
         this.props.getAccountDetail({ nicodcta: account.id, idOperacion })
+        this.props.handleUpdateAccount({ rowId: row.nitem, ...account[0] });
     }
 
     handleChange = (selected) => {
@@ -29,7 +30,7 @@ class AccountField extends Component {
     }
 
     render() {
-        const { value, searchItems } = this.props;
+        const { value, searchItems, placeholder } = this.props;
         const optionsSync = (searchItems) ? searchItems.map((opt) => {
             return ({ id: opt.nicodcta, label: opt.cuenta });
         }) : [];
@@ -38,9 +39,9 @@ class AccountField extends Component {
             <InputAutocomplete
                 inputFormCol={{ sm: 11 }}
                 label={false}
-                inputId={'cliente_criterio'}
-                name={'cliente_criterio'}
-                placeholder={'cuenta'}
+                inputId={'account'}
+                name={'account'}
+                placeholder={placeholder}
                 styles={{ width: '100%' }}
                 colLabel={"col-sm-2"}
                 colInput={"col-sm-10"}

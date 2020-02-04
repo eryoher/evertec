@@ -10,8 +10,12 @@ export const searchAccount = async (params) => {
     return response.data;
 }
 
-
 export const getAccountDetail = async (params) => {
     const response = await Axios.post('/Asiento/DatosCuenta', params);
+    return response.data;
+}
+
+export const accountValidate = async (params) => {
+    const response = await Axios.post('/Asiento/ValidarLinea', params);
     return response.data;
 }
