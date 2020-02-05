@@ -40,17 +40,6 @@ class StateTable extends Component {
         this.props.getConfigVoucher({ cod_proceso: P_AFEC_STADO_VTA, idOperacion });
     }
 
-    componentWillReceiveProps = (nextProps) => {
-        if (nextProps.productsUpdate) {
-            nextProps.productsUpdate.forEach(field => {
-                if (field.error && field.type_error === 1 && !this.rowErrors[field.nimovcli]) {
-                    this.rowErrors[field.nimovcli] = true;
-                    this.setState({ showError: 'true', errorMessage: 'No se soporta selección Manual de Stock.' })
-                }
-            });
-        }
-    }
-
     componentWillUnmount = () => {
         const items = this.getSelectedCheck();
         const { idOperacion } = this.props;
@@ -238,9 +227,9 @@ class StateTable extends Component {
             this.inputRefs[campoId] = {}
         }
 
-        if (field.editable && !this.inputRefs[campoId][row.nimovcli]) {
+        if (field.editable && !this.inputRefs[campoId][row.id]) {
             const customRef = React.createRef();
-            this.inputRefs[campoId][row.nimovcli] = customRef
+            this.inputRefs[campoId][row.id] = customRef
         }
 
         const optionsInput = {
@@ -249,8 +238,8 @@ class StateTable extends Component {
             fields: [{ ...field, label: false }],
             label: false,
             inputId: `${campoId}`,
-            id: `${campoId}_${row.nimovcli}`,
-            name: `${campoId}_${row.nimovcli}`,
+            id: `${campoId}_${row.id}`,
+            name: `${campoId}_${row.id}`,
             colLabel: "col-sm-4",
             colInput: "col-sm-8",
             divStyle: { paddingLeft: '17px' },
@@ -306,27 +295,6 @@ class StateTable extends Component {
         }
 
         return result;
-    }
-
-    getSelectedCheck = () => {
-        const { selectedCheck } = this.state;
-        const { products } = this.props;
-
-        const items = [];
-        products.Items.forEach(row => {
-            selectedCheck.forEach(check => {
-                if (row.nimovcli === check) {
-                    items.push({
-                        Nimovcli: row.nimovcli,
-                        Nitem: row.nitem,
-                        imp_afec: row.imp_afec,
-                        niprod: row.niprod
-                    })
-                }
-            });
-        });
-
-        return items;
     }
 
     handleSetStatus = () => {
@@ -385,75 +353,6 @@ class StateTable extends Component {
     render() {
         const { products, theme, config, productsUpdate, readOnly, idOperacion } = this.props;
         const tableColumns = (config && products) ? this.getColumns() : [];
-        /*const selectRow = {
-            mode: 'checkbox',
-            selectColumnPosition: 'right',
-            selected: this.state.selectedCheck,
-            hideSelectColumn: (readOnly) ? true : false,
-            style: (row) => {
-                const backgroundColor = row.error ? '#f8d7da' : '#FFF';
-                return { backgroundColor };
-            },
-            onSelect: (row, isSelect, rowIndex, e) => {
-                const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
-                const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
-                if (isSelect) { //Se adiciona    
-                    rows.push({ nimovcli: row.nimovcli, nitem: row.nitem, estado_afec: (row.cod_estado_dest) ? row.cod_estado_dest : row.estado_afec[1].cod_estado }); //Temporal... 
-                    selected.push(row.nimovcli)
-                } else { //Se resta
-                    rows.forEach((toDelete, index) => {
-                        if (toDelete.nimovcli === row.nimovcli) {
-                            rows.splice(index, 1);
-                        }
-                    });
-
-                    selected.forEach((delet, index) => {
-                        if (delet === row.nimovcli) {
-                            selected.splice(index, 1);
-                        }
-                    });
-                }
-                if (rows.length) {
-                    this.props.salesAffectedStateValidate({ idOperacion, items: rows });
-                }
-
-                this.setState({ rowSelected: rows, selectedCheck: selected });
-
-            },
-            onSelectAll: (isSelect, rows, e) => {
-                let selected = []
-                const checks = (this.state.selectedCheck) ? this.state.selectedCheck : [];
-
-                if (isSelect) {
-                    this.setState({ selectedCheck: null });
-                    rows.forEach(check => {
-                        checks.push(check.nimovcli);
-                    });
-
-                    selected = rows.map(fila => {
-                        return ({ nimovcli: fila.nimovcli, nitem: fila.nitem, estado_afec: (fila.cod_estado_dest) ? fila.cod_estado_dest : fila.estado_afec[1].cod_estado });
-                    });
-
-                    this.setState({ selectedCheck: checks })
-                } else {
-                    for (let index = 0; index < checks.length; index++) {
-                        const check = checks[index];
-                        rows.forEach(fila => {
-                            if (check === fila.nimovcli) {
-                                delete checks[index]
-                            }
-                        });
-                    }
-                    this.setState({ selectedCheck: checks });
-                }
-
-                this.setState({ rowSelected: selected });
-                if (selected.length) {
-                    this.props.salesAffectedStateValidate({ idOperacion, items: selected });
-                }
-
-            }
-        }; */
 
         const defaultSorted = [{
             dataField: 'fec_entrega',
@@ -464,7 +363,7 @@ class StateTable extends Component {
             let result = {};
             if (productsUpdate) {
                 productsUpdate.forEach(update => {
-                    if (update.nimovcli === prod.nimovcli) {
+                    if (update.id === prod.id) {
                         result = {
                             ...update,
                         }
@@ -510,7 +409,6 @@ class StateTable extends Component {
                     {config &&
                         <CommonTable
                             columns={tableColumns}
-                            keyField={'nimovcli'}
                             data={rowData}
                             defaultSorted={defaultSorted}
                             rowClasses={theme.tableRow}

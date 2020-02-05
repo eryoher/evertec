@@ -170,10 +170,10 @@ function rootReducer(state = initialState, action) {
             if (updateStateValidate.productsUpdate) {
                 updateStateValidate.productsUpdate.forEach(prd => {
                     stateValidateItems.forEach(item => {
-                        if (prd.nimovcli === item.nimovcli) {
+                        if (prd.id === item.id) {
                             prd.nItem = item.nItem;
                             prd.estado_afec_selected = item.estado_afec;
-                        } else if (prd.nimovcli === item.nimovcli && item.ind_stock !== 0) {
+                        } else if (prd.id === item.id && item.ind_stock !== 0) {
                             prd['error'] = true;
                             prd['type_error'] = item.ind_stock;
                         }
