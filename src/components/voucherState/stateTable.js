@@ -40,15 +40,6 @@ class StateTable extends Component {
         this.props.getConfigVoucher({ cod_proceso: P_AFEC_STADO_VTA, idOperacion });
     }
 
-    componentWillUnmount = () => {
-        const items = this.getSelectedCheck();
-        const { idOperacion } = this.props;
-
-        if (items.length) {
-            this.props.salesAffectedStateConfirm({ idOperacion, items })
-        }
-    }
-
 
     getColumns = () => {
         const { config, theme } = this.props;
@@ -279,7 +270,7 @@ class StateTable extends Component {
                         return true;
                     }}
                     onBlur={(value) => {
-                        if (campoId === 'imp_afec') { //pendiente logica.
+                        if (campoId === 'imp_afec') {
                             this.validateAfectImport(row, field, value);
                         } else if (campoId === 'neto') {
                             //this.validateFieldNeto(row, field, value);

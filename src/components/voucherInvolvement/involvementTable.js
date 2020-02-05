@@ -278,14 +278,6 @@ class InvolvementTable extends Component {
                     calSubTotal={(params) =>
                         this.handleSubCalculation(params, field)
                     }
-                    handleFocus={(rowId) => {
-                        // Focus next input                           
-                        if (row.niprod === rowId) {
-                            //this.handleSetFocus('neto', row.niprod);
-                        }
-                        return true;
-
-                    }}
                     row={row}
                 />
             )
@@ -465,7 +457,6 @@ class InvolvementTable extends Component {
                     if (update.niprod === prod.niprod) {
                         result = {
                             ...update,
-                            id: prod.niprod
                         }
                     }
                 });
@@ -473,7 +464,6 @@ class InvolvementTable extends Component {
             } else {
                 result = {
                     ...prod,
-                    id: prod.niprod
                 }
             }
 
