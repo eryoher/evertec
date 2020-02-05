@@ -51,7 +51,11 @@ class VoucherStateTable extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const { stateValidate, salesconfirm } = this.props;
+        const { stateValidate, salesconfirm, productsState } = this.props;
+
+        if (prevProps.productsState !== productsState && productsState) {
+            this.setState({ total_item: productsState.total_item, total_cant: productsState.total_cant, total_importe: productsState.total_importe })
+        }
 
         if (prevProps.stateValidate !== stateValidate && stateValidate) {
             this.setState({ total_item: stateValidate.total_item, total_cant: stateValidate.total_cant, total_importe: stateValidate.total_importe })

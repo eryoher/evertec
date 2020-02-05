@@ -51,7 +51,14 @@ class VoucherInvolvementTable extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const { subCalculations, cantValidate, salesconfirm } = this.props;
+        const { subCalculations, cantValidate, salesconfirm, productsInvol } = this.props;
+
+        //console.log(productsInvol, prevProps.productsInvol)
+
+        if (prevProps.productsInvol !== productsInvol && productsInvol) {
+            this.setState({ total_item: productsInvol.total_item, total_cant: productsInvol.total_cant, total_importe: productsInvol.total_importe })
+        }
+
         if (prevProps.subCalculations !== subCalculations && !prevProps.subCalculations) {
             this.setState({ total_item: subCalculations.total_item, total_cant: subCalculations.total_cant, total_importe: subCalculations.total_importe })
         }

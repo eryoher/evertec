@@ -53,7 +53,12 @@ class VoucherAffectingTable extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const { subCalculations, cantValidate, salesconfirm } = this.props;
+        const { subCalculations, cantValidate, salesconfirm, productsImport } = this.props;
+
+        if (prevProps.productsImport !== productsImport && productsImport) {
+            this.setState({ total_item: productsImport.total_item, total_cant: productsImport.total_cant, total_importe: productsImport.total_importe })
+        }
+
         if (prevProps.subCalculations !== subCalculations && !prevProps.subCalculations) {
             this.setState({ total_item: subCalculations.total_item, total_cant: subCalculations.total_cant, total_importe: subCalculations.total_importe })
         }
