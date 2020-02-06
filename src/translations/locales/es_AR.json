@@ -12,7 +12,10 @@
             "back": "Atrás",
             "close": "Cerrar",
             "submit": "Enviar",
-            "cancel": "Cancelar"
+            "cancel": "Cancelar",
+            "save_continue": "Grabar y Continuar",
+            "save_exit": "Grabar y Salir"
+
         },
         "modal": {
             "confirmationMessage": "Está seguro de Cancelar el Ingreso del Comprobante actual?",

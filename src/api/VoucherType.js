@@ -14,3 +14,8 @@ export const voucherCancel = async (params) => {
   const response = await Axios.get('/TipoDeComprobante/Cancelar', { params });
   return response.data;
 }
+
+export const voucherSave = async (params) => {
+  const response = await Axios.get('/TipoDeComprobante/Guardar', { params });
+  return response.data;
+}

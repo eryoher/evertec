@@ -11,7 +11,9 @@ export const getGenerateItems = async (params) => {
 }
 
 export const finishGenerate = async (params) => {
-    const response = await Axios.post('/vta_generar_compr/generar', params);
+    //const response = await Axios.post('/vta_generar_compr/generar', params);
+    const response = await Axios.post('/Comprobante/confirmar', params);
+
     return response.data;
 }
 

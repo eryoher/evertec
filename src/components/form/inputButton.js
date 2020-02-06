@@ -17,7 +17,7 @@ class InputButton extends Component {
 
   render() {
     const { theme, backButton, nextButton, valueButton, urlForm, type, customStyle } = this.props;
-    const withStyle = (nextButton || backButton) ? null : { minWidth: '100px' };
+    const withStyle = (nextButton || backButton) ? null : { ...customStyle, minWidth: '100px' };
 
     let labelButton =
       nextButton || backButton ? (

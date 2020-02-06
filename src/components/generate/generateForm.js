@@ -17,9 +17,13 @@ import LoadItemsTableReadOnly from 'components/loadItems/loadItemsTableReadOnly'
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
 import NotificationMessage from 'components/common/notificationMessage';
 import { connect } from 'react-redux';
-import { getClientHeadboard, finishGenerate } from '../../actions';
+import { getClientHeadboard, finishGenerate, voucherCancel, voucherSaveAndNew, showMessage } from '../../actions';
 import VoucherAffectingTable from 'components/voucherAffecting/voucherAffectingTable';
 import VoucherStateTable from 'components/voucherState/voucherStateTable';
+import ConfirmModal from 'components/common/confirmModal';
+import { LANDING, VOUCHER } from 'utils/RoutePath';
+import { withRouter } from "react-router-dom";
+
 
 const FIELDS = [
     {
@@ -144,8 +148,15 @@ class GenerateForm extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
+        const { voucherSaveParameter, idOperacion, voucherConfirmation } = this.props;
+
         if (prevProps.generateVoucher !== this.props.generateVoucher && this.props.generateVoucher) {
             this.setState({ generated: true })
+        }
+
+        if (prevProps.voucherConfirmation !== this.props.voucherConfirmation && voucherConfirmation && voucherSaveParameter) {
+            const urlSubmit = (voucherSaveParameter.nuevoComprobante) ? `${VOUCHER}/${idOperacion}` : LANDING;
+            this.props.history.push(urlSubmit)
         }
     }
 
@@ -180,6 +191,54 @@ class GenerateForm extends Component {
         this.props.finishGenerate({ idOperacion });
     }
 
+    handleVoucherCancel = () => {
+        const { idOperacion } = this.props;
+        this.props.voucherCancel({ idOperacion })
+    }
+
+    handleSaveVoucher = (ban) => {
+        const { idOperacion } = this.props;
+        this.props.voucherSaveAndNew({ idOperacion, nuevoComprobante: ban });
+    }
+
+    renderGenerateButtons = () => {
+
+        const { t } = this.props
+
+        return (
+            <Row>
+                <Col sm={{ span: 1, offset: 6 }} style={{ textAlign: 'right' }} className={"mt-3 mb-3"} />
+                <Col sm={1} style={{ textAlign: 'center' }} className={"mt-3 mb-3"} >
+                    <InputButton
+                        onClick={this.handleGeneratebtn}
+                        valueButton={t('voucher.step.generate')}
+                    />
+                </Col>
+                <Col sm={1} style={{ textAlign: 'center' }} className={"mt-3 mb-3"} >
+                    <ConfirmModal
+                        messageBody={t('form.modal.confirmationMessage')}
+                        onSubmitModal={this.handleVoucherCancel}
+                        labelButton={t('form.button.cancel')}
+                        modalTitle={t('form.modal.confirmationTitle')}
+                    />
+                </Col>
+                <Col sm={3} style={{ textAlign: 'left' }} className={"mt-3 mb-3"} >
+                    <InputButton
+                        onClick={() => this.handleSaveVoucher(true)}
+                        valueButton={t('form.button.save_continue')}
+                        customStyle={{ marginRight: '20px' }}
+                    />
+                    <InputButton
+                        onClick={() => this.handleSaveVoucher(false)}
+                        valueButton={t('form.button.save_exit')}
+                        customStyle={{ marginLeft: '18px' }}
+                    />
+                </Col>
+            </Row>
+        )
+
+    }
+
     render() {
         const { t, theme, clientHeadboard } = this.props;
 
@@ -208,15 +267,7 @@ class GenerateForm extends Component {
         return (
             <Col sm={12}>
                 {!this.state.generated &&
-                    <Row>
-                        <Col sm={{ span: 2, offset: 8 }} style={{ textAlign: 'right' }} className={"mt-3 mb-3"} />
-                        <Col sm={2} style={{ textAlign: 'left' }} className={"mt-3 mb-3"} >
-                            <InputButton
-                                onClick={this.handleGeneratebtn}
-                                valueButton={t('voucher.step.generate')}
-                            />
-                        </Col>
-                    </Row>
+                    this.renderGenerateButtons()
                 }
                 {
                     this.state.generated &&
@@ -445,16 +496,9 @@ class GenerateForm extends Component {
                         </Row>
                     </Container>
                 </Card>
-                {!this.state.generated && <Row>
-                    <Col sm={{ span: 2, offset: 8 }} style={{ textAlign: 'right' }} className={"mt-2"} />
-
-                    <Col sm={2} style={{ textAlign: 'left' }} className={"mt-2"} >
-                        <InputButton
-                            valueButton={t('voucher.step.generate')}
-                            onClick={this.handleGeneratebtn}
-                        />
-                    </Col>
-                </Row>}
+                {!this.state.generated &&
+                    this.renderGenerateButtons()
+                }
                 {
                     this.state.generated &&
                     <Row>
@@ -480,11 +524,12 @@ class GenerateForm extends Component {
     }
 }
 
-const mapStateToProps = ({ generateForm }) => {
+const mapStateToProps = ({ generateForm, vouchertype }) => {
     const { clientHeadboard, generateVoucher } = generateForm;
-    return { clientHeadboard, generateVoucher };
+    const { voucherConfirmation, voucherSaveParameter } = vouchertype
+    return { clientHeadboard, generateVoucher, voucherConfirmation, voucherSaveParameter };
 };
 
-const connectForm = connect(mapStateToProps, { getClientHeadboard, finishGenerate })(GenerateForm);
+const connectForm = connect(mapStateToProps, { getClientHeadboard, finishGenerate, voucherCancel, voucherSaveAndNew, showMessage })(withRouter(GenerateForm));
 
 export default themr('GenerateFormStyle', styles)(withTranslation()(connectForm));

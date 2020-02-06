@@ -1,4 +1,4 @@
-import { GET_VOUCHER_TYPE, GET_VOUCHER_TYPE_SUCCESS, GET_VOUCHER_TYPE_BY_USER, GET_VOUCHER_TYPE_BY_USER_SUCCESS, VOUCHER_CANCEL, VOUCHER_CANCEL_SUCCESS } from 'constants/ActionsTypes'
+import { GET_VOUCHER_TYPE, GET_VOUCHER_TYPE_SUCCESS, GET_VOUCHER_TYPE_BY_USER, GET_VOUCHER_TYPE_BY_USER_SUCCESS, VOUCHER_CANCEL, VOUCHER_CANCEL_SUCCESS, VOUCHER_SAVE_AND_NEW, VOUCHER_SAVE_AND_NEW_SUCCESS } from 'constants/ActionsTypes'
 
 const initialState = {
   voucherType: null,
@@ -20,6 +20,10 @@ function rootReducer(state = initialState, action) {
       return { ...state, voucherTypeCancel: null }
     case VOUCHER_CANCEL_SUCCESS:
       return { ...state, ...initialState, voucherTypeCancel: action.payload, }
+    case VOUCHER_SAVE_AND_NEW:
+      return { ...state, voucherConfirmation: null, voucherSaveParameter: action.payload }
+    case VOUCHER_SAVE_AND_NEW_SUCCESS:
+      return { ...state, voucherConfirmation: action.payload }
     default:
       return state
   }
