@@ -7,7 +7,9 @@ import { clearMessage } from '../../actions';
 import GlobalNotfications from './globalNotfications';
 import { LANDING } from 'utils/RoutePath';
 import { withRouter } from "react-router-dom";
-
+import { ShortcutProvider, ShortcutConsumer } from 'react-keybind';
+import GloblaShorcut from './globlaShorcut';
+import { P_SELCLI } from 'constants/ConfigProcessNames';
 
 class GlobalContainer extends Component {
 
@@ -36,35 +38,66 @@ class GlobalContainer extends Component {
         this.setState({ showMessage: state })
     }
 
+    getShorcuts = () => {
+        const { codeProccess } = this.props;
+
+        const hotkeysMap = {
+            "p_selcli": [
+                {
+                    hotkey: { charCode: "65", modifiers: ["shift+s", "ctrl+s"] },
+                    action: this.save,
+                    name: 'Save',
+                    description: 'Save a file'
+                }
+            ],
+            "p_cargaitemvta": [
+                {
+                    hotkey: { charCode: "65", modifiers: ["insert", "ctrl+s"] },
+                    action: this.save,
+                    name: 'Save',
+                    description: 'Save a file'
+                }
+            ]
+        };
+        return hotkeysMap[codeProccess];
+    }
+
+
+    save = async (e) => {
+        e.preventDefault()
+        console.log('Saving file ...', e)
+
+
+    }
+
 
     render() {
         const { childForm, voucherType, codeProccess, callBackButton, breadCrumbButtonType } = this.props;
+        const shortcuts = this.getShorcuts();
 
         return (
-            <Fragment>
+            <GloblaShorcut
+                shortcuts={shortcuts}
+            >
                 <Fragment>
-                    <GlobalNotfications
-                        {...this.state}
-                        setShow={(s) => this.handleSetShow(s)}
-                        voucherType={voucherType}
-                    />
+                    {voucherType &&
+                        <Fragment>
+                            <HeadCartResume
+                                idOperacion={voucherType.idOperacion}
+                            />
+                            <VoucherBreadCrumbs
+                                crumbs={(voucherType) ? voucherType.procesos : []}
+                                current={codeProccess}
+                                urlParameter={voucherType.idOperacion}
+                                callBackButton={callBackButton}
+                                buttonsType={breadCrumbButtonType}
+                            />
+                            {childForm}
+                        </Fragment>
+                    }
                 </Fragment>
-                {voucherType &&
-                    <Fragment>
-                        <HeadCartResume
-                            idOperacion={voucherType.idOperacion}
-                        />
-                        <VoucherBreadCrumbs
-                            crumbs={(voucherType) ? voucherType.procesos : []}
-                            current={codeProccess}
-                            urlParameter={voucherType.idOperacion}
-                            callBackButton={callBackButton}
-                            buttonsType={breadCrumbButtonType}
-                        />
-                        {childForm}
-                    </Fragment>
-                }
-            </Fragment>
+            </GloblaShorcut>
+
         );
 
     }
