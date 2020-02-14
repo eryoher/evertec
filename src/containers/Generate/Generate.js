@@ -36,18 +36,18 @@ class Generate extends Component {
 
         return (
             <Row>
-                {voucherType &&
-                    <GlobalContainer
-                        codeProccess={P_FINCOMPROB}
-                        voucherType={voucherType}
-                        childForm={
+                <GlobalContainer
+                    codeProccess={P_FINCOMPROB}
+                    voucherType={voucherType}
+                    childForm={
+                        (voucherType) ?
                             <GenerateForm
                                 handleChangeSuccess={this.successStep}
                                 idOperacion={voucherType.idOperacion}
                             />
-                        }
-                    />
-                }
+                            : <div />
+                    }
+                />
             </Row>
         )
     }
