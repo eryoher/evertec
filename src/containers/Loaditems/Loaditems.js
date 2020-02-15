@@ -3,10 +3,8 @@ import withMenu from '../../components/common/withMenu'
 import { Row, Col } from 'react-bootstrap';
 import LoadItemsTable from 'components/loadItems/loadItemsTable';
 import InputButton from 'components/form/inputButton';
-import { getVoucherType } from '../../actions';
+import { getVoucherType, confirmLoadItems } from '../../actions';
 import { connect } from 'react-redux';
-import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
-import HeadCartResume from 'components/loadItems/HeadCartResume';
 import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 import { P_CARGAITEMVTA } from 'constants/ConfigProcessNames';
 import GlobalContainer from 'components/common/globalContainer';
@@ -30,6 +28,50 @@ class Loaditems extends Component {
         }
     }
 
+    getShorcuts = () => {
+        const shorcuts = [
+            {
+                hotkey: { charCode: "65", modifiers: ["insert", "ctrl+s"] },
+                action: this.addToCart,
+                name: 'Save',
+                description: 'Save a file'
+            }
+        ]
+
+        return shorcuts;
+    }
+
+    addToCart = async (e) => {
+        const { productsUpdate, voucherType } = this.props;
+        const { idOperacion } = voucherType;
+
+        e.preventDefault()
+        if (e.target.id) {
+            const rowId = parseInt(e.target.id.split('_')[1]);
+            console.log('Load item add to cart ...', e.target.id, rowId)
+
+            productsUpdate.forEach(row => {
+                console.log(row.niprod, rowId)
+
+                if (row.niprod === rowId) {
+                    const params = {
+                        idOperacion,
+                        Niprod: row.niprod,
+                        cod_unid: row.cod_unid,
+                        cantidad: row.cantidad,
+                        pcio_unit: row.pcio_unit,
+                        neto: row.neto,
+                        fecha_entrega: row.fec_entrega
+                    }
+                    console.log(params)
+                    this.props.confirmLoadItems(params);
+
+                }
+            });
+
+        }
+
+    }
 
     render() {
         const { voucherType } = this.props;
@@ -40,6 +82,7 @@ class Loaditems extends Component {
                 <GlobalContainer
                     codeProccess={P_CARGAITEMVTA}
                     voucherType={voucherType}
+                    shortcuts={this.getShorcuts()}
                     childForm={(voucherType) ?
                         <Fragment >
                             <Col sm={12}>
@@ -75,9 +118,10 @@ class Loaditems extends Component {
     }
 }
 
-const mapStateToProps = ({ vouchertype }) => {
+const mapStateToProps = ({ vouchertype, product }) => {
     const { voucherType } = vouchertype;
-    return { voucherType };
+    const { productsUpdate } = product
+    return { voucherType, productsUpdate };
 };
 
-export default connect(mapStateToProps, { getVoucherType })(withMenu(Loaditems));
+export default connect(mapStateToProps, { getVoucherType, confirmLoadItems })(withMenu(Loaditems));

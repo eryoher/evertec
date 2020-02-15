@@ -189,7 +189,7 @@ class ShoppingCartTable extends Component {
         const { cartProducts, config, theme } = this.props;
         const tableColumns = (config) ? this.getColumns() : [];
         const noExpand = this.getNoexpandRows();
-
+        console.log(cartProducts)
         const expandRow = {
             renderer: row => this.renderExpandRow(row),
             showExpandColumn: true,
@@ -216,8 +216,8 @@ class ShoppingCartTable extends Component {
                 <CommonTable
                     remote
                     columns={tableColumns}
-                    keyField={'niprod'}
-                    data={cartProducts.Productos}
+                    keyField={'codbarra'}
+                    data={cartProducts.productos}
                     rowClasses={theme.tableRow}
                     headerClasses={theme.tableHeader}
                     expandRow={expandRow}

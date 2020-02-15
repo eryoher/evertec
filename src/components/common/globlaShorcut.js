@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { withShortcut } from 'react-keybind';
 
 
 class GloblaShorcut extends Component {
@@ -98,6 +97,9 @@ class GloblaShorcut extends Component {
 
     handleKeyPress = (e) => {
 
+        if (!e.key) {
+            return false;
+        }
         const { ignoreTagNames, preventDefault = true } = this.props
         const target = e.target;
         // ignore listening when certain elements are focused
@@ -146,12 +148,13 @@ class GloblaShorcut extends Component {
     }
 
     componentWillUnmount() {
-        const { shortcut, shortcuts } = this.props
-        if (shortcuts) {
-            shortcuts.forEach(short => {
-                shortcut.unregisterShortcut(short.hotkey.modifiers);
-            });
-        }
+        /* const { shortcut, shortcuts } = this.props
+         if (shortcuts) {
+             shortcuts.forEach(short => {
+                 //shortcut.unregisterShortcut(short.hotkey.modifiers);
+             });
+         }
+         */
     }
 
     render() {
@@ -163,4 +166,4 @@ class GloblaShorcut extends Component {
     }
 }
 
-export default withShortcut(GloblaShorcut)
+export default GloblaShorcut
