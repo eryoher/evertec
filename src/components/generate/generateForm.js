@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container, Modal, Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { Card, Collapse } from 'reactstrap'
 import HeadboardFormInput from '../headboard/headboardFormInput'
@@ -17,12 +17,13 @@ import LoadItemsTableReadOnly from 'components/loadItems/loadItemsTableReadOnly'
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
 import NotificationMessage from 'components/common/notificationMessage';
 import { connect } from 'react-redux';
-import { getClientHeadboard, finishGenerate, voucherCancel, voucherSaveAndNew, showMessage } from '../../actions';
+import { getClientHeadboard, finishGenerate, voucherCancel, voucherSaveAndNew, showMessage, getConfigVoucher } from '../../actions';
 import VoucherAffectingTable from 'components/voucherAffecting/voucherAffectingTable';
 import VoucherStateTable from 'components/voucherState/voucherStateTable';
 import ConfirmModal from 'components/common/confirmModal';
 import { LANDING, VOUCHER } from 'utils/RoutePath';
 import { withRouter } from "react-router-dom";
+import { P_FINCOMPROB } from 'constants/ConfigProcessNames';
 
 
 const FIELDS = [
@@ -139,7 +140,8 @@ class GenerateForm extends Component {
             generated: false,
             collapseVoucherTable: false,
             collapseVoucherAffectingTable: false,
-            collapseVoucherStateTable: false
+            collapseVoucherStateTable: false,
+            messageNotification: ''
         }
     }
 
@@ -148,15 +150,19 @@ class GenerateForm extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const { voucherSaveParameter, idOperacion, voucherConfirmation } = this.props;
+        const { voucherSaveParameter, idOperacion, voucherConfirmation, t } = this.props;
 
         if (prevProps.generateVoucher !== this.props.generateVoucher && this.props.generateVoucher) {
             this.setState({ generated: true })
         }
 
         if (prevProps.voucherConfirmation !== this.props.voucherConfirmation && voucherConfirmation && voucherSaveParameter) {
-            const urlSubmit = (voucherSaveParameter.nuevoComprobante) ? `${VOUCHER}/${idOperacion}` : LANDING;
-            this.props.history.push(urlSubmit)
+
+            if (voucherConfirmation.NiMovimiento) {
+                this.setState({ generated: true, messageNotification: t('voucherConfirmation', { voucher: voucherConfirmation.NiMovimiento }) })
+                this.props.getConfigVoucher({ cod_proceso: P_FINCOMPROB, idOperacion });
+            }
+
         }
     }
 
@@ -182,7 +188,12 @@ class GenerateForm extends Component {
     }
 
     handleCloseNotification = () => {
+        const { voucherSaveParameter, idOperacion } = this.props;
+        const urlSubmit = (voucherSaveParameter.nuevoComprobante) ? `${VOUCHER}/${idOperacion}` : LANDING;
         this.setState({ generated: false })
+
+        this.props.history.push(urlSubmit);
+
     }
 
     handleGeneratebtn = () => {
@@ -207,14 +218,9 @@ class GenerateForm extends Component {
 
         return (
             <Row>
-                <Col sm={{ span: 1, offset: 6 }} style={{ textAlign: 'right' }} className={"mt-3 mb-3"} />
-                <Col sm={1} style={{ textAlign: 'center' }} className={"mt-3 mb-3"} >
-                    <InputButton
-                        onClick={this.handleGeneratebtn}
-                        valueButton={t('voucher.step.generate')}
-                    />
-                </Col>
-                <Col sm={1} style={{ textAlign: 'center' }} className={"mt-3 mb-3"} >
+                <Col sm={{ span: 1, offset: 6 }} className={"mt-3 mb-3"} />
+
+                <Col sm={'auto'} style={{ textAlign: 'right' }} className={"mt-3 mb-3 "} >
                     <ConfirmModal
                         messageBody={t('form.modal.confirmationMessage')}
                         onSubmitModal={this.handleVoucherCancel}
@@ -222,16 +228,16 @@ class GenerateForm extends Component {
                         modalTitle={t('form.modal.confirmationTitle')}
                     />
                 </Col>
-                <Col sm={3} style={{ textAlign: 'left' }} className={"mt-3 mb-3"} >
+                <Col sm={'auto'} style={{ textAlign: 'right', }} className={"mt-3 mb-3 "} >
                     <InputButton
                         onClick={() => this.handleSaveVoucher(true)}
                         valueButton={t('form.button.save_continue')}
-                        customStyle={{ marginRight: '20px' }}
                     />
+                </Col>
+                <Col sm={'auto'} style={{ textAlign: 'left' }} className={"mt-3 mb-3"} >
                     <InputButton
                         onClick={() => this.handleSaveVoucher(false)}
                         valueButton={t('form.button.save_exit')}
-                        customStyle={{ marginLeft: '18px' }}
                     />
                 </Col>
             </Row>
@@ -273,11 +279,21 @@ class GenerateForm extends Component {
                     this.state.generated &&
                     <Row>
                         <Col sm={6} >
-                            <NotificationMessage
-                                showError={this.state.generated}
-                                handleCloseError={this.handleCloseNotification}
-                                errorMessage={'Se genero el comprobante 002569865'}
-                            />
+
+                            <Modal
+                                show={this.state.generated}
+                                onHide={this.handleCloseNotification}
+                                aria-labelledby={"ModalHeader"}
+                            >
+                                <Modal.Body>
+                                    <NotificationMessage
+                                        showError={this.state.generated}
+                                        handleCloseError={this.handleCloseNotification}
+                                        errorMessage={this.state.messageNotification}
+                                    />
+                                </Modal.Body>
+
+                            </Modal>
                         </Col>
                         <Col sm={{ span: 2 }} style={{ textAlign: 'right' }} className={"mt-3 mb-3"} >
                             <InputButton
@@ -530,6 +546,6 @@ const mapStateToProps = ({ generateForm, vouchertype }) => {
     return { clientHeadboard, generateVoucher, voucherConfirmation, voucherSaveParameter };
 };
 
-const connectForm = connect(mapStateToProps, { getClientHeadboard, finishGenerate, voucherCancel, voucherSaveAndNew, showMessage })(withRouter(GenerateForm));
+const connectForm = connect(mapStateToProps, { getClientHeadboard, finishGenerate, voucherCancel, voucherSaveAndNew, showMessage, getConfigVoucher })(withRouter(GenerateForm));
 
 export default themr('GenerateFormStyle', styles)(withTranslation()(connectForm));

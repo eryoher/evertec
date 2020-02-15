@@ -1,5 +1,6 @@
 {
     "validation-required": "{{field}} es requerido",
+    "voucherConfirmation": "Se creo el comprobante numero {{voucher}}",
     "Invalid username or password": "Usuario o Contraseña Incorrectos",
     "screen": {
         "title": "Resetear Stack a siguiente pantalla",

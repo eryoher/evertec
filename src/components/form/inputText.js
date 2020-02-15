@@ -10,6 +10,7 @@ import { IMaskInput } from 'react-imask';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { validateField } from 'lib/FieldValidations';
+import moment from 'moment';
 
 
 class InputText extends Component {
@@ -142,10 +143,11 @@ class InputText extends Component {
             const mask = this.getMask(config); //Se obtiene las posibles opciones de mascara.. aca se agregan validaciones.
             if (mask.tipo === 'fecha') {
                 const formatDate = (mask.valor) ? mask.valor.replace(/D/g, 'd').replace(/Y/g, 'y') : 'MM-dd-yyyy';
+                const valueDate = new Date(options.value);
                 response = (
                     <DatePicker
                         {...options}
-                        selected={(options.value) ? new Date(options.value) : null}
+                        selected={(valueDate.getTime()) ? valueDate : null}
                         dateFormat={formatDate}
                         isClearable={true}
                     />
