@@ -6,6 +6,9 @@ export function validateField(value, type) {
     const today = new moment();
     let customDate = new moment();
 
+    if (value === 'error_input') {
+        value = null
+    }
     switch (type) {
         case 'VAL>0':
             if (parseFloat(value) > 0) {

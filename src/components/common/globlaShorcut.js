@@ -72,6 +72,38 @@ class GloblaShorcut extends Component {
 
     }
 
+    /**
+  * Remove a shortcut from the application
+  */
+    unregisterShortcut = (keys, sequence = false) => {
+        const transformedKeys = this.transformKeys(keys)
+        if (!sequence) {
+            transformedKeys.forEach(key => {
+                delete this.listeners[key]
+                delete this.holdListeners[key]
+                delete this.holdDurations[key]
+            })
+        } else {
+            const keyEvent = transformedKeys.join(',')
+            delete this.sequenceListeners[keyEvent]
+        }
+
+        // Delete the shortcut
+        const nextShortcuts = this.shortcuts.filter(({ keys: shortcutKeys }) => {
+            let match = true
+            shortcutKeys.forEach(shortcutKey => {
+                match = match && transformedKeys.indexOf(shortcutKey) >= 0
+            })
+            return !match
+        })
+
+        this.shortcuts = nextShortcuts
+
+        this.setState({
+            shortcuts: nextShortcuts,
+        })
+    }
+
     transformKeys = (keys) => {
         return keys.map(rawKeys => {
             // force keys to be a string (we might have a number)

@@ -38,8 +38,10 @@ class LoadItemsTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
+        this.props.setClick(this.handleAddToCart);
         if (idOperacion) {
             this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
+            this.handleAddToCart = this.handleAddToCart.bind(this);
         }
     }
 
@@ -57,9 +59,13 @@ class LoadItemsTable extends Component {
         }
     }
 
+
+
     handleAddToCart = (row) => {
         const { config, t, idOperacion } = this.props;
         const message = [];
+        let flag = true;
+
         const params = {
             idOperacion,
             Niprod: row.niprod,
@@ -67,10 +73,9 @@ class LoadItemsTable extends Component {
             cantidad: row.cantidad,
             pcio_unit: row.pcio_unit,
             neto: row.neto,
-            fecha_entrega: row.fec_entrega
+            //fecha_entrega: row.fec_entrega
         }
 
-        let flag = true;
 
         config.campos.forEach(field => {
             if (parseInt(field.requerido)) {

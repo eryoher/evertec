@@ -31,7 +31,7 @@ class Loaditems extends Component {
     getShorcuts = () => {
         const shorcuts = [
             {
-                hotkey: { charCode: "65", modifiers: ["insert", "ctrl+s"] },
+                hotkey: { charCode: "65", modifiers: ["insert"] },
                 action: this.addToCart,
                 name: 'Save',
                 description: 'Save a file'
@@ -42,32 +42,26 @@ class Loaditems extends Component {
     }
 
     addToCart = async (e) => {
-        const { productsUpdate, voucherType } = this.props;
-        const { idOperacion } = voucherType;
+        const { productsUpdate, search } = this.props;
 
-        e.preventDefault()
         if (e.target.id) {
             const rowId = parseInt(e.target.id.split('_')[1]);
-            console.log('Load item add to cart ...', e.target.id, rowId)
 
-            productsUpdate.forEach(row => {
-                console.log(row.niprod, rowId)
-
-                if (row.niprod === rowId) {
-                    const params = {
-                        idOperacion,
-                        Niprod: row.niprod,
-                        cod_unid: row.cod_unid,
-                        cantidad: row.cantidad,
-                        pcio_unit: row.pcio_unit,
-                        neto: row.neto,
-                        fecha_entrega: row.fec_entrega
+            if (productsUpdate) {
+                productsUpdate.forEach(row => {
+                    if (row.niprod === rowId) {
+                        e.preventDefault();
+                        this.addRowToCart(row);
                     }
-                    console.log(params)
-                    this.props.confirmLoadItems(params);
-
-                }
-            });
+                });
+            } else {
+                search.productos.forEach(row => {
+                    if (row.niprod === rowId) {
+                        e.preventDefault();
+                        this.addRowToCart(row);
+                    }
+                });
+            }
 
         }
 
@@ -90,6 +84,7 @@ class Loaditems extends Component {
                                     searchBox
                                     divClass={"mt-1"}
                                     idOperacion={voucherType.idOperacion}
+                                    setClick={click => this.addRowToCart = click}
                                 />
                             </Col>
                             <Col sm={1} style={{ textAlign: 'left', paddingLeft: '2rem' }} className={"mt-2"} >
@@ -120,8 +115,8 @@ class Loaditems extends Component {
 
 const mapStateToProps = ({ vouchertype, product }) => {
     const { voucherType } = vouchertype;
-    const { productsUpdate } = product
-    return { voucherType, productsUpdate };
+    const { productsUpdate, search } = product
+    return { voucherType, productsUpdate, search };
 };
 
 export default connect(mapStateToProps, { getVoucherType, confirmLoadItems })(withMenu(Loaditems));

@@ -31,7 +31,9 @@ class VoucherClientForm extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
-        this.props.getConfigVoucher({ cod_proceso: P_SELCLI, idOperacion })
+        if (idOperacion) {
+            this.props.getConfigVoucher({ cod_proceso: P_SELCLI, idOperacion })
+        }
     }
 
     componentDidUpdate = (prevProps) => {
