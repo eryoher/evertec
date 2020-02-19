@@ -49,13 +49,16 @@ class LoadItemsTable extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const { search } = this.props
+        const { search, updateCant, paramsPrice } = this.props;
+        console.log(prevProps.paramsPrice, updateCant, paramsPrice);
+        if (prevProps.updateCant !== updateCant && updateCant && paramsPrice) {
+            const nextRef = this.inputRefs['cantidad'][paramsPrice.Idproducto];
+            //nextRef.current.element.focus();
+        }
 
         if (prevProps.search !== search && search) {
             if (this.firtsRefs && this.firtsRefs.current) {
-                console.log(this.firtsRefs)
                 this.firtsRefs.current.focus();
-
             }
         }
     }
@@ -365,7 +368,7 @@ class LoadItemsTable extends Component {
                                 "cantidad": value,
                                 "unid_vta": row.cod_unid
                             });
-                            this.handleSetFocus('pcio_unit', row.niprod);
+                            //this.handleSetFocus('pcio_unit', row.niprod);
                         } else if (campoId === 'neto') {
                             this.handleSetFocus('fec_entrega', row.niprod);
                         }
@@ -530,8 +533,8 @@ class LoadItemsTable extends Component {
 
 const mapStateToProps = ({ voucher, product }) => {
     const config = (voucher.config) ? voucher.config[P_CARGAITEMVTA] : null;
-    const { search, searchParameters, productsUpdate, focusInput, updateCant } = product
-    return { config, search, searchParameters, productsUpdate, focusInput, updateCant };
+    const { search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice } = product
+    return { config, search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataProducts, getPriceByProduct, confirmLoadItems, searchProducts })(LoadItemsTable);
