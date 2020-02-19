@@ -65,6 +65,7 @@ class InputDropdown extends Component {
             inputFormCol,
             rowStyle,
             value,
+            fwRef
         } = this.props;
 
         const classInput = (label) ? colInput : "col-sm-12";
@@ -85,6 +86,7 @@ class InputDropdown extends Component {
                         {!disable && <Col className={classInput} style={{ ...divStyle }}>
                             <select
                                 id={inputId}
+                                ref={fwRef}
                                 name={name}
                                 style={{ styles }}
                                 placeholder={placeholder}

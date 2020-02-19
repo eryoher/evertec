@@ -45,7 +45,7 @@ class Loaditems extends Component {
         const { productsUpdate, search } = this.props;
 
         if (e.target.id) {
-            const rowId = parseInt(e.target.id.split('_')[1]);
+            const rowId = parseInt(e.target.id.split('-')[1]);
 
             if (productsUpdate) {
                 productsUpdate.forEach(row => {

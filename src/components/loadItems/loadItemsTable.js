@@ -34,6 +34,7 @@ class LoadItemsTable extends Component {
         }
 
         this.inputRefs = {};
+        this.firtsRefs = null;
     }
 
     componentDidMount = () => {
@@ -42,6 +43,20 @@ class LoadItemsTable extends Component {
         if (idOperacion) {
             this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
             this.handleAddToCart = this.handleAddToCart.bind(this);
+        }
+
+
+    }
+
+    componentDidUpdate = (prevProps) => {
+        const { search } = this.props
+
+        if (prevProps.search !== search && search) {
+            if (this.firtsRefs && this.firtsRefs.current) {
+                console.log(this.firtsRefs)
+                this.firtsRefs.current.focus();
+
+            }
         }
     }
 
@@ -58,8 +73,6 @@ class LoadItemsTable extends Component {
             nextRef.current.element.focus();
         }
     }
-
-
 
     handleAddToCart = (row) => {
         const { config, t, idOperacion } = this.props;
@@ -242,7 +255,7 @@ class LoadItemsTable extends Component {
             });
 
         } else if (campoId === 'pcio_unit') {
-            const customValue = (value) ? parseFloat(value.split(',').join('.')) : 0;
+            const customValue = (value) ? parseFloat(('' + value).split(',').join('.')) : 0;
             const customCantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
             const newPrice = (customCantidad * customValue) / parseFloat(row.base_v);
             const params = { niprod: row.niprod, idCampo: 'neto', value: newPrice.toString() };
@@ -266,26 +279,29 @@ class LoadItemsTable extends Component {
         let result = null;
         const inputError = (value === 'error_input') ? true : false;
         const customValue = (value === 'error_input') ? '' : value;
-        const inputStyle = (campoId === 'cantidad' || campoId === 'pcio_unit' || campoId === 'neto') ? { textAlign: 'right' } : {}
+        const inputStyle = (campoId === 'cantidad' || campoId === 'pcio_unit' || campoId === 'neto') ? { textAlign: 'right' } : {};
         const { focusInput } = this.props;
 
         if (field.editable && !this.inputRefs[campoId]) {
-            this.inputRefs[campoId] = {}
+            this.inputRefs[campoId] = {};
         }
 
         if (field.editable && !this.inputRefs[campoId][row.niprod]) {
             const customRef = React.createRef();
-            this.inputRefs[campoId][row.niprod] = customRef
+            this.inputRefs[campoId][row.niprod] = customRef;
+            if (this.firtsRefs === null) {
+                this.firtsRefs = customRef;
+            }
         }
 
         const optionsInput = {
-            fwRef: (field.editable) ? this.inputRefs[campoId][row.id] : null,
+            fwRef: (field.editable) ? this.inputRefs[campoId][row.niprod] : null,
             inputFormCol: { sm: 12 },
             fields: [{ ...field, label: false }],
             label: false,
             inputId: `${campoId}`,
-            id: `${campoId}_${row.niprod}`,
-            name: `${campoId}_${row.niprod}`,
+            id: `${campoId}-${row.niprod}`,
+            name: `${campoId}-${row.niprod}`,
             colLabel: "col-sm-4",
             colInput: "col-sm-8",
             divStyle: { paddingLeft: '10px', paddingRight: '10px' },
@@ -295,13 +311,13 @@ class LoadItemsTable extends Component {
             styles: inputStyle,
             rowStyle: { marginBottom: '5px' },
             onChange: () => { }
-        }
+        };
 
         if (campoId === 'avisos') {
-            result = (row.Bonificaciones.length) ? <FontAwesomeIcon icon={faPercent} /> : null
+            result = (row.Bonificaciones.length) ? <FontAwesomeIcon icon={faPercent} /> : null;
         } else if (campoId === 'cod_unid') {
             const selectOptions = (row.presentaciones) ? row.presentaciones.map(pre => {
-                return { id: pre.cod_pres, label: pre.desc_pres }
+                return { id: pre.cod_pres, label: pre.desc_pres };
             }) : []
             result = (
                 <InputDropdown
@@ -315,7 +331,7 @@ class LoadItemsTable extends Component {
                         );
                     }}
                 />
-            )
+            );
         } else if (campoId === 'ind_stock') {
             result = (<DisplayLight semaforo={value} />)
         } else if (campoId === 'modif_pcio') {
@@ -449,7 +465,7 @@ class LoadItemsTable extends Component {
                     if (update.niprod === prod.niprod) {
                         result = {
                             ...update,
-                            //id: prod.niprod
+                            id: prod.niprod
                         }
                     }
                 });
@@ -457,7 +473,7 @@ class LoadItemsTable extends Component {
             } else {
                 result = {
                     ...prod,
-                    // id: prod.niprod
+                    id: prod.niprod
                 }
             }
 
@@ -477,7 +493,7 @@ class LoadItemsTable extends Component {
                 //console.log(page)
                 this.props.searchProducts({ ...searchParameters, page_number: page, page_size: sizePerPage })
             }
-        } : {}
+        } : {};
 
         return (
             <Row className={divClass}>
