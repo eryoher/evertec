@@ -44,18 +44,18 @@ class LoadItemsTable extends Component {
             this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
             this.handleAddToCart = this.handleAddToCart.bind(this);
         }
-
-
     }
 
     componentDidUpdate = (prevProps) => {
         const { search } = this.props
 
-        if (prevProps.search !== search && search) {
-            if (this.firtsRefs && this.firtsRefs.current) {
-                console.log(this.firtsRefs)
-                this.firtsRefs.current.focus();
+        if (!search.Resultado && this.firtsRefs) {
+            this.firtsRefs = null;
+        }
 
+        if (prevProps.search !== search && !prevProps.search.length) {
+            if (this.firtsRefs && this.firtsRefs.current) {
+                this.firtsRefs.current.focus();
             }
         }
     }
