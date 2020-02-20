@@ -44,16 +44,15 @@ class LoadItemsTable extends Component {
             this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
             this.handleAddToCart = this.handleAddToCart.bind(this);
         }
-
-
     }
 
     componentDidUpdate = (prevProps) => {
-        const { search, updateCant, paramsPrice } = this.props;
-        console.log(prevProps.paramsPrice, updateCant, paramsPrice);
+        const { search, updateCant, paramsPrice, config } = this.props;
+        //console.log(prevProps.paramsPrice, updateCant, paramsPrice, config);
         if (prevProps.updateCant !== updateCant && updateCant && paramsPrice) {
-            const nextRef = this.inputRefs['cantidad'][paramsPrice.Idproducto];
-            //nextRef.current.element.focus();
+            const nextField = this.getNextEditField('cantidad');
+            const nextRef = this.inputRefs[nextField][paramsPrice.Idproducto];
+            nextRef.current.element.focus();
         }
 
         if (prevProps.search !== search && search) {
@@ -61,6 +60,26 @@ class LoadItemsTable extends Component {
                 this.firtsRefs.current.focus();
             }
         }
+    }
+
+    getNextEditField = (field) => {
+        const { config } = this.props;
+        let indexField = null;
+        let result = null;
+
+        config.campos.forEach((campo, index) => {
+            const campoId = campo.idCampo.trim();
+            if (campoId === field) {
+                indexField = index;
+            }
+        });
+
+        do {
+            indexField = indexField + 1;
+            result = config.campos[indexField].idCampo.trim();
+        } while (!config.campos[indexField].editable);
+
+        return result;
     }
 
     handleCloseError = () => {
