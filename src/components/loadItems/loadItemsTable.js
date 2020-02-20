@@ -47,8 +47,8 @@ class LoadItemsTable extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const { search, updateCant, paramsPrice, config } = this.props;
-        //console.log(prevProps.paramsPrice, updateCant, paramsPrice, config);
+        const { search, updateCant, paramsPrice } = this.props;
+
         if (prevProps.updateCant !== updateCant && updateCant && paramsPrice) {
             const nextField = this.getNextEditField('cantidad');
             const nextRef = this.inputRefs[nextField][paramsPrice.Idproducto];
@@ -88,7 +88,6 @@ class LoadItemsTable extends Component {
 
     handleSetFocus = (input, rowId) => {
         const nextRef = this.inputRefs[input][rowId];
-        //console.log(nextRef, input, rowId)
         if (input === 'fec_entrega' && nextRef.current) {
             nextRef.current.setFocus();
         } else if (nextRef.current && nextRef.current.element) {
@@ -286,7 +285,6 @@ class LoadItemsTable extends Component {
             const newValue = (value) ? parseFloat(value.split(',').join('.')) : 0;
             const cantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
             const newPrice = (cantidad) ? (parseFloat(row.base_v) * newValue) / cantidad : 0;
-
             const params = { niprod: row.niprod, idCampo: 'pcio_unit', value: newPrice.toString() }
             const paramsNeto = { niprod: row.niprod, idCampo: 'neto', value: newValue.toString() }
             this.props.setTableDataProducts([params, paramsNeto]);
@@ -363,6 +361,7 @@ class LoadItemsTable extends Component {
                     optionsInput={optionsInput}
                     setData={this.props.setTableDataProducts}
                     handleFocus={(rowId) => {
+                        console.log(rowId)
                         // Focus next input                           
                         if (row.niprod === rowId) {
                             this.handleSetFocus('neto', row.niprod);
@@ -389,8 +388,12 @@ class LoadItemsTable extends Component {
                             });
                             //this.handleSetFocus('pcio_unit', row.niprod);
                         } else if (campoId === 'neto') {
-                            this.handleSetFocus('fec_entrega', row.niprod);
+                            const nextField = this.getNextEditField('neto');
+                            this.handleSetFocus(nextField, row.niprod);
+                        } else if (campoId === 'pcio_unit') {
+                            this.handleOnblourInput(value, campoId, row);
                         }
+
                         return true;
                     }}
                     onBlur={(value) => {

@@ -36,7 +36,6 @@ class InputPriceUnit extends Component {
         const newPrice = (parseFloat(row.cantidad) * parseFloat(selectPrice)) / parseFloat(row.base_v);
         const paramsNeto = { niprod: row.niprod, idCampo: 'neto', value: newPrice.toString() }
         this.props.setData([params, paramsNeto]);
-        console.log(params)
         this.handleCancelModal();
     }
 
