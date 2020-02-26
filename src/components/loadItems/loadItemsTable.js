@@ -52,7 +52,11 @@ class LoadItemsTable extends Component {
         if (prevProps.updateCant !== updateCant && updateCant && paramsPrice) {
             const nextField = this.getNextEditField('cantidad');
             const nextRef = this.inputRefs[nextField][paramsPrice.Idproducto];
-            nextRef.current.element.focus();
+            if (nextRef.current.element) {
+                nextRef.current.element.focus();
+            } else {
+                nextRef.current.focus();
+            }
         }
 
         if (!search.Resultado && this.firtsRefs) {

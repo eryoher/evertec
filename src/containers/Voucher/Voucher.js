@@ -36,8 +36,10 @@ class Voucher extends Component {
     }
 
     callBackButton = (urlSubmitForm) => {
-        this.formRef.current.handleSubmit();
-        this.setState({ urlSubmitForm })
+        if (this.formRef.current) {
+            this.formRef.current.handleSubmit();
+            this.setState({ urlSubmitForm })
+        }
     }
 
     render() {

@@ -30,9 +30,11 @@ class Headboard extends Component {
     }
 
     callBackButton = (urlSubmitForm) => {
-        this.formRef.current.handleSubmit();
-        const now = new moment();
-        this.setState({ urlSubmitForm, timeSet: now })
+        if (this.formRef.current) {
+            this.formRef.current.handleSubmit();
+            const now = new moment();
+            this.setState({ urlSubmitForm, timeSet: now })
+        }
     }
 
     render() {

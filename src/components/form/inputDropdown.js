@@ -55,6 +55,7 @@ class InputDropdown extends Component {
             name,
             styles,
             inputId,
+            id,
             colInput,
             colLabel,
             styleLabel,
@@ -85,7 +86,7 @@ class InputDropdown extends Component {
                         </label>
                         {!disable && <Col className={classInput} style={{ ...divStyle }}>
                             <select
-                                id={inputId}
+                                id={(id) ? id : inputId}
                                 ref={fwRef}
                                 name={name}
                                 style={{ styles }}

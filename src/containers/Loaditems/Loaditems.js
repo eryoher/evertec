@@ -46,7 +46,6 @@ class Loaditems extends Component {
 
         if (e.target.id) {
             const rowId = parseInt(e.target.id.split('-')[1]);
-
             if (productsUpdate) {
                 productsUpdate.forEach(row => {
                     if (row.niprod === rowId) {
