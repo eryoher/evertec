@@ -35,6 +35,7 @@ class VoucherState extends Component {
                 <GlobalContainer
                     codeProccess={P_AFEC_STADO_VTA}
                     voucherType={voucherType}
+                    nextPage
                     childForm={(voucherType) ?
                         <VoucherStateTable
                             idOperacion={voucherType.idOperacion}

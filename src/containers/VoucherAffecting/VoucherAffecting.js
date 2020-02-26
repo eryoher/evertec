@@ -38,6 +38,7 @@ class VoucherInvolvement extends Component {
                 <GlobalContainer
                     codeProccess={P_AFEC_IMPO_VTA}
                     voucherType={voucherType}
+                    nextPage
                     childForm={(voucherType) ?
                         <VoucherAffectingTable
                             idOperacion={voucherType.idOperacion}

@@ -77,6 +77,7 @@ class Loaditems extends Component {
                     codeProccess={P_CARGAITEMVTA}
                     voucherType={voucherType}
                     shortcuts={this.getShorcuts()}
+                    nextPage
                     childForm={(voucherType) ?
                         <Fragment >
                             <Col sm={12}>

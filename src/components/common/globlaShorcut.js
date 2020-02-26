@@ -163,6 +163,8 @@ class GloblaShorcut extends Component {
 
             const keyPress = keysDown.join('+')
 
+            //console.log(keyPress, this.listeners)
+
             if (this.listeners[keyPress]) {
                 // automatically preventDefault on the key
                 if (preventDefault) {

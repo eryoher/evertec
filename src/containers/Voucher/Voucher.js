@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import { P_SELCLI } from 'constants/ConfigProcessNames';
 import GlobalContainer from 'components/common/globalContainer';
+import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 
 
 class Voucher extends Component {
@@ -15,7 +16,7 @@ class Voucher extends Component {
         super(props)
         this.state = {
             type: null,
-            urlSubmitForm: ''
+            urlSubmitForm: '',
         }
         this.formRef = React.createRef();
 
@@ -49,6 +50,7 @@ class Voucher extends Component {
                     callBackButton={this.callBackButton}
                     voucherType={voucherType}
                     breadCrumbButtonType={'primary'}
+                    nextPage
                     childForm={
                         (voucherType) ?
                             <VoucherClientForm

@@ -35,6 +35,7 @@ class AccountingSeat extends Component {
                 <GlobalContainer
                     codeProccess={P_ASIEN_CONT}
                     voucherType={voucherType}
+                    nextPage
                     childForm={(voucherType) ?
                         <AccountingSeatTable
                             idOperacion={voucherType.idOperacion}

@@ -45,6 +45,7 @@ class Headboard extends Component {
                     callBackButton={this.callBackButton}
                     voucherType={voucherType}
                     breadCrumbButtonType={'primary'}
+                    nextPage
                     childForm={(voucherType) ?
                         <HeadboardForm
                             idOperacion={this.state.idOperacion}

@@ -8,7 +8,7 @@ import GlobalNotfications from './globalNotfications';
 import { LANDING } from 'utils/RoutePath';
 import { withRouter } from "react-router-dom";
 import GloblaShorcut from './globlaShorcut';
-import { P_SELCLI } from 'constants/ConfigProcessNames';
+import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 
 class GlobalContainer extends Component {
 
@@ -32,16 +32,47 @@ class GlobalContainer extends Component {
         }
     }
 
+    getShortcuts = () => {
+        const { shortcuts } = this.props;
+
+        const rtShort = (shortcuts) ? shortcuts : [];
+
+        rtShort.push(
+            {
+                hotkey: { charCode: "123", modifiers: ["f12"] },
+                action: this.handleNextPage,
+                name: 'NextPage',
+                description: 'to call Next Page'
+            }
+        );
+
+        return rtShort;
+    }
+
+    handleNextPage = () => {
+        const { voucherType, codeProccess, callBackButton } = this.props;
+        const crumbs = (voucherType) ? voucherType.procesos : [];
+        const [backButton, nextButton] = getBackNextButtons(crumbs, codeProccess, voucherType.idOperacion);
+        if (callBackButton) {
+            callBackButton(nextButton.url);
+        } else {
+            //console.log(nextButton.url)
+            this.props.history.push(nextButton.url)
+        }
+    }
+
 
     handleSetShow = (state) => {
         this.setState({ showMessage: state })
     }
 
     render() {
-        const { childForm, voucherType, codeProccess, callBackButton, breadCrumbButtonType, shortcuts } = this.props;
+        const { childForm, voucherType, codeProccess, callBackButton, breadCrumbButtonType, shortcuts, nextPage } = this.props;
+        const customShortcuts = (nextPage) ? this.getShortcuts() : shortcuts;
+
         return (
             <GloblaShorcut
-                shortcuts={shortcuts}
+                shortcuts={customShortcuts}
             >
                 <Fragment>
                     {voucherType &&
