@@ -5,6 +5,6 @@ export const P_AFEC_STADO_VTA = 'p_afec_estados_vta';
 export const P_SELCLI = 'p_selcli';
 export const P_VTACAB = 'p_vtacab';
 export const P_FINCOMPROB = 'p_fincomprob';
-export const P_ASIEN_CONT = 'p_asiento_cont';
+export const P_ASIEN_CONT = 'p_asto_comprob';
 //////
 export const IDCLIENT = 1;

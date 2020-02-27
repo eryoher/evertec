@@ -5,7 +5,7 @@ import styles from './voucherStateTable.module.css';
 import { themr } from 'react-css-themr';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { getConfigVoucher, accountValidate } from '../../actions';
+import { getConfigVoucher, accountValidate, accountConfirm } from '../../actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 import { selectFilter } from 'react-bootstrap-table2-filter';
@@ -34,7 +34,7 @@ class AccountingTable extends Component {
     }
 
     componentDidMount = () => {
-        const { idOperacion } = this.props
+        const { idOperacion } = this.props;
         this.props.getConfigVoucher({ cod_proceso: P_ASIEN_CONT, idOperacion });
     }
 
@@ -50,14 +50,22 @@ class AccountingTable extends Component {
     }
 
     componentWillUnmount = () => {
-        //const items = this.getSelectedCheck();
         const { idOperacion } = this.props;
+        this.props.accountConfirm({ idOperacion })
     }
 
 
     handleValidateCell = (row) => {
         //console.log(row, 'esto es lo que se envia a validar...')
-        this.props.accountValidate({ nitem: row.nitem, nicodcta: row.nicodcta, nicc: row.nicc });
+        const { idOperacion } = this.props;
+        const Items = [{
+            "niasto": row.niasto,
+            "nitem": row.nitem,
+            "nicodcta": row.nicodcta,
+            "nicc": row.nicc,
+            "nicodctacc": row.nicodctacc
+        }]
+        this.props.accountValidate({ Items, idOperacion });
         this.setState({ editing: false })
     }
 
@@ -129,6 +137,7 @@ class AccountingTable extends Component {
     }
 
     renderFormat = (field, value, row, editProperties) => {
+        const { idOperacion } = this.props;
         const { rowEdit, editing, accountDetail, ccUpdateValue } = editProperties;
         const campoId = field.idCampo.trim();
         const inputError = (value === 'error_input') ? true : false;
@@ -172,6 +181,7 @@ class AccountingTable extends Component {
             if (campoId === 'cuenta') {
                 result = (
                     <AccountField
+                        idOperacion={idOperacion}
                         placeholder={customValue}
                         handleUpdateAccount={this.updateAccountRow}
                         row={row}
@@ -323,7 +333,8 @@ const mapStateToProps = ({ voucher, accountingSeats, auth }) => {
 
 const connectForm = connect(mapStateToProps, {
     getConfigVoucher,
-    accountValidate
+    accountValidate,
+    accountConfirm
 })(AccountingTable);
 
 export default themr('StateTableStyles', styles)(withTranslation()(connectForm));

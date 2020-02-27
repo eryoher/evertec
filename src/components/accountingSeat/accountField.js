@@ -21,7 +21,7 @@ class AccountField extends Component {
 
     handleSelect = (account) => {
         const { idOperacion, row } = this.props;
-        this.props.getAccountDetail({ nicodcta: account.id, idOperacion })
+        this.props.getAccountDetail({ nicodcta: account[0].id, idOperacion })
         this.props.handleUpdateAccount({ rowId: row.nitem, ...account[0] });
     }
 
@@ -32,7 +32,7 @@ class AccountField extends Component {
     render() {
         const { value, searchItems, placeholder } = this.props;
         const optionsSync = (searchItems) ? searchItems.map((opt) => {
-            return ({ id: opt.nicodcta, label: opt.cuenta });
+            return ({ id: opt.nicodcta, label: opt.Cuenta });
         }) : [];
 
         return (

@@ -65,7 +65,13 @@ class LoadItemsTable extends Component {
 
         if (prevProps.search !== search && !prevProps.search.length) {
             if (this.firtsRefs && this.firtsRefs.current) {
-                this.firtsRefs.current.focus();
+                //console.log(this.firtsRefs)
+                if (this.firtsRefs.current.element) {
+                    this.firtsRefs.current.element.focus();
+                } else {
+                    this.firtsRefs.current.focus();
+                }
+
             }
         }
     }

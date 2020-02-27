@@ -6,7 +6,9 @@ import {
     GET_ACCOUNT_DETAIL,
     GET_ACCOUNT_DETAIL_SUCCESS,
     ACCOUNT_VALIDATE,
-    ACCOUNT_VALIDATE_SUCCESS
+    ACCOUNT_VALIDATE_SUCCESS,
+    ACCOUNT_CONFIRM,
+    ACCOUNT_CONFIRM_SUCCESS
 } from '../constants/ActionsTypes';
 
 
@@ -62,6 +64,22 @@ export const accountValidate = (params) => {
 export const accountValidateSuccess = (response) => {
     return {
         type: ACCOUNT_VALIDATE_SUCCESS,
+        payload: response
+    }
+};
+
+
+
+export const accountConfirm = (params) => {
+    return {
+        type: ACCOUNT_CONFIRM,
+        payload: params
+    }
+};
+
+export const accountConfirmSuccess = (response) => {
+    return {
+        type: ACCOUNT_CONFIRM_SUCCESS,
         payload: response
     }
 };

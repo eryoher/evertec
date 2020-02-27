@@ -4,16 +4,17 @@ import {
     getVoucherAccounting,
     searchAccount,
     getAccountDetail,
-    accountValidate
+    accountValidate,
+    accountConfirm
 } from '../api/AccountingSeat';
 
 import {
-    GET_VOUCHER_ACCOUNTING, SEARCH_ACCOUNT, GET_ACCOUNT_DETAIL, ACCOUNT_VALIDATE
+    GET_VOUCHER_ACCOUNTING, SEARCH_ACCOUNT, GET_ACCOUNT_DETAIL, ACCOUNT_VALIDATE, ACCOUNT_CONFIRM
 } from '../constants/ActionsTypes';
 
 
 import {
-    getVoucherAccountingSuccess, searchAccountSuccess, getAccountDetailSuccess, accountValidateSuccess
+    getVoucherAccountingSuccess, searchAccountSuccess, getAccountDetailSuccess, accountValidateSuccess, accountConfirmSuccess
 } from 'actions';
 
 function* getVoucherAccountingRequest({ payload }) {
@@ -50,6 +51,14 @@ function* accountValidateRequest({ payload }) {
     }
 }
 
+function* accountConfirmRequest({ payload }) {
+    try {
+        const comfirm = yield call(accountConfirm, payload);
+        yield put(accountConfirmSuccess(comfirm));
+    } catch (error) {
+    }
+}
+
 export function* getVoucherAccountingSaga() {
     yield takeEvery(GET_VOUCHER_ACCOUNTING, getVoucherAccountingRequest);
 }
@@ -66,11 +75,16 @@ export function* accountValidateSaga() {
     yield takeEvery(ACCOUNT_VALIDATE, accountValidateRequest);
 }
 
+export function* accountConfirmSaga() {
+    yield takeEvery(ACCOUNT_CONFIRM, accountConfirmRequest);
+}
+
 export default function* rootSaga() {
     yield all([
         fork(getVoucherAccountingSaga),
         fork(searchAccountSaga),
         fork(getAccountDetailSaga),
         fork(accountValidateSaga),
+        fork(accountConfirmSaga),
     ]);
 }
