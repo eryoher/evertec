@@ -53,7 +53,7 @@ class Loaditems extends Component {
                         this.addRowToCart(row);
                     }
                 });
-            } else {
+            } else if (search.productos) {
                 search.productos.forEach(row => {
                     if (row.niprod === rowId) {
                         e.preventDefault();
