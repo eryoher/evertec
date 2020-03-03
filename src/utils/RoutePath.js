@@ -10,4 +10,5 @@ export const SELECTTYPE = '/selecttype';
 export const VOUCHERINVOLVEMENT = '/involvement';
 export const VOUCHERAFFECTING = '/voucherAffecting';
 export const VOUCHERSTATE = '/voucherState';
-export const ACCOUNTINGSEAT = '/accountingSeat'
+export const ACCOUNTINGSEAT = '/accountingSeat';
+export const ACCOUNTINGVOUCHER = '/accountingVoucher';

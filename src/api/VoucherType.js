@@ -17,6 +17,5 @@ export const voucherCancel = async (params) => {
 
 export const voucherSave = async (params) => {
   const response = await Axios.post('/Comprobante/confirmar', params);
-
   return response.data;
 }

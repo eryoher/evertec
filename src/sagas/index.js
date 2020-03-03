@@ -8,6 +8,7 @@ import loadItemsSaga from './LoadItems';
 import salesAffectedSaga from './SalesAffected';
 import generateSaga from './Generate';
 import accountingSeatSaga from './AccontingSeat';
+import accountingVoucherSaga from './AccountingVoucher';
 
 export default function* rootSaga(getState) {
   yield all([
@@ -19,6 +20,7 @@ export default function* rootSaga(getState) {
     loadItemsSaga(),
     salesAffectedSaga(),
     generateSaga(),
-    accountingSeatSaga()
+    accountingSeatSaga(),
+    accountingVoucherSaga()
   ]);
 }

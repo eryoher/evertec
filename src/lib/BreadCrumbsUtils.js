@@ -1,12 +1,12 @@
-import { HEADERBOARD, GENERATE, LOADITEMS, VOUCHER, VOUCHERINVOLVEMENT, VOUCHERAFFECTING, VOUCHERSTATE, ACCOUNTINGSEAT } from '../utils/RoutePath';
-import { P_VTACAB, P_SELCLI, P_CARGAITEMVTA, P_AFEC_CANT_VTA, P_FINCOMPROB, P_AFEC_IMPO_VTA, P_AFEC_STADO_VTA, P_ASIEN_CONT } from 'constants/ConfigProcessNames';
+import { HEADERBOARD, GENERATE, LOADITEMS, VOUCHER, VOUCHERINVOLVEMENT, VOUCHERAFFECTING, VOUCHERSTATE, ACCOUNTINGSEAT, ACCOUNTINGVOUCHER } from '../utils/RoutePath';
+import { P_VTACAB, P_SELCLI, P_CARGAITEMVTA, P_AFEC_CANT_VTA, P_FINCOMPROB, P_AFEC_IMPO_VTA, P_AFEC_STADO_VTA, P_ASIEN_CONT, P_IMP_COMPROB } from 'constants/ConfigProcessNames';
 
 export function getBackNextButtons(crumbs, current, urlParameter) {
     let ban = true;
 
     const steps = crumbs.map((crumb, index) => {
         const tmpmain = (current === crumb.cod_proceso) ? true : false;
-        ban = (tmpmain) ? false : ban
+        ban = (tmpmain) ? false : ban;
         return ({ ...crumb, before: ban, position: index, label: crumb.desc_proceso, main: tmpmain });
     });
 
@@ -53,6 +53,7 @@ const getUrl = (proccess, urlParameter) => {
     urls[P_AFEC_IMPO_VTA] = VOUCHERAFFECTING;
     urls[P_AFEC_STADO_VTA] = VOUCHERSTATE;
     urls[P_ASIEN_CONT] = ACCOUNTINGSEAT;
+    urls[P_IMP_COMPROB] = ACCOUNTINGVOUCHER;
 
     return (urlParameter) ? `${urls[proccess]}/${urlParameter}` : urls[proccess];
 }

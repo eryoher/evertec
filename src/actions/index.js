@@ -8,3 +8,4 @@ export * from './LoadItems';
 export * from './SalesAffected';
 export * from './Generate';
 export * from './AccountingSeat';
+export * from './AccountingVoucher.js';

@@ -728,8 +728,8 @@ export default (mockAdapter) => {
 
     });
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_asiento_cont', idOperacion: 21 } }).reply(200, {
-        "cod_proceso": "p_asiento_cont",
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_asto_comprob', idOperacion: 21 } }).reply(200, {
+        "cod_proceso": "p_asto_comprob",
         "descrip_proceso": "Asiento Contable",
         "orden": "8",
         "campos": [
@@ -811,6 +811,76 @@ export default (mockAdapter) => {
                 "label": "Haber",
                 "editable": 0,
                 "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+        ]
+
+    });
+
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_imp_comprob', idOperacion: 21 } }).reply(200, {
+        "cod_proceso": "p_imp_comprob",
+        "descrip_proceso": "Impuesto",
+        "orden": "8",
+        "campos": [
+            {
+                "idCampo": "imp_desc",
+                "descripcion": "Impuesto",
+                "label": "Impuesto",
+                "editable": 0,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+            {
+                "idCampo": "tasa",
+                "descripcion": "Tasa",
+                "label": "Tasa",
+                "editable": 0,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+            {
+                "idCampo": "alicouta",
+                "descripcion": "Alícouta",
+                "label": "Alícouta",
+                "editable": 1,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+
+            {
+                "idCampo": "imp_valor",
+                "descripcion": "Impuesto",
+                "label": "Impuesto",
+                "editable": 0,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+            {
+                "idCampo": "basecalculo",
+                "descripcion": "Base Calculo",
+                "label": "Base Calculo",
+                "editable": 1,
+                "visible": 1,
+                "requerido": "0",
+                "valid": null,
+                "mascara": null
+            },
+            {
+                "idCampo": "nro_certificado",
+                "descripcion": "Numero de certificado",
+                "label": "Nro. Certificado",
+                "editable": 0,
+                "visible": 0,
                 "requerido": "0",
                 "valid": null,
                 "mascara": null

@@ -20,29 +20,34 @@ export default (mockAdapter) => {
                     "orden": 2
                 },
                 {
+                    "cod_proceso": "p_imp_comprob",
+                    "desc_proceso": "Impuestos",
+                    "orden": 3
+                },
+                {
                     "cod_proceso": "p_cargaitemvta",
                     "desc_proceso": "Carga de Items",
-                    "orden": 3
+                    "orden": 4
                 },
                 {
                     "cod_proceso": "p_afec_estados_vta",
                     "desc_proceso": "Afectacion Estado",
-                    "orden": 4
+                    "orden": 5
                 },
                 {
                     "cod_proceso": "p_afec_cant_vta",
                     "desc_proceso": "Afectacion Comprobante",
-                    "orden": 5
+                    "orden": 6
                 },
                 {
                     "cod_proceso": "p_afec_impo_vta",
                     "desc_proceso": "Afectacion Importe",
-                    "orden": 6
+                    "orden": 7
                 },
                 {
-                    "cod_proceso": "p_asiento_cont",
+                    "cod_proceso": "p_asto_comprob",
                     "desc_proceso": "Asiento Contable",
-                    "orden": 7
+                    "orden": 8
                 },
                 {
                     "cod_proceso": "p_fincomprob",
@@ -61,6 +66,7 @@ export default (mockAdapter) => {
             "descrip_tipocomp": "Pedido",
             "procesos": [
                 {
+
                     "cod_proceso": "p_selcli",
                     "desc_proceso": "Selección cliente",
                     "orden": 1
@@ -71,24 +77,34 @@ export default (mockAdapter) => {
                     "orden": 2
                 },
                 {
-                    "cod_proceso": "p_cargaitemvta",
-                    "desc_proceso": "Carga de Items",
+                    "cod_proceso": "p_imp_comprob",
+                    "desc_proceso": "Impuestos",
                     "orden": 3
                 },
                 {
-                    "cod_proceso": "p_afec_stado_vta",
-                    "desc_proceso": "Afectacion Estado",
+                    "cod_proceso": "p_cargaitemvta",
+                    "desc_proceso": "Carga de Items",
                     "orden": 4
+                },
+                {
+                    "cod_proceso": "p_afec_estados_vta",
+                    "desc_proceso": "Afectacion Estado",
+                    "orden": 5
                 },
                 {
                     "cod_proceso": "p_afec_cant_vta",
                     "desc_proceso": "Afectacion Comprobante",
-                    "orden": 5
+                    "orden": 6
                 },
                 {
                     "cod_proceso": "p_afec_impo_vta",
                     "desc_proceso": "Afectacion Importe",
-                    "orden": 6
+                    "orden": 7
+                },
+                {
+                    "cod_proceso": "p_asto_comprob",
+                    "desc_proceso": "Asiento Contable",
+                    "orden": 8
                 },
                 {
                     "cod_proceso": "p_fincomprob",

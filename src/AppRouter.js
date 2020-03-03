@@ -13,8 +13,9 @@ import Loaditems from './containers/Loaditems';
 import SelectType from './containers/SelectType';
 import VoucherInvolvement from './containers/VoucherInvolvement';
 import VoucherAffecting from './containers/VoucherAffecting';
-import VoucherState from 'containers/VoucherState/VoucherState';
-import AccountingSeat from 'containers/AccountingSeat/AccountingSeat';
+import VoucherState from 'containers/VoucherState';
+import AccountingSeat from 'containers/AccountingSeat';
+import AccountingVoucher from 'containers/AccountingVoucher';
 
 import {
   GENERATE,
@@ -29,7 +30,8 @@ import {
   VOUCHERINVOLVEMENT,
   VOUCHERAFFECTING,
   VOUCHERSTATE,
-  ACCOUNTINGSEAT
+  ACCOUNTINGSEAT,
+  ACCOUNTINGVOUCHER,
 } from './utils/RoutePath';
 
 const publicRoutes = [
@@ -49,7 +51,8 @@ const privateRoutes = [
   { path: `${VOUCHERAFFECTING}/:idComprobante?/:idOperacion?`, component: VoucherAffecting },
   { path: `${VOUCHERSTATE}/:idComprobante?/:idOperacion?`, component: VoucherState },
   { path: `${ACCOUNTINGSEAT}/:idComprobante?/:idOperacion?`, component: AccountingSeat },
-]
+  { path: `${ACCOUNTINGVOUCHER}/:idComprobante?/:idOperacion?`, component: AccountingVoucher },
+];
 
 const AppRouter = props => (
   <BrowserRouter basename={process.env.PUBLIC_URL}>
