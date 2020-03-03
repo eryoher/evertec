@@ -7,12 +7,13 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { getConfigVoucher, accountValidate, accountConfirm } from '../../actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faSave, faBan } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faSave, faBan, faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { P_IMP_COMPROB } from 'constants/ConfigProcessNames';
 import AccountField from './accountField';
 import InputDropdown from 'components/form/inputDropdown';
 import CollapseBotton from 'components/common/collapseBoton';
+
 
 
 class AccountingTable extends Component {
@@ -31,7 +32,32 @@ class AccountingTable extends Component {
         }
 
         this.rowErrors = []
-
+        this.columnsProduct = [
+            {
+                dataField: 'id',
+                text: '#',
+                align: 'center',
+                headerAlign: 'center',
+            },
+            {
+                dataField: 'desc_product',
+                text: 'Detalle Item',
+                align: 'center',
+                headerAlign: 'center',
+            },
+            {
+                dataField: 'neto',
+                text: 'Neto',
+                align: 'center',
+                headerAlign: 'center',
+            },
+            {
+                dataField: 'impuesto',
+                text: 'Impuesto',
+                align: 'center',
+                headerAlign: 'center',
+            }
+        ]
     }
 
     componentDidMount = () => {
@@ -74,6 +100,10 @@ class AccountingTable extends Component {
         this.setState({ editing: false })
     }
 
+    handleRemoveCell = (row) => {
+        console.log(row)
+    }
+
     getColumns = () => {
         const { config, theme } = this.props;
         const { editing, rowEdit, accountDetail, ccUpdateValue } = this.state;
@@ -108,7 +138,7 @@ class AccountingTable extends Component {
                 formatExtraData: { editing, rowEdit },
                 formatter: ((cell, row, rowIndex, extraData) => {
                     if (row.linea_edit) {
-                        if (rowEdit === row.nitem && editing) {
+                        if (rowEdit === row.imp_id && editing) {
                             return (
                                 <Row>
                                     <Col sm={6} >
@@ -121,7 +151,26 @@ class AccountingTable extends Component {
                                 </Row>
                             )
                         } else if (!editing) {
-                            return <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faPencilAlt} onClick={() => this.handleEditCell(row)} />
+                            const actions = []
+
+                            actions.push(
+                                <Col key={1} sm={6}>
+                                    <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faPencilAlt} onClick={() => this.handleEditCell(row)} />
+                                </Col>
+                            )
+
+                            if (row.linea_edit === 2) {
+                                actions.push(
+                                    <Col key={2} sm={6} >
+                                        <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faTrashAlt} onClick={() => this.handleRemoveCell(row)} />
+                                    </Col>
+                                )
+                            }
+                            return (
+                                <Row>
+                                    {actions}
+                                </Row>
+                            )
                         } else {
                             return null;
                         }
@@ -210,7 +259,7 @@ class AccountingTable extends Component {
     }
 
     handleEditCell = (row) => {
-        this.setState({ editing: true, rowEdit: row.nitem });
+        this.setState({ editing: true, rowEdit: row.imp_id });
     }
 
     getFilterOptions = (idField, field) => {
@@ -308,8 +357,7 @@ class AccountingTable extends Component {
         const { theme } = this.props
         return (
             <CommonTable
-                columns={[]}
-                keyField={'prod_id'}
+                columns={this.columnsProduct}
                 data={row.productos}
                 rowClasses={theme.tableRow}
                 headerClasses={theme.tableHeader}
