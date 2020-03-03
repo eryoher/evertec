@@ -196,7 +196,7 @@ class HeadBoardFormInput extends Component {
             return ({ id: opt.cod_cond_vta, label: opt.desc_cond_vta })
         }) : [];
 
-        if (fields) {
+        if (fields && values) {
             return (
                 <Row>
                     <NotificationMessage
@@ -217,7 +217,7 @@ class HeadBoardFormInput extends Component {
                         colInput={"col-sm-10"}
                         options={optionsCompany}
                         disable={readOnly}
-                        value={values.Suc_empresa_vta}
+                        value={(values) ? values.Suc_empresa_vta : null}
                         onBlur={handleBlur}
                         onChange={(data) => {
                             setFieldValue('Suc_empresa_vta', data.target.value);

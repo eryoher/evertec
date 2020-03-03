@@ -31,9 +31,6 @@ class Generate extends Component {
         this.setState({ completed: true })
     }
 
-
-
-
     render() {
         const { t, voucherType } = this.props
 
