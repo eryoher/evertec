@@ -175,7 +175,7 @@ class HeadBoardFormInput extends Component {
 
     render() {
         const { t, errors, touched, values, handleChange, handleBlur, setFieldValue, headSale, readOnly, collapse, fields } = this.props;
-
+        console.log(fields)
         if (!headSale) {
             return null;
         }
@@ -204,7 +204,6 @@ class HeadBoardFormInput extends Component {
                         handleCloseError={this.handleCloseError}
                         type={'danger'}
                     />
-
                     <InputDropdown
                         inputFormCol={{ sm: 11 }}
                         fields={fields}

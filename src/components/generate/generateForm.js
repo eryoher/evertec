@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Row, Col, Container, Modal, Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { Card, Collapse } from 'reactstrap'
-import HeadboardFormInput from '../headboard/headboardFormInput'
 import VoucherFormInput from 'components/voucher/voucherFormInput';
 import ClientFormInput from 'components/voucher/clientFormInput';
 import AccountFormInput from 'components/voucher/accountFormInput';
@@ -24,6 +23,7 @@ import ConfirmModal from 'components/common/confirmModal';
 import { LANDING, VOUCHER } from 'utils/RoutePath';
 import { withRouter } from "react-router-dom";
 import { P_FINCOMPROB } from 'constants/ConfigProcessNames';
+import ClienteReadOnly from './clienteReadOnly';
 
 
 const FIELDS = [
@@ -146,7 +146,8 @@ class GenerateForm extends Component {
     }
 
     componentDidMount = () => {
-        this.props.getClientHeadboard()
+        const { idOperacion } = this.props;
+        this.props.getClientHeadboard({ idOperacion })
     }
 
     componentDidUpdate = (prevProps) => {
@@ -166,9 +167,7 @@ class GenerateForm extends Component {
         }
     }
 
-    toggle() {
-        this.setState(state => ({ collapse: !state.collapse }));
-    }
+
 
     toggleTableItem() {
         this.setState(state => ({ collapseItemTable: !state.collapseItemTable }));
@@ -312,70 +311,12 @@ class GenerateForm extends Component {
                         </Col>
                     </Row>
                 }
-                <Card className={`pb-3 pt-3 ${theme.containerCard}`}  >
-                    <Row className={"mb-3"}>
-                        <Col sm={6} className={theme.title} >
-                            {t('client.title')}
-                        </Col>
-                        <Col sm={5} className={"text-right"} >
-                            <FontAwesomeIcon icon={faPencilAlt} />
-                        </Col>
-                    </Row>
-                    <VoucherFormInput
-                        auoptions={[]}
-                        handleLoading={false}
-                        values={defaultInitial}
-                        readOnly
-                        fields={FIELDS}
-                    />
-                    <div className="dropdown-divider col-11 p-1" />
-                    <ClientFormInput
-                        auoptions={[]}
-                        values={defaultInitial.Sucursal}
-                        readOnly
-                        fields={FIELDS}
-                    />
-                    <Row>
-                        <Col sm={1}>
-                            <CollapseBotton
-                                onPress={() => this.toggle()}
-                                status={this.state.collapse}
-                            />
-                        </Col>
-                        <Col sm={11}>
-                            <div className="dropdown-divider col-11 p-1" />
-                        </Col>
-                    </Row>
-                    <Collapse isOpen={this.state.collapse}>
-                        <LocationFormInput
-                            values={defaultInitial}
-                            readOnly
-                            fields={FIELDS}
-                        />
-                        <div className="dropdown-divider col-11 p-1" />
-                        <AccountFormInput
-                            readOnly
-                            values={defaultInitial}
-                            fields={FIELDS}
-                        />
-                    </Collapse>
-                </Card>
-                <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
-                    <Row className={"mb-3"}>
-                        <Col sm={6} className={theme.title} >
-                            {t('headboard.title')}
-                        </Col>
-                        <Col sm={5} className={"text-right"} >
-                            <FontAwesomeIcon icon={faPencilAlt} />
-                        </Col>
-                    </Row>
-                    <HeadboardFormInput
-                        readOnly
-                        collapse
-                        values={(clientHeadboard) ? clientHeadboard.Cabecera : null}
-                        fields={FIELDS}
-                    />
-                </Card>
+
+                <ClienteReadOnly
+                    {...this.props}
+                    defaultValues={(clientHeadboard) ? clientHeadboard : null}
+                />
+
                 <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
                     <Row className={"mb-3"}>
                         <Col sm={6} className={theme.title} >

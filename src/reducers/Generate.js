@@ -24,7 +24,7 @@ function rootReducer(state = initialState, action) {
         case GET_CLIENT_HEADBOARD:
             return { ...state, clientHeadboard: null }
         case GET_CLIENT_HEADBOARD_SUCCESS:
-            return { ...state, clientHeadboard: action.payload.data }
+            return { ...state, clientHeadboard: action.payload }
         case GET_GENERATE_ITEMS:
             return { ...state, generateItems: [] }
         case GET_GENERATE_ITEMS_SUCCESS:

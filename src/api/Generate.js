@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 export const getClientHeadboard = async (params) => {
-    const response = await Axios.get('/vta_generar_compr/cliente_cabecera');
+    const response = await Axios.get('/Comprobante/vistafinal', { params });
     return response.data;
 }
 
