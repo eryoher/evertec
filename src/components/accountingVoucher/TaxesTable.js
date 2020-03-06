@@ -5,7 +5,7 @@ import styles from './voucherStateTable.module.css';
 import { themr } from 'react-css-themr';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { getConfigVoucher, accountValidate, accountConfirm } from '../../actions';
+import { getConfigVoucher, taxesValidateRow, taxesConfirm } from '../../actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faSave, faBan, faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { selectFilter } from 'react-bootstrap-table2-filter';
@@ -27,32 +27,34 @@ class AccountingTable extends Component {
             editRow: null,
             editing: false,
             accountDetail: null,
-            itemsTable: (this.props.products) ? this.props.products.Items : [],
+            itemsTable: (this.props.products) ? this.props.products.Impuestos : [],
             ccUpdateValue: null
         }
+
+        this.primaryKey = 'cod_imp';
 
         this.rowErrors = []
         this.columnsProduct = [
             {
-                dataField: 'id',
+                dataField: 'nitem_af',
                 text: '#',
                 align: 'center',
                 headerAlign: 'center',
             },
             {
-                dataField: 'desc_product',
+                dataField: 'desc_item',
                 text: 'Detalle Item',
                 align: 'center',
                 headerAlign: 'center',
             },
             {
-                dataField: 'neto',
+                dataField: 'neto_item',
                 text: 'Neto',
                 align: 'center',
                 headerAlign: 'center',
             },
             {
-                dataField: 'impuesto',
+                dataField: 'impuesto_item',
                 text: 'Impuesto',
                 align: 'center',
                 headerAlign: 'center',
@@ -78,9 +80,8 @@ class AccountingTable extends Component {
 
     componentWillUnmount = () => {
         const { idOperacion } = this.props;
-        this.props.accountConfirm({ idOperacion })
+        this.props.taxesConfirm({ idOperacion })
     }
-
 
     handleValidateCell = (row) => {
         //console.log(row, 'esto es lo que se envia a validar...')
@@ -92,7 +93,7 @@ class AccountingTable extends Component {
             "nicc": row.nicc,
             "nicodctacc": row.nicodctacc
         }]
-        this.props.accountValidate({ Items, idOperacion });
+        this.props.taxesValidateRow({ Items, idOperacion });
         this.setState({ editing: false })
     }
 
@@ -138,7 +139,7 @@ class AccountingTable extends Component {
                 formatExtraData: { editing, rowEdit },
                 formatter: ((cell, row, rowIndex, extraData) => {
                     if (row.linea_edit) {
-                        if (rowEdit === row.imp_id && editing) {
+                        if (rowEdit === row[this.primaryKey] && editing) {
                             return (
                                 <Row>
                                     <Col sm={6} >
@@ -227,7 +228,7 @@ class AccountingTable extends Component {
             }
         }
 
-        if (editing && row.nitem === rowEdit) {
+        if (editing && row[this.primaryKey] === rowEdit) {
             if (campoId === 'cuenta') {
                 result = (
                     <AccountField
@@ -259,7 +260,7 @@ class AccountingTable extends Component {
     }
 
     handleEditCell = (row) => {
-        this.setState({ editing: true, rowEdit: row.imp_id });
+        this.setState({ editing: true, rowEdit: row[this.primaryKey] });
     }
 
     getFilterOptions = (idField, field) => {
@@ -337,7 +338,6 @@ class AccountingTable extends Component {
 
 
     getExpandRow = (row) => {
-
         return (
             {
                 renderer: row => this.renderExpandRow(row),
@@ -358,7 +358,8 @@ class AccountingTable extends Component {
         return (
             <CommonTable
                 columns={this.columnsProduct}
-                data={row.productos}
+                data={row.Items}
+                keyField={'nitem_af'}
                 rowClasses={theme.tableRow}
                 headerClasses={theme.tableHeader}
             />
@@ -385,7 +386,7 @@ class AccountingTable extends Component {
                             remote
                             refTable={this.tableRef}
                             columns={tableColumns}
-                            keyField={'imp_id'}
+                            keyField={this.primaryKey}
                             data={this.state.itemsTable}
                             rowClasses={theme.tableRow}
                             headerClasses={theme.tableHeader}
@@ -409,8 +410,8 @@ const mapStateToProps = ({ voucher, accountingSeats, auth }) => {
 
 const connectForm = connect(mapStateToProps, {
     getConfigVoucher,
-    accountValidate,
-    accountConfirm
+    taxesValidateRow,
+    taxesConfirm
 })(AccountingTable);
 
 export default themr('StateTableStyles', styles)(withTranslation()(connectForm));

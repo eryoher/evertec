@@ -58,7 +58,6 @@ class InputText extends Component {
         if (onChange) {
             onChange('');
         }
-
     }
 
     handleSubmit = (data) => {
@@ -96,10 +95,6 @@ class InputText extends Component {
             this.setState({ requireError: false });
 
         }
-
-
-
-
     }
 
     handleNumberOnblur = (data) => {

@@ -821,11 +821,11 @@ export default (mockAdapter) => {
 
     mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_imp_comprob', idOperacion: 21 } }).reply(200, {
         "cod_proceso": "p_imp_comprob",
-        "descrip_proceso": "Impuesto",
+        "descrip_proceso": "Impuestos",
         "orden": "8",
         "campos": [
             {
-                "idCampo": "imp_desc",
+                "idCampo": "desc_imp",
                 "descripcion": "Impuesto",
                 "label": "Impuesto",
                 "editable": 0,
@@ -845,7 +845,7 @@ export default (mockAdapter) => {
                 "mascara": null
             },
             {
-                "idCampo": "alicouta",
+                "idCampo": "alicuota",
                 "descripcion": "Alícouta",
                 "label": "Alícouta",
                 "editable": 1,
@@ -856,7 +856,7 @@ export default (mockAdapter) => {
             },
 
             {
-                "idCampo": "imp_valor",
+                "idCampo": "impuesto",
                 "descripcion": "Impuesto",
                 "label": "Impuesto",
                 "editable": 0,
@@ -866,7 +866,7 @@ export default (mockAdapter) => {
                 "mascara": null
             },
             {
-                "idCampo": "basecalculo",
+                "idCampo": "base_calc",
                 "descripcion": "Base Calculo",
                 "label": "Base Calculo",
                 "editable": 1,
@@ -876,11 +876,11 @@ export default (mockAdapter) => {
                 "mascara": null
             },
             {
-                "idCampo": "nro_certificado",
+                "idCampo": "nro_certif",
                 "descripcion": "Numero de certificado",
                 "label": "Nro. Certificado",
                 "editable": 0,
-                "visible": 0,
+                "visible": 1,
                 "requerido": "0",
                 "valid": null,
                 "mascara": null
