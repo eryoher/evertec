@@ -189,7 +189,6 @@ class ShoppingCartTable extends Component {
         const { cartProducts, config, theme } = this.props;
         const tableColumns = (config) ? this.getColumns() : [];
         const noExpand = this.getNoexpandRows();
-        console.log(cartProducts)
         const expandRow = {
             renderer: row => this.renderExpandRow(row),
             showExpandColumn: true,

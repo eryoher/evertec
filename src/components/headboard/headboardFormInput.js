@@ -135,11 +135,13 @@ class HeadBoardFormInput extends Component {
     }
 
     renderCarrier = () => {
-        const { readOnly, t, fields, headSale, setFieldValue, handleBlur } = this.props;
+        const { readOnly, t, fields, headSale, setFieldValue, handleBlur, genericOptions } = this.props;
         let result = [];
-        const optionsTrans = (headSale.transporte) ? headSale.transporte.map((opt) => {
+        const optionsTrans = (headSale && headSale.transporte) ? headSale.transporte.map((opt) => {
             return ({ id: opt.cod_transp, label: opt.nom_transp })
         }) : []
+
+        const genericFields = (readOnly) ? genericOptions.atrib_comp_vta : (headSale) ? headSale.atrib_comp_vta : [];
 
         result.push(
             <Row key={1} className={'col-11'} style={{ paddingRight: '0px' }} >
@@ -162,37 +164,33 @@ class HeadBoardFormInput extends Component {
                 />
             </Row>
         )
-        if (headSale.atrib_comp_vta) {
-            headSale.atrib_comp_vta.forEach(element => {
-                result.push(
-                    <GenericInputForm config={element} key={element.cod_atrib} handleChange={this.handleChangeGeneric} />
-                );
-            });
-        }
+
+        genericFields.forEach(element => {
+            result.push(
+                <GenericInputForm config={element} key={element.cod_atrib} handleChange={this.handleChangeGeneric} />
+            );
+        });
+
 
         return result;
     }
 
     render() {
-        const { t, errors, touched, values, handleChange, handleBlur, setFieldValue, headSale, readOnly, collapse, fields } = this.props;
-        console.log(fields)
-        if (!headSale) {
-            return null;
-        }
+        const { t, values, handleChange, handleBlur, setFieldValue, headSale, readOnly, collapse, fields } = this.props;
 
-        const optionsCompany = (headSale.suc_empresa) ? headSale.suc_empresa.map((opt) => {
+        const optionsCompany = (headSale && headSale.suc_empresa) ? headSale.suc_empresa.map((opt) => {
             return ({ id: opt.Cod_Suc, label: opt.Nom_suc });
         }) : [];
 
-        const optionsCurrency = (headSale.moneda) ? headSale.moneda.map((opt) => {
+        const optionsCurrency = (headSale && headSale.moneda) ? headSale.moneda.map((opt) => {
             return ({ id: opt.cod_moneda, label: opt.desc_moneda })
         }) : [];
 
-        const optionsSaler = (headSale.vendedor) ? headSale.vendedor.map((opt) => {
+        const optionsSaler = (headSale && headSale.vendedor) ? headSale.vendedor.map((opt) => {
             return ({ id: opt.cod_vend, label: opt.nom_vend })
         }) : [];
 
-        const optionsConditions = (headSale.cond_comp_vta) ? headSale.cond_comp_vta.map((opt) => {
+        const optionsConditions = (headSale && headSale.cond_comp_vta) ? headSale.cond_comp_vta.map((opt) => {
             return ({ id: opt.cod_cond_vta, label: opt.desc_cond_vta })
         }) : [];
 
@@ -271,6 +269,7 @@ class HeadBoardFormInput extends Component {
                             colInput={"col-sm-8"}
                             divStyle={{ paddingLeft: '17px' }}
                             disable={readOnly}
+                            value={values.mon_comp_vta}
                             options={optionsCurrency}
                             onChange={this.handleChangeCurreny}
                             onBlur={handleBlur}

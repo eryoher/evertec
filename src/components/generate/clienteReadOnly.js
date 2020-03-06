@@ -62,7 +62,7 @@ export default class ClienteReadOnly extends Component {
                 resultKey = 'cliente_Contacto';
                 break;
             case "Sucursal":
-                resultKey = 'suc_empresa';
+                resultKey = 'Suc_empresa_vta';
                 break;
             case "Telefono":
                 resultKey = 'cliente_Telefono';
@@ -97,6 +97,27 @@ export default class ClienteReadOnly extends Component {
             case "Obs.Vta.":
                 resultKey = 'cliente_Obs_vta';
                 break;
+            case "Comprobante":
+                resultKey = 'Titulo_comp_vta';
+                break;
+            case "Fecha":
+                resultKey = 'fecha_comp_vta';
+                break;
+            case "Moneda":
+                resultKey = 'mon_comp_vta';
+                break;
+            case "Cotización":
+                resultKey = 'cotiz_comp_vta';
+                break;
+            case "Vendedor":
+                resultKey = 'vend_comp_vta';
+                break;
+            case "Cond.Vta.":
+                resultKey = 'cond_comp_vta';
+                break;
+            case "Transportista":
+                resultKey = 'Transportista';
+                break;
             default:
                 break;
         }
@@ -106,10 +127,8 @@ export default class ClienteReadOnly extends Component {
 
     render() {
         const { theme, t, defaultValues } = this.props;
-
         const [defaultInitial, FIELDS] = (defaultValues) ? this.getFieldValues(defaultValues.cliente) : [null, null];
         const [initalHead, fieldHead] = (defaultValues) ? this.getFieldValues(defaultValues.cabecera) : [null, null];
-        console.log(initalHead, fieldHead)
 
         if (defaultInitial && FIELDS) {
             return (
@@ -171,12 +190,16 @@ export default class ClienteReadOnly extends Component {
                                 <FontAwesomeIcon icon={faPencilAlt} />
                             </Col>
                         </Row>
-                        <HeadboardFormInput
-                            readOnly
-                            collapse
-                            values={[]}
-                            fields={FIELDS}
-                        />
+                        {
+                            defaultValues.cabecera &&
+                            <HeadboardFormInput
+                                readOnly
+                                collapse
+                                genericOptions={{ atrib_comp_vta: defaultValues.cabecera.atrib_comp_vta }}
+                                values={initalHead}
+                                fields={fieldHead}
+                            />
+                        }
                     </Card>
                 </Fragment>
             )

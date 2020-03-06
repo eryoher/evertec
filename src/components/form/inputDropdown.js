@@ -74,8 +74,7 @@ class InputDropdown extends Component {
         const config = this.getconfigField(inputId);
         const customStyleLabel = (config.requerido) ? { ...styleLabel, paddingTop: '4px', color: 'red' } : { ...styleLabel, paddingTop: '4px' };
         const classText = (disable) ? theme.inputDisabled : '';
-        let customValue = this.getCustomValue(options)
-
+        let customValue = (value) ? value : this.getCustomValue(options);
 
         if (config.visible) {
             return (

@@ -319,12 +319,11 @@ class GenerateForm extends Component {
 
                 <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
                     <Row className={"mb-3"}>
-                        <Col sm={6} className={theme.title} >
+                        <Col sm={6} className={theme.title}>
                             {t('shoppingCart.title')}
                         </Col>
-                        <Col sm={3} className={theme.title} >
+                        <Col sm={3} className={theme.title} />
 
-                        </Col>
                         <Col sm={{ span: 2 }} className={"text-right"} >
                             <FontAwesomeIcon icon={faPencilAlt} />
                         </Col>
@@ -346,6 +345,7 @@ class GenerateForm extends Component {
                             divClass={"mt-1"}
                             searchBox
                             idOperacion={this.props.idOperacion}
+                            generateItems={(clientHeadboard) ? clientHeadboard.Items : []}
                         />
                     </Collapse>
 
@@ -381,6 +381,7 @@ class GenerateForm extends Component {
                                     idOperacion={this.props.idOperacion}
                                     readOnly
                                 />
+                                <div>hoaalal</div>
                             </Collapse>
                         </Row>
                     </Container>
