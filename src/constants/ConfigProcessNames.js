@@ -6,6 +6,6 @@ export const P_SELCLI = 'p_selcli';
 export const P_VTACAB = 'p_vtacab';
 export const P_FINCOMPROB = 'p_fincomprob';
 export const P_ASIEN_CONT = 'p_asto_comprob';
-export const P_IMP_COMPROB = 'p_imp_comprob'
+export const P_IMP_COMPROB = 'p_impuesto'
 //////
 export const IDCLIENT = 1;

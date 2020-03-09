@@ -20,7 +20,7 @@ export default (mockAdapter) => {
                     "orden": 2
                 },
                 {
-                    "cod_proceso": "p_imp_comprob",
+                    "cod_proceso": "p_impuesto",
                     "desc_proceso": "Impuestos",
                     "orden": 3
                 },
@@ -77,7 +77,7 @@ export default (mockAdapter) => {
                     "orden": 2
                 },
                 {
-                    "cod_proceso": "p_imp_comprob",
+                    "cod_proceso": "p_impuesto",
                     "desc_proceso": "Impuestos",
                     "orden": 3
                 },
