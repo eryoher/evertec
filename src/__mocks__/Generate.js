@@ -515,4 +515,193 @@ export default (mockAdapter) => {
         }
     });
 
+    mockAdapter.onGet('/Comprobante/vistafinal').reply(200, {
+        "Resultado": {
+            "Resultado": true,
+            "Tipo_error": null,
+            "Mens_error": null,
+            "Errores": null
+        },
+        "cabecera": {
+            "valores": [
+                {
+                    "titulo": "Sucursal",
+                    "valor": "CORRIENTES P.V.0006"
+                },
+                {
+                    "titulo": "Comprobante",
+                    "valor": "Factura Texto Libre"
+                },
+                {
+                    "titulo": "Fecha",
+                    "valor": "11/03/2020"
+                },
+                {
+                    "titulo": "Moneda",
+                    "valor": "Pesos"
+                },
+                {
+                    "titulo": "Cotización",
+                    "valor": "1"
+                },
+                {
+                    "titulo": "Vendedor",
+                    "valor": "Pablo Gayoso"
+                },
+                {
+                    "titulo": "Cond.Vta.",
+                    "valor": null
+                },
+                {
+                    "titulo": "Transportista",
+                    "valor": "PACK - EXPRESS"
+                }
+            ],
+            "atrib_comp_vta": [
+
+            ]
+        },
+        "cliente": {
+            "valores": [
+                {
+                    "titulo": "R.Social",
+                    "valor": "CABICE PRUEBA SRL"
+                },
+                {
+                    "titulo": "Código",
+                    "valor": "CCCLYSCS00025"
+                },
+                {
+                    "titulo": "T.Responsable",
+                    "valor": "Resp.Inscripto"
+                },
+                {
+                    "titulo": "CUIT",
+                    "valor": "30-71209680-9"
+                },
+                {
+                    "titulo": "Sucursal",
+                    "valor": "Casa Central"
+                },
+                {
+                    "titulo": "Contacto",
+                    "valor": "Jhonatan"
+                },
+                {
+                    "titulo": "Telefono",
+                    "valor": "3772422688 - 15455099"
+                },
+                {
+                    "titulo": "Mail",
+                    "valor": "marisaramis@gmail.com"
+                },
+                {
+                    "titulo": "Domicilio",
+                    "valor": "SARMIENTO 445"
+                },
+                {
+                    "titulo": "Localidad",
+                    "valor": "PASO DE LOS LIBRES"
+                },
+                {
+                    "titulo": "Provincia",
+                    "valor": "Corrientes"
+                },
+                {
+                    "titulo": "C.Postal",
+                    "valor": "3230"
+                },
+                {
+                    "titulo": "Límite Crédito",
+                    "valor": "20.00"
+                },
+                {
+                    "titulo": "Pend.Crédito",
+                    "valor": "0.00"
+                },
+                {
+                    "titulo": "Saldo",
+                    "valor": "0.00"
+                },
+                {
+                    "titulo": "Obs.CC",
+                    "valor": null
+                },
+                {
+                    "titulo": "Obs.Vta.",
+                    "valor": null
+                }
+            ]
+        },
+        "Totales": [
+            {
+                "descrip": "Total Neto",
+                "importe": 39863.31
+            },
+            {
+                "descrip": "Total Cantidad",
+                "importe": 105.0
+            }
+        ],
+        "Items": {
+            "page_size": 10,
+            "page_number": 1,
+            "total_count": 2,
+            "Items": [
+                {
+                    "nitem": 1,
+                    "cod_prod": "54568",
+                    "desc_item": "BOOST chocolate lata pvo.x370g",
+                    "cant": 69.0,
+                    "cod_unid": null,
+                    "precio": 390.19,
+                    "neto": 26923.11,
+                    "estado": null,
+                    "fecha": "2020-03-11T00:00:00"
+                },
+                {
+                    "nitem": 2,
+                    "cod_prod": "51174",
+                    "desc_item": "CALTRATE VIT MASTICABLE chocolate caram.mast.x60",
+                    "cant": 36.0,
+                    "cod_unid": null,
+                    "precio": 359.45,
+                    "neto": 12940.2,
+                    "estado": null,
+                    "fecha": "2020-03-11T00:00:00"
+                }
+            ]
+        },
+        "Afectaciones": {
+            "page_size": 10,
+            "page_number": 1,
+            "total_count": 2,
+            "Items": [
+
+            ]
+        },
+        "Asiento": {
+            "page_size": 0,
+            "page_number": 0,
+            "total_count": 0,
+            "Items": [
+                {
+                    "nitem": 1,
+                    "cod_cta": "1.1.2.01",
+                    "descrip": "Clientes locales - Deudores",
+                    "debe": 39863.31,
+                    "haber": 0.0
+                },
+                {
+                    "nitem": 2,
+                    "cod_cta": "4.1.1.01.000",
+                    "descrip": "Categ.prod.En manual - Ventas netas sin impuesto",
+                    "debe": 0.0,
+                    "haber": 39863.31
+                }
+            ]
+        },
+        "Impuestos": null
+    });
+
 }
