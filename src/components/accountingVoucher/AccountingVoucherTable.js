@@ -42,13 +42,12 @@ class AccountingSeatTable extends Component {
 
     render() {
         const { t, search, readOnly } = this.props;
-
         return (
             <Row style={{ marginLeft: '0px' }}>
                 <Col sm={12} className={"pb-2 pl-0"}>
                     {search &&
                         <TaxesTable
-                            products={search}
+                            taxes={search}
                             readOnly={readOnly}
                             idOperacion={this.props.idOperacion}
                             handleChangeTable={this.onChangeTable}

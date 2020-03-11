@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import { Row, Col, Container, Modal, Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { Card, Collapse } from 'reactstrap'
-import VoucherFormInput from 'components/voucher/voucherFormInput';
-import ClientFormInput from 'components/voucher/clientFormInput';
-import AccountFormInput from 'components/voucher/accountFormInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import LocationFormInput from 'components/voucher/locationFormInput';
 import CollapseBotton from 'components/common/collapseBoton';
 import { themr } from 'react-css-themr';
 import styles from './generateForm.module.css';
@@ -16,119 +12,14 @@ import LoadItemsTableReadOnly from 'components/loadItems/loadItemsTableReadOnly'
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
 import NotificationMessage from 'components/common/notificationMessage';
 import { connect } from 'react-redux';
-import { getClientHeadboard, finishGenerate, voucherCancel, voucherSaveAndNew, showMessage, getConfigVoucher } from '../../actions';
+import { getClientHeadboard, finishGenerate, voucherCancel, voucherSaveAndNew, showMessage, getConfigVoucher, changeTableItems } from '../../actions';
+import { withRouter } from "react-router-dom";
 import VoucherAffectingTable from 'components/voucherAffecting/voucherAffectingTable';
 import VoucherStateTable from 'components/voucherState/voucherStateTable';
 import ConfirmModal from 'components/common/confirmModal';
-import { LANDING, VOUCHER } from 'utils/RoutePath';
-import { withRouter } from "react-router-dom";
-import { P_FINCOMPROB } from 'constants/ConfigProcessNames';
 import ClienteReadOnly from './clienteReadOnly';
-
-
-const FIELDS = [
-    {
-        idCampo: 'cliente_razon_social',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_codigo',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Tipo_resp',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_identificador',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Contacto',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Obs_cc',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Obs_vta',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Limcred',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Pendcred',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Saldo',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_email',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Telefono',
-        visible: true
-    },
-    {
-        idCampo: 'suc_address',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Localidad',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Provincia',
-        visible: true
-    },
-    {
-        idCampo: 'cliente_Cpos',
-        visible: true
-    },
-    {
-        idCampo: 'suc_empresa',
-        visible: true
-    },
-    {
-        idCampo: 'transp_comp_vta',
-        visible: true
-    },
-    {
-        idCampo: 'suc_empresa_venta',
-        visible: true
-    },
-    {
-        idCampo: 'Titulo_comp_vta',
-        visible: true
-    },
-    {
-        idCampo: 'fecha',
-        visible: true
-    },
-    {
-        idCampo: 'mon_comp_vta',
-        visible: true
-    },
-    {
-        idCampo: 'cotiz',
-        visible: true
-    },
-    {
-        idCampo: 'vend_comp_vta',
-        visible: true
-    },
-    {
-        idCampo: 'cond_comp_vta',
-        visible: true
-    },
-
-]
+import { LANDING, VOUCHER } from 'utils/RoutePath';
+import { P_FINCOMPROB } from 'constants/ConfigProcessNames';
 
 class GenerateForm extends Component {
 
@@ -147,7 +38,7 @@ class GenerateForm extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
-        this.props.getClientHeadboard({ idOperacion })
+        this.props.getClientHeadboard({ idOperacion, page_size: 1 })
     }
 
     componentDidUpdate = (prevProps) => {
@@ -167,12 +58,6 @@ class GenerateForm extends Component {
         }
     }
 
-
-
-    toggleTableItem() {
-        this.setState(state => ({ collapseItemTable: !state.collapseItemTable }));
-    }
-
     toggleTableVoucher = () => {
         this.setState(state => ({ collapseVoucherTable: !state.collapseVoucherTable }));
     }
@@ -190,9 +75,7 @@ class GenerateForm extends Component {
         const { voucherSaveParameter, idOperacion } = this.props;
         const urlSubmit = (voucherSaveParameter.nuevoComprobante) ? `${VOUCHER}/${idOperacion}` : LANDING;
         this.setState({ generated: false })
-
         this.props.history.push(urlSubmit);
-
     }
 
     handleGeneratebtn = () => {
@@ -244,30 +127,14 @@ class GenerateForm extends Component {
 
     }
 
+
+    handleChangeTableItem = (params) => {
+        const { idOperacion } = this.props
+        this.props.changeTableItems({ ...params, idOperacion });
+    }
+
     render() {
         const { t, theme, clientHeadboard } = this.props;
-
-        const defaultInitial = (clientHeadboard) ? clientHeadboard.Cliente : {
-            cliente_razon_social: '',
-            cliente_Tipo_resp: '',
-            cliente_identificador: '',
-            cliente_Contacto: '',
-            cliente_Obs_cc: '',
-            cliente_Obs_vta: '',
-            cliente_Limcred: '',
-            cliente_Pendcred: '',
-            credito_saldo: '',
-            cliente_email: '',
-            cliente_telefono: '',
-            suc_address: '',
-            cliente_Localidad: '',
-            cliente_Provincia: '',
-            cliente_Cpos: '',
-            suc_empresa: null,
-            Sucursal: {},
-            Cabecera: {},
-            cliente_Sucursale: []
-        }
 
         return (
             <Col sm={12}>
@@ -317,39 +184,12 @@ class GenerateForm extends Component {
                     defaultValues={(clientHeadboard) ? clientHeadboard : null}
                 />
 
-                <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
-                    <Row className={"mb-3"}>
-                        <Col sm={6} className={theme.title}>
-                            {t('shoppingCart.title')}
-                        </Col>
-                        <Col sm={3} className={theme.title} />
-
-                        <Col sm={{ span: 2 }} className={"text-right"} >
-                            <FontAwesomeIcon icon={faPencilAlt} />
-                        </Col>
-                    </Row>
-                    <Row className={'mt-2'}>
-                        <Col sm={1}>
-                            <CollapseBotton
-                                onPress={() => this.toggleTableItem()}
-                                status={this.state.collapseItemTable}
-                            />
-                        </Col>
-                        <Col sm={11}>
-                            <div className="dropdown-divider col-11 p-1" />
-                        </Col>
-                    </Row>
-
-                    <Collapse isOpen={this.state.collapseItemTable}>
-                        <LoadItemsTableReadOnly
-                            divClass={"mt-1"}
-                            searchBox
-                            idOperacion={this.props.idOperacion}
-                            generateItems={(clientHeadboard) ? clientHeadboard.Items : []}
-                        />
-                    </Collapse>
-
-                </Card>
+                <LoadItemsTableReadOnly
+                    {...this.props}
+                    itemsTable={(clientHeadboard) ? clientHeadboard.Items : null}
+                    totalTable={(clientHeadboard) ? clientHeadboard.Totales : []}
+                    handleChangeTable={this.handleChangeTableItem}
+                />
 
                 <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
                     <Row className={"mb-3"}>
@@ -381,7 +221,6 @@ class GenerateForm extends Component {
                                     idOperacion={this.props.idOperacion}
                                     readOnly
                                 />
-                                <div>hoaalal</div>
                             </Collapse>
                         </Row>
                     </Container>
@@ -488,6 +327,6 @@ const mapStateToProps = ({ generateForm, vouchertype }) => {
     return { clientHeadboard, generateVoucher, voucherConfirmation, voucherSaveParameter };
 };
 
-const connectForm = connect(mapStateToProps, { getClientHeadboard, finishGenerate, voucherCancel, voucherSaveAndNew, showMessage, getConfigVoucher })(withRouter(GenerateForm));
+const connectForm = connect(mapStateToProps, { getClientHeadboard, finishGenerate, voucherCancel, voucherSaveAndNew, showMessage, getConfigVoucher, changeTableItems })(withRouter(GenerateForm));
 
 export default themr('GenerateFormStyle', styles)(withTranslation()(connectForm));

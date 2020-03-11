@@ -10,9 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faSave, faBan, faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { P_IMP_COMPROB } from 'constants/ConfigProcessNames';
-import AccountField from './accountField';
-import InputDropdown from 'components/form/inputDropdown';
 import CollapseBotton from 'components/common/collapseBoton';
+import InputText from 'components/form/inputText';
 
 
 
@@ -27,13 +26,14 @@ class AccountingTable extends Component {
             editRow: null,
             editing: false,
             accountDetail: null,
-            itemsTable: (this.props.products) ? this.props.products.Impuestos : [],
+            itemsTable: (this.props.taxes) ? this.props.taxes.Items : [],
             ccUpdateValue: null
         }
 
         this.primaryKey = 'cod_imp';
 
         this.rowErrors = []
+        this.primarykey = 'imp_id'
         this.columnsProduct = [
             {
                 dataField: 'nitem_af',
@@ -84,7 +84,7 @@ class AccountingTable extends Component {
     }
 
     handleValidateCell = (row) => {
-        //console.log(row, 'esto es lo que se envia a validar...')
+        //console.log(row)
         const { idOperacion } = this.props;
         const Items = [{
             "niasto": row.niasto,
@@ -205,8 +205,8 @@ class AccountingTable extends Component {
             fields: [{ ...field, label: false }],
             label: false,
             inputId: `${campoId}`,
-            id: `${campoId}_${row.nitem}`,
-            name: `${campoId}_${row.nitem}`,
+            id: `${campoId}_${row[this.primarykey]}`,
+            name: `${campoId}_${row[this.primarykey]}`,
             colLabel: "col-sm-4",
             colInput: "col-sm-8",
             divStyle: { paddingLeft: '17px' },
@@ -215,32 +215,16 @@ class AccountingTable extends Component {
             showError: inputError,
             styles: inputStyle,
             rowStyle: { marginBottom: '5px' },
-            //            options: (accountDetail && accountDetail.nicodcta === row.nicodcta) ? optionsCC : [],
-            options: (accountDetail) ? optionsCC : [],
-            onChange: (data) => {
-                const value = data.target.value;
-                this.setState({ ccUpdateValue: value })
-                accountDetail.cc.forEach(account => {
-                    if (account.cod_cc === value) {
-                        this.updateCCRow({ rowId: row.nitem, value, text: account.centrocosto })
-                    }
-                });
+            onChange: (value) => {
+                this.handleUpdateItems(row[this.primarykey], field.idCampo, value);
             }
+
         }
 
-        if (editing && row[this.primaryKey] === rowEdit) {
-            if (campoId === 'cuenta') {
+        if (editing && row[this.primarykey] === rowEdit) {
+            if (campoId !== 'imp_desc') {
                 result = (
-                    <AccountField
-                        idOperacion={idOperacion}
-                        placeholder={customValue}
-                        handleUpdateAccount={this.updateAccountRow}
-                        row={row}
-                    />
-                );
-            } else if (campoId === 'centrocosto') {
-                result = (
-                    <InputDropdown
+                    <InputText
                         {...optionsInput}
                     />
                 );
@@ -260,7 +244,20 @@ class AccountingTable extends Component {
     }
 
     handleEditCell = (row) => {
-        this.setState({ editing: true, rowEdit: row[this.primaryKey] });
+        this.setState({ editing: true, rowEdit: row[this.primarykey] });
+    }
+
+    handleUpdateItems = (rowId, field, value) => {
+        const { itemsTable } = this.state;
+
+        itemsTable.forEach(row => {
+            if (row[this.primarykey] === rowId) {
+                row[field] = value
+            }
+        });
+
+        // this.setState({ itemsTable });  //Se comenta por que no se necesita, hace perder el foco del campo.
+
     }
 
     getFilterOptions = (idField, field) => {
@@ -367,17 +364,16 @@ class AccountingTable extends Component {
     }
 
     render() {
-        const { products, theme, config } = this.props;
-        const tableColumns = (config && products) ? this.getColumns() : [];
+        const { taxes, theme, config } = this.props;
+        const tableColumns = (config && taxes) ? this.getColumns() : [];
 
         const options = {
             pageStartIndex: 1,
-            sizePerPage: products.page_size,
-            page: products.page_number,
-            totalSize: products.total_count,
+            sizePerPage: taxes.page_size,
+            page: taxes.page_number,
+            totalSize: taxes.total_count,
             onPageChange: (page, sizePerPage) => { }
         }
-
         return (
             <>
                 <Col className={`col-12 pl-0 pr-0`}>
@@ -386,7 +382,7 @@ class AccountingTable extends Component {
                             remote
                             refTable={this.tableRef}
                             columns={tableColumns}
-                            keyField={this.primaryKey}
+                            keyField={this.primarykey}
                             data={this.state.itemsTable}
                             rowClasses={theme.tableRow}
                             headerClasses={theme.tableHeader}

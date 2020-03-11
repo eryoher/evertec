@@ -819,9 +819,9 @@ export default (mockAdapter) => {
 
     });
 
-    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_imp_comprob', idOperacion: 21 } }).reply(200, {
-        "cod_proceso": "p_imp_comprob",
-        "descrip_proceso": "Impuestos",
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_impuesto', idOperacion: 21 } }).reply(200, {
+        "cod_proceso": "p_impuesto",
+        "descrip_proceso": "Impuesto",
         "orden": "8",
         "campos": [
             {
@@ -838,7 +838,7 @@ export default (mockAdapter) => {
                 "idCampo": "tasa",
                 "descripcion": "Tasa",
                 "label": "Tasa",
-                "editable": 0,
+                "editable": 1,
                 "visible": 1,
                 "requerido": "0",
                 "valid": null,
@@ -859,7 +859,7 @@ export default (mockAdapter) => {
                 "idCampo": "impuesto",
                 "descripcion": "Impuesto",
                 "label": "Impuesto",
-                "editable": 0,
+                "editable": 1,
                 "visible": 1,
                 "requerido": "0",
                 "valid": null,
@@ -879,8 +879,8 @@ export default (mockAdapter) => {
                 "idCampo": "nro_certif",
                 "descripcion": "Numero de certificado",
                 "label": "Nro. Certificado",
-                "editable": 0,
-                "visible": 1,
+                "editable": 1,
+                "visible": 0,
                 "requerido": "0",
                 "valid": null,
                 "mascara": null

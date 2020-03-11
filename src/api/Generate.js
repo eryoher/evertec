@@ -5,6 +5,11 @@ export const getClientHeadboard = async (params) => {
     return response.data;
 }
 
+export const changeTableItems = async (params) => {
+    const response = await Axios.get('/Comprobante/vistafinal/items', { params });
+    return response.data;
+}
+
 export const getGenerateItems = async (params) => {
     const response = await Axios.get('/vta_generar_compr/ítems_agregados');
     return response.data;

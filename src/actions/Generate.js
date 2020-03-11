@@ -8,7 +8,9 @@ import {
     FINISH_GENERATE,
     FINISH_GENERATE_SUCCESS,
     PRINT_GENERATE,
-    PRINT_GENERATE_SUCCESS
+    PRINT_GENERATE_SUCCESS,
+    CHANGE_TABLE_ITEMS,
+    CHANGE_TABLE_ITEMS_SUCCESS
 } from '../constants/ActionsTypes';
 
 
@@ -25,6 +27,22 @@ export const getClientHeadboardSuccess = (response) => {
         payload: response
     }
 };
+
+export const changeTableItems = (params) => {
+    return {
+        type: CHANGE_TABLE_ITEMS,
+        payload: params
+    }
+};
+
+export const changeTableItemsSuccess = (response) => {
+    return {
+        type: CHANGE_TABLE_ITEMS_SUCCESS,
+        payload: response
+    }
+};
+
+
 
 export const getGenerateItems = (params) => {
     return {
