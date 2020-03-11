@@ -2,6 +2,12 @@
     "validation-required": "{{field}} es requerido",
     "voucherConfirmation": "Se creo el comprobante numero {{voucher}}",
     "Invalid username or password": "Usuario o Contraseña Incorrectos",
+    "AccountingSeat": {
+        "title": "Asiento"
+    },
+    "Taxes": {
+        "title": "Impuestos"
+    },
     "screen": {
         "title": "Resetear Stack a siguiente pantalla",
         "change_language_to_english": "Cambiar lenguaje a ingles",
@@ -67,11 +73,12 @@
     },
     "voucherAffecting": {
         "title": "Afectación Importes",
-
+        "title_table": "Afectaciones",
         "table": {
             "totalVouchers": "Total Comprobantes",
             "totalAffect": "Total Afectado",
-            "totalPending": "Total Pendiente"
+            "totalPending": "Total Pendiente",
+            "totalLines": "Total de lineas"
         }
     },
     "client": {
@@ -186,7 +193,10 @@
         }
     },
     "shoppingCart": {
-        "title": "Ítems Agregados"
+        "title": "Ítems Agregados",
+        "generate_title": "Ítems",
+        "total": "Total Ítems"
+
     },
     "selectType": {
         "title": "Seleccione un Tipo de Comprobante"

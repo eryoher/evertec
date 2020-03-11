@@ -10,6 +10,11 @@ export const changeTableItems = async (params) => {
     return response.data;
 }
 
+export const changeTableAffect = async (params) => {
+    const response = await Axios.get('/Comprobante/vistafinal/afec', { params });
+    return response.data;
+}
+
 export const getGenerateItems = async (params) => {
     const response = await Axios.get('/vta_generar_compr/ítems_agregados');
     return response.data;

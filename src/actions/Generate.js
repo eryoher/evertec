@@ -10,7 +10,9 @@ import {
     PRINT_GENERATE,
     PRINT_GENERATE_SUCCESS,
     CHANGE_TABLE_ITEMS,
-    CHANGE_TABLE_ITEMS_SUCCESS
+    CHANGE_TABLE_ITEMS_SUCCESS,
+    CHANGE_TABLE_AFFECT,
+    CHANGE_TABLE_AFFECT_SUCCESS
 } from '../constants/ActionsTypes';
 
 
@@ -42,7 +44,19 @@ export const changeTableItemsSuccess = (response) => {
     }
 };
 
+export const changeTableAffect = (params) => {
+    return {
+        type: CHANGE_TABLE_AFFECT,
+        payload: params
+    }
+};
 
+export const changeTableAffectSuccess = (response) => {
+    return {
+        type: CHANGE_TABLE_AFFECT_SUCCESS,
+        payload: response
+    }
+};
 
 export const getGenerateItems = (params) => {
     return {

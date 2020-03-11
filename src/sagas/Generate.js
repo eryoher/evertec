@@ -6,7 +6,8 @@ import {
     getGeneratesalesAffected,
     finishGenerate,
     printGenerate,
-    changeTableItems
+    changeTableItems,
+    changeTableAffect
 } from '../api/Generate'
 
 import {
@@ -15,7 +16,8 @@ import {
     GET_GENERATE_SALES_AFFECTED,
     FINISH_GENERATE,
     PRINT_GENERATE,
-    CHANGE_TABLE_ITEMS
+    CHANGE_TABLE_ITEMS,
+    CHANGE_TABLE_AFFECT
 } from '../constants/ActionsTypes';
 
 import {
@@ -24,7 +26,8 @@ import {
     getGeneratesalesAffectedSuccess,
     finishGenerateSuccess,
     printGenerateSuccess,
-    changeTableItemsSuccess
+    changeTableItemsSuccess,
+    changeTableAffectSuccess
 } from '../actions/Generate';
 
 
@@ -76,6 +79,14 @@ function* changeTableItemsRequest({ payload }) {
     }
 }
 
+function* changeTableAffectRequest({ payload }) {
+    try {
+        const items = yield call(changeTableAffect, payload);
+        yield put(changeTableAffectSuccess(items));
+    } catch (error) {
+    }
+}
+
 export function* getClientHeadboardSaga() {
     yield takeEvery(GET_CLIENT_HEADBOARD, getClientHeadboardRequest);
 }
@@ -100,6 +111,10 @@ export function* changeTableItemsSaga() {
     yield takeEvery(CHANGE_TABLE_ITEMS, changeTableItemsRequest);
 }
 
+export function* changeTableAffectSaga() {
+    yield takeEvery(CHANGE_TABLE_AFFECT, changeTableAffectRequest);
+}
+
 export default function* rootSaga() {
     yield all([
         fork(getClientHeadboardSaga),
@@ -108,6 +123,6 @@ export default function* rootSaga() {
         fork(finishGenerateSaga),
         fork(printGenerateSaga),
         fork(changeTableItemsSaga),
-
+        fork(changeTableAffectSaga),
     ]);
 }

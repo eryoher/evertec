@@ -1,18 +1,16 @@
 import React, { Component, Fragment } from 'react';
+import styles from './shoppingCart.module.css';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { withTranslation } from 'react-i18next';
 import { themr } from 'react-css-themr';
-import styles from './shoppingCart.module.css';
 import { connect } from 'react-redux';
 import { getConfigVoucher, getProductsCart } from '../../actions/';
-import { P_CARGAITEMVTA } from 'constants/ConfigProcessNames';
-import { Collapse, Card } from 'reactstrap';
-import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import moment from 'moment';
 import CollapseBotton from 'components/common/collapseBoton';
 import CommonTable from 'components/common/commonTable';
-import moment from 'moment';
-
+import { Collapse, Card } from 'reactstrap';
+import { Row, Col } from 'react-bootstrap';
 
 
 class LoadItemsTableReadOnly extends Component {
@@ -103,8 +101,8 @@ class LoadItemsTableReadOnly extends Component {
         totalTable.forEach((row, index) => {
             result.push(
                 <Fragment key={index}>
-                    <Col className={'pt-2'} sm={3}> <strong>{row.descrip}</strong> </Col>
-                    <Col className={'pt-2'} sm={3}>{row.importe}</Col>
+                    <Col sm={3}> <strong>{row.descrip}</strong> </Col>
+                    <Col sm={3}>{row.importe}</Col>
                 </Fragment>
             )
         });
@@ -113,31 +111,33 @@ class LoadItemsTableReadOnly extends Component {
     }
 
     handleChangeTable = (type, pagination) => {
-        console.log(type, pagination)
-        //http://190.210.181.180:2082/comprobante/vistafinal/items?idOperacion=1011&page_size=10&page_number=1
         this.props.handleChangeTable({ page_size: pagination.sizePerPage, page_number: pagination.page });
     }
 
     render() {
-        const { theme, t, itemsTable } = this.props;
-
-        const options = (itemsTable) ? {
-            page: itemsTable.page_number,
-            sizePerPage: itemsTable.page_size,
-            totalSize: itemsTable.total_count,
+        const { theme, t, itemsTable, generateItemsTable } = this.props;
+        const dataTable = (generateItemsTable) ? generateItemsTable : itemsTable;
+        const options = (dataTable) ? {
+            page: dataTable.page_number,
+            sizePerPage: dataTable.page_size,
+            totalSize: dataTable.total_count,
         } : null
 
         return (
             <Card className={`pb-3 mt-3 pt-3 mb-4 ${theme.containerCard}`} >
                 <Row className={"mb-3"}>
-                    <Col sm={6} className={theme.title}>
-                        {t('shoppingCart.title')}
+                    <Col sm={6} className={`${theme.title} pb-2`}>
+                        {t('shoppingCart.generate_title')}
                     </Col>
                     <Col sm={3} className={theme.title} />
 
                     <Col sm={{ span: 2 }} className={"text-right"} >
                         <FontAwesomeIcon icon={faPencilAlt} />
                     </Col>
+                    <Fragment>
+                        <Col className={'pt-2'} sm={3}> <strong>{t('shoppingCart.total')}</strong> </Col>
+                        <Col className={'pt-2'} sm={3}>{(dataTable) ? dataTable.total_count : null}</Col>
+                    </Fragment>
                 </Row>
                 <Row>
                     {this.renderTotales()}
@@ -155,16 +155,18 @@ class LoadItemsTableReadOnly extends Component {
                 </Row>
 
                 <Collapse isOpen={this.state.collapseItemTable}>
-                    <CommonTable
-                        remote
-                        columns={this.columns}
-                        keyField={'nitem'}
-                        data={(itemsTable) ? itemsTable.Items : []}
-                        rowClasses={theme.tableRow}
-                        headerClasses={theme.tableHeader}
-                        paginationOptions={options}
-                        onTableChange={this.handleChangeTable}
-                    />
+                    <Row style={{ width: '98%' }} >
+                        <CommonTable
+                            remote
+                            columns={this.columns}
+                            keyField={'nitem'}
+                            data={(dataTable) ? dataTable.Items : []}
+                            rowClasses={theme.tableRow}
+                            headerClasses={theme.tableHeader}
+                            paginationOptions={options}
+                            onTableChange={this.handleChangeTable}
+                        />
+                    </Row>
                 </Collapse>
 
             </Card>
@@ -174,10 +176,10 @@ class LoadItemsTableReadOnly extends Component {
 }
 
 
-const mapStateToProps = ({ generateForm, voucher }) => {
-    const config = (voucher && voucher.config) ? voucher.config[P_CARGAITEMVTA] : null;
+const mapStateToProps = ({ generateForm }) => {
+    const { generateItemsTable } = generateForm;
 
-    return { config };
+    return { generateItemsTable };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, getProductsCart })(LoadItemsTableReadOnly);
