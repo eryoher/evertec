@@ -7,7 +7,8 @@ import {
 
 const initialState = {
     itemsCart: null,
-    confirmItem: null
+    confirmItem: null,
+    parameterConfirm: null
 }
 
 function rootReducer(state = initialState, action) {
@@ -17,7 +18,7 @@ function rootReducer(state = initialState, action) {
         case GET_LOAD_ITEMS_SUCCESS:
             return { ...state, itemsCart: action.payload.data }
         case CONFIRM_LOAD_ITEMS:
-            return { ...state, confirmItem: null }
+            return { ...state, confirmItem: null, parameterConfirm: action.payload }
         case CONFIRM_LOAD_ITEMS_SUCCESS:
             const itemsCart = {
                 total_importe: action.payload.total_importe,

@@ -47,7 +47,12 @@ class LoadItemsTable extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const { search, updateCant, paramsPrice } = this.props;
+        const { search, updateCant, paramsPrice, itemsCart, parameterConfirm } = this.props;
+        if (prevProps.itemsCart !== itemsCart && !prevProps.itemsCart) { //La primera Vez            
+            this.setFocusNextRow();
+        } else if (prevProps.itemsCart && itemsCart.total_importe !== prevProps.itemsCart.total_importe) {
+            this.setFocusNextRow();
+        }
 
         if (prevProps.updateCant !== updateCant && updateCant && paramsPrice) {
             const nextField = this.getNextEditField('cantidad');
@@ -72,6 +77,34 @@ class LoadItemsTable extends Component {
                     this.firtsRefs.current.focus();
                 }
 
+            }
+        }
+    }
+
+    getNextProductId = (idProduct) => {
+        const { search } = this.props;
+        let result = 0;
+        search.productos.forEach((prd, index) => {
+            if (prd.niprod === idProduct) {
+                result = index + 1; //Next Row
+            }
+        });
+
+        return (search.productos[result].niprod) ? search.productos[result].niprod : null;
+
+    }
+
+    setFocusNextRow = () => {
+        const { parameterConfirm } = this.props;
+
+        const nextRow = this.getNextProductId(parameterConfirm.Niprod);
+        if (nextRow) {
+            const field = this.getNextEditField('cod_prod'); //Primer campo
+            const nextRef = this.inputRefs[field][nextRow];
+            if (nextRef.current.element) {
+                nextRef.current.element.focus();
+            } else {
+                nextRef.current.focus();
             }
         }
     }
@@ -567,10 +600,11 @@ class LoadItemsTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, product }) => {
+const mapStateToProps = ({ voucher, product, loadItems }) => {
     const config = (voucher.config) ? voucher.config[P_CARGAITEMVTA] : null;
+    const { itemsCart, parameterConfirm } = loadItems;
     const { search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice } = product
-    return { config, search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice };
+    return { config, search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice, itemsCart, parameterConfirm };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataProducts, getPriceByProduct, confirmLoadItems, searchProducts })(LoadItemsTable);
