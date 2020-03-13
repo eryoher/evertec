@@ -222,8 +222,14 @@ class VoucherImportTable extends Component {
                 this.props.salesAffectedImportValidate({ idOperacion, items });
             }
         } else if (value) {
-            selected.push(row.nimovcli);
-            this.setState({ selectedCheck: selected, rowSelected: rows });
+            console.log(value, 'el valor')
+            if (value == 0) {
+                this.setState({ rowSelected: rows });
+            } else {
+                selected.push(row.nimovcli);
+                this.setState({ selectedCheck: selected, rowSelected: rows });
+            }
+
             this.props.salesAffectedImportValidate({ idOperacion, items });
         }
     }
