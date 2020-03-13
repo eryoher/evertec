@@ -28,7 +28,8 @@ class VoucherImportTable extends Component {
             checksByPage: []
         }
 
-        this.rowErrors = []
+        this.rowErrors = [];
+        this.primaryKey = 'nimovcli';
 
     }
 
@@ -40,8 +41,8 @@ class VoucherImportTable extends Component {
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.productsUpdate) {
             nextProps.productsUpdate.forEach(field => {
-                if (field.error && field.type_error === 1 && !this.rowErrors[field.nimovcli]) {
-                    this.rowErrors[field.nimovcli] = true;
+                if (field.error && field.type_error === 1 && !this.rowErrors[field[this.primaryKey]]) {
+                    this.rowErrors[field[this.primaryKey]] = true;
                     this.setState({ showError: 'true', errorMessage: 'No se soporta selección Manual de Stock.' })
                 }
             });
@@ -193,8 +194,22 @@ class VoucherImportTable extends Component {
 
     validateAfectImport = (row, field, value) => {
         const { idOperacion } = this.props;
-        const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, imp_afec: value }];
+        const newItem = { Nimovcli: row.nimovcli, Nitem: row.nitem, imp_afec: value };
+        const items = [newItem];
         const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
+        const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
+        let saveItem = true;
+
+        rows.forEach((toSave, index) => {
+            if (toSave.Nimovcli === row.nimovcli) {
+                saveItem = false;
+                toSave.imp_afec = value;
+            }
+        });
+
+        if (saveItem) {
+            rows.push(newItem);
+        }
 
         if (field.valid) {
             let message = '';
@@ -203,16 +218,14 @@ class VoucherImportTable extends Component {
                 this.setState({ showError: true, errorMessage: message });
             } else {
                 selected.push(row.niprod);
-                this.setState({ selectedCheck: selected });
+                this.setState({ selectedCheck: selected, rowSelected: rows });
                 this.props.salesAffectedImportValidate({ idOperacion, items });
             }
-        } else {
+        } else if (value) {
             selected.push(row.nimovcli);
-            this.setState({ selectedCheck: selected });
+            this.setState({ selectedCheck: selected, rowSelected: rows });
             this.props.salesAffectedImportValidate({ idOperacion, items });
-
         }
-
     }
 
 
@@ -257,9 +270,9 @@ class VoucherImportTable extends Component {
             this.inputRefs[campoId] = {}
         }
 
-        if (field.editable && !this.inputRefs[campoId][row.niprod]) {
+        if (field.editable && !this.inputRefs[campoId][this.primaryKey]) {
             const customRef = React.createRef();
-            this.inputRefs[campoId][row.niprod] = customRef
+            this.inputRefs[campoId][this.primaryKey] = customRef
         }
 
         const optionsInput = {
@@ -268,8 +281,8 @@ class VoucherImportTable extends Component {
             fields: [{ ...field, label: false }],
             label: false,
             inputId: `${campoId}`,
-            id: `${campoId}_${row.niprod}`,
-            name: `${campoId}_${row.niprod}`,
+            id: `${campoId}_${row[this.primaryKey]}`,
+            name: `${campoId}_${row[this.primaryKey]}`,
             colLabel: "col-sm-4",
             colInput: "col-sm-8",
             divStyle: { paddingLeft: '17px' },
@@ -319,7 +332,7 @@ class VoucherImportTable extends Component {
         const items = [];
         products.Items.forEach(row => {
             selectedCheck.forEach(check => {
-                if (row.nimovcli === check) {
+                if (row[this.primaryKey] === check) {
                     items.push({
                         Nimovcli: row.nimovcli,
                         Nitem: row.nitem,
@@ -348,10 +361,23 @@ class VoucherImportTable extends Component {
             onSelect: (row, isSelect, rowIndex, e) => {
                 const selected = (this.state.selectedCheck) ? this.state.selectedCheck : [];
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
+                let updateRecord = false;
+
                 if (isSelect) { //Se adiciona    
-                    rows.push({ Nimovcli: row.nimovcli, nitem: row.nitem, imp_afec: (row.imp_afec) ? row.imp_afec : row.imp_pend });
+                    const cantSend = (row.imp_afec) ? row.imp_afec : row.imp_pend;
+                    rows.forEach(toAdd => { //Se modifica
+                        if (toAdd.Nimovcli === row.nimovcli) {
+                            toAdd.imp_afec = cantSend;
+                            updateRecord = true;
+                        }
+                    });
+
+                    if (!updateRecord) { //Nuevo
+                        rows.push({ Nimovcli: row.nimovcli, nitem: row.nitem, imp_afec: (row.imp_afec) ? row.imp_afec : row.imp_pend });
+                    }
                     selected.push(row.nimovcli)
                 } else { //Se resta
+                    console.log(row, rows, 'se quita')
                     rows.forEach((toDelete, index) => {
                         if (toDelete.Nimovcli === row.nimovcli) {
                             toDelete.imp_afec = 0;
@@ -385,7 +411,8 @@ class VoucherImportTable extends Component {
                         return ({ Nimovcli: fila.nimovcli, nitem: fila.nitem, imp_afec: (fila.imp_afec) ? fila.imp_afec : fila.imp_pend });
                     });
 
-                    this.setState({ selectedCheck: checks })
+                    this.setState({ selectedCheck: checks });
+
                 } else {
                     for (let index = 0; index < checks.length; index++) {
                         const check = checks[index];
@@ -394,7 +421,6 @@ class VoucherImportTable extends Component {
                                 delete checks[index]
                             }
                         });
-
                     }
 
                     this.setState({ selectedCheck: checks });
@@ -459,7 +485,7 @@ class VoucherImportTable extends Component {
                     {config && config.campos.length &&
                         <CommonTable
                             columns={tableColumns}
-                            keyField={'nimovcli'}
+                            keyField={this.primaryKey}
                             data={rowData}
                             selectRow={selectRow}
                             defaultSorted={defaultSorted}
