@@ -137,6 +137,16 @@ class HeadBoardFormInput extends Component {
     renderCarrier = () => {
         const { readOnly, t, fields, headSale, setFieldValue, handleBlur, genericOptions } = this.props;
         let result = [];
+        let config = {}
+        //const config = (fields) ? fields
+
+        fields.forEach(field => {
+            const idField = field.idCampo.trim();
+            if (idField === 'atrib_comp_vta') {
+                config = field;
+            }
+        });
+
         const optionsTrans = (headSale && headSale.transporte) ? headSale.transporte.map((opt) => {
             return ({ id: opt.cod_transp, label: opt.nom_transp })
         }) : []
@@ -167,7 +177,7 @@ class HeadBoardFormInput extends Component {
 
         genericFields.forEach(element => {
             result.push(
-                <GenericInputForm config={element} key={element.cod_atrib} handleChange={this.handleChangeGeneric} />
+                <GenericInputForm config={{ ...element, ...config }} key={element.cod_atrib} handleChange={this.handleChangeGeneric} />
             );
         });
 

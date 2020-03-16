@@ -163,7 +163,7 @@ class LoadItemsTable extends Component {
                 const campoId = field.idCampo.trim();
                 if (!validateField(row[campoId], field.valid)) {
                     this.props.setTableDataProducts([{ niprod: row.niprod, idCampo: campoId, value: 'error_input' }]);
-                    message.push(`El campo ${field.label} es requerido.`);
+                    message.push('El campo ' + t('validation-required', { field: field.label }));
                     flag = false;
                 }
             }

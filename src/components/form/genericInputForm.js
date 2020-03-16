@@ -48,7 +48,7 @@ class GenericInputForm extends Component {
             return ({ id: opt.cod_dato, label: opt.desc_dato.trim() });
         }) : [];
 
-        const inputConfig = [{ idCampo: (config.cod_atrib) ? config.cod_atrib.trim() : '', label: config.descripcion, visible: 1, requerido: 0, editable: 1 }]
+        const inputConfig = [{ idCampo: (config.cod_atrib) ? config.cod_atrib.trim() : '', label: config.descripcion, visible: config.visible, requerido: 0, editable: config.editable }]
         const properties = {
             inputFormCol: { sm: 11 },
             fields: inputConfig,
