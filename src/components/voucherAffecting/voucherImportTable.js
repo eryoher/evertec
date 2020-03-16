@@ -224,7 +224,14 @@ class VoucherImportTable extends Component {
         } else if (value) {
             console.log(value, 'el valor')
             if (value == 0) {
-                this.setState({ rowSelected: rows });
+
+                selected.forEach((delet, index) => {
+                    if (delet === row.nimovcli) {
+                        selected.splice(index, 1);
+                    }
+                });
+
+                this.setState({ rowSelected: rows, selectedCheck: selected });
             } else {
                 selected.push(row.nimovcli);
                 this.setState({ selectedCheck: selected, rowSelected: rows });
@@ -383,7 +390,7 @@ class VoucherImportTable extends Component {
                     }
                     selected.push(row.nimovcli)
                 } else { //Se resta
-                    console.log(row, rows, 'se quita')
+
                     rows.forEach((toDelete, index) => {
                         if (toDelete.Nimovcli === row.nimovcli) {
                             toDelete.imp_afec = 0;
@@ -428,11 +435,15 @@ class VoucherImportTable extends Component {
                             }
                         });
                     }
+                    selected = rows.map(fila => {
+                        return ({ Nimovcli: fila.nimovcli, nitem: fila.nitem, imp_afec: 0 });
+                    });
 
                     this.setState({ selectedCheck: checks });
                 }
 
                 this.setState({ rowSelected: selected });
+                console.log(selected)
                 if (selected.length) {
                     this.props.salesAffectedImportValidate({ idOperacion, items: selected });
                 }
