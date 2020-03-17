@@ -9,3 +9,8 @@ export const confirmLoadItems = async (params) => {
     const response = await Axios.post('/carga_item_vta', params);
     return response.data;
 }
+
+export const confirmTableItems = async (params) => {
+    const response = await Axios.post('/carga_item_vta/confirmar', params);
+    return response.data;
+}

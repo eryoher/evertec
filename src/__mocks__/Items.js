@@ -11,6 +11,17 @@ export default (mockAdapter) => {
         "total_cant": 286.0
     });
 
+    mockAdapter.onPost('/carga_item_vta/confirmar').reply(200, {
+        "Resultado": true,
+        "Tipo_error": null,
+        "Mens_error": null,
+        "Errores": null,
+        "solic_stock": 0,
+        "total_importe": 38632.0,
+        "total_item": 4,
+        "total_cant": 286.0
+    });
+
 
     /* mockAdapter.onGet('/Items/carga_item_vta', { params: { "idOperacion": 221223, "niprod": 36575 } }).reply(200, {
          data: {

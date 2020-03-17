@@ -26,7 +26,7 @@ class AccountingTable extends Component {
             editRow: null,
             editing: false,
             accountDetail: null,
-            itemsTable: (this.props.taxes) ? this.props.taxes.Items : [],
+            itemsTable: (this.props.taxes) ? this.props.taxes.Impuestos : [],
             ccUpdateValue: null
         }
 
@@ -366,7 +366,7 @@ class AccountingTable extends Component {
     render() {
         const { taxes, theme, config } = this.props;
         const tableColumns = (config && taxes) ? this.getColumns() : [];
-
+        console.log(taxes, this.state.itemsTable)
         const options = {
             pageStartIndex: 1,
             sizePerPage: taxes.page_size,

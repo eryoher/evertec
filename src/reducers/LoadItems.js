@@ -2,13 +2,16 @@ import {
     GET_LOAD_ITEMS,
     GET_LOAD_ITEMS_SUCCESS,
     CONFIRM_LOAD_ITEMS,
-    CONFIRM_LOAD_ITEMS_SUCCESS
+    CONFIRM_LOAD_ITEMS_SUCCESS,
+    CONFIRM_TABLE_ITEMS,
+    CONFIRM_TABLE_ITEMS_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
     itemsCart: null,
     confirmItem: null,
-    parameterConfirm: null
+    parameterConfirm: null,
+    confirmItemsTable: null
 }
 
 function rootReducer(state = initialState, action) {
@@ -26,6 +29,10 @@ function rootReducer(state = initialState, action) {
                 total_cant: action.payload.total_cant
             }
             return { ...state, confirmItem: action.payload, itemsCart }
+        case CONFIRM_TABLE_ITEMS:
+            return { ...state, confirmItemsTable: null }
+        case CONFIRM_TABLE_ITEMS_SUCCESS:
+            return { ...state, confirmItemsTable: action.payload }
         default:
             return state
     }

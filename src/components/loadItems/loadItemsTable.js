@@ -13,7 +13,7 @@ import SearchBox from 'components/common/searchBox';
 import { selectFilter, Comparator } from 'react-bootstrap-table2-filter';
 import PopupImage from 'components/common/popupImage';
 import { connect } from 'react-redux';
-import { getConfigVoucher, setTableDataProducts, getPriceByProduct, confirmLoadItems, searchProducts } from '../../actions';
+import { getConfigVoucher, setTableDataProducts, getPriceByProduct, confirmLoadItems, confirmTableItems, searchProducts } from '../../actions';
 import InputDropdown from 'components/form/inputDropdown';
 import InputPriceUnit from './inputPriceUnit';
 import { validateField } from 'lib/FieldValidations';
@@ -44,6 +44,11 @@ class LoadItemsTable extends Component {
             this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
             this.handleAddToCart = this.handleAddToCart.bind(this);
         }
+    }
+
+    componentWillUnmount = () => {
+        const { idOperacion } = this.props;
+        this.props.confirmTableItems({ idOperacion });
     }
 
     componentDidUpdate = (prevProps) => {
@@ -607,6 +612,6 @@ const mapStateToProps = ({ voucher, product, loadItems }) => {
     return { config, search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice, itemsCart, parameterConfirm };
 };
 
-const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataProducts, getPriceByProduct, confirmLoadItems, searchProducts })(LoadItemsTable);
+const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataProducts, getPriceByProduct, confirmTableItems, confirmLoadItems, searchProducts })(LoadItemsTable);
 
 export default themr('LoadItemsTableStyles', styles)(withTranslation()(connectForm));

@@ -44,7 +44,7 @@ class HeadCartResume extends Component {
 
     render() {
         const { theme, t, itemsCart, headInfo } = this.props;
-
+        const totals = (itemsCart) ? itemsCart : headInfo;
         return (
             <>
                 <Col sm={12}>
@@ -70,14 +70,14 @@ class HeadCartResume extends Component {
                     />
                 </Col>
                 {
-                    itemsCart &&
+                    totals &&
                     <>
                         <Col sm={3} className={"text-center  mt-3 mb-3"} >
-                            {`${t('loadItem.table.totalImp')} :`} <DisplayAmount amount={itemsCart.total_importe} />
+                            {`${t('loadItem.table.totalImp')} :`} <DisplayAmount amount={totals.total_importe} />
                         </Col>
                         <Col sm={1} className={"text-right  mb-3"} style={{ paddingRight: '5px' }} >
                             <span className={`badge badge-primary ${theme.cantBadge}`}>
-                                {`${itemsCart.total_item} / ${itemsCart.total_cant}`}
+                                {`${totals.total_item} / ${totals.total_cant}`}
                             </span>
                         </Col>
                     </>
