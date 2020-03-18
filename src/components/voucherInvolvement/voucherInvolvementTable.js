@@ -99,14 +99,14 @@ class VoucherInvolvementTable extends Component {
                     </Col>
                 }
                 <Col sm={12} className={"pb-2 pl-0"}>
-                    {productsInvol &&
-                        <InvolvementTable
-                            products={productsInvol}
-                            readOnly={readOnly}
-                            idOperacion={this.props.idOperacion}
-                            handleChangeTable={this.onChangeTable}
-                        />
-                    }
+
+                    <InvolvementTable
+                        products={productsInvol}
+                        readOnly={readOnly}
+                        idOperacion={this.props.idOperacion}
+                        handleChangeTable={this.onChangeTable}
+                    />
+
                     {productsInvol && <InvolvementTotalResume classDiv={'pl-0'} formatCol={customCol} data={this.state} />}
                 </Col>
             </Row>

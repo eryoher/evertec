@@ -50,6 +50,7 @@ class VoucherFormInput extends Component {
                         onChange={handleChange}
                         labelKey={"label"}
                         disable={readOnly}
+                        refs={this.props.firtsRefs}
                     />
                 }
                 {

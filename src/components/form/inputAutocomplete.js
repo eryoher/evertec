@@ -51,7 +51,7 @@ class InputAutocomplete extends Component {
     }
 
     render() {
-        const { label, placeholder, name, styles, inputId, colInput, colLabel, styleLabel, divStyle, theme, auoptions, handleLoading, handleSelect, labelKey, disable, inputFormCol } = this.props;
+        const { label, placeholder, name, styles, inputId, colInput, colLabel, styleLabel, divStyle, theme, auoptions, handleLoading, handleSelect, labelKey, disable, inputFormCol, refs } = this.props;
         const classInput = (label) ? colInput : "col-sm-12";
         const classLabel = (label) ? colLabel : "";
         return (
@@ -62,6 +62,7 @@ class InputAutocomplete extends Component {
                     </label>
                     <Col className={classInput} style={{ ...divStyle }}>
                         <AsyncTypeahead
+                            ref={refs}
                             disabled={disable}
                             isLoading={handleLoading}
                             id={inputId}

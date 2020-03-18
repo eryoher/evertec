@@ -23,6 +23,7 @@ class HeadboardForm extends Component {
             urlSubmitForm: '',
             timeSet: ''
         }
+        this.firtsRefs = null;
     }
 
     componentDidMount = () => {
@@ -30,6 +31,16 @@ class HeadboardForm extends Component {
         if (idOperacion) {
             this.props.getConfigVoucher({ cod_proceso: P_VTACAB, idOperacion });
             this.props.getVoucherHead({ idOperacion });
+        }
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if (this.props.config !== prevProps.config && !prevProps.config) {
+            if (this.firtsRefs.current && this.firtsRefs.current.element) {
+                this.firtsRefs.current.element.focus();
+            } else {
+                this.firtsRefs.current.focus();
+            }
         }
     }
 
@@ -49,6 +60,22 @@ class HeadboardForm extends Component {
         }
 
         return urlSubmit;
+    }
+
+    getRefsField = (fields) => {
+        fields.forEach(field => {
+            if (field.editable) {
+                const fieldRefs = React.createRef();
+                if (!this.firtsRefs) {
+                    this.firtsRefs = fieldRefs; //Se guarda el primer campo editable.
+                }
+                field.fwRef = fieldRefs;
+            }
+
+        });
+
+        return fields;
+
     }
 
     render() {
@@ -73,6 +100,7 @@ class HeadboardForm extends Component {
 
         const [backButton, nextButton] = (crumbs) ? getBackNextButtons(crumbs, current, urlParameter) : [];
         const validationSchema = (config) ? getValidationSchema(config.campos, t) : {};
+        const fields = (config) ? this.getRefsField(config.campos) : {};
 
         if (config) {
             return (
@@ -99,7 +127,7 @@ class HeadboardForm extends Component {
                                 <Form onSubmit={handleSubmit} className={"voucher-info-form"}>
                                     <Col>
                                         <HeadboardFormInput
-                                            fields={(config) ? config.campos : null}
+                                            fields={fields}
                                             idOperacion={this.props.idOperacion}
                                             collapse
                                             {...{

@@ -30,13 +30,29 @@ class VoucherImportTable extends Component {
 
         this.rowErrors = [];
         this.primaryKey = 'nimovcli';
-
+        this.firtsRefs = null;
     }
 
     componentDidMount = () => {
         const { idOperacion } = this.props
         this.props.getConfigVoucher({ cod_proceso: P_AFEC_IMPO_VTA, idOperacion });
     }
+
+    componentDidUpdate = (prevProps) => {
+        const { productsImport } = this.props;
+
+        if (prevProps.productsImport !== productsImport && productsImport.Items) {
+            if (this.firtsRefs && this.firtsRefs.current) {
+                if (this.firtsRefs.current.element) {
+                    this.firtsRefs.current.element.focus();
+                } else {
+                    this.firtsRefs.current.focus();
+                }
+
+            }
+        }
+    }
+
 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.productsUpdate) {
@@ -280,16 +296,19 @@ class VoucherImportTable extends Component {
 
 
         if (field.editable && !this.inputRefs[campoId]) {
-            this.inputRefs[campoId] = {}
+            this.inputRefs[campoId] = {};
         }
 
-        if (field.editable && !this.inputRefs[campoId][this.primaryKey]) {
+        if (field.editable && !this.inputRefs[campoId][row[this.primaryKey]]) {
             const customRef = React.createRef();
-            this.inputRefs[campoId][this.primaryKey] = customRef
+            this.inputRefs[campoId][row[this.primaryKey]] = customRef;
+            if (this.firtsRefs === null) {
+                this.firtsRefs = customRef;
+            }
         }
 
         const optionsInput = {
-            fwRef: (field.editable) ? this.inputRefs[campoId][row.id] : null,
+            fwRef: (field.editable) ? this.inputRefs[campoId][row[this.primaryKey]] : null,
             inputFormCol: { sm: 12 },
             fields: [{ ...field, label: false }],
             label: false,
@@ -343,18 +362,20 @@ class VoucherImportTable extends Component {
         const { products } = this.props;
 
         const items = [];
-        products.Items.forEach(row => {
-            selectedCheck.forEach(check => {
-                if (row[this.primaryKey] === check) {
-                    items.push({
-                        Nimovcli: row.nimovcli,
-                        Nitem: row.nitem,
-                        imp_afec: row.imp_afec,
-                        niprod: row.niprod
-                    })
-                }
+        if (products) {
+            products.Items.forEach(row => {
+                selectedCheck.forEach(check => {
+                    if (row[this.primaryKey] === check) {
+                        items.push({
+                            Nimovcli: row.nimovcli,
+                            Nitem: row.nitem,
+                            imp_afec: row.imp_afec,
+                            niprod: row.niprod
+                        })
+                    }
+                });
             });
-        });
+        }
 
         return items;
     }
@@ -477,7 +498,7 @@ class VoucherImportTable extends Component {
 
         }) : null;
 
-        const options = {
+        const options = (products) ? {
             pageStartIndex: 1,
             sizePerPage: products.page_size,
             page: products.page_number,
@@ -488,7 +509,8 @@ class VoucherImportTable extends Component {
                     this.props.salesAffectedImportConfirm({ idOperacion, items })
                 }
             }
-        }
+        } : {}
+
         return (
             <>
                 <Col sm={12} className={"mb-1"} >
@@ -499,7 +521,7 @@ class VoucherImportTable extends Component {
                     />
                 </Col>
                 <Col className={`col-12 pl-0 pr-0`}>
-                    {config && config.campos.length &&
+                    {config && rowData &&
                         <CommonTable
                             columns={tableColumns}
                             keyField={this.primaryKey}
@@ -522,8 +544,8 @@ class VoucherImportTable extends Component {
 const mapStateToProps = ({ voucher, salesAffected, auth }) => {
     const config = (voucher.config) ? voucher.config[P_AFEC_IMPO_VTA] : null;
     const { authUser } = auth
-    const { productsUpdate, cantValidate } = salesAffected;
-    return { config, productsUpdate, cantValidate, authUser };
+    const { productsUpdate, cantValidate, productsImport } = salesAffected;
+    return { config, productsUpdate, cantValidate, authUser, productsImport };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedImportConfirm })(VoucherImportTable);

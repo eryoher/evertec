@@ -1,5 +1,5 @@
 export default (mockAdapter) => {
-    mockAdapter.onGet('/AfectaVentas/Cantidad', { params: { ComprobAvencer: 1, OpcionMuestra: "0", idOperacion: "21", page_number: 1, page_size: 10 } }).reply(200, {
+    mockAdapter.onGet('/AfectaVentas/Cantidad', { params: { ComprobAvencer: 1, OpcionMuestra: "0", idOperacion: 21, page_number: 1, page_size: 10 } }).reply(200, {
         "page_size": 10,
         "page_number": 1,
         "total_count": 2,
@@ -161,7 +161,7 @@ export default (mockAdapter) => {
         ]
     });
 
-    mockAdapter.onGet('/AfectaVentas/Cantidad', { params: { ComprobAvencer: 0, OpcionMuestra: "0", idOperacion: "21", page_number: 1, page_size: 10 } }).reply(200, {
+    mockAdapter.onGet('/AfectaVentas/Cantidad', { params: { ComprobAvencer: 0, OpcionMuestra: "0", idOperacion: 21, page_number: 1, page_size: 10 } }).reply(200, {
         "page_size": 10,
         "page_number": 1,
         "total_count": 2,

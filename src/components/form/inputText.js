@@ -216,8 +216,7 @@ class InputText extends Component {
             lock,
             rowStyle,
             autoFocus,
-            errorInput,
-            touched,
+            fwRef
         } = this.props;
 
         const classInput = (label) ? colInput : "col-sm-12";
@@ -239,7 +238,7 @@ class InputText extends Component {
                 disabled: !config.editable,
                 className: `${theme.inputText} ${classText}`,
                 value: this.state.inputValue,
-                ref: this.props.fwRef,
+                ref: (config.fwRef) ? config.fwRef : fwRef,
                 onChange: (v) => this.handleChage(v),
                 onBlur: (v) => this.handleOnblur(v),
                 onKeyDown: this._handleKeyDown

@@ -29,14 +29,28 @@ class InvolvementTable extends Component {
             checksByPage: []
         }
 
-        this.rowErrors = []
-
+        this.rowErrors = [];
+        this.firtsRefs = null;
     }
 
     componentDidMount = () => {
         const { idOperacion } = this.props
         if (idOperacion) {
             this.props.getConfigVoucher({ cod_proceso: P_AFEC_CANT_VTA, idOperacion });
+        }
+    }
+
+    componentDidUpdate = (prevProps) => {
+        const { productsInvol } = this.props;
+        if (prevProps.productsInvol !== productsInvol && productsInvol.Items) {
+            if (this.firtsRefs && this.firtsRefs.current) {
+                if (this.firtsRefs.current.element) {
+                    this.firtsRefs.current.element.focus();
+                } else {
+                    this.firtsRefs.current.focus();
+                }
+
+            }
         }
     }
 
@@ -248,10 +262,13 @@ class InvolvementTable extends Component {
         if (field.editable && !this.inputRefs[campoId][row.niprod]) {
             const customRef = React.createRef();
             this.inputRefs[campoId][row.niprod] = customRef
+            if (this.firtsRefs === null) {
+                this.firtsRefs = customRef;
+            }
         }
 
         const optionsInput = {
-            fwRef: (field.editable) ? this.inputRefs[campoId][row.id] : null,
+            fwRef: (field.editable) ? this.inputRefs[campoId][row.niprod] : null,
             inputFormCol: { sm: 12 },
             fields: [{ ...field, label: false }],
             label: false,
@@ -285,7 +302,6 @@ class InvolvementTable extends Component {
             result = (
                 <InputText
                     {...optionsInput}
-                    //autoFocus={(focusInput && focusInput.input === 'neto' && focusInput.rowId === row.niprod) ? true : false}
                     handleEnterKey={(e, value) => {
                         if (campoId === 'Cant_afec') {
                             this.validateFieldQuantity(row, field, value);
@@ -337,19 +353,21 @@ class InvolvementTable extends Component {
         const { products } = this.props;
 
         const items = [];
-        products.Items.forEach(row => {
-            selectedCheck.forEach(check => {
-                if (row.niprod === check) {
-                    items.push({
-                        Nimovcli: row.nimovcli,
-                        Nitem: row.nitem,
-                        Cant_afec: row.Cant_afec,
-                        //precio_unit: row.pcio_unit,
-                        //neto: row.neto
-                    })
-                }
+        if (products) {
+            products.Items.forEach(row => {
+                selectedCheck.forEach(check => {
+                    if (row.niprod === check) {
+                        items.push({
+                            Nimovcli: row.nimovcli,
+                            Nitem: row.nitem,
+                            Cant_afec: row.Cant_afec,
+                            //precio_unit: row.pcio_unit,
+                            //neto: row.neto
+                        })
+                    }
+                });
             });
-        });
+        }
 
         return items;
     }
@@ -370,7 +388,7 @@ class InvolvementTable extends Component {
     render() {
         const { products, theme, config, productsUpdate, readOnly, idOperacion } = this.props;
         const tableColumns = (config && products) ? this.getColumns() : [];
-        const selected = this.getRowsCantAfect();
+        const selected = (products) ? this.getRowsCantAfect() : [];
         const selectRow = {
             mode: 'checkbox',
             selectColumnPosition: 'right',
@@ -471,7 +489,6 @@ class InvolvementTable extends Component {
 
         }) : null;
 
-
         const options = (products) ? {
             pageStartIndex: 1,
             sizePerPage: products.page_size,
@@ -496,7 +513,7 @@ class InvolvementTable extends Component {
                     />
                 </Col>
                 <Col className={`col-12 pl-0 pr-0`}>
-                    {config &&
+                    {config && rowData &&
                         <CommonTable
                             remote
                             columns={tableColumns}
@@ -518,9 +535,9 @@ class InvolvementTable extends Component {
 
 const mapStateToProps = ({ voucher, salesAffected, auth }) => {
     const config = (voucher.config) ? voucher.config[P_AFEC_CANT_VTA] : null;
-    const { productsUpdate, cantValidate } = salesAffected;
+    const { productsUpdate, cantValidate, productsInvol } = salesAffected;
     const { authUser } = auth;
-    return { config, productsUpdate, cantValidate, authUser };
+    return { config, productsUpdate, cantValidate, authUser, productsInvol };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedValidate, salesAffectedSubCalculation, salesAffectedConfirm })(InvolvementTable);

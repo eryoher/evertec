@@ -99,15 +99,12 @@ class VoucherAffectingTable extends Component {
                     </Col>
                 }
                 <Col sm={12} className={"pb-2 pl-0"}>
-                    {productsImport &&
-                        <VoucherImportTable
-                            products={productsImport}
-                            readOnly={readOnly}
-                            idOperacion={this.props.idOperacion}
-                            handleChangeTable={this.onChangeTable}
-
-                        />
-                    }
+                    <VoucherImportTable
+                        products={productsImport}
+                        readOnly={readOnly}
+                        idOperacion={this.props.idOperacion}
+                        handleChangeTable={this.onChangeTable}
+                    />
                     {productsImport && <VoucherAffectingTotal classDiv={'pl-0'} formatCol={customCol} data={this.state} />}
                 </Col>
             </Row>
