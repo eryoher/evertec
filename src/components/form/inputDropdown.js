@@ -86,7 +86,7 @@ class InputDropdown extends Component {
                         {!disable && <Col className={classInput} style={{ ...divStyle }}>
                             <select
                                 id={(id) ? id : inputId}
-                                ref={fwRef}
+                                ref={(config.fwRef) ? config.fwRef : fwRef}
                                 name={name}
                                 style={{ styles }}
                                 placeholder={placeholder}

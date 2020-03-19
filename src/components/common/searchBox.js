@@ -36,7 +36,7 @@ class SearchBox extends Component {
     }
 
     render() {
-        const { productOptions, t } = this.props;
+        const { productOptions, t, inputRef } = this.props;
         const auoptions = [];
 
         const inputConfig = [
@@ -58,6 +58,7 @@ class SearchBox extends Component {
                             <InputText
                                 inputFormCol={{ sm: 6 }}
                                 label={false}
+                                fwRef={inputRef}
                                 fields={inputConfig}
                                 inputId={'desc_prod'}
                                 name={'desc_prod'}

@@ -35,6 +35,7 @@ class LoadItemsTable extends Component {
 
         this.inputRefs = {};
         this.firtsRefs = null;
+        this.refsBeforeSearch = React.createRef();
     }
 
     componentDidMount = () => {
@@ -44,6 +45,8 @@ class LoadItemsTable extends Component {
             this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
             this.handleAddToCart = this.handleAddToCart.bind(this);
         }
+
+        this.refsBeforeSearch.current.focus(); //Focus para la barra de busqueda.
     }
 
     componentWillUnmount = () => {
@@ -52,7 +55,7 @@ class LoadItemsTable extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const { search, updateCant, paramsPrice, itemsCart, parameterConfirm } = this.props;
+        const { search, updateCant, paramsPrice, itemsCart } = this.props;
         if (prevProps.itemsCart !== itemsCart && !prevProps.itemsCart) { //La primera Vez            
             this.setFocusNextRow();
         } else if (prevProps.itemsCart && itemsCart.total_importe !== prevProps.itemsCart.total_importe) {
@@ -584,6 +587,7 @@ class LoadItemsTable extends Component {
                 {searchBox &&
                     <SearchBox
                         idOperacion={this.props.idOperacion}
+                        inputRef={this.refsBeforeSearch}
                     />
                 }
                 {rowData &&
@@ -608,7 +612,7 @@ class LoadItemsTable extends Component {
 const mapStateToProps = ({ voucher, product, loadItems }) => {
     const config = (voucher.config) ? voucher.config[P_CARGAITEMVTA] : null;
     const { itemsCart, parameterConfirm } = loadItems;
-    const { search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice } = product
+    const { search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice } = product;
     return { config, search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice, itemsCart, parameterConfirm };
 };
 

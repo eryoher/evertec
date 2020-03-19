@@ -27,6 +27,8 @@ class VoucherClientForm extends Component {
             errorMessage: '',
             urlForm: ''
         }
+
+        this.firtsRefs = React.createRef();
     }
 
     componentDidMount = () => {
@@ -39,6 +41,12 @@ class VoucherClientForm extends Component {
     componentDidUpdate = (prevProps) => {
         if (this.props.search !== prevProps.search && this.props.search && this.props.search.clientes.length) {
             this.setState({ loading: false });
+        }
+
+        if (this.props.config !== prevProps.config) {
+            if (this.firtsRefs.current) {
+                this.firtsRefs.current._instance.focus();
+            }
         }
     }
 
@@ -129,6 +137,7 @@ class VoucherClientForm extends Component {
                                             auoptions={optionsSync}
                                             handleLoading={this.state.loading}
                                             handleSelect={this.handleSelect}
+                                            firtsRefs={this.firtsRefs}
                                             fields={(config) ? config.campos : null}
                                             {...{
                                                 values,

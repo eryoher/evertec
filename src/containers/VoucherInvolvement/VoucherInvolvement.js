@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import withMenu from '../../components/common/withMenu'
 import { withTranslation } from 'react-i18next';
-import { Row, Col } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
