@@ -161,6 +161,7 @@ class InputText extends Component {
                 response = (
                     <IMaskInput
                         {...options}
+                        value={(options.value) ? options.value.toString() : null}
                         mask={Number}
                         scale={mask.cantDecimales}
                         thousandsSeparator={(mask.usarSeparadorMil) ? '.' : ''}
