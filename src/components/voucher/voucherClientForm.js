@@ -51,8 +51,8 @@ class VoucherClientForm extends Component {
     }
 
     componentWillUnmount = () => {
-        const { client, idOperacion } = this.props;
-        if (client) {
+        const { client, idOperacion, voucherTypeCancel } = this.props;
+        if (client && !voucherTypeCancel) {
             this.props.confirmationClient({ idOperacion, idCliente: client.idCliente })
         }
     }
@@ -221,10 +221,11 @@ class VoucherClientForm extends Component {
     }
 }
 
-const mapStateToProps = ({ clients, voucher }) => {
+const mapStateToProps = ({ clients, voucher, vouchertype }) => {
     const { search, client } = clients;
     const config = (voucher.config) ? voucher.config[P_SELCLI] : null;
-    return { search, client, config };
+    const { voucherTypeCancel } = vouchertype;
+    return { search, client, config, voucherTypeCancel };
 };
 
 export default connect(mapStateToProps, { searchClients, getClient, getConfigVoucher, confirmationClient })(withTranslation()(withRouter(VoucherClientForm)));

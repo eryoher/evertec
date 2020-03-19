@@ -67,8 +67,9 @@ class InvolvementTable extends Component {
 
     componentWillUnmount = () => {
         const items = this.getSelectedCheck();
-        if (items.length) {
-            this.props.salesAffectedConfirm({ idOperacion: this.props.idOperacion, items })  // FALTA ID OPERACION
+        const { idOperacion, voucherTypeCancel } = this.props;
+        if (items.length && !voucherTypeCancel) {
+            this.props.salesAffectedConfirm({ idOperacion, items });
         }
     }
 
@@ -533,11 +534,12 @@ class InvolvementTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, salesAffected, auth }) => {
+const mapStateToProps = ({ voucher, salesAffected, auth, vouchertype }) => {
     const config = (voucher.config) ? voucher.config[P_AFEC_CANT_VTA] : null;
     const { productsUpdate, cantValidate, productsInvol } = salesAffected;
+    const { voucherTypeCancel } = vouchertype;
     const { authUser } = auth;
-    return { config, productsUpdate, cantValidate, authUser, productsInvol };
+    return { config, productsUpdate, cantValidate, authUser, productsInvol, voucherTypeCancel };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedValidate, salesAffectedSubCalculation, salesAffectedConfirm })(InvolvementTable);

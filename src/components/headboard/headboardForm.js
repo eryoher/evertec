@@ -110,6 +110,7 @@ class HeadboardForm extends Component {
                         initialValues={{ ...defaultInitial }}
                         onSubmit={(values, actions) => {
                             const urlSubmit = this.getUrlSubmit()
+
                             if (urlSubmit) {
                                 this.props.history.push(urlSubmit)
                             }

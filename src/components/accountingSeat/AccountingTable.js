@@ -50,10 +50,13 @@ class AccountingTable extends Component {
     }
 
     componentWillUnmount = () => {
-        const { idOperacion } = this.props;
-        this.props.accountConfirm({ idOperacion })
-    }
+        const { idOperacion, voucherTypeCancel } = this.props;
 
+        if (voucherTypeCancel === null) {
+            this.props.accountConfirm({ idOperacion })
+        }
+
+    }
 
     handleValidateCell = (row) => {
         //console.log(row, 'esto es lo que se envia a validar...')
@@ -324,11 +327,12 @@ class AccountingTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, accountingSeats, auth }) => {
+const mapStateToProps = ({ voucher, accountingSeats, auth, vouchertype }) => {
     const config = (voucher.config) ? voucher.config[P_ASIEN_CONT] : null;
     const { authUser } = auth
     const { productsUpdate, accountDetail, accountsUpdate } = accountingSeats;
-    return { config, productsUpdate, authUser, accountDetail, accountsUpdate };
+    const { voucherTypeCancel } = vouchertype;
+    return { config, productsUpdate, authUser, accountDetail, accountsUpdate, voucherTypeCancel };
 };
 
 const connectForm = connect(mapStateToProps, {

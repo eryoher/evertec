@@ -27,8 +27,6 @@ class HeadCartResume extends Component {
         this.props.getVoucherHeadInfo({ idOperacion })
     }
 
-
-
     handleOpen = () => {
         this.setState({ showModal: true });
     }
