@@ -79,8 +79,11 @@ class AccountingTable extends Component {
     }
 
     componentWillUnmount = () => {
-        const { idOperacion } = this.props;
-        this.props.taxesConfirm({ idOperacion })
+        const { idOperacion, voucherTypeCancel } = this.props;
+        if (!voucherTypeCancel) {
+            this.props.taxesConfirm({ idOperacion });
+        }
+
     }
 
     handleValidateCell = (row) => {
@@ -366,7 +369,6 @@ class AccountingTable extends Component {
     render() {
         const { taxes, theme, config } = this.props;
         const tableColumns = (config && taxes) ? this.getColumns() : [];
-        console.log(taxes, this.state.itemsTable)
         const options = {
             pageStartIndex: 1,
             sizePerPage: taxes.page_size,
@@ -397,11 +399,12 @@ class AccountingTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, accountingSeats, auth }) => {
+const mapStateToProps = ({ voucher, accountingSeats, auth, vouchertype }) => {
     const config = (voucher.config) ? voucher.config[P_IMP_COMPROB] : null;
     const { authUser } = auth
     const { productsUpdate, accountDetail, accountsUpdate } = accountingSeats;
-    return { config, productsUpdate, authUser, accountDetail, accountsUpdate };
+    const { voucherTypeCancel } = vouchertype;
+    return { config, productsUpdate, authUser, accountDetail, accountsUpdate, voucherTypeCancel };
 };
 
 const connectForm = connect(mapStateToProps, {

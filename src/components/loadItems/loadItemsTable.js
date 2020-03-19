@@ -50,8 +50,11 @@ class LoadItemsTable extends Component {
     }
 
     componentWillUnmount = () => {
-        const { idOperacion } = this.props;
-        this.props.confirmTableItems({ idOperacion });
+        const { idOperacion, voucherTypeCancel } = this.props;
+
+        if (!voucherTypeCancel) {
+            this.props.confirmTableItems({ idOperacion });
+        }
     }
 
     componentDidUpdate = (prevProps) => {
@@ -609,11 +612,12 @@ class LoadItemsTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, product, loadItems }) => {
+const mapStateToProps = ({ voucher, product, loadItems, vouchertype }) => {
     const config = (voucher.config) ? voucher.config[P_CARGAITEMVTA] : null;
     const { itemsCart, parameterConfirm } = loadItems;
     const { search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice } = product;
-    return { config, search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice, itemsCart, parameterConfirm };
+    const { voucherTypeCancel } = vouchertype;
+    return { config, search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice, itemsCart, parameterConfirm, voucherTypeCancel };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataProducts, getPriceByProduct, confirmTableItems, confirmLoadItems, searchProducts })(LoadItemsTable);
