@@ -84,7 +84,9 @@ class InputAutocomplete extends Component {
                             renderMenuItemChildren={(option) => {
                                 return (<option key={option.id} >{option.label}</option>);
                             }}
-
+                            inputProps={{
+                                style: { height: '30px', fontSize: '10pt', padding: '0.375rem 0.375rem 0.375rem 0.75rem', borderColor: '#a9a9a9' }
+                            }}
                         />
                     </Col>
                 </Row>
