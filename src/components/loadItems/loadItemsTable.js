@@ -41,17 +41,15 @@ class LoadItemsTable extends Component {
     componentDidMount = () => {
         const { idOperacion } = this.props;
         this.props.setClick(this.handleAddToCart);
+        this.props.homeFocus(this.setInitFocus);
         if (idOperacion) {
             this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
             this.handleAddToCart = this.handleAddToCart.bind(this);
+            this.setInitFocus = this.setInitFocus.bind(this);
+
         }
 
-        this.refsBeforeSearch.current.focus(); //Focus para la barra de busqueda.
-    }
-
-    componentWillUnmount = () => {
-        const { idOperacion } = this.props;
-        this.props.confirmTableItems({ idOperacion });
+        this.setInitFocus();
     }
 
     componentDidUpdate = (prevProps) => {
@@ -87,6 +85,15 @@ class LoadItemsTable extends Component {
 
             }
         }
+    }
+
+    componentWillUnmount = () => {
+        const { idOperacion } = this.props;
+        this.props.confirmTableItems({ idOperacion });
+    }
+
+    setInitFocus = () => {
+        this.refsBeforeSearch.current.focus(); //Focus para la barra de busqueda.
     }
 
     getNextProductId = (idProduct) => {
