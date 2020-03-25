@@ -56,6 +56,7 @@ class LoadItemsTable extends Component {
 
     componentDidUpdate = (prevProps) => {
         const { search, updateCant, paramsPrice, itemsCart } = this.props;
+
         if (prevProps.itemsCart !== itemsCart && !prevProps.itemsCart) { //La primera Vez            
             this.setFocusNextRow();
         } else if (prevProps.itemsCart && itemsCart.total_importe !== prevProps.itemsCart.total_importe) {
@@ -89,6 +90,17 @@ class LoadItemsTable extends Component {
         }
     }
 
+    setInitRow = (params) => {
+        console.log(params, 'aca llego')
+        const initRow = [
+            { niprod: params.Niprod, idCampo: 'cantidad', value: '0' },
+            { niprod: params.Niprod, idCampo: 'neto', value: '0' },
+        ]
+
+        this.props.setTableDataProducts(initRow);
+
+    }
+
     getNextProductId = (idProduct) => {
         const { search } = this.props;
         let result = 0;
@@ -114,6 +126,7 @@ class LoadItemsTable extends Component {
             } else {
                 nextRef.current.focus();
             }
+            this.setInitRow(parameterConfirm);
         }
     }
 
