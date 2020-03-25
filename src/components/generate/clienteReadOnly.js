@@ -41,16 +41,16 @@ export default class ClienteReadOnly extends Component {
     renderGenericFields = () => {
         const { cabecera } = this.props.defaultValues;
         const result = [];
-
-        cabecera.atrib_comp_vta.forEach(field => {
-            result.push(
-                <Fragment >
-                    <Col className={'pt-2'} sm={3}> <strong>{field.desc_atributo}</strong> </Col>
-                    <Col className={'pt-2'} sm={3}>{field.desc_valor}</Col>
-                </Fragment>
-            )
-        });
-
+        if (cabecera.atrib_comp_vta) {
+            cabecera.atrib_comp_vta.forEach(field => {
+                result.push(
+                    <Fragment >
+                        <Col className={'pt-2'} sm={3}> <strong>{field.desc_atributo}</strong> </Col>
+                        <Col className={'pt-2'} sm={3}>{field.desc_valor}</Col>
+                    </Fragment>
+                )
+            });
+        }
         return (
             <Row>
                 {result}
