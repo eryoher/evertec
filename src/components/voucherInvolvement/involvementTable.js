@@ -15,6 +15,7 @@ import { selectFilter } from 'react-bootstrap-table2-filter';
 import { validateField } from 'lib/FieldValidations';
 import moment from 'moment';
 import { P_AFEC_CANT_VTA } from 'constants/ConfigProcessNames';
+import { getValueMask } from '../../lib/MaskValues';
 
 class InvolvementTable extends Component {
 
@@ -328,26 +329,12 @@ class InvolvementTable extends Component {
             )
 
         } else if (field.mascara) {
-            result = this.getValueMask(value, field.mascara);
+            result = getValueMask(value, field.mascara, this.props);
         }
 
         return result;
     }
 
-    getValueMask = (value, mascara) => {
-        const { authUser } = this.props
-        const mask = authUser.configApp.mascaras[mascara];
-        let result = '';
-
-        if (mask.tipo === 'fecha') {
-            const date = new moment(value)
-            result = date.format(mask.valor);
-        } else if (mask.tipo === 'personalizado') {
-            result = value;
-        }
-
-        return result;
-    }
 
     getSelectedCheck = () => {
         const { selectedCheck } = this.state;

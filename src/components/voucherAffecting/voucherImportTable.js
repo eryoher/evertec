@@ -12,8 +12,8 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import NotificationMessage from 'components/common/notificationMessage';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { validateField } from 'lib/FieldValidations';
-import moment from 'moment';
 import { P_AFEC_IMPO_VTA } from 'constants/ConfigProcessNames';
+import { getValueMask } from '../../lib/MaskValues';
 
 class VoucherImportTable extends Component {
 
@@ -134,7 +134,7 @@ class VoucherImportTable extends Component {
         const result = [];
         products.Items.forEach(row => {
             if (row[idField] && !optionsExits[row[idField]]) {
-                const labelValue = (field.mascara) ? this.getValueMask(row[idField], field.mascara) : row[idField];
+                const labelValue = (field.mascara) ? getValueMask(row[idField], field.mascara, this.props) : row[idField];
                 optionsExits[row[idField]] = true;
                 result.push({ value: row[idField], label: labelValue })
             }
@@ -271,21 +271,6 @@ class VoucherImportTable extends Component {
 
     }
 
-    getValueMask = (value, mascara) => {
-
-        const { authUser } = this.props
-        const mask = authUser.configApp.mascaras[mascara];
-        let result = '';
-
-        if (mask.tipo === 'fecha') {
-            const date = new moment(value)
-            result = date.format(mask.valor);
-        } else if (mask.tipo === 'personalizado') {
-            result = value;
-        }
-
-        return result;
-    }
 
     renderFormat = (field, value, row) => {
         const campoId = field.idCampo.trim();
@@ -351,7 +336,7 @@ class VoucherImportTable extends Component {
                 />
             )
         } else if (field.mascara) {
-            result = this.getValueMask(value, field.mascara);
+            result = getValueMask(value, field.mascara, this.props);
         }
 
         return result;

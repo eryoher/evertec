@@ -15,6 +15,7 @@ import { validateField } from 'lib/FieldValidations';
 import moment from 'moment';
 import InputDropdown from 'components/form/inputDropdown';
 import { P_AFEC_STADO_VTA } from 'constants/ConfigProcessNames';
+import { getValueMask } from '../../lib/MaskValues';
 
 
 class StateTable extends Component {
@@ -100,7 +101,7 @@ class StateTable extends Component {
         const result = [];
         products.Items.forEach(row => {
             if (row[idField] && !optionsExits[row[idField]]) {
-                const labelValue = (field.mascara) ? this.getValueMask(row[idField], field.mascara) : row[idField];
+                const labelValue = (field.mascara) ? getValueMask(row[idField], field.mascara, this.props) : row[idField];
                 optionsExits[row[idField]] = true;
                 result.push({ value: row[idField], label: labelValue })
             }
@@ -180,21 +181,6 @@ class StateTable extends Component {
             }
         }
 
-    }
-
-    getValueMask = (value, mascara) => {
-        const { authUser } = this.props
-        const mask = authUser.configApp.mascaras[mascara];
-        let result = '';
-
-        if (mask.tipo === 'fecha') {
-            const date = new moment(value)
-            result = date.format(mask.valor);
-        } else if (mask.tipo === 'personalizado') {
-            result = value;
-        }
-
-        return result;
     }
 
     handleChangeSelect = (data, row) => {
@@ -282,7 +268,7 @@ class StateTable extends Component {
                 />
             )
         } else if (field.mascara) {
-            result = this.getValueMask(value, field.mascara);
+            result = getValueMask(value, field.mascara, this.props);
         }
 
         return result;
