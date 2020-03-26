@@ -45,6 +45,7 @@ class HeadCartResume extends Component {
     render() {
         const { theme, t, itemsCart, headInfo } = this.props;
         const totals = (itemsCart) ? itemsCart : headInfo;
+
         return (
             <>
                 <Col sm={12}>

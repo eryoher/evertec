@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import moment from 'moment';
 import { P_VTACAB } from 'constants/ConfigProcessNames';
-import GlobalContainer from 'components/common/globalContainer';
+import GlobalContainer from 'components/layout/globalContainer';
 
 class Headboard extends Component {
 

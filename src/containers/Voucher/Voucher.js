@@ -6,7 +6,7 @@ import VoucherClientForm from 'components/voucher/voucherClientForm';
 import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import { P_SELCLI } from 'constants/ConfigProcessNames';
-import GlobalContainer from 'components/common/globalContainer';
+import GlobalContainer from 'components/layout/globalContainer';
 import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 
 
