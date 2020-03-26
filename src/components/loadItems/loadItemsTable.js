@@ -29,8 +29,9 @@ class LoadItemsTable extends Component {
             filterVal: null,
             inputsError: [],
             showError: false,
-            errrorTitle: '',
-            errorMessage: ''
+            errorTitle: '',
+            errorMessage: '',
+            typeNotifaction: 'danger'
         }
 
         this.inputRefs = {};
@@ -70,6 +71,11 @@ class LoadItemsTable extends Component {
                 nextRef.current.focus();
             }
         }
+
+        if (search.productos !== prevProps.search.productos && !search.productos) {
+            this.setState({ showError: false });
+        }
+
 
         if (!search.Resultado && this.firtsRefs) {
             this.firtsRefs = null;
@@ -132,7 +138,10 @@ class LoadItemsTable extends Component {
     }
 
     setFocusNextRow = () => {
-        const { parameterConfirm } = this.props;
+        const { parameterConfirm, t } = this.props;
+        const addRow = this.getRowById(parameterConfirm.Niprod);
+        const message = `${parameterConfirm.cantidad} ${parameterConfirm.cod_unid} del producto ${addRow.desc_prod} se agregaron al carrito`;
+        this.setState({ showError: true, errorMessage: message, errorTitle: t('global.success'), typeNotifaction: 'success' });
 
         const nextRow = this.getNextProductId(parameterConfirm.Niprod);
         if (nextRow) {
@@ -165,6 +174,19 @@ class LoadItemsTable extends Component {
         } while (!config.campos[indexField].editable);
 
         return result;
+    }
+
+    getRowById = (rowId) => {
+        const { search } = this.props;
+        let result = null;
+        search.productos.forEach(product => {
+            if (product.niprod === rowId) {
+                result = product;
+            }
+        });
+
+        return result;
+
     }
 
     handleCloseError = () => {
@@ -212,7 +234,7 @@ class LoadItemsTable extends Component {
             this.setState({ showError: false });
 
         } else {
-            this.setState({ showError: true, errorMessage: message, errorTitle: t('global.input_require') });
+            this.setState({ showError: true, typeNotifaction: 'danger', errorMessage: message, errorTitle: t('global.input_require') });
         }
     }
 
@@ -611,7 +633,7 @@ class LoadItemsTable extends Component {
                     <NotificationMessage
                         {...this.state}
                         handleCloseError={this.handleCloseError}
-                        type={'danger'}
+                        type={this.state.typeNotifaction}
                     />
                 </Col>
                 {searchBox &&

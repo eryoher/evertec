@@ -1,4 +1,6 @@
 {
+    "An unexpected error has ocurred": "Ha ocurrido un error inesperado",
+    "Please, reload and try again": "Por favor, vuelva a cargar e intente nuevamente",
     "validation-required": "{{field}} es requerido",
     "voucherConfirmation": "Se creo el comprobante numero {{voucher}}",
     "Invalid username or password": "Usuario o Contraseña Incorrectos",
@@ -157,7 +159,8 @@
         "cancelar": "Cancelar",
         "print": "Imprimir",
         "new": "Nuevo",
-        "exit": "Salir"
+        "exit": "Salir",
+        "success": "Exito"
 
     },
     "login": {
