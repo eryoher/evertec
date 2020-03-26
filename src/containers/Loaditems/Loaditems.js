@@ -35,10 +35,20 @@ class Loaditems extends Component {
                 action: this.addToCart,
                 name: 'Save',
                 description: 'Save a file'
+            },
+            {
+                hotkey: { charCode: "65", modifiers: ["home"] },
+                action: this.homeFocus,
+                name: 'Focus',
+                description: 'Focus init'
             }
         ]
 
         return shorcuts;
+    }
+
+    homeFocus = async () => {
+        this.handleFocus();
     }
 
     addToCart = async (e) => {
@@ -85,6 +95,7 @@ class Loaditems extends Component {
                                     divClass={"mt-1"}
                                     idOperacion={voucherType.idOperacion}
                                     setClick={click => this.addRowToCart = click}
+                                    homeFocus={click => this.handleFocus = click}
                                 />
                             </Col>
                             <Col sm={1} style={{ textAlign: 'left', paddingLeft: '2rem' }} className={"mt-2"} >
