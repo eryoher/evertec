@@ -5,7 +5,7 @@ import { Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
-import GlobalContainer from 'components/common/globalContainer';
+import GlobalContainer from 'components/layout/globalContainer';
 import { P_AFEC_CANT_VTA } from "../../constants/ConfigProcessNames";
 
 class VoucherInvolvement extends Component {

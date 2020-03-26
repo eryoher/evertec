@@ -7,7 +7,7 @@ import { getVoucherType, confirmLoadItems } from '../../actions';
 import { connect } from 'react-redux';
 import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 import { P_CARGAITEMVTA } from 'constants/ConfigProcessNames';
-import GlobalContainer from 'components/common/globalContainer';
+import GlobalContainer from 'components/layout/globalContainer';
 
 
 class Loaditems extends Component {
