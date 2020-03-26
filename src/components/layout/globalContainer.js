@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
 import { clearMessage } from '../../actions';
-import GlobalNotfications from './globalNotfications';
+import GlobalNotfications from '../common/globalNotfications';
 import { LANDING } from 'utils/RoutePath';
 import { withRouter } from "react-router-dom";
 import GloblaShorcut from './globlaShorcut';
 import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
+import ErrorBoundary from './ErrorBoundary';
 
 class GlobalContainer extends Component {
 
@@ -34,9 +35,7 @@ class GlobalContainer extends Component {
 
     getShortcuts = () => {
         const { shortcuts } = this.props;
-
         const rtShort = (shortcuts) ? shortcuts : [];
-
         rtShort.push(
             {
                 hotkey: { charCode: "123", modifiers: ["f12"] },
@@ -74,9 +73,9 @@ class GlobalContainer extends Component {
             <GloblaShorcut
                 shortcuts={customShortcuts}
             >
-                <Fragment>
-                    {voucherType &&
-                        <Fragment>
+                {voucherType &&
+                    <Fragment>
+                        <ErrorBoundary>
                             <HeadCartResume
                                 idOperacion={voucherType.idOperacion}
                             />
@@ -87,12 +86,13 @@ class GlobalContainer extends Component {
                                 callBackButton={callBackButton}
                                 buttonsType={breadCrumbButtonType}
                             />
+                        </ErrorBoundary>
+                        <ErrorBoundary >
                             {childForm}
-                        </Fragment>
-                    }
-                </Fragment>
+                        </ErrorBoundary>
+                    </Fragment>
+                }
             </GloblaShorcut>
-
         );
 
     }

@@ -8,7 +8,7 @@ import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
 import HeadCartResume from 'components/loadItems/HeadCartResume';
 import VoucherAffectingTable from 'components/voucherAffecting/voucherAffectingTable';
 import { P_AFEC_IMPO_VTA } from 'constants/ConfigProcessNames';
-import GlobalContainer from 'components/common/globalContainer';
+import GlobalContainer from 'components/layout/globalContainer';
 
 
 class VoucherInvolvement extends Component {

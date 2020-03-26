@@ -5,7 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 import GenerateForm from 'components/generate/generateForm';
 import { getVoucherType } from '../../actions';
 import { connect } from 'react-redux';
-import GlobalContainer from 'components/common/globalContainer';
+import GlobalContainer from 'components/layout/globalContainer';
 import { P_FINCOMPROB } from 'constants/ConfigProcessNames';
 
 class Generate extends Component {

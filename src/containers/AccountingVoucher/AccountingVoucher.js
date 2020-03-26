@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import AccountingVoucherTable from '../../components/accountingVoucher/AccountingVoucherTable';
 import { P_IMP_COMPROB } from 'constants/ConfigProcessNames';
-import GlobalContainer from 'components/common/globalContainer';
+import GlobalContainer from 'components/layout/globalContainer';
 
 
 class AccountingSeat extends Component {
