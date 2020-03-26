@@ -88,7 +88,6 @@ class LoadItemsTable extends Component {
         }
     }
 
-
     componentWillUnmount = () => {
         const { idOperacion } = this.props;
         this.props.confirmTableItems({ idOperacion });
@@ -107,6 +106,16 @@ class LoadItemsTable extends Component {
         ]
 
         this.props.setTableDataProducts(initRow);
+    }
+
+    componentWillUnmount = () => {
+        const { idOperacion } = this.props;
+        this.props.confirmTableItems({ idOperacion });
+    }
+
+    setInitFocus = () => {
+        this.refsBeforeSearch.current.focus(); //Focus para la barra de busqueda.
+
     }
 
     getNextProductId = (idProduct) => {
