@@ -30,10 +30,9 @@ class AccountingTable extends Component {
             ccUpdateValue: null
         }
 
-        this.primaryKey = 'cod_imp';
-
+        this.primarykey = 'cod_imp';
         this.rowErrors = []
-        this.primarykey = 'imp_id'
+
         this.columnsProduct = [
             {
                 dataField: 'nitem_af',
@@ -84,8 +83,9 @@ class AccountingTable extends Component {
     }
 
     handleValidateCell = (row) => {
-        //console.log(row)
+        console.log(row)
         const { idOperacion } = this.props;
+        //Falta campos validar
         const Items = [{
             "niasto": row.niasto,
             "nitem": row.nitem,
@@ -139,7 +139,7 @@ class AccountingTable extends Component {
                 formatExtraData: { editing, rowEdit },
                 formatter: ((cell, row, rowIndex, extraData) => {
                     if (row.linea_edit) {
-                        if (rowEdit === row[this.primaryKey] && editing) {
+                        if (rowEdit === row[this.primarykey] && editing) {
                             return (
                                 <Row>
                                     <Col sm={6} >
@@ -374,6 +374,7 @@ class AccountingTable extends Component {
             totalSize: taxes.total_count,
             onPageChange: (page, sizePerPage) => { }
         }
+
         return (
             <>
                 <Col className={`col-12 pl-0 pr-0`}>
