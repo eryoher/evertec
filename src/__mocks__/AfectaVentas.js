@@ -1,5 +1,63 @@
 export default (mockAdapter) => {
+
     mockAdapter.onGet('/AfectaVentas/Cantidad', { params: { ComprobAvencer: 1, OpcionMuestra: "0", idOperacion: 21, page_number: 1, page_size: 10 } }).reply(200, {
+
+
+
+        "page_size": 10,
+        "page_number": 1,
+        "total_count": 2,
+        "Resultado": {
+            "Resultado": true,
+            "Tipo_error": null,
+            "Mens_error": null,
+            "Errores": null
+        },
+        "Items": [
+            {
+                "nimovcli": 1,
+                "nitem": 1,
+                "Fec_emis": "2019-11-27T00:00:00",
+                "Fec_vto": "2019-11-27T00:00:00",
+                "Comprob_desc": "Presupuesto",
+                "Comprob_nro": "00005809",
+                "niprod": 59961,
+                "Cod_prod": "34037",
+                "Desc_prod": "ACTRON 600 RAPIDA ACCION caps.gelat.blanda x 10",
+                "codbarra": "7793640215523",
+                "Cod_unid": "UN",
+                "desc_unid": "Unidad",
+                "base_v": 1.0,
+                "pcio_unit": 99.66,
+                "Cant_pend": 2.0,
+                "Cant_afec": 0.0,
+                "cant_saldo": 2.0,
+                "neto": 199.32
+            },
+            {
+                "nimovcli": 1,
+                "nitem": 2,
+                "Fec_emis": "2019-11-27T00:00:00",
+                "Fec_vto": "2019-11-27T00:00:00",
+                "Comprob_desc": "Presupuesto",
+                "Comprob_nro": "00005809",
+                "niprod": 59962,
+                "Cod_prod": "41637",
+                "Desc_prod": "ACTRON 600 RAPIDA ACCION caps.gelat.blanda x 20",
+                "codbarra": "7793640215622",
+                "Cod_unid": "UN",
+                "desc_unid": "Unidad",
+                "base_v": 1.0,
+                "pcio_unit": 188.63,
+                "Cant_pend": 3.0,
+                "Cant_afec": 0.0,
+                "cant_saldo": 3.0,
+                "neto": 565.89
+            }
+        ]
+    });
+
+    mockAdapter.onGet('/AfectaVentas/Cantidad', { params: { ComprobAvencer: 0, OpcionMuestra: 0, idOperacion: 22, page_number: 1, page_size: 10 } }).reply(200, {
         "page_size": 10,
         "page_number": 1,
         "total_count": 2,
@@ -161,7 +219,8 @@ export default (mockAdapter) => {
         ]
     });
 
-    mockAdapter.onGet('/AfectaVentas/Cantidad', { params: { ComprobAvencer: 0, OpcionMuestra: "0", idOperacion: 21, page_number: 1, page_size: 10 } }).reply(200, {
+
+    mockAdapter.onGet('/AfectaVentas/Cantidad', { params: { ComprobAvencer: 0, OpcionMuestra: 0, idOperacion: 21, page_number: 1, page_size: 10 } }).reply(200, {
         "page_size": 10,
         "page_number": 1,
         "total_count": 2,
@@ -215,7 +274,7 @@ export default (mockAdapter) => {
         ]
     });
 
-    mockAdapter.onGet('/AfectaVentas/importe').reply(200, {
+    mockAdapter.onGet('/AfectaVentas/importe').reply(200, { //Se usa el mismo para los dos casos
         "page_size": 10,
         "page_number": 1,
         "total_count": 2,

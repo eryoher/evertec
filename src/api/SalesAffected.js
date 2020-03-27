@@ -16,6 +16,7 @@ export const salesAffectedCant = async (params) => {
 }
 
 export const salesAffectedImport = async (params) => {
+    console.log(params)
     const response = await Axios.get('/AfectaVentas/importe', { params });
     return response.data;
 }
