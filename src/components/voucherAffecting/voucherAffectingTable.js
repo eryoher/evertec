@@ -18,7 +18,7 @@ class VoucherAffectingTable extends Component {
             total_cant: 0,
             total_importe: 0,
             ComprobAvencer: 0,
-            OpcionMuestra: "0"
+            OpcionMuestra: 0
         }
     }
 

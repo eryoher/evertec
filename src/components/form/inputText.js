@@ -162,6 +162,7 @@ class InputText extends Component {
                     <IMaskInput
                         {...options}
                         mask={Number}
+                        value={(options.value) ? options.value.toString() : null}
                         scale={mask.cantDecimales}
                         thousandsSeparator={(mask.usarSeparadorMil) ? '.' : ''}
                         onBlur={(v) => this.handleNumberOnblur(v)}
