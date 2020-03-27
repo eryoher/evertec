@@ -139,7 +139,6 @@ class HeadBoardFormInput extends Component {
         const { readOnly, t, fields, headSale, setFieldValue, handleBlur, genericOptions } = this.props;
         let result = [];
         let config = {}
-        //const config = (fields) ? fields
 
         fields.forEach(field => {
             const idField = field.idCampo.trim();

@@ -9,6 +9,7 @@ import afectaVentasMock from './AfectaVentas';
 import generateMock from './Generate';
 import accountingSeatMock from './AccountingSeat';
 import accountingVoucher from './AccountingVoucher';
+import headerBoardVoucher from './headerBoard';
 
 const mockAdapter = new MockAdapter(Axios, {
   delayResponse: 2000
@@ -23,6 +24,7 @@ afectaVentasMock(mockAdapter);
 generateMock(mockAdapter);
 accountingSeatMock(mockAdapter);
 accountingVoucher(mockAdapter);
+headerBoardVoucher(mockAdapter);
 
 mockAdapter.onPost('/login').reply(200,
   {
