@@ -61,10 +61,12 @@ class GenericInputForm extends Component {
             divStyle: { paddingLeft: '17px' }
         }
 
+
         if (config.tipo === 'autocomp') {
             return (
                 <InputAutocomplete
                     {...properties}
+                    disable={!config.editable}
                     styles={{ width: '100%' }}
                     handleSearch={this.handleSearch}
                     auoptions={optionsSync}
