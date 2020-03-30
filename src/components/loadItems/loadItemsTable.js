@@ -131,8 +131,15 @@ class LoadItemsTable extends Component {
     setFocusNextRow = () => {
         const { parameterConfirm, t } = this.props;
         const addRow = this.getRowById(parameterConfirm.Niprod);
-        const message = `${parameterConfirm.cantidad} ${parameterConfirm.cod_unid} del producto ${addRow.desc_prod} se agregaron al carrito`;
-        this.setState({ showError: true, errorMessage: message, errorTitle: t('global.success'), typeNotifaction: 'success' });
+
+        const message = t('itemAdd-Cart', {
+            cantidad: parameterConfirm.cantidad,
+            unidad: parameterConfirm.cod_unid,
+            producto: addRow.desc_prod,
+            neto: parameterConfirm.neto
+        })
+
+        this.setState({ showError: true, errorMessage: message, errorTitle: '', typeNotifaction: 'success' });
 
         const nextRow = this.getNextProductId(parameterConfirm.Niprod);
         if (nextRow) {
