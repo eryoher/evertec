@@ -51,17 +51,20 @@ class GlobalContainer extends Component {
     handleNextPage = () => {
         console.log('aca llego')
         const { voucherType, codeProccess, callBackButton } = this.props;
-        const crumbs = (voucherType) ? voucherType.procesos : [];
-        const [backButton, nextButton] = getBackNextButtons(crumbs, codeProccess, voucherType.idOperacion);
+        //console.log('paso ', codeProccess)
 
-        if (callBackButton) {
-            callBackButton(nextButton.url);
-        } else {
-            //console.log(nextButton.url)
-            this.props.history.push(nextButton.url)
+        const crumbs = (voucherType) ? voucherType.procesos : [];
+        if (voucherType) {
+            const [backButton, nextButton] = getBackNextButtons(crumbs, codeProccess, voucherType.idOperacion);
+            if (callBackButton) {
+                callBackButton(nextButton.url);
+            } else {
+                //console.log(nextButton.url)
+                this.props.history.push(nextButton.url)
+            }
+
         }
     }
-
 
     handleSetShow = (state) => {
         this.setState({ showMessage: state })
