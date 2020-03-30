@@ -49,9 +49,11 @@ class GlobalContainer extends Component {
     }
 
     handleNextPage = () => {
+        console.log('aca llego')
         const { voucherType, codeProccess, callBackButton } = this.props;
         const crumbs = (voucherType) ? voucherType.procesos : [];
         const [backButton, nextButton] = getBackNextButtons(crumbs, codeProccess, voucherType.idOperacion);
+
         if (callBackButton) {
             callBackButton(nextButton.url);
         } else {
@@ -73,6 +75,11 @@ class GlobalContainer extends Component {
             <GloblaShorcut
                 shortcuts={customShortcuts}
             >
+                <GlobalNotfications
+                    {...this.state}
+                    setShow={(s) => this.handleSetShow(s)}
+                    voucherType={voucherType}
+                />
                 {voucherType &&
                     <Fragment>
                         <ErrorBoundary>

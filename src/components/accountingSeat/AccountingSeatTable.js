@@ -53,7 +53,6 @@ class AccountingSeatTable extends Component {
                             readOnly={readOnly}
                             idOperacion={this.props.idOperacion}
                             handleChangeTable={this.onChangeTable}
-
                         />
                     }
                 </Col>
