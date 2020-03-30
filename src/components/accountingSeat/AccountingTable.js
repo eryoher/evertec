@@ -50,6 +50,7 @@ class AccountingTable extends Component {
     }
 
     componentWillUnmount = () => {
+
         const { idOperacion } = this.props;
         this.props.accountConfirm({ idOperacion })
     }

@@ -4,7 +4,7 @@ import { Row, Col, Button, Toast } from 'react-bootstrap';
 export default class GlobalNotfications extends Component {
 
     renderMessage = (message) => {
-        let result = (message.Resultado.Mens_error) ? message.Resultado.Mens_error : '';
+        let result = (message.Mens_error) ? message.Mens_error : '';
         const errors = []
         if (message.Errores) {
             message.Errores.forEach(error => {
@@ -26,7 +26,7 @@ export default class GlobalNotfications extends Component {
 
         const styles = (voucherType) ? {
             position: 'absolute',
-            top: 0,
+            top: 40,
             right: 0,
             minWidth: 270
         } : {
@@ -40,7 +40,7 @@ export default class GlobalNotfications extends Component {
                 <Toast
                     onClose={() => this.props.setShow(false)}
                     show={showMessage}
-                    delay={5000}
+                    delay={10000}
                     style={styles}
                     className={'alert alert-danger'}
                     autohide

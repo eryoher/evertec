@@ -9,6 +9,15 @@ import InputButton from 'components/form/inputButton';
 
 class Steps extends Component {
 
+
+    handleCallback = (url) => {
+        const { callBackButton } = this.props;
+        if (callBackButton) {
+            callBackButton(url);
+        }
+
+    }
+
     renderSteps = () => {
         const { steps, theme, nextButton, backButton, completed } = this.props;
         let rows = [];
@@ -49,7 +58,7 @@ class Steps extends Component {
                         nextButton
                         urlForm={nextButton.url}
                         type={this.props.buttonsType}
-                        onClick={() => this.props.callBackButton(nextButton.url)}
+                        onClick={() => this.handleCallback(nextButton.url)}
                     />
                 </Col>
             )
