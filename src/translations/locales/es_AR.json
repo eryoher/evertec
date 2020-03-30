@@ -3,6 +3,7 @@
     "Please, reload and try again": "Por favor, vuelva a cargar e intente nuevamente",
     "validation-required": "{{field}} es requerido",
     "voucherConfirmation": "Se creo el comprobante numero {{voucher}}",
+    "The required resource was not found": "El API que esta llamando no se encuentra Habilitada.",
     "Invalid username or password": "Usuario o Contraseña Incorrectos",
     "AccountingSeat": {
         "title": "Asiento"
