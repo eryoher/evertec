@@ -100,7 +100,7 @@ class LoadItemsTable extends Component {
         const initRow = [
             { niprod: params.Niprod, idCampo: 'cantidad', value: '' },
             { niprod: params.Niprod, idCampo: 'neto', value: '' },
-            { niprod: params.Niprod, idCampo: 'pcio_unit', value: '' },
+            //{ niprod: params.Niprod, idCampo: 'pcio_unit', value: '' },
         ]
 
         this.props.setTableDataProducts(initRow);
