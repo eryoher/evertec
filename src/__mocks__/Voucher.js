@@ -182,6 +182,186 @@ export default (mockAdapter) => {
 
         });
 
+    mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: 'p_selcli', idOperacion: 22 } }).reply(200,
+        {
+            "cod_proceso": "p_selcli",
+            "descrip_proceso": "Selección Cliente",
+            "orden": "1",
+            "campos": [
+                {
+                    "idCampo": "cliente_razon_social",
+                    "descripcion": "Razón social cliente",
+                    "label": "R.Social",
+                    "editable": 0,
+                    "requerido": 1,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_codigo",
+                    "descripcion": "Código cliente",
+                    "label": "Código",
+                    "editable": 0,
+                    "requerido": 1,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Tipo_resp",
+                    "descripcion": "Tipo Responsable",
+                    "label": "Tipo Responsable",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_identificador",
+                    "descripcion": "CUIT",
+                    "label": "C.U.I.T",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": "idTrabajador"
+                },
+                {
+                    "idCampo": "cliente_Contacto",
+                    "descripcion": "Contacto",
+                    "label": "Contacto",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Telefono",
+                    "descripcion": "Telefono",
+                    "label": "Teléfono",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_email",
+                    "descripcion": "email",
+                    "label": "Correo",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_domicilio",
+                    "descripcion": "direccion",
+                    "label": "Dirección",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Localidad",
+                    "descripcion": "Localidad",
+                    "label": "Localidad",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Provincia",
+                    "descripcion": "Provincia",
+                    "label": "Provincia",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Cpos",
+                    "descripcion": "codigo postal",
+                    "label": "Código postal",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Limcred",
+                    "descripcion": "Credito",
+                    "label": "Límite Crédito",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Pendcred",
+                    "descripcion": "saldo pendiente",
+                    "label": "Crédito pendiente",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Saldo",
+                    "descripcion": "credito saldo",
+                    "label": "Saldo",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Sucursales",
+                    "descripcion": "sucursales",
+                    "label": "Cliente Sucursal",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Obs_cc",
+                    "descripcion": "Observaciones cuenta corriente",
+                    "label": "Obs. Cta. Cte.",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+                {
+                    "idCampo": "cliente_Obs_vta",
+                    "descripcion": "Observaciones de la venta",
+                    "label": "Obs. Ventas",
+                    "editable": 0,
+                    "requerido": 0,
+                    "visible": 1,
+                    "valid": "",
+                    "mascara": ""
+                },
+            ]
+
+        });
+
     mockAdapter.onGet('/ProcesoDeComprobante', { params: { cod_proceso: "p_vtacab", idOperacion: "21" } }).reply(200,
         {
             "cod_proceso": "p_vtacab",
