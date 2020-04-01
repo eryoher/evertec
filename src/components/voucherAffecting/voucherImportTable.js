@@ -69,8 +69,7 @@ class VoucherImportTable extends Component {
         const { idOperacion, voucherTypeCancel } = this.props;
 
         if (items.length && !voucherTypeCancel) {
-            console.log(voucherTypeCancel)
-            this.props.salesAffectedImportConfirm({ idOperacion, items })
+            //this.props.salesAffectedImportConfirm({ idOperacion, items })
         }
     }
 

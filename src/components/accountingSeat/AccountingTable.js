@@ -51,8 +51,7 @@ class AccountingTable extends Component {
 
     componentWillUnmount = () => {
         const { idOperacion, voucherTypeCancel } = this.props;
-        this.props.accountConfirm({ idOperacion });
-        if (voucherTypeCancel === null) {
+        if (!voucherTypeCancel) {
             this.props.accountConfirm({ idOperacion })
         }
 

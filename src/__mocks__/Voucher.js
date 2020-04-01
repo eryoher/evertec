@@ -1534,7 +1534,7 @@ export default (mockAdapter) => {
                 "descrip_comprob": "Nota de Venta",
                 "descrip_tipocomp": "NOTAS DE VENTA"
             },
-            {
+            /*{
                 "modulo": "Ventas",
                 "nioperacion": 1,
                 "cod_comprob": "NVSA",
@@ -1547,7 +1547,7 @@ export default (mockAdapter) => {
                 "cod_comprob": "PRE",
                 "descrip_comprob": "Presupuesto",
                 "descrip_tipocomp": "NOTAS DE VENTA"
-            }
+            }*/
         ]
     )
 

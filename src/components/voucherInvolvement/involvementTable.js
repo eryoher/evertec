@@ -43,7 +43,7 @@ class InvolvementTable extends Component {
 
     componentDidUpdate = (prevProps) => {
         const { productsInvol } = this.props;
-        if (prevProps.productsInvol !== productsInvol && productsInvol.Items) {
+        if (prevProps.productsInvol !== productsInvol && productsInvol && productsInvol.Items) {
             if (this.firtsRefs && this.firtsRefs.current) {
                 if (this.firtsRefs.current.element) {
                     this.firtsRefs.current.element.focus();
@@ -315,7 +315,7 @@ class InvolvementTable extends Component {
                         return true;
                     }}
                     onBlur={(value) => {
-                        if (campoId === 'Cant_afec') { //pendiente logica.
+                        if (campoId === 'Cant_afec') {
                             this.validateFieldQuantity(row, field, value);
                         } else if (campoId === 'neto') {
                             this.validateFieldNeto(row, field, value);

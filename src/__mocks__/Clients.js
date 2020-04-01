@@ -219,4 +219,14 @@ export default (mockAdapter) => {
       ]
     }
   );
+
+  mockAdapter.onGet('/Clientes/Seleccion/Confirmar').reply(200,
+    {
+      "Resultado": true,
+      "Tipo_error": null,
+      "Mens_error": null,
+      "Errores": null
+    }
+  )
+
 }

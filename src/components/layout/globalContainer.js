@@ -50,7 +50,7 @@ class GlobalContainer extends Component {
     }
 
     handleNextPage = () => {
-        console.log('aca llego')
+
         const { voucherType, codeProccess, callBackButton } = this.props;
         //console.log('paso ', codeProccess)
 

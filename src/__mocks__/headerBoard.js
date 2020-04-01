@@ -1764,4 +1764,15 @@ export default (mockAdapter) => {
         }
     );
 
+    mockAdapter.onPost('/vta_cab_compr/confirmar').reply(200,
+        {
+            "Resultado": true,
+            "Tipo_error": null,
+            "Mens_error": null,
+            "Errores": null
+        }
+    );
+
+
+
 }

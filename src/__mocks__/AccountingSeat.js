@@ -128,4 +128,15 @@ export default (mockAdapter) => {
 
 
 
+    mockAdapter.onPost('/Asiento/confirmar').reply(200,
+        {
+            "Resultado": true,
+            "Tipo_error": null,
+            "Mens_error": null,
+            "Errores": null
+        }
+    );
+
+
+
 }
