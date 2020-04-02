@@ -51,7 +51,7 @@ class HeadBoardFormInput extends Component {
     }
 
     componentWillUnmount = () => {
-        const { idOperacion, values } = this.props;
+        const { idOperacion, values, voucherTypeCancel, voucherType } = this.props;
 
         if (values) {
             const requestData = {
@@ -65,7 +65,8 @@ class HeadBoardFormInput extends Component {
                 vend_comp_vta: values.vend_comp_vta,
                 atrib_comp_vta: values.atrib_comp_vta_field
             }
-            if (idOperacion) {
+
+            if (idOperacion && !voucherTypeCancel) {
                 this.props.voucherHeadConfirm({ ...requestData, idOperacion })
             }
         }
@@ -383,9 +384,10 @@ class HeadBoardFormInput extends Component {
 }
 
 
-const mapStateToProps = ({ voucher }) => {
+const mapStateToProps = ({ voucher, vouchertype }) => {
     const { checkKey, checkDate, headSale } = voucher;
-    return { checkKey, checkDate, headSale };
+    const { voucherTypeCancel, voucherType } = vouchertype;
+    return { checkKey, checkDate, headSale, voucherTypeCancel, voucherType };
 };
 
 

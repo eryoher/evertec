@@ -41,7 +41,7 @@ class VoucherImportTable extends Component {
     componentDidUpdate = (prevProps) => {
         const { productsImport } = this.props;
 
-        if (prevProps.productsImport !== productsImport && productsImport.Items) {
+        if (prevProps.productsImport !== productsImport && productsImport) {
             if (this.firtsRefs && this.firtsRefs.current) {
                 if (this.firtsRefs.current.element) {
                     this.firtsRefs.current.element.focus();
@@ -52,7 +52,6 @@ class VoucherImportTable extends Component {
             }
         }
     }
-
 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.productsUpdate) {
@@ -67,9 +66,10 @@ class VoucherImportTable extends Component {
 
     componentWillUnmount = () => {
         const items = this.getSelectedCheck();
-        const { idOperacion } = this.props;
+        const { idOperacion, voucherTypeCancel } = this.props;
 
-        if (items.length) {
+        if (items.length && !voucherTypeCancel) {
+            console.log(voucherTypeCancel)
             this.props.salesAffectedImportConfirm({ idOperacion, items })
         }
     }
@@ -526,11 +526,12 @@ class VoucherImportTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, salesAffected, auth }) => {
+const mapStateToProps = ({ voucher, salesAffected, auth, vouchertype }) => {
     const config = (voucher.config) ? voucher.config[P_AFEC_IMPO_VTA] : null;
     const { authUser } = auth
     const { productsUpdate, cantValidate, productsImport } = salesAffected;
-    return { config, productsUpdate, cantValidate, authUser, productsImport };
+    const { voucherTypeCancel } = vouchertype;
+    return { config, productsUpdate, cantValidate, authUser, productsImport, voucherTypeCancel };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedImportConfirm })(VoucherImportTable);

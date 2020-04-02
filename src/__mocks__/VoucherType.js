@@ -140,7 +140,7 @@ export default (mockAdapter) => {
 
     });
 
-    mockAdapter.onGet('/TipoComprobante/Cancelar').reply(200, "El comprobante se cancelo correctamente.");
+    mockAdapter.onGet('/TipoDeComprobante/Cancelar').reply(200, "El comprobante se cancelo correctamente.");
 
     mockAdapter.onGet('/TipoDeComprobante/Guardar').reply(200, "El comprobante se guardo correctamente.");
 
