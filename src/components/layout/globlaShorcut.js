@@ -11,7 +11,9 @@ class GloblaShorcut extends Component {
             shortcuts: []
         };
 
-        this.listeners = []
+        this.listeners = [];
+        this.holdListeners = [];
+        this.holdDurations = [];
 
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
@@ -27,6 +29,16 @@ class GloblaShorcut extends Component {
                 this.registerShortcut(short.action, short.hotkey.modifiers, short.name, short.description);
             });
         }
+    }
+
+    componentWillUnmount() {
+        const { shortcut, shortcuts } = this.props
+        if (shortcuts) {
+            shortcuts.forEach(short => {
+                this.unregisterShortcut(short.hotkey.modifiers);
+            });
+        }
+
     }
 
     registerShortcut = (method, keys, title, description, holdDuration) => {
@@ -76,12 +88,15 @@ class GloblaShorcut extends Component {
   * Remove a shortcut from the application
   */
     unregisterShortcut = (keys, sequence = false) => {
-        const transformedKeys = this.transformKeys(keys)
+        const transformedKeys = this.transformKeys(keys);
         if (!sequence) {
             transformedKeys.forEach(key => {
-                delete this.listeners[key]
-                delete this.holdListeners[key]
-                delete this.holdDurations[key]
+                if (this.listeners[key])
+                    delete this.listeners[key]
+                if (this.holdListeners[key])
+                    delete this.holdListeners[key]
+                if (this.holdDurations[key])
+                    delete this.holdDurations[key]
             })
         } else {
             const keyEvent = transformedKeys.join(',')
@@ -89,7 +104,7 @@ class GloblaShorcut extends Component {
         }
 
         // Delete the shortcut
-        const nextShortcuts = this.shortcuts.filter(({ keys: shortcutKeys }) => {
+        const nextShortcuts = this.state.shortcuts.filter(({ keys: shortcutKeys }) => {
             let match = true
             shortcutKeys.forEach(shortcutKey => {
                 match = match && transformedKeys.indexOf(shortcutKey) >= 0
@@ -179,16 +194,6 @@ class GloblaShorcut extends Component {
 
     handleKeyUp = (e) => {
         // console.log(e, 'up')
-    }
-
-    componentWillUnmount() {
-        /* const { shortcut, shortcuts } = this.props
-         if (shortcuts) {
-             shortcuts.forEach(short => {
-                 //shortcut.unregisterShortcut(short.hotkey.modifiers);
-             });
-         }
-         */
     }
 
     render() {
