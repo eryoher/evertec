@@ -2,7 +2,7 @@
     "An unexpected error has ocurred": "Ha ocurrido un error inesperado",
     "Please, reload and try again": "Por favor, vuelva a cargar e intente nuevamente",
     "validation-required": "{{field}} es requerido",
-    "itemAdd-Cart": "Agregado al carrito: {{cantidad}} {{unidad}} del producto {{producto}} $${{neto}}",
+    "itemAdd-Cart": "Agregado al carrito: {{cantidad}} {{unidad}} del producto {{producto}} ${{neto}}",
     "voucherConfirmation": "Se creo el comprobante numero {{voucher}}",
     "Invalid username or password": "Usuario o Contraseña Incorrectos",
     "AccountingSeat": {
