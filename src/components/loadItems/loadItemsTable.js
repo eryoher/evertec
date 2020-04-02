@@ -374,30 +374,32 @@ class LoadItemsTable extends Component {
     }
 
     handleOnblourInput = (value, campoId, row) => {
-        if (campoId === 'cantidad') {
-            this.props.getPriceByProduct({
-                "idOperacion": this.props.idOperacion,
-                "Idproducto": row.niprod,
-                "cantidad": value,
-                "unid_vta": row.cod_unid
-            });
+        if (value) {
+            if (campoId === 'cantidad') {
+                this.props.getPriceByProduct({
+                    "idOperacion": this.props.idOperacion,
+                    "Idproducto": row.niprod,
+                    "cantidad": value,
+                    "unid_vta": row.cod_unid
+                });
 
-        } else if (campoId === 'pcio_unit') {
-            const customValue = (value) ? parseFloat(('' + value).split(',').join('.')) : 0;
-            const customCantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
-            const newPrice = (customCantidad * customValue) / parseFloat(row.base_v);
-            const params = { niprod: row.niprod, idCampo: 'neto', value: newPrice.toString() };
-            this.props.setTableDataProducts([params, { niprod: row.niprod, idCampo: 'pcio_unit', value: value }]);
-        } else if (campoId === 'neto') {
-            const newValue = (value) ? parseFloat(value.split(',').join('.')) : 0;
-            const cantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
-            const newPrice = (cantidad) ? (parseFloat(row.base_v) * newValue) / cantidad : 0;
-            const params = { niprod: row.niprod, idCampo: 'pcio_unit', value: newPrice.toString() }
-            const paramsNeto = { niprod: row.niprod, idCampo: 'neto', value: newValue.toString() }
-            this.props.setTableDataProducts([params, paramsNeto]);
-        } else {
-            const params = { niprod: row.niprod, idCampo: campoId, value };
-            this.props.setTableDataProducts([params]);
+            } else if (campoId === 'pcio_unit') {
+                const customValue = (value) ? parseFloat(('' + value).split(',').join('.')) : 0;
+                const customCantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
+                const newPrice = (customCantidad * customValue) / parseFloat(row.base_v);
+                const params = { niprod: row.niprod, idCampo: 'neto', value: newPrice.toString() };
+                this.props.setTableDataProducts([params, { niprod: row.niprod, idCampo: 'pcio_unit', value: value }]);
+            } else if (campoId === 'neto') {
+                const newValue = (value) ? parseFloat(value.split(',').join('.')) : 0;
+                const cantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
+                const newPrice = (cantidad) ? (parseFloat(row.base_v) * newValue) / cantidad : 0;
+                const params = { niprod: row.niprod, idCampo: 'pcio_unit', value: newPrice.toString() }
+                const paramsNeto = { niprod: row.niprod, idCampo: 'neto', value: newValue.toString() }
+                this.props.setTableDataProducts([params, paramsNeto]);
+            } else {
+                const params = { niprod: row.niprod, idCampo: campoId, value };
+                this.props.setTableDataProducts([params]);
+            }
         }
     }
 
@@ -486,13 +488,15 @@ class LoadItemsTable extends Component {
                     autoFocus={(focusInput && focusInput.input === 'neto' && focusInput.rowId === row.niprod) ? true : false}
                     handleEnterKey={(e, value) => {
                         if (campoId === 'cantidad') {
-                            // Focus next input            
-                            this.props.getPriceByProduct({
-                                "idOperacion": this.props.idOperacion,
-                                "Idproducto": row.niprod,
-                                "cantidad": value,
-                                "unid_vta": row.cod_unid
-                            });
+                            // Focus next input   
+                            if (value) {
+                                this.props.getPriceByProduct({
+                                    "idOperacion": this.props.idOperacion,
+                                    "Idproducto": row.niprod,
+                                    "cantidad": value,
+                                    "unid_vta": row.cod_unid
+                                });
+                            }
                             //this.handleSetFocus('pcio_unit', row.niprod);
                         } else if (campoId === 'neto') {
                             const nextField = this.getNextEditField('neto');
