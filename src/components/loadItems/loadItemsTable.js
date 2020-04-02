@@ -103,7 +103,6 @@ class LoadItemsTable extends Component {
         }
     }
 
-
     setInitRow = (params) => {
         //console.log(params, 'aca llego')
         const initRow = [
@@ -132,8 +131,11 @@ class LoadItemsTable extends Component {
                 result = index + 1; //Next Row
             }
         });
-
-        return (search.productos[result].niprod) ? search.productos[result].niprod : null;
+        if (search.productos[result]) {
+            return (search.productos[result].niprod) ? search.productos[result].niprod : null;
+        } else {
+            return null
+        }
 
     }
 
