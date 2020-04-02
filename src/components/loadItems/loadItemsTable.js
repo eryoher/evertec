@@ -49,7 +49,17 @@ class LoadItemsTable extends Component {
             this.setInitFocus = this.setInitFocus.bind(this);
 
         }
+
         this.setInitFocus();
+        this.refsBeforeSearch.current.focus(); //Focus para la barra de busqueda.
+    }
+
+    componentWillUnmount = () => {
+        const { idOperacion, voucherTypeCancel } = this.props;
+
+        if (!voucherTypeCancel) {
+            this.props.confirmTableItems({ idOperacion });
+        }
     }
 
 
@@ -114,16 +124,6 @@ class LoadItemsTable extends Component {
         this.props.setTableDataProducts(initRow);
     }
 
-    componentWillUnmount = () => {
-        const { idOperacion } = this.props;
-        this.props.confirmTableItems({ idOperacion });
-    }
-
-    setInitFocus = () => {
-        this.refsBeforeSearch.current.focus(); //Focus para la barra de busqueda.
-
-    }
-
     getNextProductId = (idProduct) => {
         const { search } = this.props;
         let result = 0;
@@ -132,8 +132,11 @@ class LoadItemsTable extends Component {
                 result = index + 1; //Next Row
             }
         });
-
-        return (search.productos[result].niprod) ? search.productos[result].niprod : null;
+        if (search.productos[result]) {
+            return (search.productos[result].niprod) ? search.productos[result].niprod : null;
+        } else {
+            return null
+        }
 
     }
 
