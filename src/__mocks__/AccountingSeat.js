@@ -74,45 +74,47 @@ export default (mockAdapter) => {
     mockAdapter.onGet('/Asiento/BuscarCuenta').reply(200, [
         {
             "nicodcta": 437,
-            "cuenta": "1.3.01. - IVA credito fiscal"
+            "Cuenta": "1.3.01. - IVA credito fiscal"
         },
         {
             "nicodcta": 622,
-            "cuenta": "2.1.01. - IVA debito fiscal"
+            "Cuenta": "2.1.01. - IVA debito fiscal"
         },
         {
             "nicodcta": 2311,
-            "cuenta": "4.3.01.01 - IVA no computable"
+            "Cuenta": "4.3.01.01 - IVA no computable"
         }
     ]);
 
-    mockAdapter.onPost('/Asiento/DatosCuenta').reply(200, {
-        "nicodcta": 5611,
-        "cuenta": "4.1.01. - venta medicamentos",
-        "cod_cta": "4101",
-        "desc_cta": "venta medicamentos",
-        "tipo_imp": 2,
-        cc: [
-            {
-                "nicc": 9,
-                "centrocosto": "1.01 - Empresa 1 Local 01",
-                "cod_cc": "101",
-                "desc_cc": "Empresa 1 Local 01"
-            },
-            {
-                "nicc": 32,
-                "centrocosto": "1.02 - Empresa 1 Local 02",
-                "cod_cc": "102",
-                "desc_cc": "Empresa 1 Local 02"
-            },
-            {
-                "nicc": 55,
-                "centrocosto": "2.01 - Empresa 2 Local 01",
-                "cod_cc": "201",
-                "desc_cc": "Empresa 2 Local 01"
-            },
-        ]
-    });
+    mockAdapter.onGet('/Asiento/DatosCuenta').reply(200,
+        {
+            "nicodcta": 5611,
+            "cuenta": "4.1.01. - venta medicamentos",
+            "cod_cta": "4101",
+            "desc_cta": "venta medicamentos",
+            "tipo_imp": 2,
+            cc: [
+                {
+                    "nicc": 9,
+                    "centrocosto": "1.01 - Empresa 1 Local 01",
+                    "cod_cc": "101",
+                    "desc_cc": "Empresa 1 Local 01"
+                },
+                {
+                    "nicc": 32,
+                    "centrocosto": "1.02 - Empresa 1 Local 02",
+                    "cod_cc": "102",
+                    "desc_cc": "Empresa 1 Local 02"
+                },
+                {
+                    "nicc": 55,
+                    "centrocosto": "2.01 - Empresa 2 Local 01",
+                    "cod_cc": "201",
+                    "desc_cc": "Empresa 2 Local 01"
+                },
+            ]
+        }
+    );
 
     mockAdapter.onPost('/Asiento/ValidarLinea').reply(200, [
         {
