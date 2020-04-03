@@ -24,8 +24,8 @@ class GlobalContainer extends Component {
     componentDidUpdate = (prevProps) => {
         const { message, clearMessage, t } = this.props;
         if (prevProps.message !== message && message) {
-            console.log(message)
-            this.setState({ showMessage: true, message: t(message.description) });
+            //console.log(message, 'esto es lo que llega..')
+            this.setState({ showMessage: true, message: (message.description.Mens_error) ? message.description : t(message.description) });
             clearMessage();
         }
 
@@ -53,7 +53,6 @@ class GlobalContainer extends Component {
 
         const { voucherType, codeProccess, callBackButton } = this.props;
         //console.log('paso ', codeProccess)
-
         const crumbs = (voucherType) ? voucherType.procesos : [];
         if (voucherType) {
             const [backButton, nextButton] = getBackNextButtons(crumbs, codeProccess, voucherType.idOperacion);
@@ -65,6 +64,7 @@ class GlobalContainer extends Component {
             }
 
         }
+
     }
 
     handleSetShow = (state) => {

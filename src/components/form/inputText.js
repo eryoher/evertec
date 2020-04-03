@@ -107,8 +107,9 @@ class InputText extends Component {
         if (configInput.requerido && !inputValue) {
             this.setState({ requireError: true });
         }
-
-        onBlur(newValue);
+        if (onBlur) {
+            onBlur(newValue);
+        }
     }
 
     getconfigField = (id) => {

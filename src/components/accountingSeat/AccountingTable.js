@@ -51,10 +51,9 @@ class AccountingTable extends Component {
 
     componentWillUnmount = () => {
         const { idOperacion, voucherTypeCancel } = this.props;
-        if (!voucherTypeCancel) {
+        if (voucherTypeCancel === null) {
             this.props.accountConfirm({ idOperacion })
         }
-
     }
 
     handleValidateCell = (row) => {
@@ -67,6 +66,7 @@ class AccountingTable extends Component {
             "nicc": row.nicc,
             "nicodctacc": row.nicodctacc
         }]
+
         this.props.accountValidate({ Items, idOperacion });
         this.setState({ editing: false })
     }
