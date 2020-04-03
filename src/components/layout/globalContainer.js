@@ -24,7 +24,8 @@ class GlobalContainer extends Component {
     componentDidUpdate = (prevProps) => {
         const { message, clearMessage, t } = this.props;
         if (prevProps.message !== message && message) {
-            this.setState({ showMessage: true, message: t(message.description) });
+            //console.log(message, 'esto es lo que llega..')
+            this.setState({ showMessage: true, message: (message.description.Mens_error) ? message.description : t(message.description) });
             clearMessage();
         }
 
@@ -49,10 +50,12 @@ class GlobalContainer extends Component {
     }
 
     handleNextPage = () => {
+        console.log('aca llego')
         const { voucherType, codeProccess, callBackButton } = this.props;
         //console.log('paso ', codeProccess)
 
         const crumbs = (voucherType) ? voucherType.procesos : [];
+
         if (voucherType) {
             const [backButton, nextButton] = getBackNextButtons(crumbs, codeProccess, voucherType.idOperacion);
             if (callBackButton) {
@@ -62,6 +65,7 @@ class GlobalContainer extends Component {
                 this.props.history.push(nextButton.url)
             }
         }
+
     }
 
 
@@ -77,6 +81,11 @@ class GlobalContainer extends Component {
             <GloblaShorcut
                 shortcuts={customShortcuts}
             >
+                <GlobalNotfications
+                    {...this.state}
+                    setShow={(s) => this.handleSetShow(s)}
+                    voucherType={voucherType}
+                />
                 {voucherType &&
                     <Fragment>
                         <ErrorBoundary>

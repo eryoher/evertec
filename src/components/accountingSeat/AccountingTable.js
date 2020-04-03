@@ -68,6 +68,7 @@ class AccountingTable extends Component {
             "nicc": row.nicc,
             "nicodctacc": row.nicodctacc
         }]
+
         this.props.accountValidate({ Items, idOperacion });
         this.setState({ editing: false })
     }

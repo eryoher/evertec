@@ -66,7 +66,6 @@ export default function configureAxios(store) {
           })
         );
       } else if (error.response && error.response.status === 409) {
-
         store.dispatch(
           showMessage({
             type: "error",

@@ -28,8 +28,7 @@ class AccountingSeat extends Component {
     }
 
     render() {
-        const { voucherType } = this.props
-
+        const { voucherType } = this.props;
         return (
             <Row>
                 <GlobalContainer
