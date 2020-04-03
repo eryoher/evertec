@@ -25,6 +25,11 @@ class HeadBoardFormInput extends Component {
         }
     }
 
+    componentDidMount = () => {
+        this.props.formConfirmation(this.handleConfirmation);
+        this.handleConfirmation = this.handleConfirmation.bind(this);
+    }
+
     componentDidUpdate = (prevProps) => {
         const { fields, setFieldValue, checkDate, checkKey } = this.props;
 
@@ -50,8 +55,8 @@ class HeadBoardFormInput extends Component {
         }
     }
 
-    componentWillUnmount = () => {
-        const { idOperacion, values, voucherTypeCancel, voucherType } = this.props;
+    handleConfirmation = () => {
+        const { idOperacion, values } = this.props;
 
         if (values) {
             const requestData = {
@@ -66,7 +71,7 @@ class HeadBoardFormInput extends Component {
                 atrib_comp_vta: values.atrib_comp_vta_field
             }
 
-            if (idOperacion && !voucherTypeCancel) {
+            if (idOperacion) {
                 this.props.voucherHeadConfirm({ ...requestData, idOperacion })
             }
         }
