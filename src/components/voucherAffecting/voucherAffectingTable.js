@@ -30,6 +30,26 @@ class VoucherAffectingTable extends Component {
         }
     }
 
+    componentDidUpdate = (prevProps) => {
+        const { subCalculations, cantValidate, salesconfirm, productsImport } = this.props;
+
+        if (prevProps.productsImport !== productsImport && productsImport) {
+            this.setState({ total_item: productsImport.total_item, total_cant: productsImport.total_cant, total_importe: productsImport.total_importe })
+        }
+
+        if (prevProps.subCalculations !== subCalculations && !prevProps.subCalculations) {
+            this.setState({ total_item: subCalculations.total_item, total_cant: subCalculations.total_cant, total_importe: subCalculations.total_importe })
+        }
+
+        if (prevProps.cantValidate !== cantValidate && !prevProps.cantValidate) {
+            this.setState({ total_item: cantValidate.total_item, total_cant: cantValidate.total_cant, total_importe: cantValidate.total_importe })
+        }
+
+        if (prevProps.salesconfirm !== salesconfirm && !prevProps.salesconfirm && salesconfirm) {
+            this.setState({ total_item: salesconfirm.total_item, total_cant: salesconfirm.total_cant, total_importe: salesconfirm.total_importe })
+        }
+    }
+
     onChangeTable = (type, pagination) => {
         const { ComprobAvencer, OpcionMuestra } = this.state;
         const { idOperacion } = this.props;
@@ -50,27 +70,6 @@ class VoucherAffectingTable extends Component {
         const { idOperacion } = this.props;
         this.setState({ OpcionMuestra: value });
         this.props.salesAffectedImport({ ComprobAvencer, OpcionMuestra: value, idOperacion, page_size: 10, page_number: 1 });
-    }
-
-    componentDidUpdate = (prevProps) => {
-        const { subCalculations, cantValidate, salesconfirm, productsImport } = this.props;
-
-        if (prevProps.productsImport !== productsImport && productsImport) {
-            this.setState({ total_item: productsImport.total_item, total_cant: productsImport.total_cant, total_importe: productsImport.total_importe })
-        }
-
-        if (prevProps.subCalculations !== subCalculations && !prevProps.subCalculations) {
-            this.setState({ total_item: subCalculations.total_item, total_cant: subCalculations.total_cant, total_importe: subCalculations.total_importe })
-        }
-
-        if (prevProps.cantValidate !== cantValidate && !prevProps.cantValidate) {
-            this.setState({ total_item: cantValidate.total_item, total_cant: cantValidate.total_cant, total_importe: cantValidate.total_importe })
-        }
-
-        if (prevProps.salesconfirm !== salesconfirm && !prevProps.salesconfirm && salesconfirm) {
-            this.setState({ total_item: salesconfirm.total_item, total_cant: salesconfirm.total_cant, total_importe: salesconfirm.total_importe })
-        }
-
     }
 
     render() {
@@ -104,6 +103,7 @@ class VoucherAffectingTable extends Component {
                         readOnly={readOnly}
                         idOperacion={this.props.idOperacion}
                         handleChangeTable={this.onChangeTable}
+                        formConfirmation={this.props.formConfirmation}
                     />
                     {productsImport && <VoucherAffectingTotal classDiv={'pl-0'} formatCol={customCol} data={this.state} />}
                 </Col>

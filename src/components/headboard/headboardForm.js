@@ -128,6 +128,7 @@ class HeadboardForm extends Component {
                                 <Form onSubmit={handleSubmit} className={"voucher-info-form"}>
                                     <Col>
                                         <HeadboardFormInput
+                                            formConfirmation={this.props.formConfirmation}
                                             fields={fields}
                                             idOperacion={this.props.idOperacion}
                                             collapse

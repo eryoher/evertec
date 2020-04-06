@@ -36,21 +36,23 @@ class InvolvementTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
+        this.props.formConfirmation(this.handleConfirmation);
+
         if (idOperacion) {
             this.props.getConfigVoucher({ cod_proceso: P_AFEC_CANT_VTA, idOperacion });
+            this.handleConfirmation = this.handleConfirmation.bind(this);
         }
     }
 
     componentDidUpdate = (prevProps) => {
         const { productsInvol } = this.props;
-        if (prevProps.productsInvol !== productsInvol && productsInvol && productsInvol.Items) {
+        if (prevProps.productsInvol !== productsInvol && productsInvol) {
             if (this.firtsRefs && this.firtsRefs.current) {
                 if (this.firtsRefs.current.element) {
                     this.firtsRefs.current.element.focus();
                 } else {
                     this.firtsRefs.current.focus();
                 }
-
             }
         }
     }
@@ -66,10 +68,10 @@ class InvolvementTable extends Component {
         }
     }
 
-    componentWillUnmount = () => {
+    handleConfirmation = () => {
         const items = this.getSelectedCheck();
-        const { idOperacion, voucherTypeCancel } = this.props;
-        if (items.length && !voucherTypeCancel) {
+        const { idOperacion } = this.props;
+        if (items.length) {
             this.props.salesAffectedConfirm({ idOperacion, items });
         }
     }

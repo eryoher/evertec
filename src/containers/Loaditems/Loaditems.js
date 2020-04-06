@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 import { P_CARGAITEMVTA } from 'constants/ConfigProcessNames';
 import GlobalContainer from 'components/layout/globalContainer';
+import { withRouter } from "react-router-dom";
 
 
 class Loaditems extends Component {
@@ -71,9 +72,12 @@ class Loaditems extends Component {
                     }
                 });
             }
-
         }
+    }
 
+    handleCallBackButton = (urlNext) => {
+        this.loadItemsConfirmation();
+        this.props.history.push(urlNext);
     }
 
     render() {
@@ -86,6 +90,7 @@ class Loaditems extends Component {
                     codeProccess={P_CARGAITEMVTA}
                     voucherType={voucherType}
                     shortcuts={this.getShorcuts()}
+                    callBackButton={this.handleCallBackButton}
                     nextPage
                     childForm={(voucherType) ?
                         <Fragment >
@@ -96,6 +101,7 @@ class Loaditems extends Component {
                                     idOperacion={voucherType.idOperacion}
                                     setClick={click => this.addRowToCart = click}
                                     homeFocus={click => this.handleFocus = click}
+                                    formConfirmation={click => this.loadItemsConfirmation = click}
                                 />
                             </Col>
                             <Col sm={1} style={{ textAlign: 'left', paddingLeft: '2rem' }} className={"mt-2"} >
@@ -130,4 +136,4 @@ const mapStateToProps = ({ vouchertype, product }) => {
     return { voucherType, productsUpdate, search };
 };
 
-export default connect(mapStateToProps, { getVoucherType, confirmLoadItems })(withMenu(Loaditems));
+export default connect(mapStateToProps, { getVoucherType, confirmLoadItems })(withRouter(withMenu(Loaditems)));

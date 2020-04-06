@@ -43,23 +43,17 @@ class LoadItemsTable extends Component {
         const { idOperacion } = this.props;
         this.props.setClick(this.handleAddToCart);
         this.props.homeFocus(this.setInitFocus);
+        this.props.formConfirmation(this.handleConfirmation);
+
         if (idOperacion) {
             this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
             this.handleAddToCart = this.handleAddToCart.bind(this);
             this.setInitFocus = this.setInitFocus.bind(this);
-
+            this.handleConfirmation = this.handleConfirmation.bind(this);
         }
 
         this.setInitFocus();
         this.refsBeforeSearch.current.focus(); //Focus para la barra de busqueda.
-    }
-
-    componentWillUnmount = () => {
-        const { idOperacion, voucherTypeCancel } = this.props;
-
-        if (!voucherTypeCancel) {
-            this.props.confirmTableItems({ idOperacion });
-        }
     }
 
 
@@ -104,15 +98,6 @@ class LoadItemsTable extends Component {
         }
     }
 
-    componentWillUnmount = () => {
-        const { idOperacion } = this.props;
-        this.props.confirmTableItems({ idOperacion });
-    }
-
-    setInitFocus = () => {
-        this.refsBeforeSearch.current.focus(); //Focus para la barra de busqueda.
-    }
-
     setInitRow = (params) => {
         //console.log(params, 'aca llego')
         const initRow = [
@@ -122,6 +107,15 @@ class LoadItemsTable extends Component {
         ]
 
         this.props.setTableDataProducts(initRow);
+    }
+
+    handleConfirmation = () => {
+        const { idOperacion } = this.props;
+        this.props.confirmTableItems({ idOperacion });
+    }
+
+    setInitFocus = () => {
+        this.refsBeforeSearch.current.focus(); //Focus para la barra de busqueda.
     }
 
     getNextProductId = (idProduct) => {

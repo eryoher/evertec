@@ -39,6 +39,7 @@ class Voucher extends Component {
         if (this.formRef.current) {
             this.formRef.current.handleSubmit();
             this.setState({ urlSubmitForm })
+            this.voucherConfirmation();
         }
     }
 
@@ -62,6 +63,7 @@ class Voucher extends Component {
                                 urlParameter={voucherType.idOperacion}
                                 formRef={this.formRef}
                                 urlSubmitForm={this.state.urlSubmitForm}
+                                formConfirmation={click => this.voucherConfirmation = click}
                             />
                             : <div />
                     }

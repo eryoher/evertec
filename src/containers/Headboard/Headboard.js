@@ -33,8 +33,9 @@ class Headboard extends Component {
         if (this.formRef.current) {
             this.formRef.current.handleSubmit();
             const now = new moment();
-            this.setState({ urlSubmitForm, timeSet: now })
+            this.setState({ urlSubmitForm, timeSet: now });
         }
+        this.headBoardConfirmation();
     }
 
     render() {
@@ -57,6 +58,8 @@ class Headboard extends Component {
                             formRef={this.formRef}
                             urlSubmitForm={this.state.urlSubmitForm}
                             timeSet={this.state.timeSet}
+                            formConfirmation={click => this.headBoardConfirmation = click}
+
                         /> : <div />
                     }
                 />

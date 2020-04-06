@@ -77,14 +77,6 @@ class AccountingTable extends Component {
         }
     }
 
-    componentWillUnmount = () => {
-        const { idOperacion, voucherTypeCancel } = this.props;
-        if (!voucherTypeCancel) {
-            this.props.taxesConfirm({ idOperacion });
-        }
-
-    }
-
     handleValidateCell = (row) => {
         const { idOperacion } = this.props;
         //Falta campos validar

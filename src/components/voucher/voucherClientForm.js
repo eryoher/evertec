@@ -32,9 +32,12 @@ class VoucherClientForm extends Component {
     }
 
     componentDidMount = () => {
-        const { idOperacion } = this.props
+        const { idOperacion } = this.props;
+        this.props.formConfirmation(this.handleConfirmation);
+
         if (idOperacion) {
-            this.props.getConfigVoucher({ cod_proceso: P_SELCLI, idOperacion })
+            this.props.getConfigVoucher({ cod_proceso: P_SELCLI, idOperacion });
+            this.handleConfirmation = this.handleConfirmation.bind(this);
         }
     }
 
@@ -50,9 +53,9 @@ class VoucherClientForm extends Component {
         }
     }
 
-    componentWillUnmount = () => {
-        const { client, idOperacion, voucherTypeCancel } = this.props;
-        if (client && !voucherTypeCancel) {
+    handleConfirmation = () => {
+        const { client, idOperacion } = this.props;
+        if (client) {
             this.props.confirmationClient({ idOperacion, idCliente: client.idCliente })
         }
     }

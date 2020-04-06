@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { getVoucherTaxes } from '../../actions';
+import { getVoucherTaxes, taxesConfirm } from '../../actions';
 import TaxesTable from './TaxesTable';
 
 
@@ -14,18 +14,23 @@ class AccountingSeatTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
+        this.props.formConfirmation(this.handleConfirmation);
+
         if (idOperacion) {
             this.props.getVoucherTaxes({ idOperacion, page_size: 10, page_number: 1 });
+            this.handleConfirmation = this.handleConfirmation.bind(this);
         }
     }
 
     onChangeTable = (type, pagination) => {
-
         return true
-
         //this.props.getVoucherTaxes({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
     }
 
+    handleConfirmation = () => {
+        const { idOperacion } = this.props;
+        this.props.taxesConfirm({ idOperacion });
+    }
 
     componentDidUpdate = (prevProps) => {
         const { stateValidate, salesconfirm } = this.props;
@@ -37,7 +42,6 @@ class AccountingSeatTable extends Component {
         if (prevProps.salesconfirm !== salesconfirm && !prevProps.salesconfirm && salesconfirm) {
             this.setState({ total_item: salesconfirm.total_item, total_cant: salesconfirm.total_cant, total_importe: salesconfirm.total_importe })
         }
-
     }
 
     render() {
@@ -65,4 +69,4 @@ const mapStateToProps = ({ vouchertype, voucherTaxes }) => {
     return { voucherType, search };
 };
 
-export default connect(mapStateToProps, { getVoucherTaxes })(withTranslation()(AccountingSeatTable));
+export default connect(mapStateToProps, { getVoucherTaxes, taxesConfirm })(withTranslation()(AccountingSeatTable));
