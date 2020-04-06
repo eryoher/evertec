@@ -88,15 +88,15 @@ class AccountingTable extends Component {
     handleValidateCell = (row) => {
         const { idOperacion } = this.props;
         //Falta campos validar
-        const Items = [{
+        const Item = {
             "cod_imp": row.cod_imp,
             "tasa": row.tasa,
-            "alicuota": row.alicuota,
+            //"alicuota": row.alicuota,
             "impuesto": row.impuesto,
             "base_calc": row.base_calc,
-            "nro_certif": row.nro_certif,
-        }]
-        this.props.taxesValidateRow({ Items, idOperacion });
+            //"nro_certif": row.nro_certif,
+        }
+        this.props.taxesValidateRow({ ...Item, idOperacion });
         this.setState({ editing: false })
     }
 
