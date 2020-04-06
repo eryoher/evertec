@@ -7,6 +7,7 @@ import { getVoucherType } from '../../actions';
 import VoucherInvolvementTable from 'components/voucherInvolvement/voucherInvolvementTable';
 import GlobalContainer from 'components/layout/globalContainer';
 import { P_AFEC_CANT_VTA } from "../../constants/ConfigProcessNames";
+import { withRouter } from "react-router-dom";
 
 class VoucherInvolvement extends Component {
 
@@ -26,6 +27,11 @@ class VoucherInvolvement extends Component {
         }
     }
 
+    handleCallBackButton = (urlNext) => {
+        this.voucherConfirmation();
+        this.props.history.push(urlNext);
+    }
+
     render() {
         const { voucherType } = this.props
         return (
@@ -34,9 +40,11 @@ class VoucherInvolvement extends Component {
                     codeProccess={P_AFEC_CANT_VTA}
                     voucherType={voucherType}
                     nextPage
+                    callBackButton={this.handleCallBackButton}
                     childForm={(voucherType) ?
                         <VoucherInvolvementTable
                             idOperacion={voucherType.idOperacion}
+                            formConfirmation={click => this.voucherConfirmation = click}
                         /> : <div />
                     }
                 />
@@ -50,4 +58,4 @@ const mapStateToProps = ({ vouchertype }) => {
     return { voucherType };
 };
 
-export default connect(mapStateToProps, { getVoucherType })(withTranslation()(withMenu(VoucherInvolvement)));
+export default connect(mapStateToProps, { getVoucherType })(withTranslation()(withRouter(withMenu(VoucherInvolvement))));

@@ -35,12 +35,13 @@ class VoucherImportTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
+        this.props.formConfirmation(this.handleConfirmation);
+        this.handleConfirmation = this.handleConfirmation.bind(this);
         this.props.getConfigVoucher({ cod_proceso: P_AFEC_IMPO_VTA, idOperacion });
     }
 
     componentDidUpdate = (prevProps) => {
         const { productsImport } = this.props;
-
         if (prevProps.productsImport !== productsImport && productsImport) {
             if (this.firtsRefs && this.firtsRefs.current) {
                 if (this.firtsRefs.current.element) {
@@ -48,7 +49,6 @@ class VoucherImportTable extends Component {
                 } else {
                     this.firtsRefs.current.focus();
                 }
-
             }
         }
     }
@@ -64,12 +64,11 @@ class VoucherImportTable extends Component {
         }
     }
 
-    componentWillUnmount = () => {
+    handleConfirmation = () => {
         const items = this.getSelectedCheck();
-        const { idOperacion, voucherTypeCancel } = this.props;
+        const { idOperacion } = this.props;
 
-        if (items.length && !voucherTypeCancel) {
-            console.log(voucherTypeCancel)
+        if (items.length) {
             this.props.salesAffectedImportConfirm({ idOperacion, items })
         }
     }
@@ -517,7 +516,6 @@ class VoucherImportTable extends Component {
                             headerClasses={theme.tableHeader}
                             paginationOptions={options}
                             onTableChange={this.props.handleChangeTable}
-
                         />
                     }
                 </Col>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { getVoucherAccounting } from '../../actions';
+import { getVoucherAccounting, accountConfirm } from '../../actions';
 import AccountingTable from './AccountingTable';
 
 
@@ -15,15 +15,16 @@ class AccountingSeatTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
+        this.props.formConfirmation(this.handleConfirmation);
+
         if (idOperacion) {
             this.props.getVoucherAccounting({ idOperacion, page_size: 10, page_number: 1 });
+            this.handleConfirmation = this.handleConfirmation.bind(this);
         }
     }
 
     onChangeTable = (type, pagination) => {
-
         return true
-
         //this.props.getVoucherAccounting({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
     }
 
@@ -41,6 +42,11 @@ class AccountingSeatTable extends Component {
 
     }
 
+    handleConfirmation = () => {
+        const { idOperacion } = this.props;
+        this.props.accountConfirm({ idOperacion });
+    }
+
     render() {
         const { t, accountingItems, readOnly } = this.props;
 
@@ -53,7 +59,6 @@ class AccountingSeatTable extends Component {
                             readOnly={readOnly}
                             idOperacion={this.props.idOperacion}
                             handleChangeTable={this.onChangeTable}
-
                         />
                     }
                 </Col>
@@ -68,4 +73,4 @@ const mapStateToProps = ({ vouchertype, accountingSeats }) => {
     return { voucherType, accountingItems };
 };
 
-export default connect(mapStateToProps, { getVoucherAccounting })(withTranslation()(AccountingSeatTable));
+export default connect(mapStateToProps, { getVoucherAccounting, accountConfirm })(withTranslation()(AccountingSeatTable));

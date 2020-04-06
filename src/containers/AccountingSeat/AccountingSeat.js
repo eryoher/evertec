@@ -7,7 +7,7 @@ import { getVoucherType } from '../../actions';
 import AccountingSeatTable from 'components/accountingSeat/AccountingSeatTable';
 import { P_ASIEN_CONT } from 'constants/ConfigProcessNames';
 import GlobalContainer from 'components/layout/globalContainer';
-
+import { withRouter } from "react-router-dom";
 
 class AccountingSeat extends Component {
 
@@ -27,6 +27,11 @@ class AccountingSeat extends Component {
         }
     }
 
+    handleCallBackButton = (urlNext) => {
+        this.accountingConfirmation();
+        this.props.history.push(urlNext);
+    }
+
     render() {
         const { voucherType } = this.props
 
@@ -36,9 +41,11 @@ class AccountingSeat extends Component {
                     codeProccess={P_ASIEN_CONT}
                     voucherType={voucherType}
                     nextPage
+                    callBackButton={this.handleCallBackButton}
                     childForm={(voucherType) ?
                         <AccountingSeatTable
                             idOperacion={voucherType.idOperacion}
+                            formConfirmation={click => this.accountingConfirmation = click}
                         /> : <div />
                     }
                 />
@@ -53,4 +60,4 @@ const mapStateToProps = ({ vouchertype }) => {
     return { voucherType };
 };
 
-export default connect(mapStateToProps, { getVoucherType })(withTranslation()(withMenu(AccountingSeat)));
+export default connect(mapStateToProps, { getVoucherType })(withTranslation()(withRouter(withMenu(AccountingSeat))));

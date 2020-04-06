@@ -4,11 +4,10 @@ import { withTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
-import VoucherBreadCrumbs from 'components/voucher/voucherBreadCrumbs';
-import HeadCartResume from 'components/loadItems/HeadCartResume';
 import VoucherAffectingTable from 'components/voucherAffecting/voucherAffectingTable';
 import { P_AFEC_IMPO_VTA } from 'constants/ConfigProcessNames';
 import GlobalContainer from 'components/layout/globalContainer';
+import { withRouter } from "react-router-dom";
 
 
 class VoucherInvolvement extends Component {
@@ -29,25 +28,29 @@ class VoucherInvolvement extends Component {
         }
     }
 
+    handleCallBackButton = (urlNext) => {
+        this.affectingConfirmation();
+        this.props.history.push(urlNext);
+    }
+
     render() {
-        const { voucherType } = this.props
-
-
+        const { voucherType } = this.props;
         return (
             <Row>
                 <GlobalContainer
                     codeProccess={P_AFEC_IMPO_VTA}
                     voucherType={voucherType}
                     nextPage
+                    callBackButton={this.handleCallBackButton}
                     childForm={(voucherType) ?
                         <VoucherAffectingTable
                             idOperacion={voucherType.idOperacion}
+                            formConfirmation={click => this.affectingConfirmation = click}
                         /> : <div />
                     }
                 />
             </Row>
         )
-
     }
 }
 
@@ -56,4 +59,4 @@ const mapStateToProps = ({ vouchertype }) => {
     return { voucherType };
 };
 
-export default connect(mapStateToProps, { getVoucherType })(withTranslation()(withMenu(VoucherInvolvement)));
+export default connect(mapStateToProps, { getVoucherType })(withTranslation()(withRouter(withMenu(VoucherInvolvement))));
