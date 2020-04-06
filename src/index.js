@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "nprogress/nprogress.css";
 
 const loadApp = async () => {
-  if (process.env.REACT_APP_MOCK_ENABLED) {
+  if (process.env.REACT_APP_MOCK_ENABLED == true) {
     await import("__mocks__");
   }
   ReactDOM.render(<App />, document.getElementById("root"));
