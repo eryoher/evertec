@@ -6,7 +6,7 @@ export const getVoucherTaxes = async (params) => {
 }
 
 export const taxesValidateRow = async (params) => {
-    const response = await Axios.post('/Impuesto/ValidarLinea', params);
+    const response = await Axios.post('/impuesto/validarlinea', params);
     return response.data;
 }
 
