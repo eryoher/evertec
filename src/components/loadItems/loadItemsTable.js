@@ -47,7 +47,6 @@ class LoadItemsTable extends Component {
             this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
             this.handleAddToCart = this.handleAddToCart.bind(this);
             this.setInitFocus = this.setInitFocus.bind(this);
-
         }
 
         this.setInitFocus();
@@ -108,7 +107,7 @@ class LoadItemsTable extends Component {
         const initRow = [
             { niprod: params.Niprod, idCampo: 'cantidad', value: '' },
             { niprod: params.Niprod, idCampo: 'neto', value: '' },
-            { niprod: params.Niprod, idCampo: 'pcio_unit', value: '' },
+            //{ niprod: params.Niprod, idCampo: 'pcio_unit', value: '' },
         ]
 
         this.props.setTableDataProducts(initRow);

@@ -4,7 +4,8 @@ import {
     CONFIRM_LOAD_ITEMS,
     CONFIRM_LOAD_ITEMS_SUCCESS,
     CONFIRM_TABLE_ITEMS,
-    CONFIRM_TABLE_ITEMS_SUCCESS
+    CONFIRM_TABLE_ITEMS_SUCCESS,
+    VOUCHER_CANCEL_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
@@ -33,6 +34,8 @@ function rootReducer(state = initialState, action) {
             return { ...state, confirmItemsTable: null }
         case CONFIRM_TABLE_ITEMS_SUCCESS:
             return { ...state, confirmItemsTable: action.payload }
+        case VOUCHER_CANCEL_SUCCESS:
+            return { ...initialState }
         default:
             return state
     }

@@ -12,7 +12,8 @@ import {
     VOUCHER_HEAD_CONFIRM,
     VOUCHER_HEAD_CONFIRM_SUCCESS,
     GET_VOUCHER_HEAD_INFO,
-    GET_VOUCHER_HEAD_INFO_SUCCESS
+    GET_VOUCHER_HEAD_INFO_SUCCESS,
+    VOUCHER_CANCEL_SUCCESS
 } from '../constants/ActionsTypes'
 
 const initialState = {
@@ -59,6 +60,8 @@ function rootReducer(state = initialState, action) {
             return { ...state, voucherHeadConfirm: null }
         case VOUCHER_HEAD_CONFIRM_SUCCESS:
             return { ...state, voucherHeadConfirm: action.payload }
+        case VOUCHER_CANCEL_SUCCESS:
+            return { ...initialState }
 
         default:
             return state

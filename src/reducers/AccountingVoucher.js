@@ -4,7 +4,8 @@ import {
     TAXES_VALIDATE_ROW,
     TAXES_VALIDATE_ROW_SUCCESS,
     TAXES_CONFIRM,
-    TAXES_CONFIRM_SUCCESS
+    TAXES_CONFIRM_SUCCESS,
+    VOUCHER_CANCEL_SUCCESS
 } from '../constants/ActionsTypes'
 
 const initialState = {
@@ -27,6 +28,8 @@ function rootReducer(state = initialState, action) {
             return { ...state, taxesConfirm: null }
         case TAXES_CONFIRM_SUCCESS:
             return { ...state, taxesConfirm: action.payload }
+        case VOUCHER_CANCEL_SUCCESS:
+            return { ...initialState }
         default:
             return state
     }
