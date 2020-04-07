@@ -6,7 +6,8 @@ import {
     GET_ACCOUNT_DETAIL,
     GET_ACCOUNT_DETAIL_SUCCESS,
     ACCOUNT_VALIDATE,
-    ACCOUNT_VALIDATE_SUCCESS
+    ACCOUNT_VALIDATE_SUCCESS,
+    VOUCHER_CANCEL_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
@@ -55,6 +56,8 @@ function rootReducer(state = initialState, action) {
             }
 
             return accountState;
+        case VOUCHER_CANCEL_SUCCESS:
+            return { ...initialState }
         default:
             return state
     }

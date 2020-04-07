@@ -12,7 +12,8 @@ import {
     CHANGE_TABLE_ITEMS,
     CHANGE_TABLE_ITEMS_SUCCESS,
     CHANGE_TABLE_AFFECT,
-    CHANGE_TABLE_AFFECT_SUCCESS
+    CHANGE_TABLE_AFFECT_SUCCESS,
+    VOUCHER_CANCEL_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
@@ -55,6 +56,8 @@ function rootReducer(state = initialState, action) {
             return { ...state }
         case CHANGE_TABLE_AFFECT_SUCCESS:
             return { ...state, affecItemsTable: action.payload }
+        case VOUCHER_CANCEL_SUCCESS:
+            return { ...initialState }
         default:
             return state
     }

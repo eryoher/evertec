@@ -11,7 +11,8 @@ import {
     SET_INPUT_FOCUS,
     SET_INPUT_FOCUS_SUCCESS,
     GET_PRODUCTS_INVOLVEMENT,
-    GET_PRODUCTS_INVOLVEMENT_SUCCESS
+    GET_PRODUCTS_INVOLVEMENT_SUCCESS,
+    VOUCHER_CANCEL_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
@@ -100,6 +101,8 @@ function rootReducer(state = initialState, action) {
             return { ...state, focusInput: null }
         case SET_INPUT_FOCUS_SUCCESS:
             return { ...state, focusInput: action.payload }
+        case VOUCHER_CANCEL_SUCCESS:
+            return { ...initialState }
         default:
             return state
     }

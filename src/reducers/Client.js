@@ -29,7 +29,7 @@ function rootReducer(state = initialState, action) {
     case CONFIRMATION_CLIENT_SUCCESS:
       return { ...state, confirmation: action.payload }
     case VOUCHER_CANCEL_SUCCESS:
-      return { ...state, ...initialState }
+      return { ...initialState }
     default:
       return state
   }

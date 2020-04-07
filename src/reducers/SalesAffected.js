@@ -19,7 +19,8 @@ import {
     SALES_AFFECTED_STATE_VALIDATE,
     SALES_AFFECTED_STATE_VALIDATE_SUCCESS,
     SALES_AFFECTED_STATE_CONFIRM,
-    SALES_AFFECTED_STATE_CONFIRM_SUCCESS
+    SALES_AFFECTED_STATE_CONFIRM_SUCCESS,
+    VOUCHER_CANCEL_SUCCESS
 } from 'constants/ActionsTypes'
 
 const initialState = {
@@ -185,6 +186,8 @@ function rootReducer(state = initialState, action) {
             return { ...state, stateConfirm: null, productsUpdate: null }
         case SALES_AFFECTED_STATE_CONFIRM_SUCCESS:
             return { ...state, stateConfirm: action.payload }
+        case VOUCHER_CANCEL_SUCCESS:
+            return { ...initialState }
         default:
             return state
     }
