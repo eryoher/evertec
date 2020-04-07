@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { getConfigVoucher, accountValidate, accountConfirm } from '../../actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faSave, faBan } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { P_ASIEN_CONT } from 'constants/ConfigProcessNames';
 import AccountField from './accountField';
@@ -106,7 +106,7 @@ class AccountingTable extends Component {
                 text: '',
                 align: 'center',
                 headerAlign: 'center',
-                headerStyle: { width: '3%', 'textAlign': 'center' },
+                headerStyle: { width: '5%', 'textAlign': 'center' },
                 formatExtraData: { editing, rowEdit },
                 formatter: ((cell, row, rowIndex, extraData) => {
                     if (row.linea_edit) {
@@ -114,11 +114,10 @@ class AccountingTable extends Component {
                             return (
                                 <Row>
                                     <Col sm={6} >
-                                        <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faSave} onClick={() => this.handleValidateCell(row)} />
+                                        <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faCheck} onClick={() => this.handleValidateCell(row)} />
                                     </Col>
                                     <Col sm={6}>
-                                        <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faBan} onClick={() => this.handleCancelCell(row)} />
-
+                                        <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faTimes} onClick={() => this.handleCancelCell(row)} />
                                     </Col>
                                 </Row>
                             )

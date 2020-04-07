@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { getConfigVoucher, taxesValidateRow, taxesConfirm } from '../../actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faSave, faBan, faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrashAlt, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 import { P_IMP_COMPROB } from 'constants/ConfigProcessNames';
 import CollapseBotton from 'components/common/collapseBoton';
@@ -146,10 +146,10 @@ class AccountingTable extends Component {
                             return (
                                 <Row>
                                     <Col sm={6} >
-                                        <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faSave} onClick={() => this.handleValidateCell(row)} />
+                                        <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faCheck} onClick={() => this.handleValidateCell(row)} />
                                     </Col>
                                     <Col sm={6}>
-                                        <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faBan} onClick={() => this.handleCancelCell(row)} />
+                                        <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faTimes} onClick={() => this.handleCancelCell(row)} />
 
                                     </Col>
                                 </Row>
