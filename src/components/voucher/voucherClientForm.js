@@ -32,9 +32,12 @@ class VoucherClientForm extends Component {
     }
 
     componentDidMount = () => {
-        const { idOperacion } = this.props
+        const { idOperacion } = this.props;
+        //this.props.formConfirmation(this.handleConfirmation); //No es necesario en esta pantalla
+
         if (idOperacion) {
-            this.props.getConfigVoucher({ cod_proceso: P_SELCLI, idOperacion })
+            this.props.getConfigVoucher({ cod_proceso: P_SELCLI, idOperacion });
+            this.handleConfirmation = this.handleConfirmation.bind(this);
         }
     }
 
@@ -50,11 +53,15 @@ class VoucherClientForm extends Component {
         }
     }
 
-    componentWillUnmount = () => {
+    handleConfirmation = (callBackReturn) => {
         const { client, idOperacion } = this.props;
         if (client) {
-            this.props.confirmationClient({ idOperacion, idCliente: client.idCliente })
+            this.props.confirmationClient({ client: { idOperacion, idCliente: client.idCliente }, callBackReturn })
         }
+    }
+
+    handleCallBackConfirmation = (urlSubmit) => {
+        this.props.history.push(urlSubmit);
     }
 
     handleCloseError = () => {
@@ -117,7 +124,7 @@ class VoucherClientForm extends Component {
                         onSubmit={(values, actions) => {
                             if (this.state.urlForm || this.props.urlSubmitForm) {
                                 const urlSubmit = (this.props.urlSubmitForm) ? this.props.urlSubmitForm : this.state.urlForm
-                                this.props.history.push(urlSubmit)
+                                this.handleConfirmation(() => this.handleCallBackConfirmation(urlSubmit));
                             }
                         }}
                         validationSchema={validationSchema}
@@ -221,10 +228,11 @@ class VoucherClientForm extends Component {
     }
 }
 
-const mapStateToProps = ({ clients, voucher }) => {
+const mapStateToProps = ({ clients, voucher, vouchertype }) => {
     const { search, client } = clients;
     const config = (voucher.config) ? voucher.config[P_SELCLI] : null;
-    return { search, client, config };
+    const { voucherTypeCancel } = vouchertype;
+    return { search, client, config, voucherTypeCancel };
 };
 
 export default connect(mapStateToProps, { searchClients, getClient, getConfigVoucher, confirmationClient })(withTranslation()(withRouter(VoucherClientForm)));

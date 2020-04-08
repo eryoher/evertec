@@ -77,21 +77,16 @@ class AccountingTable extends Component {
         }
     }
 
-    componentWillUnmount = () => {
-        const { idOperacion } = this.props;
-        this.props.taxesConfirm({ idOperacion })
-    }
-
     handleValidateCell = (row) => {
-        console.log(row)
         const { idOperacion } = this.props;
         //Falta campos validar
         const Items = [{
-            "niasto": row.niasto,
-            "nitem": row.nitem,
-            "nicodcta": row.nicodcta,
-            "nicc": row.nicc,
-            "nicodctacc": row.nicodctacc
+            "cod_imp": row.cod_imp,
+            "tasa": row.tasa,
+            "alicuota": row.alicuota,
+            "impuesto": row.impuesto,
+            "base_calc": row.base_calc,
+            "nro_certif": row.nro_certif,
         }]
         this.props.taxesValidateRow({ Items, idOperacion });
         this.setState({ editing: false })
@@ -366,7 +361,6 @@ class AccountingTable extends Component {
     render() {
         const { taxes, theme, config } = this.props;
         const tableColumns = (config && taxes) ? this.getColumns() : [];
-
         const options = {
             pageStartIndex: 1,
             sizePerPage: taxes.page_size,
@@ -398,11 +392,12 @@ class AccountingTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, accountingSeats, auth }) => {
+const mapStateToProps = ({ voucher, accountingSeats, auth, vouchertype }) => {
     const config = (voucher.config) ? voucher.config[P_IMP_COMPROB] : null;
     const { authUser } = auth
     const { productsUpdate, accountDetail, accountsUpdate } = accountingSeats;
-    return { config, productsUpdate, authUser, accountDetail, accountsUpdate };
+    const { voucherTypeCancel } = vouchertype;
+    return { config, productsUpdate, authUser, accountDetail, accountsUpdate, voucherTypeCancel };
 };
 
 const connectForm = connect(mapStateToProps, {

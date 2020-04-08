@@ -105,6 +105,7 @@ class VoucherInvolvementTable extends Component {
                         readOnly={readOnly}
                         idOperacion={this.props.idOperacion}
                         handleChangeTable={this.onChangeTable}
+                        formConfirmation={this.props.formConfirmation}
                     />
 
                     {productsInvol && <InvolvementTotalResume classDiv={'pl-0'} formatCol={customCol} data={this.state} />}

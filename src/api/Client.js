@@ -10,7 +10,6 @@ export const searchClients = async (params) => {
   return response.data;
 }
 
-
 export const confirmationClient = async (params) => {
   const response = await Axios.get('/Clientes/Seleccion/Confirmar', { params });
   return response.data;

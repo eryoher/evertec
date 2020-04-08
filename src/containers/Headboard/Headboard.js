@@ -33,12 +33,12 @@ class Headboard extends Component {
         if (this.formRef.current) {
             this.formRef.current.handleSubmit();
             const now = new moment();
-            this.setState({ urlSubmitForm, timeSet: now })
+            this.setState({ urlSubmitForm, timeSet: now });
         }
     }
 
     render() {
-        const { t, voucherType } = this.props;
+        const { voucherType } = this.props;
 
         return (
             <Row >

@@ -28,6 +28,22 @@ class VoucherStateTable extends Component {
         this.props.salesAffectedState({ ComprobAvencer, OpcionMuestra, idOperacion, page_size: 10, page_number: 1 });
     }
 
+    componentDidUpdate = (prevProps) => {
+        const { stateValidate, salesconfirm, productsState } = this.props;
+
+        if (prevProps.productsState !== productsState && productsState) {
+            this.setState({ total_item: productsState.total_item, total_cant: productsState.total_cant, total_importe: productsState.total_importe })
+        }
+
+        if (prevProps.stateValidate !== stateValidate && stateValidate) {
+            this.setState({ total_item: stateValidate.total_item, total_cant: stateValidate.total_cant, total_importe: stateValidate.total_importe })
+        }
+
+        if (prevProps.salesconfirm !== salesconfirm && !prevProps.salesconfirm && salesconfirm) {
+            this.setState({ total_item: salesconfirm.total_item, total_cant: salesconfirm.total_cant, total_importe: salesconfirm.total_importe })
+        }
+    }
+
     onChangeTable = (type, pagination) => {
         const { ComprobAvencer, OpcionMuestra } = this.state;
         const { idOperacion } = this.props;
@@ -48,23 +64,6 @@ class VoucherStateTable extends Component {
         const { idOperacion } = this.props;
         this.setState({ OpcionMuestra: value });
         this.props.salesAffectedState({ ComprobAvencer, OpcionMuestra: value, idOperacion });
-    }
-
-    componentDidUpdate = (prevProps) => {
-        const { stateValidate, salesconfirm, productsState } = this.props;
-
-        if (prevProps.productsState !== productsState && productsState) {
-            this.setState({ total_item: productsState.total_item, total_cant: productsState.total_cant, total_importe: productsState.total_importe })
-        }
-
-        if (prevProps.stateValidate !== stateValidate && stateValidate) {
-            this.setState({ total_item: stateValidate.total_item, total_cant: stateValidate.total_cant, total_importe: stateValidate.total_importe })
-        }
-
-        if (prevProps.salesconfirm !== salesconfirm && !prevProps.salesconfirm && salesconfirm) {
-            this.setState({ total_item: salesconfirm.total_item, total_cant: salesconfirm.total_cant, total_importe: salesconfirm.total_importe })
-        }
-
     }
 
     render() {

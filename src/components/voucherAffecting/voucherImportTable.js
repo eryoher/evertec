@@ -35,24 +35,23 @@ class VoucherImportTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
+        this.props.formConfirmation(this.handleConfirmation);
+        this.handleConfirmation = this.handleConfirmation.bind(this);
         this.props.getConfigVoucher({ cod_proceso: P_AFEC_IMPO_VTA, idOperacion });
     }
 
     componentDidUpdate = (prevProps) => {
         const { productsImport } = this.props;
-
-        if (prevProps.productsImport !== productsImport && productsImport.Items) {
+        if (prevProps.productsImport !== productsImport && productsImport) {
             if (this.firtsRefs && this.firtsRefs.current) {
                 if (this.firtsRefs.current.element) {
                     this.firtsRefs.current.element.focus();
                 } else {
                     this.firtsRefs.current.focus();
                 }
-
             }
         }
     }
-
 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.productsUpdate) {
@@ -65,7 +64,7 @@ class VoucherImportTable extends Component {
         }
     }
 
-    componentWillUnmount = () => {
+    handleConfirmation = () => {
         const items = this.getSelectedCheck();
         const { idOperacion } = this.props;
 
@@ -517,7 +516,6 @@ class VoucherImportTable extends Component {
                             headerClasses={theme.tableHeader}
                             paginationOptions={options}
                             onTableChange={this.props.handleChangeTable}
-
                         />
                     }
                 </Col>
@@ -526,11 +524,12 @@ class VoucherImportTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, salesAffected, auth }) => {
+const mapStateToProps = ({ voucher, salesAffected, auth, vouchertype }) => {
     const config = (voucher.config) ? voucher.config[P_AFEC_IMPO_VTA] : null;
     const { authUser } = auth
     const { productsUpdate, cantValidate, productsImport } = salesAffected;
-    return { config, productsUpdate, cantValidate, authUser, productsImport };
+    const { voucherTypeCancel } = vouchertype;
+    return { config, productsUpdate, cantValidate, authUser, productsImport, voucherTypeCancel };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedImportValidate, salesAffectedSubCalculation, salesAffectedImportConfirm })(VoucherImportTable);

@@ -36,21 +36,23 @@ class InvolvementTable extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props
+        this.props.formConfirmation(this.handleConfirmation);
+
         if (idOperacion) {
             this.props.getConfigVoucher({ cod_proceso: P_AFEC_CANT_VTA, idOperacion });
+            this.handleConfirmation = this.handleConfirmation.bind(this);
         }
     }
 
     componentDidUpdate = (prevProps) => {
         const { productsInvol } = this.props;
-        if (prevProps.productsInvol !== productsInvol && productsInvol.Items) {
+        if (prevProps.productsInvol !== productsInvol && productsInvol) {
             if (this.firtsRefs && this.firtsRefs.current) {
                 if (this.firtsRefs.current.element) {
                     this.firtsRefs.current.element.focus();
                 } else {
                     this.firtsRefs.current.focus();
                 }
-
             }
         }
     }
@@ -66,10 +68,11 @@ class InvolvementTable extends Component {
         }
     }
 
-    componentWillUnmount = () => {
+    handleConfirmation = () => {
         const items = this.getSelectedCheck();
+        const { idOperacion } = this.props;
         if (items.length) {
-            this.props.salesAffectedConfirm({ idOperacion: this.props.idOperacion, items })  // FALTA ID OPERACION
+            this.props.salesAffectedConfirm({ idOperacion, items });
         }
     }
 
@@ -520,11 +523,12 @@ class InvolvementTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, salesAffected, auth }) => {
+const mapStateToProps = ({ voucher, salesAffected, auth, vouchertype }) => {
     const config = (voucher.config) ? voucher.config[P_AFEC_CANT_VTA] : null;
     const { productsUpdate, cantValidate, productsInvol } = salesAffected;
+    const { voucherTypeCancel } = vouchertype;
     const { authUser } = auth;
-    return { config, productsUpdate, cantValidate, authUser, productsInvol };
+    return { config, productsUpdate, cantValidate, authUser, productsInvol, voucherTypeCancel };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataInvolvement, salesAffectedValidate, salesAffectedSubCalculation, salesAffectedConfirm })(InvolvementTable);

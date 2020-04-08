@@ -2,7 +2,9 @@
     "An unexpected error has ocurred": "Ha ocurrido un error inesperado",
     "Please, reload and try again": "Por favor, vuelva a cargar e intente nuevamente",
     "validation-required": "{{field}} es requerido",
+    "itemAdd-Cart": "Agregado al carrito: {{cantidad}} {{unidad}} del producto {{producto}} ${{neto}}",
     "voucherConfirmation": "Se creo el comprobante numero {{voucher}}",
+    "The required resource was not found": "El API que esta llamando no se encuentra Habilitada.",
     "Invalid username or password": "Usuario o Contraseña Incorrectos",
     "AccountingSeat": {
         "title": "Asiento"

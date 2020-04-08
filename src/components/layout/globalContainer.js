@@ -22,9 +22,10 @@ class GlobalContainer extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const { message, clearMessage } = this.props;
+        const { message, clearMessage, t } = this.props;
         if (prevProps.message !== message && message) {
-            this.setState({ showMessage: true, message: message.description });
+            console.log(message)
+            this.setState({ showMessage: true, message: (message.description.Mens_error) ? message.description : t(message.description) });
             clearMessage();
         }
 
@@ -49,16 +50,18 @@ class GlobalContainer extends Component {
     }
 
     handleNextPage = () => {
-        console.log('aca llego')
         const { voucherType, codeProccess, callBackButton } = this.props;
+        //console.log('paso ', codeProccess)
         const crumbs = (voucherType) ? voucherType.procesos : [];
-        const [backButton, nextButton] = getBackNextButtons(crumbs, codeProccess, voucherType.idOperacion);
+        if (voucherType) {
+            const [backButton, nextButton] = getBackNextButtons(crumbs, codeProccess, voucherType.idOperacion);
+            if (callBackButton) {
+                callBackButton(nextButton.url);
+            } else {
+                //console.log(nextButton.url)
+                this.props.history.push(nextButton.url)
+            }
 
-        if (callBackButton) {
-            callBackButton(nextButton.url);
-        } else {
-            //console.log(nextButton.url)
-            this.props.history.push(nextButton.url)
         }
     }
 

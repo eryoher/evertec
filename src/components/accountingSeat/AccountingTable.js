@@ -28,9 +28,7 @@ class AccountingTable extends Component {
             itemsTable: (this.props.products) ? this.props.products.Items : [],
             ccUpdateValue: null
         }
-
         this.rowErrors = []
-
     }
 
     componentDidMount = () => {
@@ -50,11 +48,9 @@ class AccountingTable extends Component {
     }
 
     componentWillUnmount = () => {
-
         const { idOperacion } = this.props;
         this.props.accountConfirm({ idOperacion })
     }
-
 
     handleValidateCell = (row) => {
         //console.log(row, 'esto es lo que se envia a validar...')
@@ -82,8 +78,8 @@ class AccountingTable extends Component {
             return {
                 dataField: campoId,
                 text: (field.label) ? ((campoId === 'cuenta') ? '' : field.label) : '',
-                align: 'center',
-                headerAlign: 'center',
+                align: (campoId === 'debe' || campoId === 'haber') ? 'right' : 'center',
+                headerAlign: (campoId === 'debe' || campoId === 'haber') ? 'right' : 'center',
                 headerStyle: this.getStyleColumn(field),
                 hidden: !field.visible,
                 filter: (campoId === 'cuenta') ? selectFilter({
@@ -236,16 +232,16 @@ class AccountingTable extends Component {
         let style = {};
 
         switch (idField) {
-            case 'fec_emis':
-            case 'fec_vto':
-                style = { width: '12%' }
+            case 'debe':
+            case 'haber':
+                style = { width: '5%', textAlign: 'right' }
                 break;
-            case 'estado_orig':
-            case 'cod_unid':
-                style = { width: '8%' }
+            case 'cuenta':
+            case 'detalle':
+                style = { width: '20%' }
                 break;
-            case 'estado_afec':
-                style = { width: '170px' }
+            case 'nitem':
+                style = { width: '3%' }
                 break;
             default:
                 style = { width: '10%' }
@@ -325,11 +321,12 @@ class AccountingTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, accountingSeats, auth }) => {
+const mapStateToProps = ({ voucher, accountingSeats, auth, vouchertype }) => {
     const config = (voucher.config) ? voucher.config[P_ASIEN_CONT] : null;
     const { authUser } = auth
     const { productsUpdate, accountDetail, accountsUpdate } = accountingSeats;
-    return { config, productsUpdate, authUser, accountDetail, accountsUpdate };
+    const { voucherTypeCancel } = vouchertype;
+    return { config, productsUpdate, authUser, accountDetail, accountsUpdate, voucherTypeCancel };
 };
 
 const connectForm = connect(mapStateToProps, {

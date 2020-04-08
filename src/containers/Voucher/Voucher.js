@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import { getVoucherType } from '../../actions';
 import { P_SELCLI } from 'constants/ConfigProcessNames';
 import GlobalContainer from 'components/layout/globalContainer';
-import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
+import { withRouter } from "react-router-dom";
+
 
 
 class Voucher extends Component {
@@ -37,14 +38,13 @@ class Voucher extends Component {
 
     callBackButton = (urlSubmitForm) => {
         if (this.formRef.current) {
-            this.formRef.current.handleSubmit();
             this.setState({ urlSubmitForm })
+            this.formRef.current.handleSubmit();
         }
     }
 
     render() {
-        const { t, theme, voucherType } = this.props;
-
+        const { voucherType } = this.props;
         return (
             <Row>
                 <GlobalContainer
@@ -76,4 +76,4 @@ const mapStateToProps = ({ vouchertype }) => {
     return { voucherType };
 };
 
-export default connect(mapStateToProps, { getVoucherType })(withTranslation()(withMenu(Voucher)));
+export default connect(mapStateToProps, { getVoucherType })(withTranslation()(withRouter(withMenu(Voucher))));

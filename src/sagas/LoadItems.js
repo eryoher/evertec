@@ -36,10 +36,13 @@ function* confirmLoadItemsRequest({ payload }) {
 }
 
 function* confirmTableItemsRequest({ payload }) {
+    const { idOperacion, callBackReturn } = payload;
     try {
-        const items = yield call(confirmTableItems, payload);
+        const items = yield call(confirmTableItems, { idOperacion });
+        callBackReturn();
         yield put(confirmTableItemsSuccess(items));
     } catch (error) {
+
     }
 }
 

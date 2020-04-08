@@ -43,14 +43,17 @@ class LoadItemsTable extends Component {
         const { idOperacion } = this.props;
         this.props.setClick(this.handleAddToCart);
         this.props.homeFocus(this.setInitFocus);
+        this.props.formConfirmation(this.handleConfirmation);
+
         if (idOperacion) {
             this.props.getConfigVoucher({ cod_proceso: P_CARGAITEMVTA, idOperacion });
             this.handleAddToCart = this.handleAddToCart.bind(this);
             this.setInitFocus = this.setInitFocus.bind(this);
-
+            this.handleConfirmation = this.handleConfirmation.bind(this);
         }
 
         this.setInitFocus();
+        this.refsBeforeSearch.current.focus(); //Focus para la barra de busqueda.
     }
 
     componentDidUpdate = (prevProps) => {
@@ -94,7 +97,6 @@ class LoadItemsTable extends Component {
         }
     }
 
-
     setInitRow = (params) => {
         //console.log(params, 'aca llego')
         const initRow = [
@@ -106,9 +108,9 @@ class LoadItemsTable extends Component {
         this.props.setTableDataProducts(initRow);
     }
 
-    componentWillUnmount = () => {
+    handleConfirmation = (callBackReturn) => {
         const { idOperacion } = this.props;
-        this.props.confirmTableItems({ idOperacion });
+        this.props.confirmTableItems({ idOperacion, callBackReturn });
     }
 
     setInitFocus = () => {
@@ -123,16 +125,26 @@ class LoadItemsTable extends Component {
                 result = index + 1; //Next Row
             }
         });
-
-        return (search.productos[result].niprod) ? search.productos[result].niprod : null;
+        if (search.productos[result]) {
+            return (search.productos[result].niprod) ? search.productos[result].niprod : null;
+        } else {
+            return null
+        }
 
     }
 
     setFocusNextRow = () => {
         const { parameterConfirm, t } = this.props;
         const addRow = this.getRowById(parameterConfirm.Niprod);
-        const message = `${parameterConfirm.cantidad} ${parameterConfirm.cod_unid} del producto ${addRow.desc_prod} se agregaron al carrito`;
-        this.setState({ showError: true, errorMessage: message, errorTitle: t('global.success'), typeNotifaction: 'success' });
+
+        const message = t('itemAdd-Cart', {
+            cantidad: parameterConfirm.cantidad,
+            unidad: parameterConfirm.cod_unid,
+            producto: addRow.desc_prod,
+            neto: parameterConfirm.neto
+        })
+
+        this.setState({ showError: true, errorMessage: message, errorTitle: '', typeNotifaction: 'success' });
 
         const nextRow = this.getNextProductId(parameterConfirm.Niprod);
         if (nextRow) {
@@ -365,30 +377,32 @@ class LoadItemsTable extends Component {
     }
 
     handleOnblourInput = (value, campoId, row) => {
-        if (campoId === 'cantidad') {
-            this.props.getPriceByProduct({
-                "idOperacion": this.props.idOperacion,
-                "Idproducto": row.niprod,
-                "cantidad": value,
-                "unid_vta": row.cod_unid
-            });
+        if (value) {
+            if (campoId === 'cantidad') {
+                this.props.getPriceByProduct({
+                    "idOperacion": this.props.idOperacion,
+                    "Idproducto": row.niprod,
+                    "cantidad": value,
+                    "unid_vta": row.cod_unid
+                });
 
-        } else if (campoId === 'pcio_unit') {
-            const customValue = (value) ? parseFloat(('' + value).split(',').join('.')) : 0;
-            const customCantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
-            const newPrice = (customCantidad * customValue) / parseFloat(row.base_v);
-            const params = { niprod: row.niprod, idCampo: 'neto', value: newPrice.toString() };
-            this.props.setTableDataProducts([params, { niprod: row.niprod, idCampo: 'pcio_unit', value: value }]);
-        } else if (campoId === 'neto') {
-            const newValue = (value) ? parseFloat(value.split(',').join('.')) : 0;
-            const cantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
-            const newPrice = (cantidad) ? (parseFloat(row.base_v) * newValue) / cantidad : 0;
-            const params = { niprod: row.niprod, idCampo: 'pcio_unit', value: newPrice.toString() }
-            const paramsNeto = { niprod: row.niprod, idCampo: 'neto', value: newValue.toString() }
-            this.props.setTableDataProducts([params, paramsNeto]);
-        } else {
-            const params = { niprod: row.niprod, idCampo: campoId, value };
-            this.props.setTableDataProducts([params]);
+            } else if (campoId === 'pcio_unit') {
+                const customValue = (value) ? parseFloat(('' + value).split(',').join('.')) : 0;
+                const customCantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
+                const newPrice = (customCantidad * customValue) / parseFloat(row.base_v);
+                const params = { niprod: row.niprod, idCampo: 'neto', value: newPrice.toString() };
+                this.props.setTableDataProducts([params, { niprod: row.niprod, idCampo: 'pcio_unit', value: value }]);
+            } else if (campoId === 'neto') {
+                const newValue = (value) ? parseFloat(value.split(',').join('.')) : 0;
+                const cantidad = (row.cantidad) ? parseFloat(row.cantidad) : 0;
+                const newPrice = (cantidad) ? (parseFloat(row.base_v) * newValue) / cantidad : 0;
+                const params = { niprod: row.niprod, idCampo: 'pcio_unit', value: newPrice.toString() }
+                const paramsNeto = { niprod: row.niprod, idCampo: 'neto', value: newValue.toString() }
+                this.props.setTableDataProducts([params, paramsNeto]);
+            } else {
+                const params = { niprod: row.niprod, idCampo: campoId, value };
+                this.props.setTableDataProducts([params]);
+            }
         }
     }
 
@@ -477,13 +491,15 @@ class LoadItemsTable extends Component {
                     autoFocus={(focusInput && focusInput.input === 'neto' && focusInput.rowId === row.niprod) ? true : false}
                     handleEnterKey={(e, value) => {
                         if (campoId === 'cantidad') {
-                            // Focus next input            
-                            this.props.getPriceByProduct({
-                                "idOperacion": this.props.idOperacion,
-                                "Idproducto": row.niprod,
-                                "cantidad": value,
-                                "unid_vta": row.cod_unid
-                            });
+                            // Focus next input   
+                            if (value) {
+                                this.props.getPriceByProduct({
+                                    "idOperacion": this.props.idOperacion,
+                                    "Idproducto": row.niprod,
+                                    "cantidad": value,
+                                    "unid_vta": row.cod_unid
+                                });
+                            }
                             //this.handleSetFocus('pcio_unit', row.niprod);
                         } else if (campoId === 'neto') {
                             const nextField = this.getNextEditField('neto');
@@ -652,11 +668,12 @@ class LoadItemsTable extends Component {
     }
 }
 
-const mapStateToProps = ({ voucher, product, loadItems }) => {
+const mapStateToProps = ({ voucher, product, loadItems, vouchertype }) => {
     const config = (voucher.config) ? voucher.config[P_CARGAITEMVTA] : null;
     const { itemsCart, parameterConfirm } = loadItems;
     const { search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice } = product;
-    return { config, search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice, itemsCart, parameterConfirm };
+    const { voucherTypeCancel } = vouchertype;
+    return { config, search, searchParameters, productsUpdate, focusInput, updateCant, paramsPrice, itemsCart, parameterConfirm, voucherTypeCancel };
 };
 
 const connectForm = connect(mapStateToProps, { getConfigVoucher, setTableDataProducts, getPriceByProduct, confirmTableItems, confirmLoadItems, searchProducts })(LoadItemsTable);

@@ -74,8 +74,10 @@ function* voucherHeadCheckDateRequest({ payload }) {
 }
 
 function* voucherHeadConfirmRequest({ payload }) {
+    const { headInfo, callBackReturn } = payload;
     try {
-        const confirm = yield call(voucherHeadConfirm, payload);
+        const confirm = yield call(voucherHeadConfirm, headInfo);
+        callBackReturn();
         yield put(voucherHeadConfirmSuccess(confirm));
     } catch (error) {
     }
