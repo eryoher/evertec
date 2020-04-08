@@ -52,8 +52,11 @@ function* accountValidateRequest({ payload }) {
 }
 
 function* accountConfirmRequest({ payload }) {
+    const { idOperacion, callBackReturn } = payload;
+
     try {
-        const comfirm = yield call(accountConfirm, payload);
+        const comfirm = yield call(accountConfirm, { idOperacion });
+        callBackReturn();
         yield put(accountConfirmSuccess(comfirm));
     } catch (error) {
     }

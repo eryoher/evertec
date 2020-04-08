@@ -11,6 +11,6 @@ export const taxesValidateRow = async (params) => {
 }
 
 export const taxesConfirm = async (params) => {
-    const response = await Axios.post('/Impuesto/confirmar', params);
+    const response = await Axios.post('/impuesto/confirmar', params);
     return response.data;
 }

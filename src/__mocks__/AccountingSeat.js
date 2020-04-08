@@ -127,5 +127,12 @@ export default (mockAdapter) => {
     ]);
 
 
+    mockAdapter.onPost('/Asiento/confirmar').reply(200, [
+        {
+            "message": "Ok"
+        }
+    ]);
+
+
 
 }

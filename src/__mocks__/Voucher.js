@@ -1799,5 +1799,17 @@ export default (mockAdapter) => {
             "dato4": ""
         }
     )
+    mockAdapter.onPost('/vta_cab_compr/confirmar').reply(200,
+        {
+            "Resultado": {
+                "Resultado": true,
+                "Tipo_error": null,
+                "Mens_error": null,
+                "Errores": null
+            }
+        }
+    )
+
+
 
 }

@@ -67,7 +67,7 @@ export default (mockAdapter) => {
     );
 
 
-    mockAdapter.onPost('/Impuestos/ValidarLinea').reply(200, [
+    mockAdapter.onPost('/impuesto/validarlinea').reply(200, [
         {
             "Idoperacion": 12345,
             "cod_imp": "IVA DBC",
@@ -79,5 +79,16 @@ export default (mockAdapter) => {
             "total_impuesto": 3210
         }
     ]);
+
+    mockAdapter.onPost('/impuesto/confirmar').reply(200,
+        {
+            "Resultado": {
+                "Resultado": true,
+                "Tipo_error": null,
+                "Mens_error": null,
+                "Errores": null
+            }
+        }
+    )
 
 }

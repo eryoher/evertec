@@ -33,8 +33,10 @@ function* taxesValidateRowRequest({ payload }) {
 }
 
 function* taxesConfirmRequest({ payload }) {
+    const { idOperacion, callBackReturn } = payload;
     try {
-        const confirm = yield call(taxesConfirm, payload);
+        const confirm = yield call(taxesConfirm, { idOperacion });
+        callBackReturn();
         yield put(taxesConfirmSuccess(confirm));
     } catch (error) {
     }

@@ -507,7 +507,7 @@ export default (mockAdapter) => {
         },
     });
 
-    mockAdapter.onGet('/AfectaVentas/cantidad/confirmar').reply(200, {
+    mockAdapter.onPost('/AfectaVentas/cantidad/confirmar').reply(200, {
         data: {
             "solic_stock": 0,
             "total_importe": 12541.35,
@@ -518,7 +518,7 @@ export default (mockAdapter) => {
         },
     });
 
-    mockAdapter.onGet('/AfectaVentas/importe/confirmar').reply(200, {
+    mockAdapter.onPost('/AfectaVentas/importe/confirmar').reply(200, {
         data: {
             "solic_stock": 0,
             "total_importe": 12541.35,

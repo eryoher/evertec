@@ -22,7 +22,7 @@ export const getValueMask = (value, mascara, props) => {
                 thousandsSeparator: (maskConfig.usarSeparadorMil) ? '.' : ''
             }
         );
-        result = masked.resolve(value.toString());
+        result = (value) ? masked.resolve(value.toString()) : null;
     }
 
     return result;

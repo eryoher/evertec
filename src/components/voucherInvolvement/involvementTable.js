@@ -68,12 +68,10 @@ class InvolvementTable extends Component {
         }
     }
 
-    handleConfirmation = () => {
+    handleConfirmation = (callBackReturn) => {
         const items = this.getSelectedCheck();
         const { idOperacion } = this.props;
-        if (items.length) {
-            this.props.salesAffectedConfirm({ idOperacion, items });
-        }
+        this.props.salesAffectedConfirm({ items: { idOperacion, items }, callBackReturn });
     }
 
     getColumns = () => {

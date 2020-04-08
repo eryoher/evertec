@@ -24,7 +24,6 @@ class GlobalContainer extends Component {
     componentDidUpdate = (prevProps) => {
         const { message, clearMessage, t } = this.props;
         if (prevProps.message !== message && message) {
-            console.log(message)
             this.setState({ showMessage: true, message: (message.description.Mens_error) ? message.description : t(message.description) });
             clearMessage();
         }
