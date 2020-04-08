@@ -25,10 +25,7 @@ class HeadBoardFormInput extends Component {
         }
     }
 
-    componentDidMount = () => {
-        this.props.formConfirmation(this.handleConfirmation);
-        this.handleConfirmation = this.handleConfirmation.bind(this);
-    }
+    componentDidMount = () => { }
 
     componentDidUpdate = (prevProps) => {
         const { fields, setFieldValue, checkDate, checkKey } = this.props;
@@ -51,28 +48,6 @@ class HeadBoardFormInput extends Component {
             if (checkDate.codigo && checkDate.codigo !== 200) {
                 setFieldValue('date', new Date());
                 this.setError(checkDate);
-            }
-        }
-    }
-
-    handleConfirmation = () => {
-        const { idOperacion, values } = this.props;
-
-        if (values) {
-            const requestData = {
-                Transp_comp_vta: values.transp_comp_vta,
-                Suc_empresa_vta: values.Suc_empresa_vta,
-                cond_comp_vta: values.cond_comp_vta,
-                cotiz_comp_vta: values.cotiz_comp_vta,
-                fecha_comp_vta: values.fecha_comp_vta,
-                mon_comp_vta: values.mon_comp_vta,
-                titulo_comp_vta: values.titulo_comp_vta,
-                vend_comp_vta: values.vend_comp_vta,
-                atrib_comp_vta: values.atrib_comp_vta_field
-            }
-
-            if (idOperacion) {
-                this.props.voucherHeadConfirm({ ...requestData, idOperacion })
             }
         }
     }

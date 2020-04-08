@@ -9,6 +9,12 @@ export default (mockAdapter) => {
     }
   );
 
+  mockAdapter.onGet('/Clientes/Seleccion/Confirmar').reply(200, [
+    {
+      "mensaje": "ok"
+    }
+  ]);
+
   mockAdapter.onGet('/Clientes/Consulta').reply(200,
     {
       "idCliente": 2010,

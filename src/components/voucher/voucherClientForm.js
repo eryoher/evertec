@@ -33,7 +33,7 @@ class VoucherClientForm extends Component {
 
     componentDidMount = () => {
         const { idOperacion } = this.props;
-        this.props.formConfirmation(this.handleConfirmation);
+        //this.props.formConfirmation(this.handleConfirmation); //No es necesario en esta pantalla
 
         if (idOperacion) {
             this.props.getConfigVoucher({ cod_proceso: P_SELCLI, idOperacion });
@@ -53,11 +53,15 @@ class VoucherClientForm extends Component {
         }
     }
 
-    handleConfirmation = () => {
+    handleConfirmation = (callBackReturn) => {
         const { client, idOperacion } = this.props;
         if (client) {
-            this.props.confirmationClient({ idOperacion, idCliente: client.idCliente })
+            this.props.confirmationClient({ client: { idOperacion, idCliente: client.idCliente }, callBackReturn })
         }
+    }
+
+    handleCallBackConfirmation = (urlSubmit) => {
+        this.props.history.push(urlSubmit);
     }
 
     handleCloseError = () => {
@@ -120,7 +124,7 @@ class VoucherClientForm extends Component {
                         onSubmit={(values, actions) => {
                             if (this.state.urlForm || this.props.urlSubmitForm) {
                                 const urlSubmit = (this.props.urlSubmitForm) ? this.props.urlSubmitForm : this.state.urlForm
-                                this.props.history.push(urlSubmit)
+                                this.handleConfirmation(() => this.handleCallBackConfirmation(urlSubmit));
                             }
                         }}
                         validationSchema={validationSchema}

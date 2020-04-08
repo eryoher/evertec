@@ -28,9 +28,7 @@ class AccountingTable extends Component {
             itemsTable: (this.props.products) ? this.props.products.Items : [],
             ccUpdateValue: null
         }
-
         this.rowErrors = []
-
     }
 
     componentDidMount = () => {

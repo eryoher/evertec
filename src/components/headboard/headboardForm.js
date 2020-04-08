@@ -5,7 +5,7 @@ import { Form, Row, Col, Button } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import HeadboardFormInput from './headboardFormInput';
 import { connect } from 'react-redux';
-import { getConfigVoucher, getVoucherHead, voucherHeadCheckDate } from '../../actions';
+import { getConfigVoucher, getVoucherHead, voucherHeadCheckDate, voucherHeadConfirm } from '../../actions';
 import InputButton from 'components/form/inputButton';
 import { getBackNextButtons } from '../../lib/BreadCrumbsUtils';
 import NotificationError from 'components/common/notificationsErrors';
@@ -78,6 +78,32 @@ class HeadboardForm extends Component {
 
     }
 
+    handleSubmitForm = (values, callBackReturn) => {
+        const { idOperacion } = this.props;
+
+        if (values) {
+            const requestData = {
+                Transp_comp_vta: values.transp_comp_vta,
+                Suc_empresa_vta: values.Suc_empresa_vta,
+                cond_comp_vta: values.cond_comp_vta,
+                cotiz_comp_vta: values.cotiz_comp_vta,
+                fecha_comp_vta: values.fecha_comp_vta,
+                mon_comp_vta: values.mon_comp_vta,
+                titulo_comp_vta: values.titulo_comp_vta,
+                vend_comp_vta: values.vend_comp_vta,
+                atrib_comp_vta: values.atrib_comp_vta_field
+            }
+
+            if (idOperacion) {
+                this.props.voucherHeadConfirm({ headInfo: { ...requestData, idOperacion }, callBackReturn })
+            }
+        }
+    }
+
+    handleCallBackConfirmation = (urlSubmit) => {
+        this.props.history.push(urlSubmit);
+    }
+
     render() {
         const { config, headSale, crumbs, current, urlParameter, t } = this.props;
         const defaultInitial = (!headSale) ? {
@@ -109,10 +135,9 @@ class HeadboardForm extends Component {
                         ref={this.props.formRef}
                         initialValues={{ ...defaultInitial }}
                         onSubmit={(values, actions) => {
-                            const urlSubmit = this.getUrlSubmit()
-
+                            const urlSubmit = this.getUrlSubmit();
                             if (urlSubmit) {
-                                this.props.history.push(urlSubmit)
+                                this.handleSubmitForm(values, () => this.handleCallBackConfirmation(urlSubmit));
                             }
                         }}
                         validationSchema={validationSchema}
@@ -128,7 +153,6 @@ class HeadboardForm extends Component {
                                 <Form onSubmit={handleSubmit} className={"voucher-info-form"}>
                                     <Col>
                                         <HeadboardFormInput
-                                            formConfirmation={this.props.formConfirmation}
                                             fields={fields}
                                             idOperacion={this.props.idOperacion}
                                             collapse
@@ -187,4 +211,4 @@ const mapStateToProps = ({ voucher }) => {
 };
 
 
-export default connect(mapStateToProps, { getConfigVoucher, getVoucherHead, voucherHeadCheckDate })(withTranslation()(withRouter(HeadboardForm)));
+export default connect(mapStateToProps, { getConfigVoucher, getVoucherHead, voucherHeadCheckDate, voucherHeadConfirm })(withTranslation()(withRouter(HeadboardForm)));

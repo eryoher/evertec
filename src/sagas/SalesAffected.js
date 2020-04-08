@@ -75,16 +75,20 @@ function* salesAffectedSubCalculationRequest({ payload }) {
 }
 
 function* salesAffectedConfirmRequest({ payload }) {
+    const { items, callBackReturn } = payload;
     try {
-        const salesconfirm = yield call(salesAffectedConfirm, payload);
+        const salesconfirm = yield call(salesAffectedConfirm, items);
+        callBackReturn();
         yield put(salesAffectedConfirmSuccess(salesconfirm));
     } catch (error) {
     }
 }
 
 function* salesAffectedImportConfirmRequest({ payload }) {
+    const { items, callBackReturn } = payload;
     try {
-        const salesconfirm = yield call(salesAffectedImportConfirm, payload);
+        const salesconfirm = yield call(salesAffectedImportConfirm, items);
+        callBackReturn();
         yield put(salesAffectedImportConfirmSuccess(salesconfirm));
     } catch (error) {
     }

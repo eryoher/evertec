@@ -27,9 +27,9 @@ class AccountingSeatTable extends Component {
         //this.props.getVoucherTaxes({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
     }
 
-    handleConfirmation = () => {
+    handleConfirmation = (callBackReturn) => {
         const { idOperacion } = this.props;
-        this.props.taxesConfirm({ idOperacion });
+        this.props.taxesConfirm({ idOperacion, callBackReturn });
     }
 
     componentDidUpdate = (prevProps) => {

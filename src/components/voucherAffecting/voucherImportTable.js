@@ -64,13 +64,10 @@ class VoucherImportTable extends Component {
         }
     }
 
-    handleConfirmation = () => {
+    handleConfirmation = (callBackReturn) => {
         const items = this.getSelectedCheck();
         const { idOperacion } = this.props;
-
-        if (items.length) {
-            this.props.salesAffectedImportConfirm({ idOperacion, items })
-        }
+        this.props.salesAffectedImportConfirm({ items: { idOperacion, items }, callBackReturn })
     }
 
     getColumns = () => {
@@ -236,9 +233,7 @@ class VoucherImportTable extends Component {
                 this.props.salesAffectedImportValidate({ idOperacion, items });
             }
         } else if (value) {
-            console.log(value, 'el valor')
-            if (value == 0) {
-
+            if (value === 0) {
                 selected.forEach((delet, index) => {
                     if (delet === row.nimovcli) {
                         selected.splice(index, 1);

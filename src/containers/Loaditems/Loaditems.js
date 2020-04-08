@@ -76,8 +76,11 @@ class Loaditems extends Component {
     }
 
     handleCallBackButton = (urlNext) => {
-        this.loadItemsConfirmation();
-        this.props.history.push(urlNext);
+        this.loadItemsConfirmation(() => this.handleConfirmationForm(urlNext));
+    }
+
+    handleConfirmationForm = (url) => {
+        this.props.history.push(url);
     }
 
     render() {

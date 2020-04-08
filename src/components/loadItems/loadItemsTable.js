@@ -109,9 +109,9 @@ class LoadItemsTable extends Component {
         this.props.setTableDataProducts(initRow);
     }
 
-    handleConfirmation = () => {
+    handleConfirmation = (callBackReturn) => {
         const { idOperacion } = this.props;
-        this.props.confirmTableItems({ idOperacion });
+        this.props.confirmTableItems({ idOperacion, callBackReturn });
     }
 
     setInitFocus = () => {

@@ -23,11 +23,6 @@ class AccountingSeatTable extends Component {
         }
     }
 
-    onChangeTable = (type, pagination) => {
-        return true
-        //this.props.getVoucherAccounting({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
-    }
-
 
     componentDidUpdate = (prevProps) => {
         const { stateValidate, salesconfirm } = this.props;
@@ -42,9 +37,14 @@ class AccountingSeatTable extends Component {
 
     }
 
-    handleConfirmation = () => {
+    onChangeTable = (type, pagination) => {
+        return true
+        //this.props.getVoucherAccounting({ ComprobAvencer, OpcionMuestra, idOperacion, page_number: pagination.page, page_size: pagination.sizePerPage });
+    }
+
+    handleConfirmation = (callBackReturn) => {
         const { idOperacion } = this.props;
-        this.props.accountConfirm({ idOperacion });
+        this.props.accountConfirm({ idOperacion, callBackReturn });
     }
 
     render() {

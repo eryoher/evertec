@@ -35,11 +35,10 @@ class Headboard extends Component {
             const now = new moment();
             this.setState({ urlSubmitForm, timeSet: now });
         }
-        this.headBoardConfirmation();
     }
 
     render() {
-        const { t, voucherType } = this.props;
+        const { voucherType } = this.props;
 
         return (
             <Row >
@@ -58,8 +57,6 @@ class Headboard extends Component {
                             formRef={this.formRef}
                             urlSubmitForm={this.state.urlSubmitForm}
                             timeSet={this.state.timeSet}
-                            formConfirmation={click => this.headBoardConfirmation = click}
-
                         /> : <div />
                     }
                 />

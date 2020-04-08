@@ -29,13 +29,15 @@ class AccountingSeat extends Component {
     }
 
     handleCallBackButton = (urlNext) => {
-        this.accountingConfirmation();
-        this.props.history.push(urlNext);
+        this.accountingConfirmation(() => this.handleConfirmationForm(urlNext));
+    }
+
+    handleConfirmationForm = (url) => {
+        this.props.history.push(url);
     }
 
     render() {
         const { voucherType } = this.props;
-
         return (
             <Row>
                 <GlobalContainer

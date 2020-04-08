@@ -31,8 +31,10 @@ function* searchClientsRequest({ payload }) {
 }
 
 function* confirmationClientRequest({ payload }) {
+  const { client, callBackReturn } = payload;
   try {
-    const confirmation = yield call(confirmationClient, payload);
+    const confirmation = yield call(confirmationClient, client);
+    callBackReturn();
     yield put(confirmationClientSuccess(confirmation));
   } catch (error) {
   }

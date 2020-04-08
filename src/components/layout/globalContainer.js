@@ -24,7 +24,6 @@ class GlobalContainer extends Component {
     componentDidUpdate = (prevProps) => {
         const { message, clearMessage, t } = this.props;
         if (prevProps.message !== message && message) {
-            //console.log(message, 'esto es lo que llega..')
             this.setState({ showMessage: true, message: (message.description.Mens_error) ? message.description : t(message.description) });
             clearMessage();
         }
@@ -50,7 +49,6 @@ class GlobalContainer extends Component {
     }
 
     handleNextPage = () => {
-
         const { voucherType, codeProccess, callBackButton } = this.props;
         //console.log('paso ', codeProccess)
         const crumbs = (voucherType) ? voucherType.procesos : [];

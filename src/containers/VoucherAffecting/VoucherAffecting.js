@@ -29,8 +29,11 @@ class VoucherInvolvement extends Component {
     }
 
     handleCallBackButton = (urlNext) => {
-        this.affectingConfirmation();
-        this.props.history.push(urlNext);
+        this.affectingConfirmation(() => this.handleConfirmationForm(urlNext));
+    }
+
+    handleConfirmationForm = (url) => {
+        this.props.history.push(url);
     }
 
     render() {
