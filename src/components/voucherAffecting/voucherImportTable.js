@@ -238,9 +238,7 @@ class VoucherImportTable extends Component {
                 this.props.salesAffectedImportValidate({ idOperacion, items });
             }
         } else if (value) {
-            console.log(value, 'el valor')
-            if (value == 0) {
-
+            if (value === 0) {
                 selected.forEach((delet, index) => {
                     if (delet === row.nimovcli) {
                         selected.splice(index, 1);
@@ -449,7 +447,6 @@ class VoucherImportTable extends Component {
                 }
 
                 this.setState({ rowSelected: selected });
-                console.log(selected)
                 if (selected.length) {
                     this.props.salesAffectedImportValidate({ idOperacion, items: selected });
                 }
