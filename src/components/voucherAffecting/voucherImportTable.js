@@ -83,7 +83,7 @@ class VoucherImportTable extends Component {
             return {
                 dataField: campoId,
                 text: (field.label) ? ((campoId === 'fec_emis' || campoId === 'comprob_nro' || campoId === 'cod_prod' || campoId === 'fec_vto') ? '' : field.label) : '',
-                align: 'center',
+                align: (campoId === 'cotiz' || campoId === 'imp_pend' || campoId === 'imp_afec' || campoId === 'saldo') ? 'right' : 'center',
                 headerAlign: 'center',
                 headerStyle: this.getStyleColumn(field),
                 hidden: !field.visible,
@@ -97,33 +97,7 @@ class VoucherImportTable extends Component {
                     return this.renderFormat(field, cell, row)
                 }) : null
             }
-
         });
-
-        rows.push(
-            {
-                dataField: 'error',
-                text: '',
-                align: 'center',
-                headerAlign: 'center',
-                headerStyle: { width: '3%', 'textAlign': 'center' },
-                formatter: ((cell, row, rowIndex) => {
-                    if (row.error) {
-                        if (row.type_error === 2) {
-                            const message = (row.type_error === 2) ? 'error Stock Insuficiente' : ''
-                            return (
-                                <FontAwesomeIcon icon={faComment} title={message} />
-                            )
-                        } else if (row.type_error === 1) {
-                            //this.setState({ showError: 'true', errorMessage: 'No es valido para seleccion manual.' })
-                        }
-                    } else {
-                        return null
-                    }
-                }),
-
-            }
-        )
 
         return rows;
     }
@@ -153,36 +127,14 @@ class VoucherImportTable extends Component {
         switch (idField) {
             case 'fec_emis':
             case 'fec_vto':
-                style = { width: '12%' }
+                style = { width: '10%' }
                 break;
-            case 'comprob_nro':
-                style = { width: '20%' }
-                break;
-            case 'cod_prod':
-                style = { width: '15%' }
-                break;
-            case 'desc_prod':
-                style = { width: '20%' }
-                break;
-            case 'fec_entrega':
-                style = { width: '13%' }
-                break;
-            case 'avisos':
-                style = { width: '8%' }
-                break;
-            case 'ind_stock':
+            case 'cod_mone':
                 style = { width: '3%' }
                 break;
-            case 'precio_unit':
-                style = { width: '18%' }
-                break;
-            case 'neto':
-                style = { width: '18%' }
-                break;
-            case 'unid_v':
-                style = { width: '5%' }
-                break;
-            case 'cant_afec':
+            case 'comprob_desc':
+            case 'desc_cond_vta':
+            case 'imp_afec':
                 style = { width: '15%' }
                 break;
 
@@ -238,9 +190,7 @@ class VoucherImportTable extends Component {
                 this.props.salesAffectedImportValidate({ idOperacion, items });
             }
         } else if (value) {
-            console.log(value, 'el valor')
-            if (value == 0) {
-
+            if (value === 0) {
                 selected.forEach((delet, index) => {
                     if (delet === row.nimovcli) {
                         selected.splice(index, 1);
@@ -277,8 +227,7 @@ class VoucherImportTable extends Component {
         let result = null;
         const inputError = (value === 'error_input') ? true : false;
         const customValue = (value === 'error_input') ? '' : value;
-        const inputStyle = (campoId === 'cant_afec' || campoId === 'precio_unit' || campoId === 'neto') ? { textAlign: 'right' } : {}
-
+        const inputStyle = (campoId === 'imp_afec') ? { textAlign: 'right' } : {}
 
         if (field.editable && !this.inputRefs[campoId]) {
             this.inputRefs[campoId] = {};
