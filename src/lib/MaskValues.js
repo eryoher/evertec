@@ -16,6 +16,7 @@ export const getValueMask = (value, mascara, props) => {
             var masked = IMask.createMask(
                 {
                     mask: Number,
+                    signed: true,
                     scale: maskConfig.cantDecimales,
                     radix: (maskConfig.usarSeparadorDecimal) ? maskConfig.usarSeparadorDecimal : ",",
                     thousandsSeparator: (maskConfig.usarSeparadorMil) ? maskConfig.usarSeparadorMil : '.'
