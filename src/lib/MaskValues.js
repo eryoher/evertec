@@ -13,11 +13,11 @@ export const getValueMask = (value, mascara, props) => {
     } else if (maskConfig.tipo === 'personalizado') {
         result = value;
     } else {
-
         var masked = IMask.createMask(
             {
                 mask: Number,
                 scale: maskConfig.cantDecimales,
+                signed: true,
                 radix: ".",
                 thousandsSeparator: (maskConfig.usarSeparadorMil) ? '.' : ''
             }
