@@ -29,7 +29,7 @@ class VoucherImportTable extends Component {
         }
 
         this.rowErrors = [];
-        this.primaryKey = 'nimovcli';
+        this.primaryKey = 'id';
         this.firtsRefs = null;
     }
 
@@ -180,21 +180,21 @@ class VoucherImportTable extends Component {
                 message = `El campo ${field.label} es requerido.`;
                 this.setState({ showError: true, errorMessage: message });
             } else {
-                selected.push(row.niprod);
+                selected.push(row[this.primaryKey]);
                 this.setState({ selectedCheck: selected, rowSelected: rows });
                 this.props.salesAffectedImportValidate({ idOperacion, items });
             }
         } else if (value) {
             if (value === 0) {
                 selected.forEach((delet, index) => {
-                    if (delet === row.nimovcli) {
+                    if (delet === row[this.primaryKey]) {
                         selected.splice(index, 1);
                     }
                 });
 
                 this.setState({ rowSelected: rows, selectedCheck: selected });
             } else {
-                selected.push(row.nimovcli);
+                selected.push(row[this.primaryKey]);
                 this.setState({ selectedCheck: selected, rowSelected: rows });
             }
 
@@ -338,7 +338,7 @@ class VoucherImportTable extends Component {
                     if (!updateRecord) { //Nuevo
                         rows.push({ Nimovcli: row.nimovcli, nitem: row.nitem, imp_afec: (row.imp_afec) ? row.imp_afec : row.imp_pend });
                     }
-                    selected.push(row.nimovcli)
+                    selected.push(row[this.primaryKey])
                 } else { //Se resta
 
                     rows.forEach((toDelete, index) => {
@@ -348,7 +348,7 @@ class VoucherImportTable extends Component {
                     });
 
                     selected.forEach((delet, index) => {
-                        if (delet === row.nimovcli) {
+                        if (delet === row[this.primaryKey]) {
                             selected.splice(index, 1);
                         }
                     });
@@ -367,7 +367,7 @@ class VoucherImportTable extends Component {
                 if (isSelect) {
                     this.setState({ selectedCheck: null });
                     rows.forEach(check => {
-                        checks.push(check.nimovcli);
+                        checks.push(check[this.primaryKey]);
                     });
 
                     selected = rows.map(fila => {
@@ -380,7 +380,7 @@ class VoucherImportTable extends Component {
                     for (let index = 0; index < checks.length; index++) {
                         const check = checks[index];
                         rows.forEach(fila => {
-                            if (check === fila.nimovcli) {
+                            if (check === fila[this.primaryKey]) {
                                 delete checks[index]
                             }
                         });
@@ -391,7 +391,6 @@ class VoucherImportTable extends Component {
 
                     this.setState({ selectedCheck: checks });
                 }
-
                 this.setState({ rowSelected: selected });
                 if (selected.length) {
                     this.props.salesAffectedImportValidate({ idOperacion, items: selected });

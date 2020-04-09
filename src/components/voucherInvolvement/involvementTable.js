@@ -32,6 +32,7 @@ class InvolvementTable extends Component {
 
         this.rowErrors = [];
         this.firtsRefs = null;
+        this.primaryKey = 'id';
     }
 
     componentDidMount = () => {
@@ -205,7 +206,7 @@ class InvolvementTable extends Component {
             message = `El campo ${field.label} es requerido.`;
             this.setState({ showError: true, errorMessage: message });
         } else {
-            selected.push(row.niprod);
+            selected.push(row[this.primaryKey]);
             this.setState({ selectedCheck: selected });
             const items = [{ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: value }];
             this.props.salesAffectedValidate({ idOperacion, items });
@@ -261,22 +262,22 @@ class InvolvementTable extends Component {
             this.inputRefs[campoId] = {}
         }
 
-        if (field.editable && !this.inputRefs[campoId][row.niprod]) {
+        if (field.editable && !this.inputRefs[campoId][row[this.primaryKey]]) {
             const customRef = React.createRef();
-            this.inputRefs[campoId][row.niprod] = customRef
+            this.inputRefs[campoId][row[this.primaryKey]] = customRef
             if (this.firtsRefs === null) {
                 this.firtsRefs = customRef;
             }
         }
 
         const optionsInput = {
-            fwRef: (field.editable) ? this.inputRefs[campoId][row.niprod] : null,
+            fwRef: (field.editable) ? this.inputRefs[campoId][row[this.primaryKey]] : null,
             inputFormCol: { sm: 12 },
             fields: [{ ...field, label: false }],
             label: false,
             inputId: `${campoId}`,
-            id: `${campoId}_${row.niprod}`,
-            name: `${campoId}_${row.niprod}`,
+            id: `${campoId}_${row[this.primaryKey]}`,
+            name: `${campoId}_${row[this.primaryKey]}`,
             colLabel: "col-sm-4",
             colInput: "col-sm-8",
             divStyle: { paddingLeft: '17px' },
@@ -344,13 +345,11 @@ class InvolvementTable extends Component {
         if (products) {
             products.Items.forEach(row => {
                 selectedCheck.forEach(check => {
-                    if (row.niprod === check) {
+                    if (row[this.primaryKey] === check) {
                         items.push({
                             Nimovcli: row.nimovcli,
                             Nitem: row.nitem,
                             Cant_afec: row.Cant_afec,
-                            //precio_unit: row.pcio_unit,
-                            //neto: row.neto
                         })
                     }
                 });
@@ -365,7 +364,7 @@ class InvolvementTable extends Component {
         const result = [];
         products.Items.forEach(row => {
             if (row.Cant_afec) {
-                result.push(row.niprod);
+                result.push(row[this.primaryKey]);
             }
         });
 
@@ -391,7 +390,7 @@ class InvolvementTable extends Component {
                 const rows = (this.state.rowSelected) ? this.state.rowSelected : [];
                 if (isSelect) { //Se adiciona                                        
                     rows.push({ Nimovcli: row.nimovcli, Nitem: row.nitem, Cant_afec: (row.Cant_afec) ? row.Cant_afec : row.Cant_pend });
-                    selected.push(row.niprod)
+                    selected.push(row[this.primaryKey])
                 } else { //Se resta
                     rows.forEach((toDelete, index) => {
                         if (toDelete.Nitem === row.nitem) {
@@ -400,7 +399,7 @@ class InvolvementTable extends Component {
                     });
 
                     selected.forEach((delet, index) => {
-                        if (delet === row.niprod) {
+                        if (delet === row[this.primaryKey]) {
                             selected.splice(index, 1);
                         }
                     });
@@ -418,7 +417,7 @@ class InvolvementTable extends Component {
                 if (isSelect) {
                     this.setState({ selectedCheck: null });
                     rows.forEach(check => {
-                        checks.push(check.niprod);
+                        checks.push(check[this.primaryKey]);
                     });
 
                     selected = rows.map(fila => {
@@ -430,7 +429,7 @@ class InvolvementTable extends Component {
                     for (let index = 0; index < checks.length; index++) {
                         const check = checks[index];
                         rows.forEach(fila => {
-                            if (check === fila.niprod) {
+                            if (check === fila[this.primaryKey]) {
                                 delete checks[index]
                             }
                         });
@@ -460,7 +459,7 @@ class InvolvementTable extends Component {
             let result = {};
             if (productsUpdate) {
                 productsUpdate.forEach(update => {
-                    if (update.niprod === prod.niprod) {
+                    if (update[this.primaryKey] === prod[this.primaryKey]) {
                         result = {
                             ...update,
                         }
@@ -476,6 +475,7 @@ class InvolvementTable extends Component {
             return result;
 
         }) : null;
+
 
         const options = (products) ? {
             pageStartIndex: 1,
@@ -505,7 +505,7 @@ class InvolvementTable extends Component {
                         <CommonTable
                             remote
                             columns={tableColumns}
-                            keyField={'niprod'}
+                            keyField={this.primaryKey}
                             data={rowData}
                             selectRow={selectRow}
                             defaultSorted={defaultSorted}
