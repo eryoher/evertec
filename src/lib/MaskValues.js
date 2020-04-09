@@ -13,7 +13,7 @@ export const getValueMask = (value, mascara, props) => {
     } else if (maskConfig.tipo === 'personalizado') {
         result = value;
     } else {
-
+        console.log(maskConfig)
         var masked = IMask.createMask(
             {
                 mask: Number,

@@ -105,7 +105,7 @@ class AccountingTable extends Component {
     }
 
     handleRemoveCell = (row) => {
-        console.log(row)
+        //console.log(row)
     }
 
     getColumns = () => {
@@ -116,7 +116,7 @@ class AccountingTable extends Component {
             return {
                 dataField: campoId,
                 text: (field.label) ? ((campoId === 'cuenta') ? '' : field.label) : '',
-                align: 'center',
+                align: (campoId === 'tasa' || campoId === 'alicuota' || campoId === 'base_calc' || campoId === 'impuesto') ? 'right' : 'center',
                 headerAlign: 'center',
                 headerStyle: this.getStyleColumn(field),
                 hidden: !field.visible,
@@ -196,7 +196,7 @@ class AccountingTable extends Component {
         const campoId = field.idCampo.trim();
         const inputError = (value === 'error_input') ? true : false;
         const customValue = (value === 'error_input') ? '' : !Array.isArray(value) ? value : value[0].cod_estado;
-        const inputStyle = (campoId === 'cant_afec' || campoId === 'precio_unit' || campoId === 'neto') ? { textAlign: 'right' } : {};
+        const inputStyle = (campoId === 'impuesto' || campoId === 'tasa' || campoId === 'alicuota' || campoId === 'base_calc') ? { textAlign: 'right' } : {};
         let result = null;
 
         const optionsCC = (accountDetail) ? accountDetail.cc.map(opt => {
@@ -211,7 +211,7 @@ class AccountingTable extends Component {
             id: `${campoId}_${row[this.primarykey]}`,
             name: `${campoId}_${row[this.primarykey]}`,
             colLabel: "col-sm-4",
-            colInput: "col-sm-8",
+            colInput: "col-sm-12",
             divStyle: { paddingLeft: '17px' },
             disable: false,
             value: (ccUpdateValue) ? ccUpdateValue : customValue,
@@ -283,22 +283,18 @@ class AccountingTable extends Component {
 
     getStyleColumn = (field) => {
         const idField = field.idCampo.trim();
+
         let style = {};
 
         switch (idField) {
-            case 'fec_emis':
-            case 'fec_vto':
-                style = { width: '12%' }
+            case 'Items':
+                style = { width: '5%' }
                 break;
-            case 'estado_orig':
-            case 'cod_unid':
+            case 'nro_certif':
                 style = { width: '8%' }
                 break;
-            case 'estado_afec':
-                style = { width: '170px' }
-                break;
             default:
-                style = { width: '10%' }
+                style = { width: '12%' }
                 break;
 
         }
