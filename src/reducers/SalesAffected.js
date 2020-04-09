@@ -51,11 +51,11 @@ function rootReducer(state = initialState, action) {
             if (updateState.productsUpdate) {
                 updateState.productsUpdate.forEach(prd => {
                     validateItems.forEach(item => {
-                        if (prd.nitem === item.Nitem && item.ind_stock === 0) {
+                        if (prd.id === item.id) {
                             prd.Cant_afec = item.Cant_afec;
                             prd.precio_unit = item.prod_pcio_vta;
                             prd.cant_saldo = parseFloat(prd.Cant_pend) - parseFloat(item.Cant_afec);
-                        } else if (prd.nitem === item.Nitem && item.ind_stock !== 0) {
+                        } else if (prd.id === item.id && item.ind_stock !== 0) {
                             prd['error'] = true;
                             prd['type_error'] = item.ind_stock;
                         }
@@ -78,10 +78,10 @@ function rootReducer(state = initialState, action) {
             if (updateImportState.productsUpdate) {
                 updateImportState.productsUpdate.forEach(prd => {
                     importItems.forEach(item => {
-                        if (prd.nimovcli === item.nimovcli) {
+                        if (prd.id === item.id) {
                             prd.imp_afec = item.imp_afec;
                             prd.saldo = parseInt(prd.imp_pend) - parseInt(item.imp_afec);
-                        } else if (prd.nimovcli === item.nimovcli && item.ind_stock !== 0) {
+                        } else if (prd.id === item.id && item.ind_stock !== 0) {
                             prd['error'] = true;
                             prd['type_error'] = item.ind_stock;
                         }

@@ -291,7 +291,6 @@ class AccountingTable extends Component {
     render() {
         const { products, theme, config } = this.props;
         const tableColumns = (config && products) ? this.getColumns() : [];
-
         const options = {
             pageStartIndex: 1,
             sizePerPage: products.page_size,

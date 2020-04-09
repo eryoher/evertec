@@ -392,7 +392,6 @@ class StateTable extends Component {
                             headerClasses={theme.tableHeader}
                             paginationOptions={options}
                             onTableChange={this.props.handleChangeTable}
-
                         />
                     }
                 </Col>
