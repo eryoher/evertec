@@ -12,7 +12,7 @@ import { selectFilter } from 'react-bootstrap-table2-filter';
 import { P_IMP_COMPROB } from 'constants/ConfigProcessNames';
 import CollapseBotton from 'components/common/collapseBoton';
 import InputText from 'components/form/inputText';
-
+import { getValueMask } from '../../lib/MaskValues';
 
 
 class AccountingTable extends Component {
@@ -120,16 +120,9 @@ class AccountingTable extends Component {
                 headerAlign: 'center',
                 headerStyle: this.getStyleColumn(field),
                 hidden: !field.visible,
-                filter: (campoId === 'cuenta') ? selectFilter({
-                    options: this.getFilterOptions(campoId, field),
-                    className: `${theme.inputFilter} mt-2`,
-                    onFilter: filterVal => this.setState({ filterVal }),
-                    placeholder: field.label,
-                }) : null,
                 formatter: (cell, row, rowIndex, extraData) => this.renderFormat(field, cell, row, extraData),
                 formatExtraData: { editing, rowEdit, accountDetail, ccUpdateValue }
             }
-
         });
 
         rows.push(
@@ -236,10 +229,9 @@ class AccountingTable extends Component {
                     <span> {customValue} </span>
                 )
             }
-
         } else {
             result = (
-                <span> {customValue} </span>
+                <span> {(field.mascara) ? getValueMask(customValue, field.mascara, this.props) : customValue} </span>
             )
         }
 
