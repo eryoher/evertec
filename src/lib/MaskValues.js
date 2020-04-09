@@ -12,15 +12,20 @@ export const getValueMask = (value, mascara, props) => {
     } else if (maskConfig.tipo === 'personalizado') {
         result = value;
     } else {
-        var masked = IMask.createMask(
-            {
-                mask: Number,
-                scale: maskConfig.cantDecimales,
-                radix: ",",
-                thousandsSeparator: (maskConfig.usarSeparadorMil) ? maskConfig.usarSeparadorMil : ','
-            }
-        );
-        result = (value) ? masked.resolve(value.toString()) : null;
+        if (maskConfig.usarSeparadorDecimal !== maskConfig.usarSeparadorMil) {
+            var masked = IMask.createMask(
+                {
+                    mask: Number,
+                    scale: maskConfig.cantDecimales,
+                    radix: (maskConfig.usarSeparadorDecimal) ? maskConfig.usarSeparadorDecimal : ",",
+                    thousandsSeparator: (maskConfig.usarSeparadorMil) ? maskConfig.usarSeparadorMil : '.'
+                }
+            );
+            result = masked.resolve(value.toString());
+        } else {
+            result = value;
+            console.error('Error al inicializar la máscara: el separador de miles no puede ser igual al de decimales.');
+        }
     }
 
     return result;

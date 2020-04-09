@@ -442,7 +442,6 @@ class VoucherImportTable extends Component {
                 }
 
                 this.setState({ rowSelected: selected });
-                console.log(selected)
                 if (selected.length) {
                     this.props.salesAffectedImportValidate({ idOperacion, items: selected });
                 }
