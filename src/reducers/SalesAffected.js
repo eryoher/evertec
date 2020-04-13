@@ -81,7 +81,7 @@ function rootReducer(state = initialState, action) {
                     importItems.forEach(item => {
                         if (prd.id === item.id) {
                             prd.imp_afec = item.imp_afec;
-                            prd.saldo = parseInt(prd.imp_pend) - parseInt(item.imp_afec);
+                            prd.saldo = parseFloat(prd.imp_pend) - parseFloat(item.imp_afec);
                         } else if (prd.id === item.id && item.ind_stock !== 0) {
                             prd['error'] = true;
                             prd['type_error'] = item.ind_stock;
