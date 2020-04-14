@@ -6,7 +6,7 @@ import contextTheme from './themes';
 import AppRouter from './AppRouter'
 
 import configureStore from './store';
-import { translate, setLocale } from 'translations/index';
+
 
 type Props = {
   className?: string,

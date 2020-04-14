@@ -1,14 +1,2 @@
 export const HOME = '/';
-export const LOGIN = '/login';
-export const ORDER = '/order';
-export const VOUCHER = '/voucher';
-export const HEADERBOARD = '/headerboard';
-export const GENERATE = '/generate';
-export const LANDING = '/landing';
-export const LOADITEMS = '/loaditems';
-export const SELECTTYPE = '/selecttype';
-export const VOUCHERINVOLVEMENT = '/involvement';
-export const VOUCHERAFFECTING = '/voucherAffecting';
-export const VOUCHERSTATE = '/voucherState';
-export const ACCOUNTINGSEAT = '/accountingSeat';
-export const ACCOUNTINGVOUCHER = '/accountingVoucher';
+export const ORDERS = '/orders';

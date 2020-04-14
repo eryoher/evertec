@@ -1,7 +1,6 @@
 export * from './ActionsTypes';
 
-export const Constants = {
-    DEFAULT_LOCALE: 'es_AR',
+export const Constants = {    
     ENVS: {
         STG: 'STG',
         DEV: 'DEV',
