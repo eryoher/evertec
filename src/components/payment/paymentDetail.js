@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 
 export default class PaymentDetail extends Component {
     render() {
-        const { order, payment } = this.props.dataPay;
+        const { order, payment } = this.props.dataPay;        
         const bgState = (order.status === 'REJECTED') ? 'bg-danger' : 'bg-success';
         return (
             <Container className={"mt-5"}>
@@ -35,12 +35,16 @@ export default class PaymentDetail extends Component {
                             <td className={bgState} >{order.status}</td>
                         </tr>
                         <tr>
+                            <th scope="row"> Descripción del estado </th>
+                            <td>{payment.status.message}</td>
+                        </tr>
+                        <tr>
                             <th scope="row"> Autorizacion </th>
-                            <td>{payment.payment[0].authorization}</td>
+                            <td>{ (payment.payment) ? payment.payment[0].authorization:null}</td>
                         </tr>
                         <tr>
                             <th scope="row"> Recibo </th>
-                            <td>{payment.payment[0].receipt}</td>
+                            <td>{ (payment.payment) ?  payment.payment[0].receipt: null}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export default class OrderDetail extends Component {
     render() {
         const { order } = this.props;
-        const bgState = (order.status === 'REJECTED') ? 'bg-danger' : (order.status === 'APPROVED') ? 'bg-success' : '';
+        const bgState = (order.status === 'REJECTED') ? 'bg-danger' : (order.status === 'PAYED') ? 'bg-success' : '';
 
         return (
             <table className={'table table-striped'} >
@@ -42,7 +42,7 @@ export default class OrderDetail extends Component {
                     </tr>
                     <tr>
                         <th scope="row"> Estado </th>
-                        <td className={bgState} >{order.status }</td>
+                        <td className={bgState} >{order.status}</td>
                     </tr>
                     <tr>
                         {order.processUrl && order.status === 'REJECTED' &&
@@ -57,11 +57,11 @@ export default class OrderDetail extends Component {
 
                         {order.processUrl && order.status === 'CREATED' &&
                             <td className={'text-center'} colSpan={2}>
-                                <Link to={{ pathname: order.processUrl }} replace target={'_blank'} >
+                                <a href={order.processUrl}>
                                     <Button type={"button"}>
                                         {'Ir al Pago'}
                                     </Button>
-                                </Link>
+                                </a>
                             </td>
                         }
                     </tr>
